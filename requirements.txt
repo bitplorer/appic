@@ -1,0 +1,6 @@
+fastapi>=0.115
+uvicorn[standard]>=0.32
+ux-compose @ git+https://github.com/bitplorer/ux-compose.git
+ux-behavior @ git+https://github.com/bitplorer/ux-behavior.git
+ux-motion @ git+https://github.com/bitplorer/ux-motion.git
+ux-channel @ git+https://github.com/bitplorer/ux-channel.git#subdirectory=python
