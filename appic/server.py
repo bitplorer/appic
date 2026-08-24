@@ -26,6 +26,8 @@ NAV = (
     ("/bag", "Bag"),
     ("/board", "Board"),
     ("/studio", "Studio"),
+    ("/lab", "Lab"),
+    ("/trace", "Trace"),
     ("/ledger", "Ledger"),
 )
 
@@ -40,7 +42,18 @@ except ImportError:  # pragma: no cover
     FastAPI = None  # type: ignore
 
 _IDENT = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
-_CAP_SUFFIXES = ("checkout", "redeem", "book", "verify", "wipe", "moderate", "next")
+_CAP_SUFFIXES = (
+    "checkout",
+    "redeem",
+    "book",
+    "verify",
+    "wipe",
+    "moderate",
+    "next",
+    "place",
+    "reset",
+    "sell",
+)
 
 
 def _clean_args(args: dict[str, Any]) -> dict[str, Any]:
@@ -79,6 +92,8 @@ def _page_for_path(path: str) -> str:
         "/bag": "bag",
         "/board": "board",
         "/studio": "studio",
+        "/lab": "lab",
+        "/trace": "trace",
         "/ledger": "ledger",
         "/settings": "ledger",
     }
@@ -90,6 +105,8 @@ def _page_for_path(path: str) -> str:
         ("/bag", "bag"),
         ("/board", "board"),
         ("/studio", "studio"),
+        ("/lab", "lab"),
+        ("/trace", "trace"),
         ("/ledger", "ledger"),
     ):
         if p.startswith(href):
@@ -135,10 +152,14 @@ def _invoke(app: App, action_name: str, args: dict[str, Any] | None = None) -> N
         return
     try:
         fn(**args)
+        suffix = action_name.rsplit(".", 1)[-1]
+        kind = "cap" if suffix in _CAP_SUFFIXES else "morph"
+        HOST.log(action_name, " ".join(f"{k}={v}" for k, v in list(args.items())[:3]), kind)
     except TypeError as exc:
         msg = str(exc)
         if args and ("unexpected keyword" in msg or "positional" in msg):
             fn()
+            HOST.log(action_name, "", "morph")
 
 
 def _mint(app: App, action_name: str, args: dict[str, Any] | None = None) -> None:
@@ -176,6 +197,19 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     palette = _render_surface(app, "palette")
     toasts = _render_surface(app, "toasts")
     mark = _serialize(logo())
+    crumbs = []
+    crumbs.append('<a href="/">Table</a>')
+    here = next((lab for href, lab in NAV if href != "/" and path.startswith(href)), None)
+    if here:
+        crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
+    crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
+    bottom = []
+    for href, label in (("/", "Table"), ("/atelier", "Atelier"), ("/bag", "Bag"), ("/lab", "Lab"), ("/trace", "Trace")):
+        current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
+        if href == "/" and path in ("/", "/home", ""):
+            current = True
+        cls = ' class="is-current"' if current else ""
+        bottom.append(f'<a href="{href}"{cls}>{label}</a>')
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -205,7 +239,9 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
       </div>
     </header>
     {banner}
+    {crumb_html}
     <main id="main">{main_html}</main>
+    <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
       <span>ux-compose · page units · Morph then Play · Isolation Law · Caps</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
@@ -291,6 +327,8 @@ def build():
     @asgi.get("/bag")
     @asgi.get("/board")
     @asgi.get("/studio")
+    @asgi.get("/lab")
+    @asgi.get("/trace")
     @asgi.get("/ledger")
     @asgi.get("/settings")
     async def pages(request: Request):

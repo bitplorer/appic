@@ -18,12 +18,14 @@ from appic.ux import (
     h2,
     h3,
     input_,
+    li,
     maybe_plan,
     notify,
     p,
     section,
     span,
     tick,
+    ul,
     update_with,
 )
 
@@ -116,6 +118,12 @@ class Home(Component):
                     className="kpi-row",
                 ),
                 className="house",
+            ),
+            div(
+                h2("Presence"),
+                p("Peers are Host memory. You are named, not counted.", className="muted tiny"),
+                ul(*[li(x, className="peer") for x in HOST.peers], className="hit-list"),
+                className="card",
             ),
             id=self.id,
             className="page",

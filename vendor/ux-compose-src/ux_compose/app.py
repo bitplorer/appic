@@ -4,6 +4,8 @@ App — progressive composition root and boot façade.
 Owns only glue: progressive levels, attach order, registration of Components,
 offline dispatch, and (via wire/) optional Channel + Motion attachment.
 Never invents Document, Caps, or Plan IR.
+
+Host choice is Invisible Strategy (see docs/FLOW.md).
 """
 
 from __future__ import annotations
@@ -21,6 +23,7 @@ class App:
     Example:
         app = App.boot("Shop")  # level=auto
         app = App.boot("Shop", level=1)  # pin offline for tests
+        app.use_host("fastapi")
         bundle = app.mount(PACKAGE, asgi_app=api, base="routes")
     """
 
@@ -35,6 +38,7 @@ class App:
         self._document = None
         self._motion = False
         self._cek = None
+        self._host = "auto"  # Invisible Strategy preference
 
     @classmethod
     def boot(
@@ -79,6 +83,15 @@ class App:
             except Exception:
                 pass
         return app
+
+    def use_host(self, host: str = "fastapi") -> "App":
+        """Set host preference for page routing (Invisible Strategy).
+
+        Values: "auto" | "fastapi" | "starlette" | "asgi" | "batteries".
+        Authors never implement adapters; the strategy stays private.
+        """
+        self._host = (host or "auto").lower().strip()
+        return self
 
     def use_dom(self, document: Any = None) -> "App":
         """Attach Document (ux-dom). Document SSoT respected."""
@@ -227,16 +240,25 @@ class App:
         base: str = "routes",
         base_directory: str | None = None,
         fail_closed: bool = True,
-        include_directory_router: bool = True,
+        bind_pages: bool = True,
+        include_directory_router: bool | None = None,
         on_surface=None,
         package_name=None,
+        host: str | None = None,
     ):
-        """Scan routes, register units on Behavior, optionally bind DirectoryRouter.
+        """Scan routes, register units on Behavior, optionally bind page routes.
 
         When ``asgi_app`` is provided, wires ``RouterHooks.resolve_unit`` so
         synthetic page GETs receive live Behavior instances (page-unit path).
         Explicit HTTP methods on page classes bypass resolve_unit.
+
+        Host preference (Invisible Strategy) comes from ``use_host`` or the
+        ``host=`` argument. Authors never implement adapters.
+
+        ``include_directory_router`` is a deprecated alias of ``bind_pages``.
         """
+        if include_directory_router is not None:
+            bind_pages = include_directory_router
         from ux_compose.surfaces import mount_surfaces
 
         self.use_behavior()
@@ -246,9 +268,10 @@ class App:
             compose_app=self,
             asgi_app=asgi_app,
             fail_closed=fail_closed,
-            include_directory_router=include_directory_router,
+            bind_pages=bind_pages,
             on_surface=on_surface,
             package_name=package_name,
+            host=host or getattr(self, "_host", "auto"),
         )
 
     def dispatch(self, action: str, **kwargs) -> List[Any]:

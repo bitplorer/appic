@@ -33,9 +33,13 @@ COMMANDS = (
     ("/bag", "Open bag", "nav"),
     ("/board", "Open board", "nav"),
     ("/studio", "Open studio", "nav"),
+    ("/lab", "Open lab", "nav"),
+    ("/trace", "Open trace", "nav"),
     ("/ledger", "Open ledger", "nav"),
     ("home.beat", "Pulse the house", "act"),
     ("atelier.sort_price", "Sort atelier by price", "act"),
+    ("lab.set_floor", "Open the motion floor", "act"),
+    ("trace.clear", "Clear the ops log", "act"),
     ("bag.request_checkout", "Review order", "act"),
     ("ledger.book", "Book the bench (Cap)", "act"),
 )

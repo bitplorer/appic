@@ -154,7 +154,7 @@
         channel: CHANNEL,
         version: VERSION,
         type: "routes",
-        paths: ["/", "/atelier", "/commission", "/bag", "/board", "/studio", "/ledger"],
+        paths: ["/", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/trace", "/ledger"],
       });
       post({ channel: CHANNEL, version: VERSION, type: "ready" });
     }

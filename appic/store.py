@@ -102,6 +102,33 @@ class Host:
         self.motion: str = "present"
         self.consent: bool = False
         self.commissions: list[dict[str, Any]] = []
+        self.trace: list[dict[str, Any]] = [
+            {"verb": "app.boot", "detail": "APPIC", "kind": "notify"},
+        ]
+        self.activity: list[str] = [
+            "House lit the table.",
+            "Flax shade held.",
+            "Cap minted for checkout.",
+        ]
+        self.stock: dict[str, int] = {
+            p["sku"]: (0 if p["band"] == "make" else 2 if p["band"] == "low" else 8)
+            for p in CATALOG
+        }
+        self.inline: str = "Flax shade"
+        self.copied: str = ""
+        self.level: int = 0
+
+    def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
+        self.trace.append(
+            {"verb": str(verb), "detail": str(detail)[:96], "kind": kind}
+        )
+        self.trace = self.trace[-48:]
+        self.kpi["fired"] = int(self.kpi.get("fired", 0)) + 1
+        if kind == "cap":
+            self.kpi["placed"] = int(self.kpi.get("placed", 0)) + 1
+        line = f"{verb} · {detail}" if detail else verb
+        self.activity.append(line)
+        self.activity = self.activity[-24:]
 
     def qty(self, sku: str) -> int:
         for s, q in self.lines:

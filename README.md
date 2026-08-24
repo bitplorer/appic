@@ -8,18 +8,20 @@ No React. No Vue. No client runtime as source of truth. Server-authored hypermed
 
 ![APPIC](public/og.jpg)
 
-Open the table. Issue an intent (`⌘K`). Watch the document morph. Protected verbs mint Caps.
+Open the table. Issue an intent (`⌘K`). Watch the document morph. Protected verbs mint Caps. Open **Trace** to see Ops as data.
 
 ## Surfaces
 
 | Surface | What to try |
 |---|---|
-| Table `/` | Pulse the house. Hold an intent. |
+| Table `/` | Pulse the house. Hold an intent. Presence. |
 | Atelier `/atelier` | Filter, sort, save, compare, look, add to bag. |
 | Commission `/commission` | Four-step wizard. OTP `2048` is a Cap. Place is a Cap. |
 | Bag `/bag` | Stepper, coupon Cap (`HOUSE` / `FLAX` / `TABLE`), review, checkout Cap. |
 | Board `/board` | Move cards, undo, table bulk. |
 | Studio `/studio` | Chat, typing presence, moderate Cap. |
+| Lab `/lab` | Remaining 99%: tree, carousel, reorder, empty-retry, chips, inline, combobox, accordion, drawer, Morph-then-Play, share. |
+| Trace `/trace` | Live Ops log. Doctor. Isolation. Shortcuts. |
 | Ledger `/ledger` | Book a bench (Cap), doctor, wipe (Cap). |
 | Command `⌘K` | Issue intents without leaving the table. |
 
@@ -34,20 +36,20 @@ Open the table. Issue an intent (`⌘K`). Watch the document morph. Protected ve
 
 ## Run
 
-Python ≥3.11 recommended (`ux-compose` metadata). Python 3.10 works with the vendored source on `PYTHONPATH`.
+Python ≥3.10. `ux-dom` wants 3.14; APPIC keeps the same tag call shape without it.
 
 ```bash
-python3.11 -m venv .venv && source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 PYTHONPATH=vendor/ux-compose-src:. uvicorn appic.server:app --host 0.0.0.0 --port 8080
 ```
 
-Then open the table. Doctor: `GET /api/doctor`. Health: `GET /api/health`.
+Doctor: `GET /api/doctor`. Health: `GET /api/health`.
 
 ```bash
-python -m ux_compose.cli doctor --no-fail
+PYTHONPATH=vendor/ux-compose-src:. python -m ux_compose.cli doctor appic --no-fail
 ```
 
 ## Prompt
 
-The Grok Build prompt that specifies this product: [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+The Grok Build prompt that specifies this product — full ux-compose inventory: [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
