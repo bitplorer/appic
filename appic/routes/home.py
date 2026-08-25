@@ -10,6 +10,7 @@ from appic.ux import (
     action,
     act,
     article,
+    bind,
     button,
     control,
     div,
@@ -29,20 +30,47 @@ from appic.ux import (
     update_with,
 )
 
+BENCHES = (
+    ("mira", "Mira", "bench · flax"),
+    ("jules", "Jules", "glaze · iron"),
+    ("you", "You", "table · intent"),
+)
+
 
 class Home(Component):
     id = "home"
     greeting = MorphState("The table is lit")
     stamp = MorphState("idle")
     query = MorphState("")
+    bench = MorphState("you")
 
     def render(self):
         n = int(HOST.pulse or 0)
         k = HOST.kpi
         q = str(self.query or HOST.intent or "")
+        last_ops = list(HOST.trace or ())[-3:]
+        op_lis = [
+            li(
+                span(str(row.get("kind", "morph")), className="chip"),
+                span(str(row.get("verb", "")), className="mono"),
+                className="cap-row",
+            )
+            for row in reversed(last_ops)
+        ]
+        benches = [
+            button(
+                span(name, className="bench-name"),
+                span(role, className="muted tiny"),
+                type="button",
+                className="bench" + (" is-on" if self.bench == key else ""),
+                id=f"bench-{key}",
+                **control("home.seat", who=key),
+            )
+            for key, name, role in BENCHES
+        ]
         return section(
             div(
-                span("page unit · App.mount · progressive L3", className="eyebrow"),
+                span("page unit · App.mount · progressive L3 · Morph then Play", className="eyebrow"),
                 h1(
                     span(str(self.greeting), className="display"),
                     span("APPIC", className="wordmark"),
@@ -58,9 +86,10 @@ class Home(Component):
                         f"Pulse · {n}",
                         type="button",
                         className="btn btn-primary",
-                        **control("home.beat"),
+                        **bind(self.beat),
                     ),
                     a("Open atelier", href="/atelier", className="btn btn-ghost"),
+                    a("Open lattice", href="/lattice", className="btn btn-ghost"),
                     button(
                         "Command",
                         type="button",
@@ -99,7 +128,7 @@ class Home(Component):
                 ),
                 article(
                     h3("Cap law"),
-                    p("Checkout, book, redeem, wipe, verify — fail closed without a Cap."),
+                    p("Checkout, book, redeem, wipe, verify, mint — fail closed without a Cap."),
                     className="card",
                 ),
                 className="law-grid",
@@ -120,13 +149,21 @@ class Home(Component):
                 className="house",
             ),
             div(
-                h2("Presence"),
-                p("Peers are Host memory. You are named, not counted.", className="muted tiny"),
-                ul(*[li(x, className="peer") for x in HOST.peers], className="hit-list"),
+                h2("Benches"),
+                p("Presence is named, never counted. Seat is MorphState.", className="muted tiny"),
+                div(*benches, className="bench-row"),
+                className="card",
+            ),
+            div(
+                h2("Last Ops"),
+                p("The lattice and Trace read the same Host log.", className="muted tiny"),
+                ul(*op_lis, className="cap-list") if op_lis else p("Pulse to write the first Op.", className="muted"),
+                a("See the lattice", href="/lattice", className="btn btn-text"),
                 className="card",
             ),
             id=self.id,
             className="page",
+            data_pulse=str(n),
         )
 
     @action(caps=())
@@ -147,6 +184,17 @@ class Home(Component):
         tick(self)
         msg = f"Intent held · {HOST.intent}" if HOST.intent else "Intent cleared"
         return update_with(self, extra_ops=[notify(msg)])
+
+    @action(caps=())
+    def seat(self, who: str = "you", **kwargs):
+        keys = {k for k, _, _ in BENCHES}
+        self.bench = who if who in keys else "you"
+        tick(self)
+        return update_with(
+            self,
+            maybe_plan("seat", f"#bench-{self.bench}", ms=120),
+            extra_ops=[notify(f"seated · {self.bench}")],
+        )
 
 
 def _kpi(label: str, n: int):

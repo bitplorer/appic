@@ -37,6 +37,28 @@
     });
   }
 
+  function showSeal() {
+    var el = document.getElementById("seal-burst");
+    if (!el) return;
+    el.hidden = false;
+    window.setTimeout(function () {
+      el.hidden = true;
+    }, 720);
+  }
+
+  function pushRibbon(kind, verb) {
+    var list = document.querySelector(".ribbon-list");
+    if (!list) return;
+    var li = document.createElement("li");
+    li.className = "ribbon-op";
+    li.innerHTML =
+      '<span class="ribbon-kind"></span><span class="mono"></span>';
+    li.querySelector(".ribbon-kind").textContent = kind || "morph";
+    li.querySelector(".mono").textContent = verb || "";
+    list.insertBefore(li, list.firstChild);
+    while (list.children.length > 5) list.removeChild(list.lastChild);
+  }
+
   function postAction(action, args, originEl) {
     var surface = action.split(".")[0];
     var target =
@@ -58,6 +80,10 @@
         if (bag != null) updateBag(bag);
         var headerSurface = r.headers.get("X-Appic-Surface");
         if (headerSurface) surface = headerSurface;
+        var kind = r.headers.get("X-Appic-Kind");
+        if (kind === "cap") showSeal();
+        var op = r.headers.get("X-Appic-Op");
+        if (op) pushRibbon(kind || "morph", op);
         return r.text();
       })
       .then(function (html) {
@@ -154,7 +180,7 @@
         channel: CHANNEL,
         version: VERSION,
         type: "routes",
-        paths: ["/", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/trace", "/ledger"],
+        paths: ["/", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger"],
       });
       post({ channel: CHANNEL, version: VERSION, type: "ready" });
     }

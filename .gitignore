@@ -4,9 +4,10 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .pytest_cache/
-.node_modules/
 node_modules/
 dist/
+.output/
+.tanstack/
 .DS_Store
 *.log
 screenshots/

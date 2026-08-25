@@ -1,6 +1,6 @@
 # Grok Build prompt — APPIC on ux-compose (full inventory)
 
-Copy everything below the line into Grok Build. Do not use React, Vue, JSX, TSX, Next, TanStack UI, Svelte, or a client SPA runtime. Author the product in Python with **ux-compose**. HTMX is never the architecture.
+Copy everything below the line into Grok Build. Do not use React, Vue, JSX, TSX, Next, TanStack UI, Svelte, or a client SPA runtime as the product. Author in Python with **ux-compose**. HTMX is never the architecture.
 
 ---
 
@@ -10,16 +10,27 @@ Build **APPIC**, a stunning nocturnal foundry OS, as a **complete product** (not
 
 Thin pure-Python **composition + delivery** root. It harnesses four specialists and must **not** reimplement them:
 
-| Specialist | Role | Unlock |
-|---|---|---|
-| **ux-dom** | Tag trees, Document SSoT, serialize, DirectoryRoutes | L0 |
-| **ux-behavior** | `Component`, `MorphState`, `RefState`, `@action`, Ops | L1 |
-| **ux-channel** | Intent → Cap → Result. Live authority. Behind `wire/` only | L2 |
-| **ux-motion** | Scene Plans, presence, Morph-then-Play IR | L3 |
+| Specialist | Role | Unlock | Install |
+|---|---|---|---|
+| **[ux-dom](https://github.com/bitplorer/ux-dom)** | Tag trees, Document SSoT, serialize, DirectoryRoutes | L0 | Python ≥3.14 |
+| **[ux-behavior](https://github.com/bitplorer/ux-behavior)** | `Component`, `MorphState`, `RefState`, `@action`, Ops | L1 | `pip install "ux-behavior @ git+https://github.com/bitplorer/ux-behavior.git"` |
+| **[ux-channel](https://github.com/bitplorer/ux-channel)** | Intent → Cap → Result. Live authority. Behind `wire/` only | L2 | `pip install "ux-channel @ git+https://github.com/bitplorer/ux-channel.git#subdirectory=python"` |
+| **[ux-motion](https://github.com/bitplorer/ux-motion)** | Scene Plans, presence, Morph-then-Play IR | L3 | `pip install "ux-motion @ git+https://github.com/bitplorer/ux-motion.git"` |
 
 Progressive Superpower: the **same Component class** is correct at L1 (`dispatch`) and L3 (`use_channel` + `use_motion`). Zero rewrite.
 
-PyPI / import / CLI: `ux-compose` / `ux_compose` / **`uxcompose`** (sole product lifecycle). Version `0.1.0`.
+PyPI / import / CLI: `ux-compose` / `ux_compose` / **`uxcompose`** (sole product lifecycle). Version `0.1.0`. Requires Python ≥3.11 (ux-dom full stack needs ≥3.14). If Python < 3.14, keep the **same tag call shape** with a local tag kit. HTML strings remain valid. Do not invent a second namespace.
+
+Product CLI:
+
+```
+uxcompose create-app myapp --level 1
+uxcompose serve app:asgi --host 0.0.0.0 --port 8080 [--hmr] [--tunnel ngrok|cloudflare]
+uxcompose deploy --provider docker|fly|render|railway|vps|checklist
+uxcompose doctor . --no-fail
+```
+
+HMR (`/__uxcompose/hmr`) and tunnel live under **serve**, never as `Document.use`. Pure-dom tooling stays on `uxdom doctor|lint|build|profile`.
 
 ## Public author surface (do not invent names)
 
@@ -38,8 +49,6 @@ div, span, h1, h2, h3, p, a, button, form, input_,
 ul, li, header, footer, aside, section, article, nav, main, label,
 svg, path, rect, circle
 ```
-
-If Python < 3.14 (ux-dom requires ≥3.14), keep the **same call shape** with a local tag kit. HTML strings remain valid. Do not invent a second namespace.
 
 ### App (composition root)
 
@@ -63,6 +72,8 @@ app.level / app.behavior
 
 Locked product path: filesystem page units under `routes/` + `App.mount`. Stem matches class (`home.py` → `Home`). Class name never leaks into the URL. `≤1` page owner per file; extra renderables are fragments (no URL). Define-in-module only.
 
+`build(package, name=, host=, live=, level=, base="routes", use_htmx=False)` is the composition façade. HTMX is **never** auto-attached.
+
 ### Component contract
 
 - `id` is the morph + motion target (default `ClassName.lower()`).
@@ -79,7 +90,7 @@ Locked product path: filesystem page units under `routes/` + `App.mount`. Stem m
 | Helper | Law |
 |---|---|
 | `control("surface.verb", **args)` | Progressive attrs `data-ux-action` + `data-ux-arg-*` |
-| `bind(self.verb, **args)` | Prefer when Behavior is present |
+| `bind(self.verb, **args)` | Prefer when Behavior is present (symbol-safe) |
 | `notify(message, level="info")` | One-shot toast Op |
 | `update_with(self, plan=None, extra_ops=[…])` | Morph HTML from live `render()` (XOR-safe) |
 | `morph_play("#id", plan)` | Morph-then-Play list of Ops |
@@ -89,17 +100,6 @@ Locked product path: filesystem page units under `routes/` + `App.mount`. Stem m
 ### Surfaces catalog
 
 `scan_surfaces` → `validate_surfaces` (fail-closed id/path clashes) → `mount_surfaces` (Behavior.add + optional page router). `SurfaceBundle` exposes `surfaces`, `route_table`, `action_table`, `unit_registry`, `errors`, `sealed`.
-
-### CLI (product lifecycle only)
-
-```
-uxcompose create-app myapp --level 1
-uxcompose serve app:asgi --host 0.0.0.0 --port 8080 [--hmr] [--tunnel ngrok|cloudflare]
-uxcompose deploy --provider docker|fly|render|railway|vps|checklist
-uxcompose doctor . --no-fail
-```
-
-HMR (`/__uxcompose/hmr`) and tunnel live under **serve**, never as `Document.use`. Pure-dom tooling stays on `uxdom doctor|lint|build|profile`.
 
 ### Doctor
 
@@ -125,7 +125,7 @@ AST Isolation scan (`ux_channel` / `cek` / `MotionChannel` forbidden in product)
 
 6. **Presence continuity.** Stable ids (`id="item-{sku}"`). `scene.stagger_in` on survivors. `scene.share(key, leave=, arrive=)` — share id is identity, not a CSS class. Leave and arrive must exist after morph.
 7. **Cold import never pulls the wire.**
-8. **No React / Vue / Svelte / Next / TanStack UI / JSX / TSX.** No client SPA as source of truth.
+8. **No React / Vue / Svelte / Next / TanStack UI / JSX / TSX as the product UI.** No client SPA as source of truth.
 
 Serve on `0.0.0.0:8080`. Keep Grok `extensions.js` in the shell. Do not hide the Created-with-Grok pill. Vanilla preview-host bridge (postMessage `grok-preview-bridge` v1: hello / navigate / history / location / routes / ready).
 
@@ -244,7 +244,7 @@ A private foundry for commissioning and collecting handmade objects. Editorial, 
 
 | Path | Unit | Patterns it must exercise |
 |---|---|---|
-| `/` Table | `Home` | Pulse counter+stamp, intent field, KPI, presence, manifesto, shortcuts teaser |
+| `/` Table | `Home` | Pulse counter+stamp, **bind()**, intent field, KPI, benches (named presence), last Ops, manifesto, lattice teaser |
 | `/atelier` | `Atelier` | Shelf filter/sort/stagger, wishlist, compare≤3, lightbox, rating, stock band, region swap list↔detail, add-to-bag + `scene.share` |
 | `/commission` | `Commission` | 4-step wizard + radio/checkbox/slider/date/file/password/autosave/limited note/OTP Cap `identity.verify` / place Cap `orders.place` |
 | `/bag` | `Bag` | Lines on Host, stepper, coupon Cap `orders.coupon` (`HOUSE`/`FLAX`/`TABLE`), confirm modal, checkout Cap `orders.place`, Morph-then-Play |
@@ -252,14 +252,15 @@ A private foundry for commissioning and collecting handmade objects. Editorial, 
 | `/studio` | `Studio` | Chat typing, inbox unread, comments moderate Cap `comments.moderate`, timeline, presence peers |
 | `/ledger` | `Ledger` | Calendar book Cap `calendar.book`, progress, copy, locale/density/motion/consent/offline, doctor, wipe Cap `settings.wipe` |
 | `/lab` | `Lab` | **Remaining 99% as a working floor** — tabs of house/fields/chrome/motion: tree, carousel, reorder, empty-retry, activity, chips, inline edit, combobox, accordion, dropdown, drawer, popover, overflow, skeleton, motion hop, share seat |
+| `/lattice` | `Lattice` | **Radical: Caps as seals on a constellation. Intent as nucleus. Ops as traces. `bind(self.mint)` is a Cap. Public doors stay public.** |
 | `/trace` | `Trace` | **Radical: the document showing its own Results of Ops.** Live Ops log (RefState + stamp), doctor capabilities as chips, Isolation evidence, level badge, shortcuts, copy a row |
-| Chrome | `Toasts`, `Palette`, `Banner`, `Drawer` | Command `⌘K` as first-class intent door; line banner; bag-peek drawer; toast plane |
+| Chrome | `Toasts`, `Palette`, `Banner`, `Ribbon`, `Drawer` | Command `⌘K` as first-class intent door; line banner; live Ops ribbon; bag-peek drawer; toast plane; wax-seal burst on Cap mint |
 
 ### Control plane
 
 - Progressive enhancer JS: POST `/action/{name}`, morph `#surface` with Idiomorph (else outerHTML). Full page GET still works without JS.
-- Action door: Cap-suffixed verbs (`checkout`, `redeem`, `book`, `verify`, `wipe`, `moderate`, `next`, `place`, `reset`) mint then invoke.
-- Every successful action **appends an Op row** to Host.trace (kind `morph|cap|notify`). Trace renders that log. This is the radical instrument: Ops-as-data, visible.
+- Action door: Cap-suffixed verbs (`checkout`, `redeem`, `book`, `verify`, `wipe`, `moderate`, `next`, `place`, `reset`, `mint`) mint then invoke.
+- Every successful action **appends an Op row** to Host.trace (kind `morph|cap|notify`). Trace + Lattice + Ribbon render that log. This is the radical instrument: Ops-as-data, visible.
 
 ### Caps (real, fail closed)
 
@@ -272,4 +273,4 @@ A private foundry for commissioning and collecting handmade objects. Editorial, 
 - Custom `public/og.jpg` 1200×630, `public/favicon.svg` hand-authored, `src/lib/og/site.json` `{ "title": "APPIC", "card": "custom", "color": "0c0d0b" }`.
 - `GET /api/health` and `GET /api/doctor`. `python -m ux_compose.cli doctor --no-fail` stays green (Isolation scan of the product package).
 
-Ship a running foundry, not a gallery of unfinished cards. Every `@action` mutates state and morphs. Caps are real. Motion degrades. Isolation holds.
+Ship a running foundry, not a gallery of unfinished cards. Every `@action` mutates state and morphs. Caps are real. Motion degrades. Isolation holds. The lattice is the product’s radical face: authority made visible.

@@ -117,6 +117,7 @@ class Host:
         self.inline: str = "Flax shade"
         self.copied: str = ""
         self.level: int = 0
+        self.last_seal: str = ""
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.trace.append(

@@ -11,7 +11,7 @@ if [ ! -d /workspace/.pydeps/fastapi ]; then
 fi
 nohup python3 -m uvicorn appic.server:app --host 0.0.0.0 --port 8080 \
   > /tmp/appic-uvicorn.log 2>&1 &
-for i in 1 2 3 4 5 6 7 8 9 10 11 12; do
+for i in 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16; do
   if curl -sf -o /dev/null --max-time 1 http://127.0.0.1:8080/api/health; then
     exit 0
   fi

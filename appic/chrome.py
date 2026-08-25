@@ -34,8 +34,10 @@ COMMANDS = (
     ("/board", "Open board", "nav"),
     ("/studio", "Open studio", "nav"),
     ("/lab", "Open lab", "nav"),
+    ("/lattice", "Open lattice", "nav"),
     ("/trace", "Open trace", "nav"),
     ("/ledger", "Open ledger", "nav"),
+    ("lattice.mint", "Mint the selected Cap", "act"),
     ("home.beat", "Pulse the house", "act"),
     ("atelier.sort_price", "Sort atelier by price", "act"),
     ("lab.set_floor", "Open the motion floor", "act"),
@@ -208,3 +210,36 @@ class Banner(Component):
     def dismiss(self, **kwargs):
         self.hidden = True
         return update_with(self)
+
+
+class Ribbon(Component):
+    """Live Ops strip — the document naming its own last Results of Ops."""
+
+    id = "ribbon"
+    stamp = MorphState("idle")
+
+    def render(self):
+        rows = list(HOST.trace or ())[-5:]
+        chips = []
+        for i, row in enumerate(reversed(rows)):
+            chips.append(
+                li(
+                    span(str(row.get("kind", "morph")), className="ribbon-kind"),
+                    span(str(row.get("verb", "")), className="mono"),
+                    id=f"rib-{i}",
+                    className="ribbon-op",
+                )
+            )
+        return div(
+            span("Ops", className="kicker"),
+            ul(*chips, className="ribbon-list") if chips else p("Awaiting intent.", className="muted tiny"),
+            id=self.id,
+            className="ops-ribbon",
+            aria_label="Recent Results of Ops",
+        )
+
+    @action(caps=())
+    def refresh(self, **kwargs):
+        tick(self)
+        return update_with(self)
+

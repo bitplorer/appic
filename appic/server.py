@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
-from appic.chrome import Banner, Palette, Toasts
+from appic.chrome import Banner, Palette, Ribbon, Toasts
 from appic.marks import logo
 from appic.store import HOST
 from appic.tags import _child
@@ -27,6 +27,7 @@ NAV = (
     ("/board", "Board"),
     ("/studio", "Studio"),
     ("/lab", "Lab"),
+    ("/lattice", "Lattice"),
     ("/trace", "Trace"),
     ("/ledger", "Ledger"),
 )
@@ -52,6 +53,7 @@ _CAP_SUFFIXES = (
     "next",
     "place",
     "reset",
+    "mint",
     "sell",
 )
 
@@ -93,6 +95,7 @@ def _page_for_path(path: str) -> str:
         "/board": "board",
         "/studio": "studio",
         "/lab": "lab",
+        "/lattice": "lattice",
         "/trace": "trace",
         "/ledger": "ledger",
         "/settings": "ledger",
@@ -106,6 +109,7 @@ def _page_for_path(path: str) -> str:
         ("/board", "board"),
         ("/studio", "studio"),
         ("/lab", "lab"),
+        ("/lattice", "lattice"),
         ("/trace", "trace"),
         ("/ledger", "ledger"),
     ):
@@ -196,6 +200,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     banner = _render_surface(app, "banner")
     palette = _render_surface(app, "palette")
     toasts = _render_surface(app, "toasts")
+    ribbon = _render_surface(app, "ribbon")
     mark = _serialize(logo())
     crumbs = []
     crumbs.append('<a href="/">Table</a>')
@@ -204,7 +209,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
         crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
     crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
     bottom = []
-    for href, label in (("/", "Table"), ("/atelier", "Atelier"), ("/bag", "Bag"), ("/lab", "Lab"), ("/trace", "Trace")):
+    for href, label in (("/", "Table"), ("/atelier", "Atelier"), ("/bag", "Bag"), ("/lattice", "Lattice"), ("/trace", "Trace")):
         current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
         if href == "/" and path in ("/", "/home", ""):
             current = True
@@ -239,6 +244,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
       </div>
     </header>
     {banner}
+    {ribbon}
     {crumb_html}
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
@@ -249,6 +255,10 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
   </div>
   {palette}
   {toasts}
+  <div id="seal-burst" class="seal-burst" hidden>
+    <div class="seal-ring" aria-hidden="true"></div>
+    <p class="seal-label mono">Cap minted</p>
+  </div>
   <script src="/static/vendor/idiomorph.min.js" defer></script>
   <script src="/static/js/appic.js" defer></script>
 </body>
@@ -281,9 +291,9 @@ def build():
         fail_closed=False,
         include_directory_router=False,
     )
-    app.add(Toasts, Palette, Banner)
+    app.add(Toasts, Palette, Banner, Ribbon)
     registry = dict(bundle.unit_registry or {})
-    for extra in (Toasts, Palette, Banner):
+    for extra in (Toasts, Palette, Banner, Ribbon):
         sid = extra.id
         inst = _instance(app, sid)
         if inst is None:
@@ -328,6 +338,7 @@ def build():
     @asgi.get("/board")
     @asgi.get("/studio")
     @asgi.get("/lab")
+    @asgi.get("/lattice")
     @asgi.get("/trace")
     @asgi.get("/ledger")
     @asgi.get("/settings")
@@ -371,7 +382,17 @@ def build():
             sid = _page_for_path(ref_path)
         inner = _render_surface(app, sid)
         hx = request.headers.get("hx-request") or request.headers.get("x-appic-morph")
-        headers = {"X-Appic-Bag": str(HOST.count()), "X-Appic-Surface": sid}
+        suffix = action_name.rsplit(".", 1)[-1]
+        kind = "cap" if suffix in _CAP_SUFFIXES else "morph"
+        headers = {
+            "X-Appic-Bag": str(HOST.count()),
+            "X-Appic-Surface": sid,
+            "X-Appic-Kind": kind,
+            "X-Appic-Op": action_name,
+        }
+        if hx:
+            return HTMLResponse(inner, headers=headers)
+        page_sid = sid if sid not in {"palette", "toasts", "banner", "ribbon"} else _page_for_path(ref_path)
         if hx:
             return HTMLResponse(inner, headers=headers)
         page_sid = sid if sid not in {"palette", "toasts", "banner"} else _page_for_path(ref_path)
@@ -399,6 +420,8 @@ def build():
             "surfaces": list(getattr(app, "_registry", {}).keys()),
             "bag": HOST.count(),
             "fastapi": True,
+            "seal": HOST.last_seal,
+            "ops": len(HOST.trace),
         }
 
     return app, asgi, bundle
