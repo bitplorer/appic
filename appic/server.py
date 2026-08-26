@@ -99,6 +99,7 @@ def _page_for_path(path: str) -> str:
         "/trace": "trace",
         "/ledger": "ledger",
         "/settings": "ledger",
+        "/sku": "sku",
     }
     if p in mapping:
         return mapping[p]
@@ -292,8 +293,25 @@ def build():
         include_directory_router=False,
     )
     app.add(Toasts, Palette, Banner, Ribbon)
+    Sku = None
+    try:
+        import importlib.util
+
+        sku_path = PACKAGE / "routes" / "atelier" / "[sku].py"
+        spec = importlib.util.spec_from_file_location("appic_routes_sku", sku_path)
+        if spec and spec.loader:
+            mod = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(mod)
+            Sku = getattr(mod, "Sku", None)
+            if Sku is not None:
+                app.add(Sku)
+    except Exception:
+        Sku = None
+    extras = [Toasts, Palette, Banner, Ribbon]
+    if Sku is not None:
+        extras.append(Sku)
     registry = dict(bundle.unit_registry or {})
-    for extra in (Toasts, Palette, Banner, Ribbon):
+    for extra in extras:
         sid = extra.id
         inst = _instance(app, sid)
         if inst is None:
@@ -347,6 +365,31 @@ def build():
         sid = _page_for_path(path)
         inner = _render_surface(app, sid)
         return HTMLResponse(_shell(app, inner, path=path))
+
+    @asgi.get("/atelier/{sku}")
+    async def sku_page(sku: str, request: Request):
+        inst = _instance(app, "sku")
+        if inst is not None and hasattr(inst, "show"):
+            try:
+                inst.show(sku=sku)
+            except Exception:
+                pass
+        inner = _render_surface(app, "sku")
+        return HTMLResponse(_shell(app, inner, path=f"/atelier/{sku}"))
+
+    @asgi.get("/css/output.css")
+    def css_output():
+        from pathlib import Path as _P
+
+        candidates = [
+            PACKAGE / "static" / "css" / "appic.css",
+            _P(__file__).resolve().parents[1] / "assets" / "static" / "file" / "css" / "output.css",
+        ]
+        for path in candidates:
+            if path.exists():
+                return FileResponse(str(path), media_type="text/css")
+        return HTMLResponse("/* missing */", status_code=404)
+
 
     @asgi.post("/action/{name:path}")
     async def action_door(name: str, request: Request):
@@ -422,6 +465,18 @@ def build():
             "fastapi": True,
             "seal": HOST.last_seal,
             "ops": len(HOST.trace),
+        }
+
+    @asgi.get("/api/surfaces")
+    def api_surfaces():
+        b = getattr(app, "_bundle", None)
+        return {
+            "surfaces": list((getattr(b, "surfaces", None) or {}).keys()) if b else list(getattr(app, "_registry", {}).keys()),
+            "route_table": list(getattr(b, "route_table", None) or []),
+            "action_table": list(getattr(b, "action_table", None) or [])[:80],
+            "unit_registry": list((getattr(b, "unit_registry", None) or {}).keys()) if b else [],
+            "sealed": bool(getattr(b, "sealed", False)),
+            "errors": list(getattr(b, "errors", None) or []),
         }
 
     return app, asgi, bundle

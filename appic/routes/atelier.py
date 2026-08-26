@@ -89,6 +89,7 @@ class Atelier(Component):
                             className="btn btn-text",
                             **control("atelier.look", sku=sku),
                         ),
+                        a("Piece", href=f"/atelier/{sku}", className="btn btn-text"),
                         className="card-actions",
                     ),
                     className="card product" + (f" tone-{prod['tone']}" if prod.get("tone") else ""),
