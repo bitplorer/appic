@@ -1,8 +1,9 @@
 # ux-compose 0.1.0 — complete feature inventory
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`721f354`, 2026-08-25). Public names are `src/ux_compose/__init__.py` `__all__`.
-If this page and the code disagree, **code wins**.
+(`0cc83cff`, 2026-08-26, tagged **0.1.0 / Clock A**). Public names are
+`src/ux_compose/__init__.py` `__all__`. If this page and the code disagree,
+**code wins**.
 
 This is the law for the Grok Build prompt in [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
 Do not invent a sixth product, a second namespace (`ux.*`), or React.
@@ -16,21 +17,22 @@ and must **not** reimplement them.
 
 | Specialist | Role | Unlock |
 |---|---|---|
-| **[ux-dom](https://github.com/bitplorer/ux-dom)** | Tag trees, Document SSoT, serialize, className, `<link>`, package static, `uxdom` | L0 |
+| **[ux-dom](https://github.com/bitplorer/ux-dom)** | Tag trees, Document SSoT, serialize, className, `<link>`, package static, `uxdom`, CSP stamp | L0 |
 | **[ux-behavior](https://github.com/bitplorer/ux-behavior)** | `Component`, `MorphState`, `RefState`, `@action`, Ops | L1 |
-| **[ux-channel](https://github.com/bitplorer/ux-channel)** | Intent → Cap → Result. Live authority. Behind `wire/` only | L2 |
-| **[ux-motion](https://github.com/bitplorer/ux-motion)** | Scene Plans, presence, Morph-then-Play IR | L3 |
+| **[ux-channel](https://github.com/bitplorer/ux-channel)** | Intent → Cap → Result. Live authority. Behind compose `wire/` only | L2 |
+| **[ux-motion](https://github.com/bitplorer/ux-motion)** | Scene Plans, presence, Morph-then-Play IR (`transition.play`) | L3 |
 
 | Layer | Name |
 |---|---|
 | PyPI / pip | `ux-compose` |
 | Import | `ux_compose` |
 | CLI | **`uxcompose`** (sole product lifecycle) |
-| Version | `0.1.0` |
+| Version | `0.1.0` (`ux_compose.__version__`) |
 | Python | ≥ 3.11 (ux-dom full stack needs ≥ 3.14) |
 | License | MIT |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
+If you rewrite a Component “to go live”, you have violated the contract.
 
 ---
 
@@ -43,10 +45,10 @@ Import **only** from `ux_compose`. There is no public `ux.div` / `when` / `foral
 | Export | Role |
 |---|---|
 | `App` | Composition root: `boot`, `add`, `mount`, `use_host`, `use_dom`, `use_behavior`, `use_channel`, `use_motion`, `use_cek`, `mint_cap`, `submit_intent`, `submit_intent_async`, `dispatch`, `control`, `doctor`, `level`, `behavior` |
-| `build` | One-shot composition façade. Returns `BuildResult` = `(app, asgi, bundle)` |
+| `build` | One-shot façade. Orchestra: `host.open` → L1 boot → document → Channel on asgi → discover → `host.bind`. Returns `BuildResult` = `(app, asgi, bundle)` |
 | `WebAssets` | App CSS/JS folders. `from_app_root`, `ensure`, `mount_css`, `css_href`, `input_css`, `output_css` |
-| `DirectoryRoutes` | Filesystem → `RouteRecord` (no framework imports) |
-| `DirectoryASGI` | Pure-ASGI host adapter |
+| `DirectoryRoutes` | Filesystem → `RouteRecord` (no framework imports). One path law: `http_path` |
+| `DirectoryASGI` | Pure-ASGI host. No Starlette. JSON / stream / HTML use the same predicates |
 | `RouterHooks` | `resolve_unit`, `accept_symbol`, `on_route` |
 | `Surface` | One catalog unit (`id`, `cls`, `is_page`, `url_path`, `actions`, `instance`) |
 | `SurfaceBundle` | Sealed evidence: `surfaces`, `route_table`, `action_table`, `unit_registry`, `errors`, `sealed` |
@@ -56,22 +58,25 @@ Import **only** from `ux_compose`. There is no public `ux.div` / `when` / `foral
 | `validate_surfaces` | Fail-closed id/path clashes |
 | `Level` | `L0..L3` IntEnum. Labels: `static + routing` / `offline interactive` / `live channel` / `motion` |
 | `doctor` / `DoctorResult` | Isolation AST scan, dual-Document heuristic, capabilities, teaching |
+| `__version__` | `"0.1.0"` |
 
 Not in `__all__` but public in submodules (authors may import these **from compose**, never from `ux_channel`):
 
 | Name | Module |
 |---|---|
 | `ActionInfo` | `ux_compose.surfaces` |
-| `BuildResult` | `ux_compose.build` |
+| `BuildResult` | `ux_compose.build` (tuple with `.app` / `.asgi` / `.bundle`) |
 | `DirectoryRoutesError` / `DirectoryRouterError` | `ux_compose.routing` |
 | `RouteRecord` | `ux_compose.routing` |
 | `ResolveUnit` / `AcceptSymbol` / `OnRoute` | `ux_compose.routing` |
-| `module_exports` / `pick_page_type` / `materialize` / `mount` | `ux_compose.routing` |
-| `match_record` | `ux_compose.routing` |
-| `HMR_PATH` / `attach_hmr` / `client_script_tag` | `ux_compose.hmr` |
+| `http_path` / `is_json_payload` / `is_stream_payload` / `apply_html_document` | `ux_compose.routing` |
+| `module_exports` / `pick_page_type` / `materialize` / `mount` / `match_record` | `ux_compose.routing` |
+| `HMR_PATH` / `attach_hmr` / `client_script_tag` | `ux_compose.hmr` (`HMR_PATH` = `/__uxcompose/hmr`) |
 | `IsolationViolation` / `scan_isolation` / `scan_dual_document` | `ux_compose.doctor` |
 | `CSS_URL_PREFIX` (`/css`) / `OUTPUT_CSS_NAME` (`output.css`) | `ux_compose.assets` |
 | `require_dom` | `ux_compose.dom` |
+
+`materialize(route_class=)` **fails closed**. Leftover `StreamingRoute` is not the product path.
 
 ### Behavior surface (via ux-behavior)
 
@@ -80,6 +85,9 @@ Not in `__all__` but public in submodules (authors may import these **from compo
 ### Motion surface (via ux-motion, else `None`)
 
 `scene`, `fade`, `rise`
+
+Compose wraps a Scene/Plan as one `transition.play` Op (`helpers._normalize_plan_ops`).
+Authors never emit Channel wire shape.
 
 ### Tag constructors (via ux-dom when installed; else `None` / `HAS_DOM=False`)
 
@@ -98,23 +106,28 @@ HTML strings in `render()` remain valid at L1. Do **not** subclass ux-dom `Compo
 ```
 App.boot(name, *, strict_caps=False, level="auto"|0..3)
 app.use_host("auto"|"fastapi"|"starlette"|"asgi")   # "batteries" leftover, fails closed
-app.use_dom(document=None)
+app.use_dom(document=None, *, author=True)          # author=False = synthesized, mount-only
 app.use_behavior()
 app.use_channel(asgi_app=...)     # Isolation door — never import ux_channel in product
-app.use_motion()
+app.use_motion()                  # attach_motion() returns instances, not classes
 app.use_cek(mode="adapt"|"require")
 app.mint_cap(action, args)
 app.submit_intent / submit_intent_async(..., mint=True)
 app.add(*ComponentClasses)
 app.mount(package_dir, asgi_app=..., base="routes", fail_closed=..., bind_pages=...,
-          on_surface=..., package_name=..., host=...)
-app.dispatch("surface.verb", **args)   # offline-first, same door as tests and live
+          on_surface=..., host=...)
+app.dispatch("surface.verb", **args)
+app.dispatch("surface.verb", args={"sku": "tee"})   # Channel-style Intent payload, same door
 app.control(...)
 app.doctor(paths, fail=False)
-app.level / app.behavior
+app.level / app.level.label / app.behavior
 ```
 
-`boot(level="auto")` turns Behavior on, then Channel/Motion when importable.
+`boot(level="auto")` is **Level 1 (Behavior only)**. Channel/Motion attach in
+`build()` once the ASGI process exists, or via explicit `use_channel` /
+`use_motion`. A headless Channel would never land on FastAPI
+(`Behavior.attach` is idempotent on `_wire`); `use_channel(asgi_app=)` rebinds.
+
 HTMX is **never** auto-attached; opt in via `Document.use(Htmx())` or `build(use_htmx=True)`.
 
 Cold import of `ux_compose` never pulls the wire.
@@ -125,11 +138,12 @@ Cold import of `ux_compose` never pulls the wire.
 
 ```python
 from ux_compose import build
+from document import document
 
 app, asgi, bundle = build(
     PACKAGE,
     name="APPIC",
-    host="auto",      # auto | fastapi | asgi
+    host="auto",      # auto | fastapi | asgi   ("batteries" → ProductBatteriesRejected)
     live="auto",      # auto | channel | null
     level="auto",     # auto | 0..3
     base="routes",
@@ -139,40 +153,125 @@ app, asgi, bundle = build(
 )
 ```
 
+Process order (`routing/host.py`):
+
+```text
+host.open(name, host)          # FastAPI() or DirectoryASGI
+App.boot(..., level=1)         # Behavior only
+_attach_document(...)          # author's Document SSoT
+App.use_channel(asgi_app=)     # after the process exists
+DirectoryRoutes.discover()     # one path law
+host.bind(document=, wrap=)    # document.mount then page routes
+```
+
 - `host="auto"` prefers FastAPI if importable, else `DirectoryASGI`.
 - `live="null"` pins offline Behavior (no Channel/Motion).
-- Author Document is SSoT. `build(document=)` attaches it.
+- Author Document is SSoT. `build(document=)` attaches it as **wrap** (GET shell).
+- A synthesized Document (`author=False`) is **mount-only** (CSP / static).
+  Wrapping GET with it treats a positional HTML `str` as a script `src` and
+  the fragment vanishes.
 - Returns `BuildResult` with `.app` / `.asgi` / `.bundle`.
+- Extra JSON/POST APIs live on the FastAPI process, not on the Component.
 
 ---
 
-## 5. Page-unit routing (DirectoryRoutes)
+## 5. Clock A — product host (0.1.0 law)
 
-This is Next-style **file routing, not React**.
+Two clocks. Do not mix.
+
+| Clock | Trigger | Pipeline | Owner |
+|---|---|---|---|
+| **A — page GET** | Browser hits a filesystem URL | resolve → `render()` → payload dispatch | `routing/fastapi.py` |
+| **B — live action** | `@action` / Channel Intent | mutate → Ops → morph | ux-behavior + `wire/` |
+
+Clock A serves the document. Clock B patches it. A page unit has **no HTTP verbs**.
+No `get` / `post` / `put` / `patch` / `delete` on the class. FastAPI must not
+inspect classmethods.
+
+### Payload law (media type)
+
+**The return value of `render()` picks the HTTP container. Not `Accept`.
+Not a route class. Not FastAPI `default_response_class`.**
+
+| `render()` returns | HTTP | Document wrap | CSP stamp |
+|---|---|---|---|
+| ux-dom tag / Document / Component / HTML `str` / `bytes` | `HTMLResponse` | **yes** (author wrap) | yes (`prepare_html_body`) |
+| `dict` or list-of-dicts (including `[]`) | JSON | **no** | n/a (header still process-wide) |
+| sync / async generator, or `__aiter__` that is not a tree | `StreamingResponse` | **no** | only if ux-dom stream prepare runs |
+| already a `Response` (`HTMLResponse` / `JSONResponse` / `FileResponse` / `RedirectResponse`) | as-is | **no** | whatever that object already did |
+| `None` | empty HTML | yes | — |
+
+`str` is iterable. **It is not a stream.** `"<div>"` stays buffered HTML with
+`Content-Length`. `apply_html_document` wraps HTML `str` as ux-dom `raw()` so
+the fragment is body markup, not a script `src`.
+
+Trees stay buffered so CSP nonce + `Content-Length` happen **before** the first
+byte. Leftover `StreamingRoute` is not the product path. To stream a tag tree,
+opt in: `return tree.__async_render__(pretty=False)` or `StreamingResponse(tree)`.
+
+Path params come from the Request, passed into `render(**path_params)` when the
+signature accepts them. `routes/atelier/[sku].py` class `Sku` → `render(self, sku="")`.
+
+### Host values
+
+| `host=` | Process | Fail |
+|---|---|---|
+| `auto` | FastAPI if importable, else DirectoryASGI | never |
+| `fastapi` | FastAPI | closed if FastAPI missing |
+| `asgi` | DirectoryASGI (no Starlette) | never |
+| `starlette` | alias of `auto` | — |
+| `batteries` / `directory_router` | — | `ProductBatteriesRejected` |
+
+FastAPI is **not** given `default_response_class=HTMLResponse`. Author
+`@asgi.get("/api/...")` returning a dict stays JSON.
+
+### CSP on FastAPI (two layers, one nonce)
+
+| Layer | What | When |
+|---|---|---|
+| **Header** | `Content-Security-Policy` on `http.response.start` | every HTTP response (`CspMiddleware` via `document.mount`) |
+| **Stamp** | `nonce=` on `<script>` / `<style>` before first byte | HTML body / tree stream |
+
+`Csp.auto()` picks `Csp.dev()` when `DEBUG` is truthy, else `Csp.prod()`.
+Authors attach once in `document.py`: `.use(XElement(), Csp.auto())`.
+They never set CSP headers in page units. DirectoryASGI has no middleware;
+doctor reports CSP middleware is not attached.
+
+Canonical: [docs/reference/host.md](https://github.com/bitplorer/ux-compose/blob/main/docs/reference/host.md).
+Recipes: [docs/guides/HOST.md](https://github.com/bitplorer/ux-compose/blob/main/docs/guides/HOST.md).
+
+---
+
+## 6. Page-unit routing (DirectoryRoutes)
+
+This is Next-style **file routing, not React**. Class name never leaks into the URL.
+
+| File under `routes/` | URL |
+|---|---|
+| `index.py` / `route.py` | folder prefix or `/` |
+| `hello.py` | `/hello` |
+| `shop/index.py` | `/shop` |
+| `shop/[sku].py` | `/shop/{sku}`  (stem-key `sku` → class `Sku`) |
+| `[id]/page.py` | `/{id}/page` |
+| `_private.py`, `(group)/…` | skipped |
 
 Locked model:
 
-- URL path = filesystem relative to `routes/`. **Class name never leaks into the URL.**
-- Page unit = renderable class whose **name matches the module stem** (`hello.py` → `Hello`).
+- Page unit = renderable class whose **name matches the module stem**.
 - `≤1` page owner per file. Extra renderables are fragments (no URL).
 - Define-in-module only. Imported classes are not auto-registered.
 - `fail_closed` on ambiguity / duplicates.
-- `RouterHooks.resolve_unit` is used **only** for the synthetic page GET.
-  Explicit `get`/`post`/`put`/`patch`/`delete` on the class bypass `resolve_unit`.
-- Folder grammar (from `surfaces._folder_url_prefix`):
-  - `[param]` → `{param}` (dynamic segment)
-  - `(group)` skipped (route group, no URL)
-  - `_private` / `_` prefix skipped
-  - `index.py` / `route.py` → folder URL
+- `RouterHooks.resolve_unit` feeds live Behavior instances into synthetic GETs.
+- HTTP verbs on the class are **ignored** (Clock A).
 - `RouteRecord`: `method`, `path`, `name`, `handler`, `page_cls`, `kind` (`page` | `explicit` | `route_module`)
-- HTTP methods discovered: `get post put patch delete`
 
-Product apps use `App.mount` / `build()`. Authors never implement adapters
-(Invisible Strategy).
+Product apps use `build()` / `App.mount`. Authors never implement adapters
+(Invisible Strategy). `App.mount` is a **secondary door** (tests). Teaching
+is `create-app` + `build()`.
 
 ---
 
-## 6. WebAssets + Tailwind (compose-owned CSS)
+## 7. WebAssets + Tailwind (compose-owned CSS)
 
 Disk convention (locked with `create-app` / `build` / `/css` mount):
 
@@ -200,14 +299,13 @@ Laws:
 5. `cdn.tailwindcss.com` is not the product path.
 6. `uxcompose serve --hmr` watches `.css` and reloads. It does **not** compile Tailwind.
 7. `uxcompose deploy` does **not** run the compiler. Run `uxcompose build` first.
-
-`create-app` does **not** emit `tailwind.config.js`. `@source` in `input.css` scans the app.
+8. `create-app` does **not** emit `tailwind.config.js`. `@source` in `input.css` scans the app.
 
 Optional render-only markup kit (no Ops): `from ux_dom.ui import Button, Card, CardHeader, CardTitle, CardContent`.
 
 ---
 
-## 7. Product CLI (`uxcompose` only)
+## 8. Product CLI (`uxcompose` only)
 
 ```
 uxcompose create-app <dest> [--name NAME] [--level auto|0-3] [--host auto|fastapi|asgi]
@@ -230,22 +328,26 @@ Scaffold (`create-app`) writes:
 
 ```
 settings.py          # BASE_DIR, DEBUG, WebAssets
-document.py          # Document SSoT + .use(XElement, Csp.auto()) + page()
+document.py          # Document SSoT + .use(XElement, Csp.auto()); host wraps GET
 app.py               # build(host=, live=, level=, document=) + WebAssets.mount_css
-routes/hello.py      # page unit
+routes/hello.py      # page unit — render() fragment, NO get()
 assets/css/input.css
 requirements.txt
 README.md
 ```
 
+Gone from scaffold: `Hello.get()`, `document.mount(asgi)` in `main()`, class HTTP
+verbs, leftover `page()`, `host="batteries"`.
+
 Deploy looks for `app.py`. Default ASGI entry: `app:asgi`.
 
 ---
 
-## 8. Component contract
+## 9. Component contract
 
 - `id` is the morph + motion target (default `ClassName.lower()`).
-- `render()` returns a ux-dom tag tree (or HTML string). Never a construct-time snapshot.
+- `render()` returns a ux-dom tag tree (or HTML string, or dict, or generator).
+  Never a construct-time snapshot.
 - `__render__(pretty=False)` / `__async_render__` re-run live `render()`.
 - `@action(caps=(...))` return algebra:
   1. `None` → auto-morph dirty MorphStates
@@ -254,12 +356,20 @@ Deploy looks for `app.py`. Default ASGI entry: `app:asgi`.
 - `bind(self.verb, **args)` — symbol-safe, preferred. Also `self.verb.ui(**args)`.
 - `control("surface.verb", **args)` — stringly hatch: `data-ux-action` + `data-ux-arg-*`.
 - `notify(message, level="info")` — one-shot toast Op.
-- `morph_play("#id", plan)` — morph then plan ops (still XOR).
+- `morph_play("#id", plan)` — morph then plan ops (still XOR). Use **once** as the hop hatch; prefer `update_with`.
+- `update_with` strategy default is `"idiomorph"`. Morph HTML is live `render()`.
 - Do **not** subclass ux-dom `Component`.
+
+`dispatch` is one door for tests, agents, and live:
+
+```python
+app.dispatch("cart.add", sku="tee")
+app.dispatch("cart.add", args={"sku": "tee"})   # Channel Intent shape — same call
+```
 
 ---
 
-## 9. Encoding law (Channel session plane refuses quantity MorphState)
+## 10. Encoding law (Channel session plane refuses quantity MorphState)
 
 | What | Where |
 |---|---|
@@ -274,7 +384,7 @@ changing identity takes a Cap.
 
 ---
 
-## 10. Motion XOR + Morph-then-Play
+## 11. Motion XOR + Morph-then-Play
 
 - **XOR** — `morph(target)` XOR `scene.enter(target, html=...)`. Never both.
 - **Morph-then-Play** — morph Op first; `transition.play` follows.
@@ -287,13 +397,15 @@ changing identity takes a Cap.
 
 Product-local helpers (`tick`, `maybe_plan`, …) are **not** library exports. Define them in the product if needed.
 
+Cookbook: [cookbooks/PRESENCE.md](https://github.com/bitplorer/ux-compose/blob/main/cookbooks/PRESENCE.md).
+
 ---
 
-## 11. Isolation + Document SSoT + Cap Law
+## 12. Isolation + Document SSoT + Cap Law
 
 1. Product modules never `import ux_channel`, `cek`, `cek_host`, `cek_surface`, `MotionChannel`.
 2. Live path only through `App.use_channel` / `use_motion` / `use_cek` (compose `wire/`).
-3. Exactly one HTML shell. Overlays are Components, not a second Document.
+3. Exactly one HTML shell. Overlays are Components, not a second Document. Overlays stay in the tree when closed.
 4. Dual-Document in product files is a doctor fail.
 5. `Document.use` may take control, runtime (`XElement`), CSP, style. **Not** HMR, App, host strategy.
 6. Protected verbs fail closed without a Channel-minted Cap. Host mints at the HTTP action door via `mint_cap` / `submit_intent(..., mint=True)`.
@@ -304,31 +416,31 @@ Forbidden imports (doctor): `ux_channel`, `cek`, `cek_host`, `cek_surface`, `Mot
 
 ---
 
-## 12. Catalog — 99% of product UI (`examples/`)
+## 13. Catalog — 99% of product UI (`examples/`)
 
 Every pattern is one `Component`. The same class is valid at L1 (`dispatch`) and L3 (`use_channel` + `use_motion`).
 
-| Group | File | Cases |
+| Group | File | Classes |
 |---|---|---|
-| Foundation | `foundation.py` | Counter, toggle, Morph vs Ref, return algebra, Cap reset |
-| Chrome | `chrome.py` `modal.py` `shell.py` | Tabs, accordion, dropdown, drawer, modal, app shell, breadcrumbs, bottom nav, popover, overflow |
-| Overlays | `overlays.py` | Toasts, confirm, lightbox, command palette, banner |
-| Forms | `forms.py` `fields.py` | Validation, wizard, typeahead, radio/checkbox, combobox, date, files, slider, OTP (Cap), password, autosave, limited note |
-| Collections | `lists.py` `table_board.py` `feeds.py` | Filter+sort+stagger, optimistic, pagination, undo, table bulk, kanban, carousel, comments (Cap moderate), timeline, empty/error/retry, reorder, activity |
-| Navigation | `navigation.py` | Region swap, master/detail |
-| Commerce | `cart.py` `systems.py` `commerce_more.py` | Cart, quantity stepper, rating, wishlist, coupon (Cap), checkout (Cap), stock band, compare |
-| Live Caps | `live_caps.py` | Fail-closed offline, mint vs refuse live |
-| Motion | `motion_xor.py` `cookbooks/PRESENCE.md` | XOR, Morph-then-Play, `scene.share`, `stagger_in` |
-| Systems | `systems.py` `ops.py` | Chat, inbox, tree, skeleton, consent, locale, chips, inline edit, calendar (Cap), progress, copy, settings (Cap), offline, presence, KPI, shortcuts |
-| Host | `document_boot.py` `live_asgi.py` `cart_document.py` `page_unit_mount.py` | Document SSoT, FastAPI Isolation door, page-unit product path |
+| Foundation | `foundation.py` | `Counter`, `Toggle`, `Planes` |
+| Chrome | `chrome.py` `modal.py` `shell.py` | `Tabs`, `Accordion`, `Dropdown`, `Drawer`, `ConfirmModal`, `AppShell`, `Breadcrumbs`, `BottomNav`, `Popover`, `OverflowMenu` |
+| Overlays | `overlays.py` | `Toasts`, `Confirm`, `Lightbox`, `Palette`, `Banner` |
+| Forms | `forms.py` `fields.py` | `SignupForm`, `Wizard`, `Search`, `ChoiceGroup`, `Combobox`, `DateField`, `FileDrop`, `SliderField`, `OtpGate` (Cap), `PasswordField`, `Autosave`, `LimitedNote` |
+| Collections | `lists.py` `table_board.py` `feeds.py` | `Shelf`, `OptimisticList`, `Pages`, `UndoSnack`, `DataTable`, `Kanban`, `Carousel`, `Comments` (Cap moderate), `Timeline`, `EmptyRetry`, `ReorderList`, `ActivityFeed` |
+| Navigation | `navigation.py` | `ShopView` (region swap), `MasterDetail` |
+| Commerce | `cart.py` `commerce_more.py` `systems.py` | `Cart`, `Stepper`, `Rating`, `Wishlist`, `Coupon` (Cap), `CheckoutFlow` (Cap), `StockBadge`, `CompareTray` |
+| Live Caps | `live_caps.py` | `LiveOrder` |
+| Motion | `motion_xor.py` | `MotionBox`, `ShareSeat` |
+| Systems | `systems.py` `ops.py` | `Chat`, `NotifyCenter`, `Tree`, `Skeleton`, `Consent`, `Theme`, `Chips`, `InlineEdit`, `Calendar` (Cap), `ProgressMeter`, `CopyClip`, `Settings` (Cap), `OfflineBanner`, `Presence`, `KpiStrip`, `Shortcuts` |
+| Host | `document_boot.py` `live_asgi.py` `cart_document.py` `page_unit_mount.py` | Document SSoT, `build()` Clock A GET, Isolation door; `App.mount` secondary |
 
 Play them: `apps/atelier_studio`. Product shop: `apps/atelier_shop`. Demo pulse: `apps/pulse`.
 
 ---
 
-## 13. Wire (not for product imports)
+## 14. Wire (not for product imports)
 
-`ux_compose.wire.boot.attach_channel` / `attach_motion`
+`ux_compose.wire.boot.attach_channel` / `attach_motion` (returns **instances**)
 `ux_compose.wire.caps.mint_cap` / `submit_intent` / `async_submit_intent` / `bridge_actions` / `ops_to_wire`
 `ux_compose.wire.cek.attach_cek`
 
@@ -336,7 +448,7 @@ Authors reach Caps through `App.mint_cap` / `App.submit_intent`. Never import `u
 
 ---
 
-## 14. Names that do **not** exist (do not invent)
+## 15. Names that do **not** exist (do not invent)
 
 - `ux.div` / `when` / `forall` / `Page`
 - Product CLI on `uxdom` (`create-app`, product `build`, `serve`, `deploy`)
@@ -344,6 +456,15 @@ Authors reach Caps through `App.mint_cap` / `App.submit_intent`. Never import `u
 - `WebAssets` on ux-dom
 - HMR as `Document.use`
 - `host="batteries"` as a thing to run
+- HTTP verbs (`get`/`post`/…) on page units
+- FastAPI `default_response_class=HTMLResponse`
+- `StreamingRoute` / `route_class` as the product path
+- `Accept` negotiation on page GET
 - Dual product paths
 - A copy of Channel codecs, Document serialize, or motion IR in the product
 - `tick` / `maybe_plan` / `maybe_fade` / `maybe_stagger` / `maybe_share` as library APIs
+- Mini HTML builder when `HAS_DOM` is false
+- Wrap GET with a synthesized Document
+- Scaffold `page()` as the GET wrap
+- Channel boot in `App.boot("auto")`
+- Logic in `routing/adapters/` (shims only)
