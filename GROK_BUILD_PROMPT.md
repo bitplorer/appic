@@ -1,34 +1,52 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (Clock A)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 + ownable kit
 
 Copy **everything below the line** into Grok Build. Do not use React, Vue, JSX,
 TSX, Next, TanStack UI, Svelte, Solid, HTMX-as-architecture, or a client SPA
 runtime as the product. Author in Python with
-**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`0cc83cff`, 0.1.0)**.
+**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`17e652a6`, 0.1.0 Clock A + unreleased kit)**.
 Publish the running product to GitHub repo **appic** under the connected account
-(create the repo if missing; replace stale files that violate Clock A).
+(create the repo if missing; replace stale files that violate Clock A or that
+import kit classes from the library instead of owning copies).
 
 If this prompt and the library disagree, **the library wins**. Do not invent APIs.
 
 Companion law: keep `FEATURE_INVENTORY.md` in the same repo, sourced from
-`ux_compose.__all__` + `docs/reference/host.md`. Update it if you vendor a
-newer SHA.
+`ux_compose.__all__` + `ux_compose.kit.catalog.CATALOG` + `docs/reference/host.md`.
+Update it if you vendor a newer SHA.
 
 ---
 
 Build **APPIC** — a stunning nocturnal foundry OS — as a **complete product**
-(not a widget zoo) using **https://github.com/bitplorer/ux-compose @ main** as
-the only web UI framework. Fully utilise **every public name** in
-`ux_compose.__all__`, every Clock A payload door, and every catalog pattern in
-`examples/`. Ship a running foundry whose radical face is this:
+(not a widget zoo) using **https://github.com/bitplorer/ux-compose @ `17e652a6`**
+as the only web UI framework.
 
-> **The document is the composition root made visible. Caps are seals. Intent
-> is a nucleus. Ops are traces. Routes are a constellation. Skin is WebAssets.
-> GET is Clock A. Action is Clock B. Payload type picks media type.**
+Fully utilise:
+
+1. **Every public name** in `ux_compose.__all__` (including **`slide`**).
+2. **Every Clock A payload door** (HTML / JSON / stream / Response-as-is).
+3. **Every ownable kit stem** in `ux_compose.kit.catalog.CATALOG` (23 components:
+   Wave 0 studio chrome + Wave 1 Signal grammar). Copy them with
+   `uxcompose add {stem}` so the product **owns** the files. Restyle `class_*`
+   to the nocturnal palette. Override host seams. Do not `from ux_compose.kit
+   import Login` in product routes.
+4. **Every catalog contract** in `examples/` — as domain rooms, not demos.
+5. **Wave 1 Signal grammar:** `data-channel-on` for `swipe.vertical` /
+   `longpress` / `input delay:`. No kit JS. Swipe never lives on a root that
+   also has clickable rows.
+
+Ship a running foundry whose radical face is this:
+
+> **The document is the composition root made visible. The kit is the foundry’s
+> ownable chrome — copied, restyled, seamed. Caps are seals. Intent is a
+> nucleus. Ops are traces. Routes are a constellation. Skin is WebAssets.
+> GET is Clock A. Action is Clock B. Payload type picks media type. The body
+> is a channel: swipe, longpress, delay. Motion is a Plan, never a script.**
 
 Read the library first. Clone or vendor `src/ux_compose` from that repo **and**
 the four specialists (`ux-dom`, `ux-behavior`, `ux-channel`, `ux-motion`).
-Play the teaching apps (`apps/atelier_studio`, `apps/atelier_shop`, `apps/pulse`)
-and `examples/` before inventing a widget.
+Play `apps/atelier_studio`, `apps/atelier_shop`, `apps/pulse`, `apps/nook`
+and `examples/` before inventing a widget. Run `uxcompose add --list` and
+copy every stem.
 
 ---
 
@@ -47,13 +65,21 @@ and `examples/` before inventing a widget.
 - **Page units have no HTTP verbs.** No `get` / `post` / `put` / `patch` /
   `delete` on a Component. Clock A wraps `render()`. Extra APIs live on the
   FastAPI process `build()` returned.
+- **Own the kit.** `uxcompose add login` (etc.) drops `components/{stem}.py`.
+  Edit `class_*`. Override seams. The library copy is the source of truth;
+  the dropped file is the product. `from ux_compose.kit import …` is for
+  tests / Atelier / agents — not product routes.
 - Serve on `0.0.0.0:8080`. Keep Grok `extensions.js` in the shell. Do not hide
   the Created-with-Grok pill. Vanilla preview-host bridge (`postMessage`
   `grok-preview-bridge` v1: hello / navigate / history / location / routes / ready).
 - Canonical product path is what `uxcompose create-app` writes. Deploy looks
   for `app.py`. Default ASGI is `app:asgi`. Sandbox `startup.sh` binds uvicorn
   to `0.0.0.0:8080`.
-- Auth OFF. Database OFF. Domain lives in an in-memory Host store.
+- **Auth OFF** for the Grok platform (no Better Auth, no `/login` React route,
+  no `@/lib/db`). The kit `Login` / `Otp` are **ceremonial foundry doors**
+  with host-seam `authenticate()` and Caps `auth.login` / `auth.signup` /
+  `auth.otp`. They are not Grok accounts.
+- Database OFF. Domain lives in an in-memory Host store.
 - `host="batteries"` is leftover and **fails closed**. Do not teach it.
 
 ---
@@ -96,6 +122,10 @@ vendor/specialists-src/{ux_behavior,ux_motion,ux_dom,ux_channel}/
 PYTHONPATH=.pydeps:vendor/ux-compose-src:vendor/specialists-src:.
 ```
 
+Pin compose to SHA **`17e652a6`**. That tree has the ownable kit
+(`src/ux_compose/kit/` + `uxcompose add`). Older APPIC copies that omit
+`components/` kit copies are **stale. Replace them.**
+
 ---
 
 ## 2. Public author surface (do not invent names)
@@ -110,7 +140,7 @@ mount_surfaces, scan_surfaces, validate_surfaces,
 Component, MorphState, RefState, action,
 bind, control, notify, update_with, morph_play,
 Level, doctor, DoctorResult,
-scene, fade, rise,          # None until ux-motion is installed
+scene, fade, rise, slide,     # None until ux-motion is installed
 HAS_DOM, raw, __version__,
 html, head, body, title, style, meta, link, script,
 div, span, h1, h2, h3, p, a, button, form, input_,
@@ -127,7 +157,20 @@ IsolationViolation, CSS_URL_PREFIX, OUTPUT_CSS_NAME,
 http_path, is_json_payload, is_stream_payload, apply_html_document
 ```
 
-### App (from `ux_compose.app.App`)
+Kit (after `uxcompose add` — import from **product** `components/`):
+
+```
+Login, AuthDecision,
+Tabs, Accordion, Dropdown, Dialog, Sheet, Toast, Command, Table,
+Pagination, Combobox, Sidebar, Breadcrumb, Stepper, Carousel,
+Calendar, Select, Otp, Plans,
+ActionSheet, ContextMenu, Typeahead, PullRefresh
+```
+
+`kit/copy.py` is the CLI copier (`copy_component`, `KitCopyError`). It is
+**not** a 24th widget. Do not render it.
+
+### App
 
 ```
 App.boot(name, *, strict_caps=False, level="auto"|0..3)
@@ -141,10 +184,9 @@ app.use_cek(mode="adapt")         # degrade if missing; never mode=require
 app.mint_cap(action, args)
 app.submit_intent / submit_intent_async(..., mint=True)
 app.add(*ComponentClasses)
-app.mount(package_dir, asgi_app=..., base="routes", fail_closed=..., bind_pages=...,
-          on_surface=..., host=...)
+app.mount(...)
 app.dispatch("surface.verb", **args)
-app.dispatch("surface.verb", args={"sku": "tee"})   # Channel-style, same door
+app.dispatch("surface.verb", args={"sku": "tee"})
 app.control(...)
 app.doctor(paths, fail=False)
 app.level / app.level.label / app.behavior
@@ -177,9 +219,6 @@ asgi = webassets.mount_css(asgi)
 
 `BuildResult` is a tuple with `.app` / `.asgi` / `.bundle`. Export `asgi` for uvicorn.
 
-Orchestra (do not reimplement): `host.open` → L1 boot → author Document →
-`use_channel(asgi_app=)` → `DirectoryRoutes.discover` → `host.bind(document=, wrap=)`.
-
 ### Component
 
 - `id` is the morph + motion target (default `ClassName.lower()`).
@@ -187,8 +226,7 @@ Orchestra (do not reimplement): `host.open` → L1 boot → author Document →
   (stream), or an already-built Response. Never a construct-time snapshot.
 - `@action(caps=())` public. Non-empty caps need a live Cap or fail closed.
 - Return `update_with(self, plan, extra_ops=[notify(...)])`. XOR: plans carry **no** `html=`.
-- Prefer `bind(self.verb, **args)` (Pulse + Lattice mint). `control("surface.verb", **args)`
-  is the stringly hatch (`data-ux-action` + `data-ux-arg-*`).
+- Prefer `bind(self.verb, **args)`. `control("surface.verb", **args)` is the stringly hatch.
 - `morph_play("#id", plan)` once (Lab motion hop). Everywhere else: `update_with`.
 - **Do not subclass ux-dom `Component`** (MRO collides).
 
@@ -197,14 +235,14 @@ Orchestra (do not reimplement): `host.open` → L1 boot → author Document →
 | What | Where |
 |---|---|
 | Open / value / query / named step / named band | `MorphState` (qualitative) |
-| Magnitude, lists, money, ISO dates, files, digits | `RefState` + `stamp = MorphState("idle")` |
+| Magnitude, lists, money, ISO dates, files, digits, secrets | `RefState` + `stamp = MorphState("idle")` |
 | One-shot message | `notify(...)` |
 | Domain stock / money / bookings | Host store, never the client plane |
 | Protected verb | `@action(caps=("orders.place",))` + host mint at HTTP door |
 
 ---
 
-## 3. Clock A — two clocks, one foundry (the radical contract)
+## 3. Clock A — two clocks, one foundry
 
 This is the 0.1.0 product host. Older APPIC copies that put `get()` on page
 units are **stale. Replace them.**
@@ -214,8 +252,6 @@ units are **stale. Replace them.**
 | **A — page GET** | Browser hits a filesystem URL | resolve_unit → `render()` → payload dispatch |
 | **B — live action** | `@action` / Channel Intent | mutate → Ops → morph |
 
-Clock A serves the document. Clock B patches it.
-
 **Payload law.** The return value of `render()` picks the HTTP container.
 Not `Accept`. Not a route class. Not FastAPI `default_response_class`.
 
@@ -224,11 +260,10 @@ Not `Accept`. Not a route class. Not FastAPI `default_response_class`.
 | tag / HTML `str` / bytes | `HTMLResponse` | yes (author Document) |
 | `dict` or list-of-dicts | JSON | **no** |
 | generator / async generator | `StreamingResponse` | **no** |
-| already a Response (`RedirectResponse`, `FileResponse`, …) | as-is | **no** |
+| already a Response | as-is | **no** |
 
-`str` is iterable. **It is not a stream.** `"<div>"` stays buffered HTML with
-`Content-Length` so CSP nonce can stamp before the first byte. HTML strings go
-through `apply_html_document` as `raw()` — a positional str is never a script `src`.
+`str` is iterable. **It is not a stream.** HTML strings go through
+`apply_html_document` as `raw()`.
 
 Path params: `routes/atelier/[sku].py` class `Sku` → `def render(self, sku: str = "")`.
 Class name never in the URL. Stem matches class. `≤1` page owner per file.
@@ -239,12 +274,8 @@ mount-only (CSP/static). Dual-Document is a doctor fail.
 
 CSP is two layers, one nonce: header via `CspMiddleware` (`document.mount`) and
 stamp on `<script>`/`<style>` before first byte. `Csp.auto()` in `document.py`.
-Authors never set CSP headers in page units.
 
-FastAPI is **not** given an HTML `default_response_class`. Leftover
-`StreamingRoute` is not the product path. `materialize(route_class=)` fails closed.
-
-Prove Clock A in the product with three page units (not extra FastAPI routes):
+Prove Clock A with three page units (not extra FastAPI routes):
 
 | File | URL | `render()` returns | Proves |
 |---|---|---|---|
@@ -252,8 +283,8 @@ Prove Clock A in the product with three page units (not extra FastAPI routes):
 | `routes/pulse.py` class `Pulse` | `/pulse` | generator yielding `<div id="beat-n">…</div>` chunks | stream payload door |
 | `routes/atelier/[sku].py` class `Sku` | `/atelier/{sku}` | tag tree, **no `get()`** | HTML + path params + `resolve_unit` |
 
-Trace renders `is_json_payload` / `is_stream_payload` / `http_path` evidence
-so the two clocks and the three payload doors are **visible to a human**.
+Trace / Clocks render `is_json_payload` / `is_stream_payload` / `http_path`
+evidence so the two clocks and the three payload doors are **visible to a human**.
 
 ---
 
@@ -266,25 +297,33 @@ document.py            # ONE Document + .use(XElement(), Csp.auto())
 requirements.txt
 assets/css/input.css
 assets/static/file/css/output.css
+components/            # OWNABLE KIT COPIES (uxcompose add)
+  login.py  tabs.py  accordion.py  dropdown.py  dialog.py  sheet.py
+  toast.py  command.py  table.py  pagination.py  combobox.py
+  sidebar.py  breadcrumb.py  stepper.py  carousel.py  calendar.py
+  select.py  otp.py  plans.py
+  actionsheet.py  contextmenu.py  typeahead.py  pullrefresh.py
 appic/                 # product package
   server.py            # extra APIs on the FastAPI process (POST /action/{name})
-  chrome.py            # Toasts, Palette, Banner, Ribbon (fragments, no URL)
+  chrome.py            # Ribbon + Banner fragments; kit Sidebar/Command/Toast/Sheet live here as instances
   store.py             # Host domain
-  ux.py                # App helpers (bind/control wrappers live here if needed)
+  ux.py                # App helpers
   tags.py / marks.py   # SVG marks via svg/path/rect/circle + raw() once
   routes/
-    index.py           # class Index → /           (Table)
-    atelier.py         # /atelier
-    atelier/[sku].py   # class Sku → /atelier/{sku}  NO get()
-    commission.py
-    bag.py
-    board.py
-    studio.py
-    ledger.py
-    lab.py
-    lattice.py
-    trace.py           # NO get() — Clock A wraps render()
-    clocks.py          # Dual-clock room (A vs B made visible)
+    index.py           # class Index → /
+    door.py            # Login + Otp ceremonial door
+    atelier.py         # /atelier  (PullRefresh + Typeahead + Pagination + Carousel)
+    atelier/[sku].py   # class Sku → /atelier/{sku}  NO get()  (Sheet + ContextMenu + ActionSheet)
+    commission.py      # Stepper + Plans + Dialog confirm
+    bag.py             # Sheet on mobile, coupon Caps, checkout Cap → RedirectResponse
+    board.py           # kit Table + Kanban
+    studio.py          # Chat + Tabs + Accordion
+    ledger.py          # kit Calendar + Table + wipe Dialog
+    lab.py             # remaining example contracts + morph_play hop
+    lattice.py         # Caps as seals
+    trace.py           # doctor, Isolation, HMR_PATH, payload chips
+    clocks.py          # Dual-clock room
+    signal.py          # Wave 1 stage: pullrefresh, typeahead, contextmenu, actionsheet
     health.py          # JSON page unit
     pulse.py           # stream page unit
 public/favicon.svg
@@ -297,8 +336,7 @@ GROK_BUILD_PROMPT.md
 ```
 
 `RouterHooks.resolve_unit` feeds live Behavior instances into synthetic GETs.
-Prove it: atelier detail, health, pulse, clocks, and every other page have
-**no** explicit `get`.
+Prove it: every page has **no** explicit `get`.
 
 Scan path used in product:
 
@@ -318,13 +356,14 @@ Render `bundle.surfaces`, `bundle.route_table`, `bundle.action_table`,
 2. **Document SSoT.** Exactly one `Document(...)` in `document.py`. Overlays stay in the tree when closed.
 3. **XOR + Morph-then-Play.** Plans carry **no** `html=`. Morph first from `render()`, then `transition.play`.
 4. **Cap Law.** Protected verbs fail closed without a Channel-minted Cap. Host mints at the HTTP action door for Cap-suffixed verbs then `dispatch` / `submit_intent(..., mint=True)`.
-5. **Encoding.** Qualitative MorphState. Magnitudes on RefState + stamp.
+5. **Encoding.** Qualitative MorphState. Magnitudes and secrets on RefState + stamp.
 6. **Presence continuity.** Stable ids (`id="item-{sku}"`). `scene.stagger_in` on survivors. `scene.share(key, leave=, arrive=)` — share id is identity, not a CSS class.
 7. **Cold import never pulls the wire.** `App.boot("auto")` is L1.
-8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Document links `/css/output.css`. `WebAssets.mount_css` serves it. If Tailwind CLI is missing, ship a complete hand-authored `output.css` **and** still call `WebAssets`.
+8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Document links `/css/output.css`. Kit restyle is `class_*` on the copied file. If Tailwind CLI is missing, ship a complete hand-authored `output.css` **and** still call `WebAssets`.
 9. **HMR / tunnel** are `uxcompose serve` delivery, not `Document.use`. Expose `HMR_PATH` (`/__uxcompose/hmr`) as a chip on Trace.
 10. **Clock A.** No HTTP verbs on page units. Payload type picks media type. Author Document wraps GET. Synthesized Document is mount-only.
-11. **No invented library names.**
+11. **Kit ownership.** Product routes import from `components/`. Swipe lives on the named control (handle / Keep / Close / Done / refresh), never on a clickable root. Overlay open plans are selectors only — no Channel attr, no kit JS.
+12. **No invented library names.**
 
 ---
 
@@ -337,6 +376,10 @@ uxcompose serve app:asgi --host 0.0.0.0 --port 8080 [--no-reload --hmr --watch a
 uxcompose serve app:asgi --tunnel ngrok|cloudflare
 uxcompose deploy --provider docker|fly|render|railway|vps|checklist
 uxcompose doctor . --no-fail
+uxcompose add --list
+uxcompose add login
+uxcompose add tabs --page --force
+# …every stem in CATALOG
 ```
 
 Host extra routes on the ASGI **process** (not on the class):
@@ -349,74 +392,129 @@ Host extra routes on the ASGI **process** (not on the class):
 - static `/public` for og + favicon
 
 `GET /health` is a **page unit** (`routes/health.py`), not an extra FastAPI route.
-That is the Clock A JSON door made visible.
 
 Progressive enhancer JS is a **small** host file (Idiomorph + POST `/action/{name}`
-+ toast plane + `⌘K`). It is not a SPA.
++ toast plane + `⌘K` + `data-channel-on` swipe/longpress/delay). It is not a SPA.
 
 Cap suffixes that mint: `checkout`, `redeem`, `book`, `verify`, `wipe`,
-`moderate`, `next`, `place`, `reset`, `mint`, `sell`.
+`moderate`, `next`, `place`, `reset`, `mint`, `sell`, `login`, `signup`,
+`finish`, `archive`.
 
 ---
 
-## 7. Catalog — every pattern ships **in the product**
+## 7. Ownable kit — the foundry wears its chrome
 
-Source of truth: `ux-compose/examples/` (75 classes). Copy the *contract*, not
-the demo copy. Each widget is one `Component`.
+This is the upgrade the previous APPIC prompt missed. **The kit is not a lab
+drawer. It is the product’s chrome, copied and seamed.**
 
-### Foundation (`foundation.py`)
+Copy every stem:
+
+```
+login tabs accordion dropdown dialog sheet toast command table
+pagination combobox sidebar breadcrumb stepper carousel calendar
+select otp plans actionsheet contextmenu typeahead pullrefresh
+```
+
+Restyle every `class_*` to the nocturnal palette (ink / bone / cool accent).
+Keep 44px targets. Keep stable ids. Keep host seams.
+
+### Kit → room map (must all exist)
+
+| Kit | Lives in | Seam / Cap / Signal |
+|---|---|---|
+| **Sidebar** | Document chrome (every HTML page) | Active key MorphState. Collapse is public. |
+| **Breadcrumb** | Every room header | Trail of named crumbs. Walking back is public. |
+| **Command** | Chrome. `⌘K` opens it | Override `on_run()`. Same `/action/{name}` door as buttons. |
+| **Toast** | Chrome | Server list is authority. Push is public. |
+| **Select** | Chrome density / motion / locale | Named values on `<body>`. |
+| **Login** | `/door` | Override `authenticate()`. Caps `auth.login` / `auth.signup`. Refuse `@blocked.test`. Secrets on RefState. Reveal attaches before morph. |
+| **Otp** | `/door` second factor + commission | Verify Cap `auth.otp`. Accept `2048`. |
+| **Tabs** | `/studio` | One MorphState key. Stable panel ids `#tab-{key}`. |
+| **Accordion** | `/trace` law folds | Open ids as MorphState tuple. Several may be open. |
+| **Dropdown** | `/atelier` sort | Menu is presence. Value is a named key (`alpha` / `price`). |
+| **Dialog** | checkout confirm + wipe | Public ask. Cap confirm via `on_confirm()`. Swipe on **Keep** (`click swipe.down`). Open: fade scrim + rise panel (selectors only). Cancel/confirm morph-only. Panel/scrim/dismiss/confirm keep stable ids. Card is not `relative`. |
+| **Sheet** | mobile bag + PDP tools | Close/Done accept `click swipe.right`. No root swipe. Open: fade scrim + **slide** panel. |
+| **Table** | `/board` bulk + `/ledger` | Sort MorphState, selection RefState. Archive is a Cap. |
+| **Pagination** | `/atelier` editions | Windowed numbers. `WINDOW=1`. First/last + gaps `max-sm:hidden`. 44px chevrons. Prev is one named page back. |
+| **Combobox** | Table intent + atelier search | Query attaches on morph. |
+| **Stepper** | `/commission` | Named steps. Finish spends `flow.finish`. |
+| **Carousel** | `/atelier` look | Overlay prev/next. Sliding pip `#id-thumb` coalesces (`transition-transform`). Root `data-channel-id`. Swipe + directional slide/rise/fade. Copy is the live region. |
+| **Calendar** | `/ledger` | Month and day named keys. Override `on_pick()`. Book is Cap `calendar.book`. |
+| **Plans** | `/commission` pricing | Radio cards. Override `on_choose()`. |
+| **ActionSheet** | mobile piece actions | Handle 44px `click swipe.down`. Rows (Bag / Compare / Share / Cancel) stay **click**. Root `data-channel-id`. Card not `relative`. |
+| **ContextMenu** | longpress / click on a piece | Floating panel, `menuitem` rows, `list-none`. No `overflow-hidden` on the card. Root `data-channel-id`. |
+| **Typeahead** | atelier filter + Table nucleus | Live filter on `input delay:`. The field is the control. |
+| **PullRefresh** | atelier shelf + `/signal` | Refresh control accepts `swipe.down`. Vertical swipe synthesizer. |
+
+Wave 1 is proven as a first-class room **`/signal`** *and* as chrome on atelier/PDP.
+Do not leave Wave 1 as a lab curiosity.
+
+---
+
+## 8. Catalog — every example contract ships **in the product**
+
+Source of truth: `ux-compose/examples/` (~75 classes). Copy the *contract*,
+not the demo copy. Kit copies replace chrome widgets (tabs, dialog, table, …).
+Examples still supply domain rooms the kit does not own (kanban, chat, coupon,
+wishlist, compare, stock band, presence, KPI, skeleton, consent, offline,
+inline edit, copy clip, progress, tree, comments, timeline, empty-retry,
+reorder, activity, master/detail, region swap, rating).
+
+### Foundation
 Counter (RefState magnitude + MorphState stamp; increment public; **reset is a Cap**),
-Toggle (bool MorphState), Morph vs Ref planes (silent RefState does not morph without stamp tick).
+Toggle (bool MorphState), Morph vs Ref planes.
 
-### Chrome (`chrome.py` `modal.py` `shell.py`)
-Tabs, Accordion, Dropdown, Drawer, Modal (open MorphState, payload RefState, Cap confirm;
-node stays in tree), App shell, Breadcrumbs, Bottom nav, Popover, Overflow menu.
+### Overlays / chrome (kit-backed, example-contract where kit is silent)
+Lightbox, Banner, App shell (Sidebar + Breadcrumb + bottom nav), Popover,
+Overflow menu, Drawer (Sheet covers the edge-panel job).
 
-### Overlays (`overlays.py`)
-Toasts, Confirm, Lightbox, Command palette (`⌘K` is a first-class intent door), Banner.
+### Forms
+Signup validation (Login covers the door), Wizard (Stepper), Typeahead (kit),
+Choice group, Combobox (kit), Date, File drop, Slider, OTP (kit), Password
+reveal (Login), Autosave, Limited note.
 
-### Forms (`forms.py` `fields.py`)
-Signup validation, Wizard, Typeahead / Search, Choice group, Combobox, Date, File drop,
-Slider, OTP (**verify is a Cap**), Password reveal, Autosave, Limited note.
+### Collections
+Shelf filter+sort+stagger, Optimistic list, Pagination (kit), Undo snack,
+Data table bulk (kit Table), Kanban, Carousel (kit), Comments (**moderate is a Cap**),
+Timeline, Empty / loading / error / retry, Reorder, Activity feed.
 
-### Collections (`lists.py` `table_board.py` `feeds.py`)
-Shelf filter+sort+stagger, Optimistic list, Pagination, Undo snack, Data table bulk,
-Kanban, Carousel, Comments (**moderate is a Cap**), Timeline, Empty / loading / error / retry,
-Reorder, Activity feed.
-
-### Navigation (`navigation.py`)
+### Navigation
 Region swap, Master / detail split pane, **plus** DirectoryRoutes PDP at `/atelier/{sku}`.
 
-### Commerce (`cart.py` `commerce_more.py`)
-Cart, Quantity stepper, Star rating (named `one|two|…`, never MorphState(int)), Wishlist,
-Coupon (**redeem Cap**), Checkout (**place Cap**), Stock band `ok|low|out`, Compare max three ids.
+### Commerce
+Cart, Quantity stepper, Star rating (named `one|two|…`, never MorphState(int)),
+Wishlist, Coupon (**redeem Cap**), Checkout (**place Cap**), Stock band `ok|low|out`,
+Compare max three ids.
 
-### Live Caps (`live_caps.py`)
+### Live Caps
 Place without a Cap is refused. Host-mint succeeds. Product never imports Channel.
 
 ### Motion (`motion_xor.py` + `cookbooks/PRESENCE.md`)
 `update_with(self, scene(...).enter(#id, rise.enter()))`.
 `scene.share(key, leave=, arrive=, recipe=)`.
 `scene.stagger_in` on shelf sort; `fade.exit` on removals.
+Dialog open: fade scrim + rise panel. Sheet open: fade scrim + **slide** panel.
 Without ux-motion, `scene is None` and the same `@action` still morphs.
 
-### Systems / ops (`systems.py` `ops.py`)
+### Systems / ops
 Chat, Inbox, Tree, Skeleton, Consent, Theme / density / motion **names** on `<body>`,
-Chips, Inline edit, Calendar (**book Cap**), Progress, Copy clip, Settings (**wipe Cap**),
+Chips, Inline edit, Calendar (kit + Cap), Progress, Copy clip, Settings (**wipe Cap**),
 Offline banner, Presence peers, KPI, Shortcuts.
 
 ---
 
-## 8. Product — APPIC (*Intent. Presence. Caps.*)
+## 9. Product — APPIC (*Intent. Presence. Caps. Signal.*)
 
 A private foundry for commissioning and collecting handmade objects. Editorial,
 expensive, abundant negative space, concentric radii.
 
-The radical idea is not “another shop”. It is that **authority, motion, and
-media type are first-class rooms a human can walk**. Caps are wax seals.
-Intent is a nucleus you hold. Ops are traces that do not forget. Routes are
-a constellation you can read. GET and action are two clocks you can see
-ticking. JSON, stream, and HTML are three doors of the same page-unit law.
+The radical idea is not “another shop” and not “a component gallery”. It is
+that **authority, motion, media type, and the body-as-channel are first-class
+rooms a human can walk**. Caps are wax seals. Intent is a nucleus you hold.
+Ops are traces that do not forget. Routes are a constellation you can read.
+GET and action are two clocks you can see ticking. JSON, stream, and HTML
+are three doors of the same page-unit law. The kit is chrome you own.
+Swipe, longpress, and delay are Signals, not JavaScript features.
 
 **Palette.** Dark ink `#0c0d0b`, elevated `#141512`, surface `#1a1b18`,
 bone `#ebe6d8`, muted `#9a9488`, cool accent `#c8ccd4`, danger `#c17a6e`,
@@ -429,78 +527,97 @@ Fluid `clamp` titles. Tabular nums on money / KPI.
 
 **Motion tokens:** `--motion-stagger: 40ms` … `--motion-slow: 400ms`,
 `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`. Honor `prefers-reduced-motion`.
-Density + motion **names** on `<body>`.
+Density + motion **names** on `<body>` (kit Select).
 
 ### Surfaces
 
 | Path | Unit | Must exercise |
 |---|---|---|
-| `/` Table | `Index` | Pulse counter+stamp, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, `Level` badge, `__version__` chip |
-| `/atelier` | `Atelier` | Shelf filter/sort/`stagger_in`, wishlist, compare≤3, lightbox, add-to-bag, link to PDP |
-| `/atelier/{sku}` | `Sku` | DirectoryRoutes `[sku]`. **No `get`.** `render(self, sku="")`. `scene.share` into bag |
-| `/commission` | `Commission` | 4-step wizard + radio/checkbox/slider/date/file/password/autosave/limited note/OTP Cap `identity.verify` (`2048`) / place Cap `orders.place` |
-| `/bag` | `Bag` | Stepper, coupon Cap `orders.coupon` (`HOUSE`/`FLAX`/`TABLE`), checkout Cap `orders.place`. After successful place, return a `RedirectResponse` to `/ledger` (Response as-is door) |
-| `/board` | `Board` | Kanban optimistic + undo + data table bulk |
-| `/studio` | `Studio` | Chat typing, inbox, comments moderate Cap `comments.moderate`, presence |
-| `/ledger` | `Ledger` | Calendar book Cap `calendar.book`, WebAssets `css_href` chip, wipe Cap `settings.wipe` |
-| `/lab` | `Lab` | Remaining catalog: tree, carousel, reorder, empty-retry, chips, inline, combobox, accordion, drawer, **`morph_play` hop**, share seat, Morph vs Ref |
+| `/` Table | `Index` | Pulse counter+stamp, **`bind(self.beat)`**, intent field (Typeahead + Combobox), KPI, benches, last Ops, `Level` badge, `__version__` chip, kit Sidebar active `table` |
+| `/door` | `Door` | kit **Login** + **Otp**. `authenticate()` host seam. Caps `auth.login`/`auth.signup`/`auth.otp`. Refuse `@blocked.test`. OTP `2048`. Ceremonial — not Grok auth |
+| `/atelier` | `Atelier` | kit **PullRefresh** + **Typeahead** + **Dropdown** sort + **Pagination** + **Carousel** look. Shelf filter/sort/`stagger_in`, wishlist, compare≤3, lightbox, add-to-bag, link to PDP |
+| `/atelier/{sku}` | `Sku` | DirectoryRoutes `[sku]`. **No `get`.** `render(self, sku="")`. kit **Sheet** tools, **ContextMenu**, **ActionSheet**. `scene.share` into bag. `slide` on sheet open |
+| `/commission` | `Commission` | kit **Stepper** + **Plans** (`on_choose`) + slider/date/file/password/autosave/limited note. OTP Cap `auth.otp` (`2048`). Place Cap `orders.place`. Finish Cap `flow.finish`. kit **Dialog** confirm |
+| `/bag` | `Bag` | Stepper, coupon Cap `orders.coupon` (`HOUSE`/`FLAX`/`TABLE`), checkout Cap `orders.place`. kit **Dialog** confirm (Keep swipe-down). After successful place, return a `RedirectResponse` to `/ledger` |
+| `/board` | `Board` | Kanban optimistic + undo + kit **Table** bulk + archive Cap |
+| `/studio` | `Studio` | kit **Tabs** + **Accordion**. Chat typing, inbox, comments moderate Cap `comments.moderate`, presence |
+| `/ledger` | `Ledger` | kit **Calendar** `on_pick` + book Cap `calendar.book`, kit **Table**, WebAssets `css_href` chip, wipe Cap `settings.wipe` via kit **Dialog** |
+| `/lab` | `Lab` | Remaining example contracts: tree, reorder, empty-retry, chips, inline, **`morph_play` hop**, share seat, Morph vs Ref |
+| `/signal` | `Signal` | Wave 1 stage: **PullRefresh**, **Typeahead**, **ContextMenu**, **ActionSheet** — the body as a channel, explained |
 | `/lattice` | `Lattice` | Caps as seals. Intent as nucleus. Ops as traces. **`bind(self.mint)` is a Cap.** SurfaceBundle as stars. `dispatch(..., args={})` proven |
-| `/trace` | `Trace` | Live Ops log, doctor, Isolation evidence, `HMR_PATH`, `Level.label`, bundle tables, CSP header chip, `apply_html_document` note |
+| `/trace` | `Trace` | kit **Accordion** law folds. Live Ops log, doctor, Isolation evidence, `HMR_PATH`, `Level.label`, bundle tables, CSP header chip, `apply_html_document` note, kit inventory chips (23 stems owned) |
 | `/clocks` | `Clocks` | Dual-clock room. Clock A GET vs Clock B action drawn as two concentric rings. Payload doors (HTML / JSON / stream) as three gates. `http_path` / `is_json_payload` / `is_stream_payload` chips |
-| `/health` | `Health` | `render()` returns a **dict**. JSON. No Document wrap. Includes `ok`, `level`, `label`, `version`, `sealed`, `surfaces` |
+| `/health` | `Health` | `render()` returns a **dict**. JSON. No Document wrap. Includes `ok`, `level`, `label`, `version`, `sealed`, `surfaces`, `kit` |
 | `/pulse` | `Pulse` | `render()` returns a **generator** of HTML chunks (foundry heartbeat). StreamingResponse. No Document wrap |
-| Chrome | `Toasts`, `Palette`, `Banner`, `Ribbon` | `⌘K`; live Ops ribbon; wax-seal burst on Cap mint |
+| Chrome | kit Sidebar, Command, Toast, Select, Breadcrumb, Ribbon | `⌘K`; live Ops ribbon; wax-seal burst on Cap mint; density/motion names |
 
 ### Caps (real, fail closed)
 
-`orders.place` · `orders.coupon` · `identity.verify` · `calendar.book` ·
-`settings.wipe` · `comments.moderate` · `admin.reset` · `lattice.mint`
+`orders.place` · `orders.coupon` · `auth.login` · `auth.signup` · `auth.otp` ·
+`identity.verify` · `calendar.book` · `settings.wipe` · `comments.moderate` ·
+`admin.reset` · `lattice.mint` · `flow.finish` · `table.archive`
 
-OTP verify accepts `2048`. Coupons: `HOUSE` / `FLAX` / `TABLE`.
+OTP / second factor accepts `2048`. Coupons: `HOUSE` / `FLAX` / `TABLE`.
+Login refuse: `you@blocked.test`.
 
 ### Radical interactions (must all work)
 
-1. **Hold an intent on the Table.** Type a verb, press the nucleus, Clock B
-   fires, Trace records the Op, Lattice lights the matching star.
-2. **Commission a piece.** Wizard state is MorphState named steps. Magnitude
-   (budget, date, file) is RefState + stamp. OTP `2048` is a Cap. Place is a Cap.
-3. **Sort the atelier.** Survivors keep `id="item-{sku}"` and `stagger_in`.
-   Add-to-bag plays `scene.share` from the card to the bag line.
-4. **Open `/health`.** The browser shows JSON. The document did not wrap it.
-   Trace cites this as the JSON door.
-5. **Open `/pulse`.** Chunks arrive. Trace cites this as the stream door.
-6. **Open `/clocks`.** Two rings. Three gates. The foundry explains itself.
-7. **⌘K** posts the same `/action/{name}` door as a button. No second pipeline.
-8. **Checkout without a Cap is refused.** Host-mint then succeeds. Wax-seal
-   burst on the ribbon.
-9. **Wipe settings** is a Cap. Confirm modal stays in the tree when closed.
-10. **Doctor is green.** Isolation scan of `appic/` is clean.
+1. **Hold an intent on the Table.** Typeahead + Combobox. Press the nucleus.
+   Clock B fires, Trace records the Op, Lattice lights the matching star.
+2. **Cross the Door.** Login reveal attaches typed secrets onto RefState then
+   morphs. Submit is a Cap. `@blocked.test` is refused. OTP `2048` is a Cap.
+   This is ceremonial kit, not Grok accounts.
+3. **Commission a piece.** kit Stepper named steps. kit Plans `on_choose`.
+   Magnitude (budget, date, file) is RefState + stamp. Finish is `flow.finish`.
+   Place is `orders.place`. Dialog Keep swipe-down cancels.
+4. **Sort the atelier.** kit Dropdown. Survivors keep `id="item-{sku}"` and
+   `stagger_in`. Pull-to-refresh the shelf. Typeahead filters on `input delay:`.
+   Pagination is windowed. Carousel pip coalesces. Add-to-bag plays `scene.share`.
+5. **Longpress a piece.** ContextMenu floats. ActionSheet handle swipe-down
+   dismisses; Bag / Compare / Share rows still click.
+6. **Open the Sheet on a phone.** Close / Done accept `swipe.right`. Panel
+   slides (`slide.enter`). Scrim fades. No root swipe.
+7. **Open `/health`.** JSON. The document did not wrap it.
+8. **Open `/pulse`.** Chunks arrive. Stream door.
+9. **Open `/clocks`.** Two rings. Three gates. The foundry explains itself.
+10. **Open `/signal`.** Wave 1 is a room, not a footnote.
+11. **⌘K** posts the same `/action/{name}` door as a button. kit Command `on_run()`.
+12. **Checkout without a Cap is refused.** Host-mint then succeeds. Wax-seal
+    burst on the ribbon. Dialog confirm. RedirectResponse to `/ledger`.
+13. **Wipe settings** is a Cap. Dialog stays in the tree when closed.
+14. **Doctor is green.** Isolation scan of `appic/` + `components/` is clean.
+15. **Trace lists 23 owned kit stems.** Every file exists under `components/`.
 
 ---
 
-## 9. Coverage matrix (must all be true before you stop)
+## 10. Coverage matrix (must all be true before you stop)
 
 - [ ] `from ux_compose import App, build, WebAssets, DirectoryRoutes, DirectoryASGI, RouterHooks`
 - [ ] `Surface`, `SurfaceBundle`, `SurfaceError`, `scan_surfaces`, `validate_surfaces`, `mount_surfaces` imported and used
 - [ ] `Component, MorphState, RefState, action, bind, control, notify, update_with, morph_play`
 - [ ] `Level, doctor, DoctorResult, __version__`
-- [ ] `scene, fade, rise` imported with `None` fallback
+- [ ] `scene, fade, rise, slide` imported with `None` fallback
 - [ ] Tags: `div` … `circle`, `HAS_DOM`, `raw` (raw used once for a safe SVG mark, not CSS)
 - [ ] `http_path`, `is_json_payload`, `is_stream_payload`, `apply_html_document` used on Trace / Clocks
 - [ ] `settings.py` + `document.py` (`Csp.auto()`) + `app.py` + `assets/css/input.css` + `WebAssets.mount_css`
 - [ ] Nested `routes/atelier/[sku].py` live PDP, `render(self, sku="")`, **no `get()` anywhere**
 - [ ] JSON page unit `/health` (`dict`) and stream page unit `/pulse` (generator)
-- [ ] Dual-clock room `/clocks`
+- [ ] Dual-clock room `/clocks` and Signal room `/signal`
+- [ ] Ceremonial `/door` with owned kit Login + Otp
+- [ ] **All 23 kit stems copied into `components/` and used as product chrome / rooms**
+- [ ] Kit restyled via `class_*` (nocturnal palette). Host seams overridden where listed
+- [ ] Wave 1: ActionSheet handle swipe-down; Sheet Close swipe-right; ContextMenu longpress; Typeahead `input delay:`; PullRefresh swipe-down. **No root swipe on clickable rows**
+- [ ] Dialog open = fade scrim + rise panel; Sheet open = fade scrim + slide panel; plans have **no** Channel attr and **no** kit JS
 - [ ] `bind()` on Pulse and Lattice mint
-- [ ] `dispatch("…", args={...})` proven (Channel-style unpack)
+- [ ] `dispatch("…", args={...})` proven
 - [ ] `morph_play` used once; `update_with` used everywhere else
 - [ ] Caps listed above fail closed without mint; succeed after host mint
 - [ ] `scene.share` atelier card → bag line; `stagger_in` on shelf sort
-- [ ] Checkout success returns `RedirectResponse` (Response as-is door)
+- [ ] Checkout success returns `RedirectResponse`
 - [ ] Command palette `⌘K` posts the same `/action/{name}` door
-- [ ] Extra FastAPI `GET /api/surfaces` stays JSON (no HTML `default_response_class`)
+- [ ] Extra FastAPI `GET /api/surfaces` stays JSON
 - [ ] Custom OG + favicon + `src/lib/og/site.json`
-- [ ] Mobile 390px: no overflow, 44px targets, wrap nav, bottom nav
+- [ ] Mobile 390px: no overflow, 44px targets, wrap nav, bottom nav, Sheet + ActionSheet
 - [ ] `startup.sh` binds `0.0.0.0:8080`
 - [ ] Vendor copy of `ux_compose` + specialists + `requirements.txt`
 - [ ] Isolation scan of product package is clean
@@ -509,18 +626,21 @@ OTP verify accepts `2048`. Coupons: `HOUSE` / `FLAX` / `TABLE`.
 
 ---
 
-## 10. Quality
+## 11. Quality
 
 Editorial, not playful-slop. Sparse type. Concentric radii. One accent.
 Honor reduced motion. Every `@action` mutates state and morphs. Caps are real.
 Motion degrades. Isolation holds. Clock A is correct: no verbs on units,
 payload type picks media type, author Document wraps GET.
 
-The lattice is the product's radical face: **authority made visible.**
-The trace is the product's memory: **Ops as data.**
-The clocks room is the product's honesty: **GET and action are two pipelines.**
-The atelier PDP is the product's routing proof: **filesystem → HTTP, class name never in the URL.**
-The health and pulse doors are the product's host proof: **return value picks the container.**
+The kit is the product’s skin: **copied, restyled, seamed — not imported.**
+The lattice is the product’s radical face: **authority made visible.**
+The trace is the product’s memory: **Ops as data.**
+The clocks room is the product’s honesty: **GET and action are two pipelines.**
+The signal room is the product’s body: **swipe, longpress, delay — no kit JS.**
+The door is the product’s seal: **Login and OTP are Caps, secrets never MorphState.**
+The atelier PDP is the product’s routing proof: **filesystem → HTTP, class name never in the URL.**
+The health and pulse doors are the product’s host proof: **return value picks the container.**
 The skin is WebAssets: **tokens compiled, not inlined.**
 
 Ship a running foundry. Verify it actually renders — desktop and 390px —
