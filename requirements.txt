@@ -3,7 +3,12 @@ uvicorn[standard]>=0.32
 marko
 itsdangerous
 python-multipart
-ux-compose @ git+https://github.com/bitplorer/ux-compose.git
-ux-behavior @ git+https://github.com/bitplorer/ux-behavior.git
-ux-motion @ git+https://github.com/bitplorer/ux-motion.git
-ux-channel @ git+https://github.com/bitplorer/ux-channel.git#subdirectory=python
+# Specialists are vendored under vendor/specialists-src (Python 3.10 sandbox).
+# Do not pip-install ux-dom together with marko — the resolver conflicts, and
+# ux-dom 0.1.0 requires Python ≥3.14. Compose ships a Tag shim for 3.10–3.13.
+# Optional on Python ≥3.14:
+#   ux-compose @ git+https://github.com/bitplorer/ux-compose.git
+#   ux-behavior @ git+https://github.com/bitplorer/ux-behavior.git
+#   ux-motion @ git+https://github.com/bitplorer/ux-motion.git
+#   ux-channel @ git+https://github.com/bitplorer/ux-channel.git#subdirectory=python
+#   ux-dom @ git+https://github.com/bitplorer/ux-dom.git

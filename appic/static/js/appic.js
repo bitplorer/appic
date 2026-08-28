@@ -108,7 +108,14 @@
     if (!action) return;
     if (t.tagName === "BUTTON" && t.type === "submit") return;
     ev.preventDefault();
-    postAction(action, argsFrom(t), t);
+    var args = argsFrom(t);
+    var form = t.closest && t.closest("form");
+    if (form) {
+      new FormData(form).forEach(function (v, k) {
+        if (args[k] == null || args[k] === "") args[k] = v;
+      });
+    }
+    postAction(action, args, t);
   });
 
   document.addEventListener("submit", function (ev) {
@@ -129,7 +136,121 @@
     postAction(action, data, form);
   });
 
-  document.addEventListener("keydown", function (ev) {
+  /* Wave 1 Signal: data-channel-on synthesizers. Product never imports ux_channel. */
+  function channelOn(el) {
+    return (el && el.getAttribute && (el.getAttribute("data-channel-on") || "")) || "";
+  }
+
+  function fireChannel(el) {
+    var action = el.getAttribute("data-ux-action") || el.getAttribute("data-channel-action");
+    if (!action) return;
+    var args = argsFrom(el);
+    if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+      args[el.getAttribute("name") || "q"] = el.value;
+      args.value = el.value;
+    }
+    postAction(action, args, el);
+  }
+
+  var inputTimers = new WeakMap();
+  document.addEventListener("input", function (ev) {
+    var el = ev.target;
+    if (!el || !el.getAttribute) return;
+    var spec = channelOn(el);
+    if (spec.indexOf("input delay:") !== 0) return;
+    var ms = parseInt(spec.split(":")[1], 10) || 200;
+    var prev = inputTimers.get(el);
+    if (prev) window.clearTimeout(prev);
+    inputTimers.set(
+      el,
+      window.setTimeout(function () {
+        fireChannel(el);
+      }, ms)
+    );
+  });
+
+  function parseSwipe(spec) {
+    var parts = (spec || "").split(/\s+/).filter(Boolean);
+    return {
+      click: parts.indexOf("click") >= 0,
+      vertical: parts.indexOf("swipe.vertical") >= 0,
+      horizontal: parts.indexOf("swipe.horizontal") >= 0,
+      down: parts.indexOf("swipe.down") >= 0,
+      right: parts.indexOf("swipe.right") >= 0,
+      left: parts.indexOf("swipe.left") >= 0,
+      longpress: parts.indexOf("longpress") >= 0,
+    };
+  }
+
+  var swipe = { el: null, x: 0, y: 0, t: 0, timer: null };
+  function pointerEl(ev) {
+    var n = ev.target;
+    while (n && n !== document) {
+      if (n.getAttribute && channelOn(n)) return n;
+      n = n.parentElement;
+    }
+    return null;
+  }
+  document.addEventListener("pointerdown", function (ev) {
+    var el = pointerEl(ev);
+    if (!el) return;
+    var spec = parseSwipe(channelOn(el));
+    swipe.el = el;
+    swipe.x = ev.clientX;
+    swipe.y = ev.clientY;
+    swipe.t = Date.now();
+    if (spec.longpress) {
+      swipe.timer = window.setTimeout(function () {
+        fireChannel(el);
+        swipe.el = null;
+      }, 480);
+    }
+  });
+  document.addEventListener("pointermove", function (ev) {
+    if (!swipe.el) return;
+    var dx = ev.clientX - swipe.x;
+    var dy = ev.clientY - swipe.y;
+    if (Math.abs(dx) + Math.abs(dy) > 8 && swipe.timer) {
+      window.clearTimeout(swipe.timer);
+      swipe.timer = null;
+    }
+  });
+  document.addEventListener("pointerup", function (ev) {
+    if (swipe.timer) {
+      window.clearTimeout(swipe.timer);
+      swipe.timer = null;
+    }
+    var el = swipe.el;
+    swipe.el = null;
+    if (!el) return;
+    var spec = parseSwipe(channelOn(el));
+    var dx = ev.clientX - swipe.x;
+    var dy = ev.clientY - swipe.y;
+    var ax = Math.abs(dx);
+    var ay = Math.abs(dy);
+    var fired = false;
+    if (ay > 36 && ay > ax * 1.2) {
+      if (spec.vertical || (spec.down && dy > 0)) {
+        fireChannel(el);
+        fired = true;
+      }
+    } else if (ax > 36 && ax > ay * 1.2) {
+      if (spec.horizontal || (spec.right && dx > 0) || (spec.left && dx < 0)) {
+        fireChannel(el);
+        fired = true;
+      }
+    }
+    if (!fired && spec.click && Date.now() - swipe.t < 400) {
+      /* click already handled by click listener for data-ux-action */
+    }
+  });
+  document.addEventListener("pointercancel", function () {
+    if (swipe.timer) window.clearTimeout(swipe.timer);
+    swipe.el = null;
+    swipe.timer = null;
+  });
+
+  window.addEventListener("keydown", function (ev) {
     var meta = ev.metaKey || ev.ctrlKey;
     if (meta && (ev.key === "k" || ev.key === "K")) {
       ev.preventDefault();
@@ -180,7 +301,7 @@
         channel: CHANNEL,
         version: VERSION,
         type: "routes",
-        paths: ["/", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger"],
+        paths: ["/", "/enter", "/desk", "/house", "/visit", "/signal", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger", "/clocks", "/health", "/pulse"],
       });
       post({ channel: CHANNEL, version: VERSION, type: "ready" });
     }

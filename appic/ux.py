@@ -21,9 +21,9 @@ from ux_compose import (
 )
 
 try:
-    from ux_compose import scene, rise, fade
+    from ux_compose import scene, rise, fade, slide
 except Exception:  # pragma: no cover
-    scene = rise = fade = None
+    scene = rise = fade = slide = None
 
 from appic.tags import (
     HAS_TAGS,
@@ -82,6 +82,18 @@ def maybe_fade(name: str, target: str, *, ms: int = 120):
         return scene(name).enter(target, fade.enter(ms=ms))
     except Exception:
         return None
+
+
+def maybe_slide(name: str, target: str, *, y: float = 28, ms: int = 180):
+    if scene is None or slide is None:
+        return None
+    try:
+        return scene(name).enter(target, slide.enter(y=y, ms=ms))
+    except Exception:
+        try:
+            return scene(name).enter(target, slide.enter(ms=ms))
+        except Exception:
+            return None
 
 
 def maybe_share(name: str, key: str, leave: str, arrive: str, *, ms: int = 140):

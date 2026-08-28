@@ -118,6 +118,7 @@ class Host:
         self.copied: str = ""
         self.level: int = 0
         self.last_seal: str = ""
+        self.pieces: dict[str, Any] = {}
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.trace.append(

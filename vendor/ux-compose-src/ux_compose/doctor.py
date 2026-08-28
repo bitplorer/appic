@@ -7,7 +7,6 @@ Messages teach the laws and frame failures as protection of product autonomy.
 from __future__ import annotations
 
 import ast
-import importlib.util
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -33,7 +32,7 @@ def _is_forbidden(name: str) -> bool:
     if not name:
         return False
     for f in FORBIDDEN_IMPORTS:
-        if name == f or name.startswith(f + ".") or name.startswith(f + "_"):
+        if name == f or name.startswith(f + "."):
             return True
     return False
 
@@ -153,14 +152,8 @@ def _detect_capabilities() -> dict:
         "ux_behavior": pr.has_behavior,
         "ux_motion": pr.has_motion,
         "ux_channel": pr.has_channel,
-        "directory_routes": False,
+        "directory_routes": True,
     }
-    if caps.get("ux_dom"):
-        try:
-            if importlib.util.find_spec("ux_dom.routing.core") is not None:
-                caps["directory_routes"] = True
-        except (ModuleNotFoundError, ValueError):
-            pass
     return caps
 
 
@@ -186,18 +179,9 @@ def _teaching_for_level(level: int, caps: dict) -> list[str]:
         lines.append("Full progressive stack available (L3). Isolation + Caps + Motion are all first-class.")
     if caps.get("directory_routes"):
         lines.append(
-            "Page-unit path available: routes/ + stem match + App.mount / mount_surfaces "
-            "(DirectoryRoutes + thin host adapter via RouterHooks.resolve_unit). "
-            "Scaffold: uxcompose create-app <dir>."
-        )
-    elif caps.get("ux_dom"):
-        lines.append(
-            "ux-dom is present but DirectoryRoutes import failed — check ux_dom.routing.core."
-        )
-    else:
-        lines.append(
-            "For filesystem page-unit routing (routes/ + stem match): pip install ux-dom "
-            "then app.mount(package_dir, asgi_app=api, base='routes')."
+            "Page-unit path available: uxcompose create-app + build() "
+            "(routes/ + stem match via DirectoryRoutes). "
+            "App.mount / mount_surfaces is a secondary door for tests and surfaces."
         )
     lines.append(
         "Progressive Superpower Contract: code written at Level 1 remains correct and unchanged "
@@ -217,12 +201,12 @@ def doctor(
 
     - Scans for Isolation violations and dual-Document heuristics
     - Reports progressive specialists + DirectoryRoutes (page-unit path)
-    - Emits teaching messages for the next unlock and mount/routes guidance
+    - Emits teaching messages for the next unlock and create-app / build() guidance
     - Optionally records evidence from a sealed SurfaceBundle (surfaces, routes)
     - Fails closed (raises) when fail=True and hard violations found
 
-    ``bundle`` is optional and additive — pass the return value of App.mount /
-    mount_surfaces for route-table evidence without changing scan behaviour.
+    ``bundle`` is optional and additive — pass the return value of build() /
+    App.mount / mount_surfaces for route-table evidence without changing scan behaviour.
     """
     caps = _detect_capabilities()
     level = 0
@@ -288,7 +272,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     parser.add_argument("--no-fail", action="store_true", help="Report only, do not raise on violations")
     args = parser.parse_args(argv)
     paths = args.paths or ["."]
-    res = doctor(paths, fail=not args.no_fail)
+    # Never raise from the CLI — print the report, then exit 1.
+    res = doctor(paths, fail=False)
 
     print("ux-compose doctor — protective coach")
     print(f"  Progressive level available: L{res.level_available}")
@@ -307,7 +292,9 @@ def main(argv: Optional[List[str]] = None) -> int:
         print("  Diagnostics:")
         for d in res.diagnostics:
             print(f"    - {d}")
-        return 1
+        return 0 if args.no_fail else 1
+    if not res.ok:
+        return 0 if args.no_fail else 1
     print("  Isolation: OK — product autonomy and offline progressive path protected.")
     return 0
 

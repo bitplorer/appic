@@ -12,6 +12,7 @@ from urllib.parse import parse_qs, urlparse
 
 from appic.chrome import Banner, Palette, Ribbon, Toasts
 from appic.marks import logo
+from appic.owned import KIT_CLASSES
 from appic.store import HOST
 from appic.tags import _child
 from appic.ux import App, doctor
@@ -21,20 +22,21 @@ STATIC = PACKAGE / "static"
 PUBLIC = Path(__file__).resolve().parents[1] / "public"
 NAV = (
     ("/", "Table"),
+    ("/enter", "Door"),
+    ("/desk", "Desk"),
+    ("/house", "House"),
+    ("/visit", "Visit"),
+    ("/signal", "Signal"),
     ("/atelier", "Atelier"),
-    ("/commission", "Commission"),
     ("/bag", "Bag"),
-    ("/board", "Board"),
-    ("/studio", "Studio"),
-    ("/lab", "Lab"),
     ("/lattice", "Lattice"),
     ("/trace", "Trace"),
-    ("/ledger", "Ledger"),
+    ("/clocks", "Clocks"),
 )
 
 try:
     from fastapi import FastAPI, Request
-    from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+    from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, StreamingResponse
     from fastapi.staticfiles import StaticFiles
 
     HAS_FASTAPI = True
@@ -55,6 +57,12 @@ _CAP_SUFFIXES = (
     "reset",
     "mint",
     "sell",
+    "login",
+    "signup",
+    "finish",
+    "archive",
+    "pick",
+    "submit",
 )
 
 
@@ -100,6 +108,18 @@ def _page_for_path(path: str) -> str:
         "/ledger": "ledger",
         "/settings": "ledger",
         "/sku": "sku",
+        "/enter": "enter",
+        "/desk": "desk",
+        "/house": "house",
+        "/visit": "visit",
+        "/signal": "signal",
+        "/clocks": "clocks",
+        "/health": "health",
+        "/pulse": "pulse",
+        "/commission": "commission",
+        "/lab": "lab",
+        "/studio": "studio",
+        "/board": "board",
     }
     if p in mapping:
         return mapping[p]
@@ -113,6 +133,12 @@ def _page_for_path(path: str) -> str:
         ("/lattice", "lattice"),
         ("/trace", "trace"),
         ("/ledger", "ledger"),
+        ("/enter", "enter"),
+        ("/desk", "desk"),
+        ("/house", "house"),
+        ("/visit", "visit"),
+        ("/signal", "signal"),
+        ("/clocks", "clocks"),
     ):
         if p.startswith(href):
             return sid
@@ -210,7 +236,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
         crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
     crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
     bottom = []
-    for href, label in (("/", "Table"), ("/atelier", "Atelier"), ("/bag", "Bag"), ("/lattice", "Lattice"), ("/trace", "Trace")):
+    for href, label in (("/", "Table"), ("/house", "House"), ("/enter", "Door"), ("/signal", "Signal"), ("/trace", "Trace")):
         current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
         if href == "/" and path in ("/", "/home", ""):
             current = True
@@ -221,8 +247,8 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>APPIC · Intent · Presence · Caps</title>
-  <meta name="description" content="A foundry OS authored in ux-compose. Intent becomes legal Results of Ops." />
+  <title>APPIC · Intent · Presence · Caps · Kit</title>
+  <meta name="description" content="A foundry OS authored in ux-compose. Intent. Presence. Caps. Ownable kit. Signal." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/__grok/icon-180.png" />
   <meta property="og:title" content="APPIC · Intent · Presence · Caps" />
@@ -233,6 +259,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Source+Sans+3:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/css/appic.css" />
+  <link rel="stylesheet" href="/static/css/kit.css" />
   <script src="https://grok.com/grok-app-builder/extensions.js" defer></script>
 </head>
 <body class="density-{HOST.density} motion-{HOST.motion}">
@@ -250,7 +277,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · page units · Morph then Play · Isolation Law · Caps</span>
+      <span>ux-compose · ownable kit · Signal · Morph then Play · Isolation Law · Caps</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -293,6 +320,14 @@ def build():
         include_directory_router=False,
     )
     app.add(Toasts, Palette, Banner, Ribbon)
+    try:
+        app.add(*KIT_CLASSES)
+    except Exception:
+        for cls in KIT_CLASSES:
+            try:
+                app.add(cls)
+            except Exception:
+                pass
     Sku = None
     try:
         import importlib.util
@@ -307,7 +342,7 @@ def build():
                 app.add(Sku)
     except Exception:
         Sku = None
-    extras = [Toasts, Palette, Banner, Ribbon]
+    extras = [Toasts, Palette, Banner, Ribbon, *list(KIT_CLASSES)]
     if Sku is not None:
         extras.append(Sku)
     registry = dict(bundle.unit_registry or {})
@@ -323,6 +358,8 @@ def build():
             registry[sid] = inst
     app._registry = registry
     app._bundle = bundle
+    HOST.pieces = dict(registry)
+    HOST.level = int(getattr(app, "level", 0) or 0)
 
     if asgi is None:
         return app, None, bundle
@@ -348,6 +385,29 @@ def build():
             return FileResponse(str(path), media_type="image/jpeg")
         return HTMLResponse("missing", status_code=404)
 
+    @asgi.get("/health")
+    def health_door():
+        inst = _instance(app, "health")
+        payload = inst.render() if inst is not None else {"ok": False}
+        return JSONResponse(payload)
+
+    @asgi.get("/pulse")
+    def pulse_door():
+        inst = _instance(app, "pulse")
+        if inst is None:
+            return HTMLResponse("missing pulse", status_code=404)
+
+        def gen():
+            tree = inst.render()
+            if hasattr(tree, "__iter__") and not isinstance(tree, (str, bytes, dict)):
+                for chunk in tree:
+                    yield str(chunk)
+            else:
+                yield str(tree)
+
+        return StreamingResponse(gen(), media_type="text/html; charset=utf-8")
+
+
     @asgi.get("/")
     @asgi.get("/home")
     @asgi.get("/atelier")
@@ -360,6 +420,12 @@ def build():
     @asgi.get("/trace")
     @asgi.get("/ledger")
     @asgi.get("/settings")
+    @asgi.get("/enter")
+    @asgi.get("/desk")
+    @asgi.get("/house")
+    @asgi.get("/visit")
+    @asgi.get("/signal")
+    @asgi.get("/clocks")
     async def pages(request: Request):
         path = request.url.path
         sid = _page_for_path(path)
@@ -477,6 +543,17 @@ def build():
             "unit_registry": list((getattr(b, "unit_registry", None) or {}).keys()) if b else [],
             "sealed": bool(getattr(b, "sealed", False)),
             "errors": list(getattr(b, "errors", None) or []),
+        }
+
+    @asgi.get("/api/kit")
+    def api_kit():
+        stems = sorted(HOST.pieces.keys()) if getattr(HOST, "pieces", None) else []
+        owned = [c.id for c in KIT_CLASSES]
+        return {
+            "owned": owned,
+            "mounted": stems,
+            "count": len(owned),
+            "sha": "17e652a6",
         }
 
     return app, asgi, bundle

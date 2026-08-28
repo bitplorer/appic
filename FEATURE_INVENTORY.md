@@ -1,13 +1,12 @@
-# ux-compose — complete feature inventory
+# ux-compose — complete feature inventory (kit era)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`17e652a6`, 2026-08-27, **0.1.0 / Clock A** + unreleased **ownable kit**).
-Public names are `src/ux_compose/__init__.py` `__all__`. Kit names are
-`src/ux_compose/kit/catalog.py` `CATALOG`. If this page and the code disagree,
-**code wins**.
+(`17e652a6`, 2026-08-27 22:33 +0530, **0.1.0 / Clock A + unreleased ownable kit**).
+Public names: `src/ux_compose/__init__.py` `__all__`. Kit catalog:
+`src/ux_compose/kit/catalog.py`. If this page and the code disagree, **code wins**.
 
-Companion: [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
-Do not invent a sixth product, a second namespace (`ux.*`), or React.
+This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+Do not invent a sixth product, a second namespace (`ux.*`), React, Vue, JSX, or HTMX-as-architecture.
 
 ---
 
@@ -16,12 +15,12 @@ Do not invent a sixth product, a second namespace (`ux.*`), or React.
 Thin pure-Python **composition + delivery** root. It harnesses four specialists
 and must **not** reimplement them.
 
-| Specialist | Role | Unlock |
-|---|---|---|
-| **[ux-dom](https://github.com/bitplorer/ux-dom)** | Tag trees, Document SSoT, serialize, className, `<link>`, package static, `uxdom`, CSP stamp | L0 |
-| **[ux-behavior](https://github.com/bitplorer/ux-behavior)** | `Component`, `MorphState`, `RefState`, `@action`, Ops | L1 |
-| **[ux-channel](https://github.com/bitplorer/ux-channel)** | Intent → Cap → Result. Live authority. Behind compose `wire/` only | L2 |
-| **[ux-motion](https://github.com/bitplorer/ux-motion)** | Scene Plans, presence, Morph-then-Play IR (`transition.play`) | L3 |
+| Specialist | Role | Unlock | Install |
+|---|---|---|---|
+| **[ux-dom](https://github.com/bitplorer/ux-dom)** | Tag trees, Document SSoT, serialize, className, `<link>`, package static, CSP stamp | L0 | `git+https://github.com/bitplorer/ux-dom.git` |
+| **[ux-behavior](https://github.com/bitplorer/ux-behavior)** | `Component`, `MorphState`, `RefState`, `@action`, Ops | L1 | `git+https://github.com/bitplorer/ux-behavior.git` |
+| **[ux-channel](https://github.com/bitplorer/ux-channel)** | Intent → Cap → Result. Behind compose `wire/` only | L2 | `git+https://github.com/bitplorer/ux-channel.git#subdirectory=python` |
+| **[ux-motion](https://github.com/bitplorer/ux-motion)** | Scene Plans, presence, Morph-then-Play (`transition.play`) | L3 | `git+https://github.com/bitplorer/ux-motion.git` |
 
 | Layer | Name |
 |---|---|
@@ -29,15 +28,25 @@ and must **not** reimplement them.
 | Import | `ux_compose` |
 | CLI | **`uxcompose`** (sole product lifecycle) |
 | Version | `0.1.0` (`ux_compose.__version__`) |
-| Python | ≥ 3.11 (ux-dom full stack needs ≥ 3.14) |
+| Python | ≥ 3.11 classifiers (ux-dom full stack needs ≥ 3.14; sandbox 3.10 vendors source) |
 | License | MIT |
+| Current SHA | `17e652a6ddfcbf30f427cfe054d8513031481345` |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
 If you rewrite a Component “to go live”, you have violated the contract.
 
+Teaching apps in the library (play before inventing widgets):
+
+| App | Role |
+|---|---|
+| `apps/atelier_studio` | Atelier of Patterns — every `examples/` card |
+| `apps/atelier_shop` | Product shop / cart / presence |
+| `apps/pulse` | Multi-route live product |
+| `apps/nook` | **Kit house.** Every ownable kit component sits in a real room, not a kitchen-sink gallery |
+
 ---
 
-## 2. Public author surface (`__all__`)
+## 2. Public author surface (`ux_compose.__all__`)
 
 Import **only** from `ux_compose`. There is no public `ux.div` / `when` / `forall` / `Page`.
 
@@ -45,51 +54,31 @@ Import **only** from `ux_compose`. There is no public `ux.div` / `when` / `foral
 
 | Export | Role |
 |---|---|
-| `App` | Composition root: `boot`, `add`, `mount`, `use_host`, `use_dom`, `use_behavior`, `use_channel`, `use_motion`, `use_cek`, `mint_cap`, `submit_intent`, `submit_intent_async`, `dispatch`, `control`, `doctor`, `level`, `behavior` |
-| `build` | One-shot façade. Orchestra: `host.open` → L1 boot → document → Channel on asgi → discover → `host.bind`. Returns `BuildResult` = `(app, asgi, bundle)` |
+| `App` | `boot`, `add`, `mount`, `use_host`, `use_dom`, `use_behavior`, `use_channel`, `use_motion`, `use_cek`, `mint_cap`, `submit_intent`, `submit_intent_async`, `dispatch`, `control`, `doctor`, `level`, `behavior` |
+| `build` | Orchestra: `host.open` → L1 boot → document → Channel on asgi → discover → `host.bind`. Returns `BuildResult` = `(app, asgi, bundle)` |
 | `WebAssets` | App CSS/JS folders. `from_app_root`, `ensure`, `mount_css`, `css_href`, `input_css`, `output_css` |
-| `DirectoryRoutes` | Filesystem → `RouteRecord` (no framework imports). One path law: `http_path` |
-| `DirectoryASGI` | Pure-ASGI host. No Starlette. JSON / stream / HTML use the same predicates |
+| `DirectoryRoutes` | Filesystem → `RouteRecord`. One path law: `http_path` |
+| `DirectoryASGI` | Pure-ASGI host. No Starlette |
 | `RouterHooks` | `resolve_unit`, `accept_symbol`, `on_route` |
-| `Surface` | One catalog unit (`id`, `cls`, `is_page`, `url_path`, `actions`, `instance`) |
-| `SurfaceBundle` | Sealed evidence: `surfaces`, `route_table`, `action_table`, `unit_registry`, `errors`, `sealed` |
-| `SurfaceError` | Fail-closed id/path clash |
-| `mount_surfaces` | Scan → validate → Behavior.add → optional page bind |
-| `scan_surfaces` | Discover define-in-module units under `routes/` |
-| `validate_surfaces` | Fail-closed id/path clashes |
-| `Level` | `L0..L3` IntEnum. Labels: `static + routing` / `offline interactive` / `live channel` / `motion` |
-| `doctor` / `DoctorResult` | Isolation AST scan, dual-Document heuristic, capabilities, teaching |
+| `Surface` / `SurfaceBundle` / `SurfaceError` | Catalog unit + sealed evidence |
+| `mount_surfaces` / `scan_surfaces` / `validate_surfaces` | Discover define-in-module units under `routes/` |
+| `Level` | `L0..L3`. Labels: `static + routing` / `offline interactive` / `live channel` / `motion` |
+| `doctor` / `DoctorResult` | Isolation AST scan, dual-Document heuristic, capabilities |
 | `__version__` | `"0.1.0"` |
 
-Not in `__all__` but public in submodules (authors may import these **from compose**, never from `ux_channel`):
-
-| Name | Module |
-|---|---|
-| `ActionInfo` | `ux_compose.surfaces` |
-| `BuildResult` | `ux_compose.build` |
-| `DirectoryRoutesError` / `DirectoryRouterError` | `ux_compose.routing` |
-| `RouteRecord` | `ux_compose.routing` |
-| `http_path` / `is_json_payload` / `is_stream_payload` / `apply_html_document` | `ux_compose.routing` |
-| `HMR_PATH` / `attach_hmr` / `client_script_tag` | `ux_compose.hmr` (`HMR_PATH` = `/__uxcompose/hmr`) |
-| `IsolationViolation` / `scan_isolation` / `scan_dual_document` | `ux_compose.doctor` |
-| `CSS_URL_PREFIX` (`/css`) / `OUTPUT_CSS_NAME` (`output.css`) | `ux_compose.assets` |
-| `KitCopyError` / `copy_component` | `ux_compose.kit.copy` (CLI `uxcompose add` owns this; product owns the dropped file) |
-| `CATALOG` / `list_components` / `resolve` | `ux_compose.kit.catalog` |
-
-`materialize(route_class=)` **fails closed**. Leftover `StreamingRoute` is not the product path.
-
-### Behavior surface (via ux-behavior)
+### Behavior (via ux-behavior)
 
 `Component`, `MorphState`, `RefState`, `action`, `bind`, `control`, `notify`, `update_with`, `morph_play`
 
-### Motion surface (via ux-motion, else `None`)
+### Motion (via ux-motion, else `None`)
 
 `scene`, `fade`, `rise`, **`slide`**
 
-Compose wraps a Scene/Plan as one `transition.play` Op (`helpers._normalize_plan_ops`).
-Authors never emit Channel wire shape.
+Compose wraps a Scene/Plan as one `transition.play` Op. Authors never emit Channel wire shape.
+`slide.enter(y=…)` / `slide.enter(x=…)` is the kit overlay enter (sheets, action sheets).
+Plans carry **no** `html=`. Morph first from `render()`, then play.
 
-### Tag constructors (via ux-dom when installed; else `None` / `HAS_DOM=False`)
+### Tags (via ux-dom when installed; else `HAS_DOM=False`)
 
 `raw`, `html`, `head`, `body`, `title`, `style`, `meta`, `link`, `script`,
 `div`, `span`, `h1`, `h2`, `h3`, `p`, `a`, `button`, `form`, `input_`,
@@ -98,325 +87,181 @@ Authors never emit Channel wire shape.
 
 Do **not** subclass ux-dom `Component` (MRO collides).
 
----
+### Submodule names (from compose, never from `ux_channel`)
 
-## 3. App API (composition root)
+`ActionInfo`, `BuildResult`, `RouteRecord`, `DirectoryRoutesError`,
+`http_path`, `is_json_payload`, `is_stream_payload`, `apply_html_document`,
+`HMR_PATH` (`/__uxcompose/hmr`), `attach_hmr`, `client_script_tag`,
+`IsolationViolation`, `scan_isolation`, `scan_dual_document`,
+`CSS_URL_PREFIX` (`/css`), `OUTPUT_CSS_NAME` (`output.css`)
 
-```
-App.boot(name, *, strict_caps=False, level="auto"|0..3)
-app.use_host("auto"|"fastapi"|"starlette"|"asgi")   # "batteries" leftover, fails closed
-app.use_dom(document=None, *, author=True)          # author=False = synthesized, mount-only
-app.use_behavior()
-app.use_channel(asgi_app=...)     # Isolation door — never import ux_channel in product
-app.use_motion()                  # attach_motion() returns instances, not classes
-app.use_cek(mode="adapt"|"require")
-app.mint_cap(action, args)
-app.submit_intent / submit_intent_async(..., mint=True)
-app.add(*ComponentClasses)
-app.mount(package_dir, asgi_app=..., base="routes", fail_closed=..., bind_pages=...,
-          on_surface=..., host=...)
-app.dispatch("surface.verb", **args)
-app.dispatch("surface.verb", args={"sku": "tee"})   # Channel-style Intent payload, same door
-app.control(...)
-app.doctor(paths, fail=False)
-app.level / app.level.label / app.behavior
-```
-
-`boot(level="auto")` is **Level 1 (Behavior only)**. Channel/Motion attach in
-`build()` once the ASGI process exists.
-
-HTMX is **never** auto-attached; opt in via `Document.use(Htmx())` or `build(use_htmx=True)`.
-Cold import of `ux_compose` never pulls the wire.
+`materialize(route_class=)` **fails closed**. `host="batteries"` **fails closed**.
+`App.boot("auto")` is Level 1. Channel attaches in `build()` once ASGI exists.
 
 ---
 
-## 4. `build()` composition façade
+## 3. Clock A — two clocks, payload law
 
-```python
-from ux_compose import build
-from document import document
+| Clock | Trigger | Pipeline |
+|---|---|---|
+| **A — page GET** | Browser hits a filesystem URL | resolve_unit → `render()` → payload dispatch |
+| **B — live action** | `@action` / Channel Intent | mutate → Ops → morph |
 
-app, asgi, bundle = build(
-    PACKAGE,
-    name="APPIC",
-    host="auto",      # auto | fastapi | asgi   ("batteries" → ProductBatteriesRejected)
-    live="auto",      # auto | channel | null
-    level="auto",     # auto | 0..3
-    base="routes",
-    fail_closed=True,
-    use_htmx=False,
-    document=document,
-)
-```
-
-Process order (`routing/host.py`):
-
-```text
-host.open(name, host)          # FastAPI() or DirectoryASGI
-App.boot(..., level=1)         # Behavior only
-_attach_document(...)          # author's Document SSoT
-App.use_channel(asgi_app=)     # after the process exists
-DirectoryRoutes.discover()     # one path law
-host.bind(document=, wrap=)    # document.mount then page routes
-```
-
----
-
-## 5. Clock A — product host (0.1.0 law)
-
-Two clocks. Do not mix.
-
-| Clock | Trigger | Pipeline | Owner |
-|---|---|---|---|
-| **A — page GET** | Browser hits a filesystem URL | resolve → `render()` → payload dispatch | `routing/fastapi.py` |
-| **B — live action** | `@action` / Channel Intent | mutate → Ops → morph | ux-behavior + `wire/` |
-
-Clock A serves the document. Clock B patches it. A page unit has **no HTTP verbs**.
-
-### Payload law (media type)
-
-**The return value of `render()` picks the HTTP container. Not `Accept`.
-Not a route class. Not FastAPI `default_response_class`.**
+**Payload type picks media type.** Not `Accept`. Not a route class. Not FastAPI `default_response_class`.
 
 | `render()` returns | HTTP | Document wrap |
 |---|---|---|
-| ux-dom tag / Document / Component / HTML `str` / `bytes` | `HTMLResponse` | **yes** (author wrap) |
-| `dict` or list-of-dicts (including `[]`) | JSON | **no** |
-| sync / async generator, or `__aiter__` that is not a tree | `StreamingResponse` | **no** |
-| already a `Response` | as-is | **no** |
-| `None` | empty HTML | yes |
+| tag / HTML `str` / bytes | `HTMLResponse` | yes (author Document) |
+| `dict` or list-of-dicts | JSON | **no** |
+| generator / async generator | `StreamingResponse` | **no** |
+| already a Response | as-is | **no** |
 
-`str` is iterable. **It is not a stream.** HTML strings go through
-`apply_html_document` as `raw()`.
-
-Path params: `routes/atelier/[sku].py` class `Sku` → `def render(self, sku: str = "")`.
+`str` is iterable. **It is not a stream.** Page units have **no HTTP verbs**.
+Path: `routes/atelier/[sku].py` class `Sku` → `def render(self, sku: str = "")`.
+Class name never in the URL. Stem matches class. `≤1` page owner per file.
 
 ---
 
-## 6. Page-unit routing (DirectoryRoutes)
+## 4. Ownable kit (`uxcompose add`) — unreleased on 0.1.0, live on `main`
 
-This is Next-style **file routing, not React**. Class name never leaks into the URL.
+This is the headline surface the previous APPIC prompt missed.
 
-| File under `routes/` | URL |
-|---|---|
-| `index.py` / `route.py` | folder prefix or `/` |
-| `hello.py` | `/hello` |
-| `shop/index.py` | `/shop` |
-| `shop/[sku].py` | `/shop/{sku}` |
-| `_private.py`, `(group)/…` | skipped |
-
-- Page unit = renderable class whose **name matches the module stem**.
-- `≤1` page owner per file. Extra renderables are fragments (no URL).
-- Define-in-module only. Imported classes are not auto-registered.
-- HTTP verbs on the class are **ignored** (Clock A).
-
----
-
-## 7. WebAssets + Tailwind (compose-owned CSS)
+shadcn-style: **the library keeps the source of truth; `uxcompose add` copies the module into the app; the app owns the file.**
 
 ```
-assets/css/input.css                 # author source (tokens + @source)
-assets/static/file/css/output.css    # compiler output (minified)
-URL: /css/output.css
-```
-
-Laws: no CSS or client JS inside Python strings. Document **links** `/css/output.css`.
-`cdn.tailwindcss.com` is not the product path. `uxcompose serve --hmr` watches `.css`;
-it does **not** compile. `uxcompose deploy` does **not** run the compiler.
-
-Kit components style via `class_*` Tailwind strings on the copied file. **No companion CSS.**
-
----
-
-## 8. Product CLI (`uxcompose` only)
-
-```
-uxcompose create-app <dest> [--name NAME] [--level auto|0-3] [--host auto|fastapi|asgi]
-uxcompose build [--watch] [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]
-uxcompose serve [app:asgi] [--host 0.0.0.0] [--port 8080] [--reload|--no-reload]
-               [--hmr] [--watch PATH ...]
-               [--tunnel none|ngrok|cloudflare] [--tunnel-token TOKEN]
-uxcompose deploy [--provider docker|fly|render|railway|vps|checklist] [--force] [--name NAME]
-uxcompose doctor [paths...] [--no-fail]
-uxcompose add [name] [--force] [--page] [--root PATH]
 uxcompose add --list
+uxcompose add login
+uxcompose add dialog --page --force
 ```
 
-`uxcompose add` is shadcn-style **ownable copy**. The library keeps the source of
-truth. The dropped file is yours to edit. Prefer the copy over
-`from ux_compose.kit import …` in product apps.
+Copy lands in `components/{stem}.py`. `--page` also writes `routes/{stem}.py`.
+**Product apps do not `from ux_compose.kit import Login` as the shipped unit.**
+That import is for tests, the Atelier, Nook, and agents. After `add`, you own
+`components/login.py` and you edit `class_*` Tailwind strings.
 
-Default drop: `components/{stem}.py`. `--page` also writes `routes/{stem}.py`
-so GET `/{stem}` hosts the card.
+Catalog (`ux_compose.kit.catalog.CATALOG`) — 23 entries:
 
-Pure-dom stays on `uxdom doctor | lint | profile | add`.
-
----
-
-## 9. Ownable kit (`ux_compose.kit.catalog.CATALOG`) — 23 components
-
-Every kit unit is one `Component`. Tailwind `class_*` only. Same class is valid
-at L1 (`dispatch`) and L3 (`use_channel` + `use_motion`). Host seams are
-overridable methods. Copy with `uxcompose add {stem}` then restyle `class_*`
-to the product palette.
-
-### Wave 0 — studio chrome
-
-| stem | Class | Contract | Host seam / Cap |
+| stem | class | description | host seam |
 |---|---|---|---|
-| `login` | `Login`, `AuthDecision` | Sign-in / sign-up card. Chrome MorphState. Secrets RefState. Reveal attaches before morph. | `authenticate()` · Caps `auth.login` / `auth.signup`. Demo refuse: `@blocked.test` |
-| `tabs` | `Tabs` | Segmented tabs. One MorphState key. Public select. Stable panel ids. | — |
-| `accordion` | `Accordion` | Open ids as a MorphState tuple. Several panels may be open. Open uses `maybe_plan`. | — |
-| `dropdown` | `Dropdown` | Menu is presence. Value is a named key. | — |
-| `dialog` | `Dialog` | Public ask, Cap-protected confirm. Swipe lives on Keep (`click swipe.down`), not the root. Open composes Motion enter (fade scrim, rise panel) — selectors only, no Channel attr, no kit JS. Cancel/confirm are morph-only. | `on_confirm()` |
-| `sheet` | `Sheet` | Edge panel. Close / Done accept `click swipe.right`. No root swipe. Open: fade scrim, slide panel. | — |
-| `toast` | `Toast` | Server list is authority. Push is public. | — |
-| `command` | `Command` | Command palette. Query attaches. | `on_run()` |
-| `table` | `Table` | Sort key MorphState, selection RefState. Archive is a Cap. | archive Cap |
-| `pagination` | `Pagination` | Opaque page keys. Windowed numbers (`WINDOW` neighbors, default 1). First/last + gaps `max-sm:hidden`. 44px chevrons. | — |
-| `combobox` | `Combobox` | Type to filter, then pick. Query attaches on morph. | — |
-| `sidebar` | `Sidebar` | Collapsible rail. Active key is MorphState. | — |
-| `breadcrumb` | `Breadcrumb` | Trail of named crumbs. Walking back is public. | — |
-| `stepper` | `Stepper` | Named steps. Finish spends `flow.finish`. | — |
-| `carousel` | `Carousel` | Named slides. Overlay prev/next (44px). Sliding pip `#id-thumb` coalesces. Root stamps `data-channel-id`. `data-channel-on` swipe + directional slide/rise/fade. | — |
-| `calendar` | `Calendar` | Month and day are named keys. | `on_pick()` |
-| `select` | `Select` | Grouped options. Value is a name. Click-away scrim. | — |
-| `otp` | `Otp` | Six digits attach. Verify spends `auth.otp`. | — |
-| `plans` | `Plans` | Radio cards. One named plan. | `on_choose()` |
+| `login` | `Login`, `AuthDecision` | Sign-in / sign-up card. Reveal attaches. Submit is a Cap | `authenticate()` → `AuthDecision(ok, message, blocked)` |
+| `tabs` | `Tabs` | Segmented tabs. One MorphState key. Public select | keys / panels |
+| `accordion` | `Accordion` | Open ids as a MorphState tuple. Several panels may be open | items |
+| `dropdown` | `Dropdown` | Menu is presence. Value is a named key | options |
+| `dialog` | `Dialog` | Public ask, Cap-protected confirm | `on_confirm()`. Swipe on Keep it (`click swipe.down`), not root, not Delete |
+| `sheet` | `Sheet` | Edge panel. Close / Done accept `swipe.right`. No root swipe | open / done. Motion: fade scrim + slide panel |
+| `toast` | `Toast` | Server list is authority. Push is public | items |
+| `command` | `Command` | Palette. Query attaches. Opening is public | `COMMANDS`, `on_run(key)` |
+| `table` | `Table` | Sort key MorphState, selection RefState. Archive is a Cap | rows |
+| `pagination` | `Pagination` | Opaque page keys. Windowed numbers, not one button per page | `WINDOW` (neighbors each side, default 1). 12 named pages in demo |
+| `combobox` | `Combobox` | Type to filter, then pick. Query attaches on morph | options |
+| `sidebar` | `Sidebar` | Collapsible rail. Active key is MorphState | items |
+| `breadcrumb` | `Breadcrumb` | Trail of named crumbs. Walking back is public | crumbs |
+| `stepper` | `Stepper` | Named steps. Finish spends `flow.finish` | steps, `on_finish` |
+| `carousel` | `Carousel` | Named slides. Overlay prev/next. Sliding pip coalesces | slides. Root stamps `data-channel-id` |
+| `calendar` | `Calendar` | Month and day are named keys | `on_pick()` |
+| `select` | `Select` | Grouped options. Value is a name. Click-away scrim | groups |
+| `otp` | `Otp` | Six digits attach. Verify spends `auth.otp` | `on_verify(code)`. Demo: any six except `000000` |
+| `plans` | `Plans` | Radio cards. One named plan | `on_choose()` |
+| `actionsheet` | `ActionSheet` | Bottom sheet. Handle swipe-down dismisses. Rows stay click | `ACTIONS`, `on_pick(key)`. Destructive keys spend a Cap |
+| `contextmenu` | `ContextMenu` | Click or longpress. Floating panel, not a native list | rows. Root stamps `data-channel-id` |
+| `typeahead` | `Typeahead` | Live filter on `input delay:`. The field is the control | options |
+| `pullrefresh` | `PullRefresh` | Vertical swipe synthesizer. Refresh accepts `swipe.down` | `SEED`, `on_refresh()` |
 
-### Wave 1 — Signal grammar
+Helpers (not copied as cards): `KitEntry`, `list_components`, `resolve`,
+`copy_component`, `find_app_root`, `KitCopyError`.
 
-`data-channel-on` for `swipe.vertical` / `longpress` / `input delay:`.
-No kit JS. Swipe never lives on a root that also has clickable rows.
+**Kit grammar (Wave 1 Signal):**
 
-| stem | Class | Contract |
-|---|---|---|
-| `actionsheet` | `ActionSheet` | Bottom sheet. Handle is a 44px hit that accepts `click swipe.down`. Rows stay click (Share / Cancel). Root stamps `data-channel-id`. Card is not `relative`. |
-| `contextmenu` | `ContextMenu` | Click or longpress. Floating panel (`list-none`, rows are `menuitem`). Card no longer `overflow-hidden`. Root stamps `data-channel-id`. |
-| `typeahead` | `Typeahead` | Live filter on `input delay:`. The field is the control. |
-| `pullrefresh` | `PullRefresh` | Vertical swipe synthesizer. Refresh control accepts `swipe.down`. |
+- Tailwind **`class_*` only**. No companion CSS per card. `uxcompose build` scans `**/*.py`.
+- Named keys on MorphState. Quantity stays on RefState.
+- No viewport `sm:` inside cards. Containment is `min-w-0` + `overflow-x-hidden` + wrap.
+- Channel grammar already on the kit: `data-channel-on` values
+  `swipe.vertical` · `swipe.horizontal` · `click swipe.down` · `click swipe.left` ·
+  `click swipe.right` · `longpress` · `input delay:`.
+- **Swipe lives on the handle / Keep it / Close, never on the root.** A host-level
+  `swipe.vertical` on the card swallows row clicks.
+- Overlay cards drop `relative` / overflow so a `fixed` overlay is not remapped or clipped.
+- Open composes a Motion enter plan (selectors only, no Channel attr, no kit JS).
+  Close is morph-only: after apply the panel is gone, so an exit recipe in the same Result has nothing to play.
+- Carousel: Prev/Next overlay the stage (44px), dots are the only bottom rail, one `#id-thumb` pip
+  translates across equal slots. Copy is the live region. Dots label the slide title.
+- Pagination: windowed numbers. First/last + gaps are `max-sm:hidden`. Prev is one named page back. 44px chevrons.
+- Isolation: kit modules never import `ux_channel`.
 
-Kit source of truth stays in the library. Product apps **own the copy**.
-`from ux_compose.kit import Login` stays for tests, the Atelier, and agents.
+Nook rooms (the kit house — copy the *rooming*, not the demo copy):
 
-`kit/copy.py` is the CLI copier (`KitCopyError`, `copy_component`). It is **not**
-a UI widget and is **not** in `CATALOG`. Do not treat it as a 24th component.
-
----
-
-## 10. Component contract
-
-- `id` is the morph + motion target (default `ClassName.lower()`).
-- `render()` returns a ux-dom tag tree (or HTML string, or dict, or generator).
-- `@action(caps=(...))` return algebra:
-  1. `None` → auto-morph dirty MorphStates
-  2. `list[Op]` → exact Ops (auto suppressed)
-  3. Prefer `update_with(self, scene(...).enter("#id", rise.enter(ms=140)), extra_ops=[notify("…")])`
-- `bind(self.verb, **args)` — symbol-safe, preferred. Also `self.verb.ui(**args)`.
-- `control("surface.verb", **args)` — stringly hatch: `data-ux-action` + `data-ux-arg-*`.
-- `notify(message, level="info")` — one-shot toast Op.
-- `morph_play("#id", plan)` — morph then plan ops (still XOR). Use **once** as the hop hatch.
-- `update_with` strategy default is `"idiomorph"`. Morph HTML is live `render()`.
-- Do **not** subclass ux-dom `Component`.
-
-```python
-app.dispatch("cart.add", sku="tee")
-app.dispatch("cart.add", args={"sku": "tee"})   # Channel Intent shape — same call
-```
+| Path | Kit used |
+|---|---|
+| `/` Desk | Sidebar, Breadcrumb, Tabs, PullRefresh, Accordion, Command, Toast |
+| `/house` House | Typeahead, Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination, ContextMenu, ActionSheet |
+| `/visit` Visit | Stepper, Plans, Calendar, Dialog |
+| `/enter` Door | Login, OTP |
 
 ---
 
-## 11. Encoding law
+## 5. Encoding rule (Channel session plane refuses quantity MorphState)
 
 | What | Where |
 |---|---|
-| Open / value / query / named step / named band / bool | `MorphState` (qualitative) |
-| Magnitude, lists, money, ISO dates, files, digits, secrets | `RefState` + `stamp = MorphState("idle")` |
+| Open / value / query / named step / named band | `MorphState` (qualitative) |
+| Magnitude, lists, money, ISO dates, files, digits | `RefState` + `stamp = MorphState("idle")` |
 | One-shot message | `notify(...)` |
-| Domain stock / money / bookings | **Host store**, never the client plane |
-| Protected verb | `@action(caps=("orders.place",))` + live mint |
-
-Chrome is public. Spending money, deleting, or changing identity takes a Cap.
+| Domain stock / money / bookings | Host store, never the client plane |
+| Protected verb | `@action(caps=("orders.place",))` + host mint at HTTP door |
 
 ---
 
-## 12. Motion XOR + Morph-then-Play
+## 6. Examples catalog (75 classes — 99% of product UI)
 
-- **XOR** — `morph(target)` XOR `scene.enter(target, html=...)`. Never both.
-- **Morph-then-Play** — morph Op first; `transition.play` follows.
-- Plans carry **no** `html=`. Morph HTML is live `render()`.
-- Recipes: `scene("name").enter("#id", rise.enter(ms=160))` / `slide.enter()` / `fade.exit()`
-- List continuity: stable ids + `scene.stagger_in` + optional `exit("#gone", fade.exit())`
-- Shared element: `scene.share(key, leave="#from", arrive="#to", recipe=rise.enter(ms=120))`
-- Overlay open: Dialog fade scrim + rise panel; Sheet fade scrim + slide panel. Selectors only.
-- Without ux-motion, `scene` / `fade` / `rise` / `slide` are `None` and the same `@action` still morphs.
+Every pattern is one `Component`. Same class is valid at L1 and L3.
 
-Cookbook: [cookbooks/PRESENCE.md](https://github.com/bitplorer/ux-compose/blob/main/cookbooks/PRESENCE.md).
-
----
-
-## 13. Isolation + Document SSoT + Cap Law
-
-1. Product modules never `import ux_channel`, `cek`, `cek_host`, `cek_surface`, `MotionChannel`.
-2. Live path only through `App.use_channel` / `use_motion` / `use_cek` (compose `wire/`).
-3. Exactly one HTML shell. Overlays stay in the tree when closed.
-4. Dual-Document in product files is a doctor fail.
-5. `Document.use` may take control, runtime (`XElement`), CSP, style. **Not** HMR, App, host strategy.
-6. Protected verbs fail closed without a Channel-minted Cap.
-7. `doctor` AST-scans Isolation.
-
----
-
-## 14. Catalog — 99% of product UI (`examples/`)
-
-Every pattern is one `Component`. Play them: `apps/atelier_studio`.
-Product shop: `apps/atelier_shop`. Demo pulse: `apps/pulse`. House: `apps/nook`.
-
-| Group | File | Classes |
+| Group | File | Cases |
 |---|---|---|
-| Foundation | `foundation.py` | `Counter`, `Toggle`, `Planes` |
-| Chrome | `chrome.py` `modal.py` `shell.py` | `Tabs`, `Accordion`, `Dropdown`, `Drawer`, `ConfirmModal`, `AppShell`, `Breadcrumbs`, `BottomNav`, `Popover`, `OverflowMenu` |
-| Overlays | `overlays.py` | `Toasts`, `Confirm`, `Lightbox`, `Palette`, `Banner` |
-| Forms | `forms.py` `fields.py` | `SignupForm`, `Wizard`, `Search`, `ChoiceGroup`, `Combobox`, `DateField`, `FileDrop`, `SliderField`, `OtpGate` (Cap), `PasswordField`, `Autosave`, `LimitedNote` |
-| Collections | `lists.py` `table_board.py` `feeds.py` | `Shelf`, `OptimisticList`, `Pages`, `UndoSnack`, `DataTable`, `Kanban`, `Carousel`, `Comments` (Cap moderate), `Timeline`, `EmptyRetry`, `ReorderList`, `ActivityFeed` |
-| Navigation | `navigation.py` | `ShopView`, `MasterDetail` |
-| Commerce | `cart.py` `systems.py` `commerce_more.py` | `Cart`, `Stepper`, `Rating`, `Wishlist`, `Coupon` (Cap), `CheckoutFlow` (Cap), `StockBadge`, `CompareTray` |
-| Live Caps | `live_caps.py` | `LiveOrder` |
-| Motion | `motion_xor.py` | `MotionBox`, `ShareSeat` |
-| Systems | `systems.py` `ops.py` | `Chat`, `NotifyCenter`, `Tree`, `Skeleton`, `Consent`, `Theme`, `Chips`, `InlineEdit`, `Calendar` (Cap), `ProgressMeter`, `CopyClip`, `Settings` (Cap), `OfflineBanner`, `Presence`, `KpiStrip`, `Shortcuts` |
-| Host | `document_boot.py` `live_asgi.py` `cart_document.py` `page_unit_mount.py` | Document SSoT, `build()` Clock A GET; `App.mount` secondary |
-
-The kit is the **ownable** form of chrome. Examples are the **teaching** form.
-A product uses kit copies as chrome and example contracts as domain rooms.
-Do not ship a widget zoo.
+| Foundation | `foundation.py` | Counter, Toggle, Planes (Morph vs Ref), Cap reset |
+| Chrome | `chrome.py` `modal.py` `shell.py` | Tabs, Accordion, Dropdown, Drawer, ConfirmModal, AppShell, Breadcrumbs, BottomNav, Popover, OverflowMenu |
+| Overlays | `overlays.py` | Toasts, Confirm, Lightbox, Palette, Banner |
+| Forms | `forms.py` `fields.py` | SignupForm, Wizard, Search, ChoiceGroup, Combobox, DateField, FileDrop, SliderField, OtpGate, PasswordField, Autosave, LimitedNote |
+| Collections | `lists.py` `table_board.py` `feeds.py` | Shelf, OptimisticList, Pages, UndoSnack, DataTable, Kanban, Carousel, Comments, Timeline, EmptyRetry, ReorderList, ActivityFeed |
+| Navigation | `navigation.py` | ShopView, MasterDetail |
+| Commerce | `cart.py` `commerce_more.py` | Cart, Wishlist, Coupon, CheckoutFlow, StockBadge, CompareTray |
+| Live Caps | `live_caps.py` | LiveOrder — fail-closed offline, mint vs refuse live |
+| Motion | `motion_xor.py` | MotionBox, ShareSeat — XOR, Morph-then-Play, `scene.share` |
+| Systems | `systems.py` `ops.py` | Chat, NotifyCenter, Tree, Skeleton, Consent, Theme, Stepper, Rating, Chips, InlineEdit, Calendar, ProgressMeter, CopyClip, Settings, OfflineBanner, Presence, KpiStrip, Shortcuts |
+| Host | `document_boot.py` `live_asgi.py` `cart_document.py` `page_unit_mount.py` | Document SSoT, `build()` Clock A GET, Isolation door; `App.mount` secondary |
 
 ---
 
-## 15. Wire (not for product imports)
+## 7. CLI spine
 
-`ux_compose.wire.boot.attach_channel` / `attach_motion` (returns **instances**)
-`ux_compose.wire.caps.mint_cap` / `submit_intent` / `async_submit_intent`
-`ux_compose.wire.cek.attach_cek`
+```
+uxcompose create-app myapp --name APPIC --level auto --host auto
+uxcompose build [--watch] [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]
+uxcompose serve app:asgi --host 0.0.0.0 --port 8080 [--no-reload --hmr --watch assets --watch routes]
+uxcompose serve app:asgi --tunnel ngrok|cloudflare
+uxcompose deploy --provider docker|fly|render|railway|vps|checklist
+uxcompose doctor . --no-fail
+uxcompose add --list
+uxcompose add login [--page] [--force]
+```
 
-Authors reach Caps through `App.mint_cap` / `App.submit_intent`.
+Pure-dom stays on `uxdom` (`doctor` · `lint` · `profile` · `add ui Button`).
+HMR / tunnel are delivery under `uxcompose serve`, not `Document.use`.
+Product CSS is `uxcompose build` (`ux_compose.tailwind` finds / ensures the CLI).
 
 ---
 
-## 16. Names that do **not** exist (do not invent)
+## 8. Hard laws
 
-- `ux.div` / `when` / `forall` / `Page`
-- Product CLI on `uxdom` (`create-app`, product `build`, `serve`, `deploy`)
-- Tailwind compiler on ux-dom / `WebAssets` on ux-dom
-- HMR as `Document.use`
-- `host="batteries"` as a thing to run
-- HTTP verbs (`get`/`post`/…) on page units
-- FastAPI `default_response_class=HTMLResponse` / `StreamingRoute`
-- `Accept` negotiation on page GET
-- Kit JS / Channel attrs on motion plans
-- Root-level swipe that swallows row clicks
-- `from ux_compose.kit import …` as the product path (copy first)
-- A 24th kit widget named `copy` (that module is the CLI copier)
-- Dual product paths / a copy of Channel codecs, Document serialize, or motion IR
-- `tick` / `maybe_plan` as library APIs (product-local helpers only)
-- Wrap GET with a synthesized Document
-- Channel boot in `App.boot("auto")`
+1. **Isolation.** Product modules never import the wire. `doctor` AST-scan stays green.
+2. **Document SSoT.** Exactly one `Document(...)` in `document.py`. Overlays stay in the tree when closed.
+3. **XOR + Morph-then-Play.** Plans carry **no** `html=`. Morph first, then `transition.play`.
+4. **Cap Law.** Protected verbs fail closed without a Channel-minted Cap.
+5. **Encoding.** Qualitative MorphState. Magnitudes on RefState + stamp.
+6. **Presence continuity.** Stable ids. `scene.stagger_in` on survivors. `scene.share(key, leave=, arrive=)` — share id is identity, not a CSS class.
+7. **Cold import never pulls the wire.** `App.boot("auto")` is L1.
+8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Kit cards: `class_*` only.
+9. **HMR / tunnel** are `uxcompose serve` delivery.
+10. **Clock A.** No HTTP verbs on page units. Payload type picks media type. Author Document wraps GET.
+11. **Ownable kit.** Copy, then edit. Do not ship `from ux_compose.kit import …` as the product unit.
+12. **Signal.** Swipe on the handle / Keep it / Close. Never a root swipe that swallows row clicks.
+13. **No invented library names.**

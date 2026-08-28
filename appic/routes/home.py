@@ -78,7 +78,8 @@ class Home(Component):
                 ),
                 p(
                     "A foundry OS authored as legal Results of Ops. "
-                    "You issue intent. The document morphs. Caps gate the verbs that charge.",
+                    "You issue intent. The document morphs. Caps gate the verbs that charge. "
+                    "The kit is a house you own. Signal is a grammar you can feel.",
                     className="lede",
                 ),
                 div(
@@ -88,8 +89,9 @@ class Home(Component):
                         className="btn btn-primary",
                         **bind(self.beat),
                     ),
-                    a("Open atelier", href="/atelier", className="btn btn-ghost"),
-                    a("Open lattice", href="/lattice", className="btn btn-ghost"),
+                    a("Open door", href="/enter", className="btn btn-ghost"),
+                    a("Walk the house", href="/house", className="btn btn-ghost"),
+                    a("Feel signal", href="/signal", className="btn btn-ghost"),
                     button(
                         "Command",
                         type="button",

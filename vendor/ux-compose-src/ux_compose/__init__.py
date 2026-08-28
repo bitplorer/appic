@@ -22,11 +22,13 @@ from ux_compose.surfaces import (
 from ux_compose.progressive import Level
 from ux_compose.doctor import doctor, DoctorResult
 from ux_compose.build import build
+from ux_compose.assets import WebAssets
+from ux_compose.routing import DirectoryASGI, DirectoryRoutes, RouterHooks
 
 try:
-    from ux_motion import scene, fade, rise  # type: ignore
+    from ux_motion import scene, fade, rise, slide  # type: ignore
 except ImportError:  # pragma: no cover
-    scene = fade = rise = None  # type: ignore
+    scene = fade = rise = slide = None  # type: ignore
 
 from ux_compose.dom import (  # noqa: E402
     HAS_DOM,
@@ -68,6 +70,10 @@ from ux_compose.dom import (  # noqa: E402
 __all__ = [
     "App",
     "build",
+    "WebAssets",
+    "DirectoryRoutes",
+    "DirectoryASGI",
+    "RouterHooks",
     "Surface",
     "SurfaceBundle",
     "SurfaceError",
@@ -89,6 +95,7 @@ __all__ = [
     "scene",
     "fade",
     "rise",
+    "slide",
     "HAS_DOM",
     "raw",
     "html",
