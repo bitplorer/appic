@@ -2,7 +2,7 @@
 
 **Intent. Presence. Caps. Kit. Signal.**
 
-A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose) `17e652a6` (0.1.0 Clock A + ownable kit) — the pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
+A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose) `f0b8da50` (0.1.0 Clock A + ownable kit + Typeahead hits-slot) — the pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No client runtime as source of truth. Server-authored hypermedia. Progressive L1→L3 with zero rewrite. Page units have no HTTP verbs. Payload type picks media type. **The kit is a house you own.** Signal is a grammar you can feel.
 
@@ -47,12 +47,13 @@ Command `⌘K` issues intents without leaving the table.
 
 ## Prompt
 
-The Grok Build prompt that specifies this product lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md). Copy everything below the line into Grok Build. Feature map against ux-compose `main` (`17e652a6`, 2026-08-27): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+The Grok Build prompt that specifies this product lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md). Copy everything below the line into Grok Build. Feature map against ux-compose `main` (`f0b8da50`, 2026-08-28): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 Kit-era additions in this revision:
 
 - **23 ownable kit stems** copied under `components/` (shadcn-style). Host seams overridden in `appic/owned.py`.
 - **Nook rooms** — Door, Desk, House, Visit — every kit card sits in a real room.
-- **Signal room** — Wave 1 grammar made visible: swipe, longpress, `input delay:`.
+- **Signal room** — Wave 1 grammar made visible: swipe, longpress, `input delay:300`.
+- **Typeahead hits-slot law** — live Results morph `#typeahead-hits` only. Later input aborts the in-flight Intent. The field keeps what you type.
 - **Clock A doors** — `/health` JSON, `/pulse` stream, `/clocks` dual-clock room.
 - `slide.enter` helper for sheet / action-sheet presence.

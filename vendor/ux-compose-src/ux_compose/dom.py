@@ -9,7 +9,6 @@ Authors write::
             return div(h1(f"Items: {self.count}"), id=self.id)
 
 This module re-exports tags when ux-dom is installed (Python ≥3.14).
-On Python 3.10–3.13 it ships a local Tag shim so kit copies still render.
 It does **not** re-export ux-dom's Component class.
 
 Why not inherit ux-dom Component (or Tags)?
@@ -105,52 +104,51 @@ _ATTR = {
 }
 
 
-def _esc(value: Any) -> str:
-    text = str(value)
-    amp = chr(38) + "amp;"
-    lt = chr(38) + "lt;"
-    gt = chr(38) + "gt;"
-    quot = chr(38) + "quot;"
-    return text.replace("&", amp).replace("<", lt).replace(">", gt).replace('"', quot)
+class _Tag:
+    """Call-shape compatible with ux-dom tags when the specialist is absent."""
 
-
-def _attr_name(key: str) -> str:
-    mapped = _ATTR.get(key)
-    if mapped:
-        return mapped
-    if key.startswith("data_") or key.startswith("aria_"):
-        return key.replace("_", "-")
-    if key == "viewBox":
-        return "viewBox"
-    if key == "strokeWidth":
-        return "stroke-width"
-    return key.replace("_", "-")
-
-
-def _attrs(attrs: dict[str, Any]) -> str:
-    parts: list[str] = []
-    for key, value in attrs.items():
-        if value is None or value is False:
-            continue
-        name = _attr_name(key)
-        if value is True:
-            parts.append(f" {name}")
-            continue
-        parts.append(f' {name}="{_esc(value)}"')
-    return "".join(parts)
-
-
-class Tag:
     def __init__(self, tag: str, *children: Any, **attrs: Any):
         self.name = tag
         self.children = children
         self.attrs = attrs
 
     def __str__(self) -> str:
-        inner = "".join(_child(c) for c in self.children)
-        open_ = f"<{self.name}{_attrs(self.attrs)}>"
+        parts: list[str] = []
+        for key, value in self.attrs.items():
+            if value is None or value is False:
+                continue
+            name = _ATTR.get(key, key)
+            if key.startswith("data_") or key.startswith("aria_"):
+                name = key.replace("_", "-")
+            elif key not in _ATTR:
+                if key in {"viewBox", "strokeWidth"}:
+                    name = "viewBox" if key == "viewBox" else "stroke-width"
+                else:
+                    name = key.replace("_", "-")
+            if value is True:
+                parts.append(f" {name}")
+                continue
+            amp, lt, gt, quot = (
+                chr(38) + "amp;",
+                chr(38) + "lt;",
+                chr(38) + "gt;",
+                chr(38) + "quot;",
+            )
+            text = (
+                str(value)
+                .replace("&", amp)
+                .replace("<", lt)
+                .replace(">", gt)
+                .replace('"', quot)
+            )
+            parts.append(f' {name}="{text}"')
+        open_ = f"<{self.name}{''.join(parts)}>"
         if self.name in _VOID:
             return open_[:-1] + " />"
+        inner = "".join(
+            "" if c is None or c is False else str(c) if not isinstance(c, (tuple, list)) else "".join(str(x) for x in c)
+            for c in self.children
+        )
         return f"{open_}{inner}</{self.name}>"
 
     def __html__(self) -> str:
@@ -163,19 +161,9 @@ class Tag:
         return str(self)
 
 
-def _child(node: Any) -> str:
-    if node is None or node is False:
-        return ""
-    if isinstance(node, (tuple, list)):
-        return "".join(_child(x) for x in node)
-    if isinstance(node, Tag):
-        return str(node)
-    return str(node)
-
-
 def _factory(name: str):
-    def make(*children: Any, **attrs: Any) -> Tag:
-        return Tag(name, *children, **attrs)
+    def make(*children: Any, **attrs: Any) -> _Tag:
+        return _Tag(name, *children, **attrs)
 
     make.__name__ = name
     return make
@@ -223,7 +211,7 @@ def require_dom() -> None:
     if not HAS_DOM:
         raise ImportError(
             "ux-dom is not installed. Tag trees need Python ≥3.14 and "
-            "`pip install ux-dom`. The local Tag shim still renders HTML strings at L1."
+            "`pip install ux-dom`. HTML strings in render() still work at L1."
         )
 
 

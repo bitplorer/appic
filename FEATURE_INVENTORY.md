@@ -1,7 +1,7 @@
 # ux-compose — complete feature inventory (kit era)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`17e652a6`, 2026-08-27 22:33 +0530, **0.1.0 / Clock A + unreleased ownable kit**).
+(`f0b8da50`, 2026-08-28 11:59 +0530, **0.1.0 / Clock A + unreleased ownable kit + Typeahead hits-slot**).
 Public names: `src/ux_compose/__init__.py` `__all__`. Kit catalog:
 `src/ux_compose/kit/catalog.py`. If this page and the code disagree, **code wins**.
 
@@ -30,7 +30,7 @@ and must **not** reimplement them.
 | Version | `0.1.0` (`ux_compose.__version__`) |
 | Python | ≥ 3.11 classifiers (ux-dom full stack needs ≥ 3.14; sandbox 3.10 vendors source) |
 | License | MIT |
-| Current SHA | `17e652a6ddfcbf30f427cfe054d8513031481345` |
+| Current SHA | `f0b8da5040f79457af313531561a2f974490e549` |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
 If you rewrite a Component “to go live”, you have violated the contract.
@@ -164,7 +164,7 @@ Catalog (`ux_compose.kit.catalog.CATALOG`) — 23 entries:
 | `plans` | `Plans` | Radio cards. One named plan | `on_choose()` |
 | `actionsheet` | `ActionSheet` | Bottom sheet. Handle swipe-down dismisses. Rows stay click | `ACTIONS`, `on_pick(key)`. Destructive keys spend a Cap |
 | `contextmenu` | `ContextMenu` | Click or longpress. Floating panel, not a native list | rows. Root stamps `data-channel-id` |
-| `typeahead` | `Typeahead` | Live filter on `input delay:`. The field is the control | options |
+| `typeahead` | `Typeahead` | Live filter on `input delay:300`. Hits morph `#{id}-hits` only; the field is never rewritten. Later input aborts in-flight Intent. Pick morphs the card. | `OPTIONS`, `on_pick(label)` |
 | `pullrefresh` | `PullRefresh` | Vertical swipe synthesizer. Refresh accepts `swipe.down` | `SEED`, `on_refresh()` |
 
 Helpers (not copied as cards): `KitEntry`, `list_components`, `resolve`,
@@ -183,8 +183,11 @@ Helpers (not copied as cards): `KitEntry`, `list_components`, `resolve`,
 - Overlay cards drop `relative` / overflow so a `fixed` overlay is not remapped or clipped.
 - Open composes a Motion enter plan (selectors only, no Channel attr, no kit JS).
   Close is morph-only: after apply the panel is gone, so an exit recipe in the same Result has nothing to play.
-- Carousel: Prev/Next overlay the stage (44px), dots are the only bottom rail, one `#id-thumb` pip
+- Carousel: Prev/Next overlay the stage (44px), dots overlay a locked `h-72` stage, one `#id-thumb` pip
   translates across equal slots. Copy is the live region. Dots label the slide title.
+- Typeahead law: `input delay:300`. Live Results morph `#{id}-hits` only. The field
+  (`#{id}-q`) is not in that HTML. `data-channel-target="#{id}-hits"`. Later input
+  of the same control aborts the in-flight Intent. Pick morphs the card.
 - Pagination: windowed numbers. First/last + gaps are `max-sm:hidden`. Prev is one named page back. 44px chevrons.
 - Isolation: kit modules never import `ux_channel`.
 

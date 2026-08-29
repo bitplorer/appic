@@ -12,7 +12,7 @@ class House(Component):
         return room(
             "House",
             "Linen, oak, wool, clay.",
-            "Typeahead filters on input delay:. Longpress a mark. Swipe the sheet closed. The carousel pip translates.",
+            "Typeahead morphs the hits slot after a 300ms pause — the field is never rewritten. Longpress a mark. Swipe the sheet closed. The carousel pip translates.",
             "typeahead",
             "combobox",
             "select",

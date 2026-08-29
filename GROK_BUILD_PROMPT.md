@@ -1,9 +1,9 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (Clock A + ownable kit)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (Clock A + ownable kit + Typeahead hits-slot)
 
 Copy **everything below the line** into Grok Build. Do not use React, Vue, JSX,
 TSX, Next, TanStack UI, Svelte, Solid, HTMX-as-architecture, or a client SPA
 runtime as the product. Author in Python with
-**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`17e652a6`, 0.1.0 + unreleased kit)**.
+**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`f0b8da50`, 0.1.0 + unreleased kit)**.
 Publish the running product to GitHub repo **appic** under the connected account
 (create the repo if missing; replace stale files that predate the ownable kit).
 
@@ -14,7 +14,7 @@ Companion law: keep `FEATURE_INVENTORY.md` in the same repo, sourced from
 Update it if you vendor a newer SHA.
 
 The previous APPIC prompt (`0cc83cff`) shipped Clock A and the examples catalog.
-This prompt **adds the ownable kit, Wave 1 Signal grammar, `slide`, and Nook-style rooms**.
+This prompt **adds the ownable kit, Wave 1 Signal grammar, `slide`, Nook-style rooms, and the Typeahead hits-slot law**.
 A foundry that does not own its kit is unfinished.
 
 ---
@@ -87,7 +87,7 @@ It harnesses four specialists and must **not** reimplement them:
 (`dispatch`) and L3 (`use_channel` + `use_motion`). Zero rewrite.
 
 PyPI / import / CLI: `ux-compose` / `ux_compose` / **`uxcompose`**.
-`ux_compose.__version__ == "0.1.0"`. Pin vendor to SHA **`17e652a6`**.
+`ux_compose.__version__ == "0.1.0"`. Pin vendor to SHA **`f0b8da50`**.
 
 Install (plus vendor so git extras can fail):
 
@@ -300,7 +300,12 @@ Door / Signal). A kit card that only exists on disk is not utilisation.
 9. Dialog Keep it: `click swipe.down`. Delete is click-only (Cap).
 10. Sheet Close/Done: `click swipe.right`. ActionSheet handle: `click swipe.down`.
 11. ContextMenu: click **or** `longpress`. Floating panel, `menuitem` rows, not a native ul.
-12. Typeahead: the field is the control — `input delay:`.
+12. Typeahead: the field is the control — `input delay:300`. Live Results morph
+    `#{id}-hits` only. The field (`#{id}-q`) is not in that HTML, so a
+    pause-fired Result cannot rewrite what is still being typed. Later
+    `input`/`change` of the same control aborts the in-flight Intent.
+    Pick still morphs the card so the name can land in the field.
+    Stamp `data-channel-target="#{id}-hits"`. No kit JS.
 13. PullRefresh: list `swipe.vertical`; Refresh control `click swipe.down`. Phase is a **name**.
 
 ### Signal room

@@ -11,7 +11,7 @@ GRAMMAR = (
     ("click swipe.down", "ActionSheet handle. Dialog Keep it. Never the root — a root swipe swallows row clicks."),
     ("click swipe.right", "Sheet Close / Done. No root swipe.horizontal."),
     ("longpress", "ContextMenu. Floating panel, menuitem rows, not a native list."),
-    ("input delay:", "Typeahead. The field is the control. Query attaches, then morphs."),
+    ("input delay:300", "Typeahead. Hits morph #{id}-hits only. The field keeps what you type. Later input aborts the in-flight Intent."),
     ("data-channel-id", "Root stamp on carousel, action sheet, context menu. Slot is #id and [data-channel-id] together."),
     ("data-channel-on", "The synthesizer attribute. Kit already stamps it. Product never invents a second one."),
 )

@@ -59,13 +59,26 @@
     while (list.children.length > 5) list.removeChild(list.lastChild);
   }
 
+  var inflight = {};
+
   function postAction(action, args, originEl) {
     var surface = action.split(".")[0];
+    var slotSel =
+      (originEl && originEl.getAttribute && originEl.getAttribute("data-channel-target")) ||
+      "";
     var target =
+      (slotSel && document.querySelector(slotSel)) ||
       document.getElementById(surface) ||
       (originEl && originEl.closest("form, section, aside, div")) ||
       document.getElementById("main");
     var body = new URLSearchParams(args || {});
+    if (inflight[action]) {
+      try {
+        inflight[action].abort();
+      } catch (e) {}
+    }
+    var ac = new AbortController();
+    inflight[action] = ac;
     fetch("/action/" + action, {
       method: "POST",
       headers: {
@@ -74,12 +87,15 @@
         "X-Appic-Morph": "1",
       },
       body: body,
+      signal: ac.signal,
     })
       .then(function (r) {
         var bag = r.headers.get("X-Appic-Bag");
         if (bag != null) updateBag(bag);
         var headerSurface = r.headers.get("X-Appic-Surface");
         if (headerSurface) surface = headerSurface;
+        var headerTarget = r.headers.get("X-Appic-Target");
+        if (headerTarget) slotSel = headerTarget;
         var kind = r.headers.get("X-Appic-Kind");
         if (kind === "cap") showSeal();
         var op = r.headers.get("X-Appic-Op");
@@ -94,10 +110,15 @@
             pal.setAttribute("data-open", "0");
           }
         }
-        var node = document.getElementById(surface) || target;
+        var node =
+          (slotSel && document.querySelector(slotSel)) ||
+          document.getElementById(surface) ||
+          target;
         morph(node, html);
       })
-      .catch(function () {});
+      .catch(function (err) {
+        if (err && err.name === "AbortError") return;
+      });
   }
 
   document.addEventListener("click", function (ev) {
@@ -158,7 +179,7 @@
     if (!el || !el.getAttribute) return;
     var spec = channelOn(el);
     if (spec.indexOf("input delay:") !== 0) return;
-    var ms = parseInt(spec.split(":")[1], 10) || 200;
+    var ms = parseInt(spec.split(":")[1], 10) || 300;
     var prev = inputTimers.get(el);
     if (prev) window.clearTimeout(prev);
     inputTimers.set(

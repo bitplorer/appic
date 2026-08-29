@@ -1,6 +1,7 @@
 """Ownable copy of ux_compose.kit.carousel — edit freely.
 
-Copied by ``uxcompose add carousel``. Regenerate with ``uxcompose add carousel --force``.
+Copied by ``uxcompose add carousel``. Regenerated against ux-compose
+``f0b8da50`` (locked h-72 stage, overlay dots, translating pip).
 
 Drop-in carousel — named slides, never a quantity MorphState.
 
@@ -13,7 +14,8 @@ Next accepts ``click swipe.left`` — same synthesizer as PullRefresh,
 no extra JS and no second attribute family.
 
 Chrome: Prev / Next sit on the stage (left / right), not in a wrapping
-rail. Dots stay equal slots. One thumb translates across them — the
+rail. Dots overlay the stage on a locked height so unequal title wrap
+cannot shift the rail. One thumb translates across equal slots — the
 active pip coalesces into the next, it does not jump.
 """
 
@@ -67,7 +69,8 @@ class Carousel(Component):
     Swipe on the stage is a synthesizer: finger or pointer, same Intent
     path as Prev / Next. Dots are named jumps. Each pip keeps a fixed
     slot. The thumb is one node (``{id}-thumb``) whose transform morphs,
-    so the pill slides instead of the active class jumping.
+    so the pill slides instead of the active class jumping. Stage height
+    is locked; the rail overlays it, so wrap cannot translate the dots.
     """
 
     id = "carousel"
@@ -80,10 +83,10 @@ class Carousel(Component):
     class_title = "m-0 font-serif text-3xl font-semibold tracking-tight"
     class_lede = "m-0 max-w-sm text-sm leading-relaxed text-stone-500"
     class_stage = (
-        "relative flex min-h-56 touch-pan-y select-none flex-col justify-end "
-        "rounded-2xl bg-stone-50 px-16 py-8"
+        "relative flex h-72 touch-pan-y select-none flex-col justify-end overflow-hidden "
+        "rounded-2xl bg-stone-50 px-16 pb-14 pt-8"
     )
-    class_copy = "relative z-[1] flex flex-col gap-3"
+    class_copy = "relative z-[1] flex min-h-0 flex-col gap-3 overflow-hidden"
     class_index = (
         "pointer-events-none absolute right-5 top-4 z-0 font-serif text-6xl font-medium "
         "leading-none tracking-tight text-stone-200"
@@ -96,7 +99,7 @@ class Carousel(Component):
     )
     class_nav_prev = "left-3"
     class_nav_next = "right-3"
-    class_dots_row = "flex justify-center"
+    class_dots_row = "absolute inset-x-0 bottom-1 z-10 flex justify-center"
     class_dots = "relative inline-flex flex-nowrap items-center"
     class_thumb = (
         "pointer-events-none absolute left-0 top-1/2 z-[1] h-2 w-6 -mt-1 rounded-full "
@@ -178,24 +181,24 @@ class Carousel(Component):
                 ),
                 self._nav("left", self.prev, "Previous slide"),
                 self._nav("right", self.next, "Next slide"),
-                className=self.class_stage,
-            ),
-            div(
                 div(
-                    span(
-                        "",
-                        id=f"{self.id}-thumb",
-                        className=self.class_thumb,
-                        aria_hidden="true",
-                        style=f"transform: translate3d({idx * 1.5}rem,0,0)",
+                    div(
+                        span(
+                            "",
+                            id=f"{self.id}-thumb",
+                            className=self.class_thumb,
+                            aria_hidden="true",
+                            style=f"transform: translate3d({idx * 1.5:g}rem,0,0)",
+                        ),
+                        *dots,
+                        className=self.class_dots,
+                        id=f"{self.id}-dots",
+                        role="group",
+                        aria_label="Slides",
                     ),
-                    *dots,
-                    className=self.class_dots,
-                    id=f"{self.id}-dots",
-                    role="group",
-                    aria_label="Slides",
+                    className=self.class_dots_row,
                 ),
-                className=self.class_dots_row,
+                className=self.class_stage,
             ),
             id=self.id,
             className=self.class_card,

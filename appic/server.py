@@ -277,7 +277,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · ownable kit · Signal · Morph then Play · Isolation Law · Caps</span>
+      <span>ux-compose · f0b8da50 · ownable kit · Signal · Morph then Play · Isolation Law · Caps</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -490,6 +490,13 @@ def build():
         if verb:
             sid = _page_for_path(ref_path)
         inner = _render_surface(app, sid)
+        target_sel = f"#{sid}"
+        inst = _instance(app, sid)
+        if action_name.endswith(".query_hits") and inst is not None:
+            listing = getattr(inst, "_listing", None)
+            if callable(listing):
+                inner = _serialize(listing())
+                target_sel = f"#{sid}-hits"
         hx = request.headers.get("hx-request") or request.headers.get("x-appic-morph")
         suffix = action_name.rsplit(".", 1)[-1]
         kind = "cap" if suffix in _CAP_SUFFIXES else "morph"
@@ -498,6 +505,7 @@ def build():
             "X-Appic-Surface": sid,
             "X-Appic-Kind": kind,
             "X-Appic-Op": action_name,
+            "X-Appic-Target": target_sel,
         }
         if hx:
             return HTMLResponse(inner, headers=headers)
@@ -553,7 +561,7 @@ def build():
             "owned": owned,
             "mounted": stems,
             "count": len(owned),
-            "sha": "17e652a6",
+            "sha": "f0b8da50",
         }
 
     return app, asgi, bundle
