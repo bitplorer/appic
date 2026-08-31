@@ -322,7 +322,7 @@
         channel: CHANNEL,
         version: VERSION,
         type: "routes",
-        paths: ["/", "/enter", "/desk", "/house", "/visit", "/signal", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger", "/clocks", "/health", "/pulse"],
+        paths: ["/", "/enter", "/desk", "/house", "/visit", "/signal", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger", "/clocks", "/relay", "/health", "/pulse"],
       });
       post({ channel: CHANNEL, version: VERSION, type: "ready" });
     }

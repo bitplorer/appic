@@ -96,7 +96,7 @@ APP_PY = dedent('''\
         print("Doctor surfaces:", report.surfaces)
         print("Doctor routes:", report.routes)
         if asgi is not None:
-            print("Path: uxcompose build && uxcompose serve app:asgi --host 0.0.0.0 --port 8080")
+            print("Path: uxcompose serve dev")
 
     # ASGI attribute for uvicorn app:asgi
     _app, asgi, _bundle = main()
@@ -106,7 +106,7 @@ APP_PY = dedent('''\
 SETTINGS_PY = dedent('''\
     """Environment SSoT — paths, debug, app asset layout.
 
-    Document emits ``<link href="/css/output.css">``. This module owns the
+    Document emits ``<link href=\"/css/output.css\">``. This module owns the
     disk folders. Isolation Law: Channel stays behind compose wire/.
     """
     from __future__ import annotations
@@ -279,8 +279,9 @@ README = dedent('''\
 
     ```bash
     pip install -r requirements.txt
+    uxcompose serve dev
     uxcompose build
-    uxcompose serve app:asgi --port 8080
+    uxcompose serve prod
     uxcompose deploy --provider docker
     uxcompose doctor . --no-fail
     ```

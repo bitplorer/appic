@@ -32,6 +32,7 @@ NAV = (
     ("/lattice", "Lattice"),
     ("/trace", "Trace"),
     ("/clocks", "Clocks"),
+    ("/relay", "Relay"),
 )
 
 try:
@@ -114,6 +115,7 @@ def _page_for_path(path: str) -> str:
         "/visit": "visit",
         "/signal": "signal",
         "/clocks": "clocks",
+        "/relay": "relay",
         "/health": "health",
         "/pulse": "pulse",
         "/commission": "commission",
@@ -139,6 +141,7 @@ def _page_for_path(path: str) -> str:
         ("/visit", "visit"),
         ("/signal", "signal"),
         ("/clocks", "clocks"),
+        ("/relay", "relay"),
     ):
         if p.startswith(href):
             return sid
@@ -236,7 +239,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
         crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
     crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
     bottom = []
-    for href, label in (("/", "Table"), ("/house", "House"), ("/enter", "Door"), ("/signal", "Signal"), ("/trace", "Trace")):
+    for href, label in (("/", "Table"), ("/house", "House"), ("/enter", "Door"), ("/signal", "Signal"), ("/relay", "Relay"), ("/trace", "Trace")):
         current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
         if href == "/" and path in ("/", "/home", ""):
             current = True
@@ -277,7 +280,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · f0b8da50 · ownable kit · Signal · Morph then Play · Isolation Law · Caps</span>
+      <span>ux-compose · 6b84972 · ownable kit · Signal · Relay · Morph then Play · Isolation Law · Caps</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -426,6 +429,7 @@ def build():
     @asgi.get("/visit")
     @asgi.get("/signal")
     @asgi.get("/clocks")
+    @asgi.get("/relay")
     async def pages(request: Request):
         path = request.url.path
         sid = _page_for_path(path)
@@ -561,7 +565,7 @@ def build():
             "owned": owned,
             "mounted": stems,
             "count": len(owned),
-            "sha": "f0b8da50",
+            "sha": "6b84972",
         }
 
     return app, asgi, bundle

@@ -1,7 +1,7 @@
 # ux-compose — complete feature inventory (kit era)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`f0b8da50`, 2026-08-28 11:59 +0530, **0.1.0 / Clock A + unreleased ownable kit + Typeahead hits-slot**).
+(`6b84972`, 2026-08-30, **0.1.0 / Clock A + ownable kit + Typeahead hits-slot + serve-dev split + soft morph**).
 Public names: `src/ux_compose/__init__.py` `__all__`. Kit catalog:
 `src/ux_compose/kit/catalog.py`. If this page and the code disagree, **code wins**.
 
@@ -30,7 +30,7 @@ and must **not** reimplement them.
 | Version | `0.1.0` (`ux_compose.__version__`) |
 | Python | ≥ 3.11 classifiers (ux-dom full stack needs ≥ 3.14; sandbox 3.10 vendors source) |
 | License | MIT |
-| Current SHA | `f0b8da5040f79457af313531561a2f974490e549` |
+| Current SHA | `6b84972bf9a6f9508321ef929bff6f18307e7632` |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
 If you rewrite a Component “to go live”, you have violated the contract.
@@ -238,17 +238,20 @@ Every pattern is one `Component`. Same class is valid at L1 and L3.
 
 ```
 uxcompose create-app myapp --name APPIC --level auto --host auto
-uxcompose build [--watch] [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]
-uxcompose serve app:asgi --host 0.0.0.0 --port 8080 [--no-reload --hmr --watch assets --watch routes]
-uxcompose serve app:asgi --tunnel ngrok|cloudflare
-uxcompose deploy --provider docker|fly|render|railway|vps|checklist
+uxcompose serve dev  [app:asgi] [--host 0.0.0.0] [--port 8080] [--reload-dir PATH ...] [--tunnel none|ngrok|cloudflare]
+uxcompose serve prod [app:asgi] [--host 0.0.0.0] [--port 8080]
+uxcompose serve restart-channel
+uxcompose build [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]
+uxcompose deploy --provider docker|fly|render|railway|vps|checklist [--force] [--name NAME]
 uxcompose doctor . --no-fail
 uxcompose add --list
 uxcompose add login [--page] [--force]
 ```
 
+`uxcompose serve` with no mode exits 2. Soft morph on `*.py` save. CSS save never
+kills the ui worker. Channel RAM drop is `restart-channel`, not a flag.
 Pure-dom stays on `uxdom` (`doctor` · `lint` · `profile` · `add ui Button`).
-HMR / tunnel are delivery under `uxcompose serve`, not `Document.use`.
+HMR / tunnel are delivery under `uxcompose serve dev`, not `Document.use`.
 Product CSS is `uxcompose build` (`ux_compose.tailwind` finds / ensures the CLI).
 
 ---
@@ -263,7 +266,7 @@ Product CSS is `uxcompose build` (`ux_compose.tailwind` finds / ensures the CLI)
 6. **Presence continuity.** Stable ids. `scene.stagger_in` on survivors. `scene.share(key, leave=, arrive=)` — share id is identity, not a CSS class.
 7. **Cold import never pulls the wire.** `App.boot("auto")` is L1.
 8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Kit cards: `class_*` only.
-9. **HMR / tunnel** are `uxcompose serve` delivery.
+9. **HMR / tunnel** are `uxcompose serve dev` delivery. Soft morph first. `restart-channel` is an action.
 10. **Clock A.** No HTTP verbs on page units. Payload type picks media type. Author Document wraps GET.
 11. **Ownable kit.** Copy, then edit. Do not ship `from ux_compose.kit import …` as the product unit.
 12. **Signal.** Swipe on the handle / Keep it / Close. Never a root swipe that swallows row clicks.

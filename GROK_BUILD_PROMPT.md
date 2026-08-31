@@ -1,11 +1,11 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (Clock A + ownable kit + Typeahead hits-slot)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (Clock A + ownable kit + Relay / serve-dev split)
 
 Copy **everything below the line** into Grok Build. Do not use React, Vue, JSX,
 TSX, Next, TanStack UI, Svelte, Solid, HTMX-as-architecture, or a client SPA
 runtime as the product. Author in Python with
-**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`f0b8da50`, 0.1.0 + unreleased kit)**.
+**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`6b84972`, 0.1.0 + ownable kit + serve-dev split + soft morph)**.
 Publish the running product to GitHub repo **appic** under the connected account
-(create the repo if missing; replace stale files that predate the ownable kit).
+(create the repo if missing; replace stale files that predate Relay / restart-channel).
 
 If this prompt and the library disagree, **the library wins**. Do not invent APIs.
 
@@ -13,9 +13,11 @@ Companion law: keep `FEATURE_INVENTORY.md` in the same repo, sourced from
 `ux_compose.__all__` + `kit/catalog.py` + `docs/reference/host.md`.
 Update it if you vendor a newer SHA.
 
-The previous APPIC prompt (`0cc83cff`) shipped Clock A and the examples catalog.
-This prompt **adds the ownable kit, Wave 1 Signal grammar, `slide`, Nook-style rooms, and the Typeahead hits-slot law**.
-A foundry that does not own its kit is unfinished.
+The previous APPIC prompt (`f0b8da50`) shipped Clock A, the ownable kit, Wave 1
+Signal, and Typeahead hits-slot. This prompt **adds the serve-dev split as a
+walkable room**: `uxcompose serve dev` / `serve prod` / `serve restart-channel`,
+soft morph on `*.py` save, and the Relay. A foundry that hides its clocks is
+unfinished.
 
 ---
 
@@ -87,7 +89,7 @@ It harnesses four specialists and must **not** reimplement them:
 (`dispatch`) and L3 (`use_channel` + `use_motion`). Zero rewrite.
 
 PyPI / import / CLI: `ux-compose` / `ux_compose` / **`uxcompose`**.
-`ux_compose.__version__ == "0.1.0"`. Pin vendor to SHA **`f0b8da50`**.
+`ux_compose.__version__ == "0.1.0"`. Pin vendor to SHA **`6b84972bf9a6f9508321ef929bff6f18307e7632`**.
 
 Install (plus vendor so git extras can fail):
 
@@ -349,6 +351,7 @@ appic/                 # product package
     lattice.py
     trace.py
     clocks.py
+    relay.py           # Relay — serve-dev split, soft morph, restart-channel
     health.py          # JSON
     pulse.py           # stream
     enter.py           # Door — Login + Otp
@@ -400,14 +403,23 @@ Render `bundle.surfaces`, `bundle.route_table`, `bundle.action_table`,
 
 ```
 uxcompose create-app myapp --name APPIC --level auto --host auto
-uxcompose build [--watch] [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]
-uxcompose serve app:asgi --host 0.0.0.0 --port 8080 [--no-reload --hmr --watch assets --watch routes]
-uxcompose serve app:asgi --tunnel ngrok|cloudflare
-uxcompose deploy --provider docker|fly|render|railway|vps|checklist
+uxcompose serve dev  [app:asgi] [--host 0.0.0.0] [--port 8080] [--reload-dir PATH ...] [--tunnel none|ngrok|cloudflare]
+uxcompose serve prod [app:asgi] [--host 0.0.0.0] [--port 8080]
+uxcompose serve restart-channel
+uxcompose build [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]
+uxcompose deploy --provider docker|fly|render|railway|vps|checklist [--force] [--name NAME]
 uxcompose doctor . --no-fail
 uxcompose add --list
 uxcompose add login [--page --force]
 ```
+
+`uxcompose serve` with no mode **exits 2**. There is no `--hmr`, `--css-watch`,
+`--one-process`, or `--reload-channel`. Soft morph is the happy path on `*.py`
+save (`Idiomorph` → id replace → `location.reload()` fallback). CSS save never
+kills the ui worker. Channel RAM drops only via `restart-channel` (SIGUSR1 to
+the origin pidfile; missing pidfile fails closed). Tunnel is
+`serve dev --tunnel ngrok|cloudflare`. `uxcompose build` is one-shot minify —
+no `--watch`. Deploy starts raw uvicorn, not `serve`.
 
 Host extra routes on the ASGI **process** (not on the class):
 
@@ -498,6 +510,7 @@ and action sheets; `fade` scrim + `rise` panel for dialogs.
 | `/lattice` | `Lattice` | Caps as seals. Intent as nucleus. Ops as traces. **`bind(self.mint)` is a Cap.** SurfaceBundle as stars. `dispatch(..., args={})` proven |
 | `/trace` | `Trace` | Live Ops log, doctor, Isolation evidence, `HMR_PATH`, `Level.label`, bundle tables, CSP header chip, `apply_html_document` note, **kit catalog list** |
 | `/clocks` | `Clocks` | Dual-clock room. Clock A GET vs Clock B action. Payload doors (HTML / JSON / stream) as three gates |
+| `/relay` | `Relay` | Three serve clocks (process / HMR / CSS) as live rings. Modes as named MorphState (`dev` / `prod` / `drop`). Soft-morph law. `HMR_PATH` + `CSS_URL_PREFIX`/`OUTPUT_CSS_NAME` chips. `bind(self.drop)` is the restart-channel analogue |
 | `/health` | `Health` | `render()` returns a **dict**. Includes `ok`, `level`, `label`, `version`, `sealed`, `surfaces`, `kit` |
 | `/pulse` | `Pulse` | `render()` returns a **generator** of HTML chunks. StreamingResponse |
 | `/enter` | `Enter` | **Door.** Owned `Login` + `Otp`. Caps `auth.login` / `auth.signup` / `auth.otp`. `@blocked.test` fails closed |
@@ -538,10 +551,11 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 9. **Open `/health`.** JSON. The document did not wrap it.
 10. **Open `/pulse`.** Chunks arrive.
 11. **Open `/clocks`.** Two rings. Three gates. The foundry explains itself.
-12. **Checkout without a Cap is refused.** Host-mint then succeeds.
-13. **Wipe settings** is a Cap. Confirm modal stays in the tree when closed.
-14. **Doctor is green.** Isolation scan of `appic/` + `components/` is clean.
-15. **Own the kit.** Edit a `class_*` string; the card is yours. Trace lists 23 stems.
+12. **Stand in Relay.** Choose serve-dev, serve-prod, or restart-channel. Soft morph is named. Drop Channel RAM — the pulse stamps dropped.
+13. **Checkout without a Cap is refused.** Host-mint then succeeds.
+14. **Wipe settings** is a Cap. Confirm modal stays in the tree when closed.
+15. **Doctor is green.** Isolation scan of `appic/` + `components/` is clean.
+16. **Own the kit.** Edit a `class_*` string; the card is yours. Trace lists 23 stems.
 
 ---
 
@@ -558,6 +572,7 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 - [ ] Nested `routes/atelier/[sku].py` live PDP, `render(self, sku="")`, **no `get()` anywhere**
 - [ ] JSON page unit `/health` (`dict`) and stream page unit `/pulse` (generator)
 - [ ] Dual-clock room `/clocks`
+- [ ] Relay room `/relay` — three serve clocks, modes as MorphState, HMR_PATH, restart-channel analogue
 - [ ] **23 kit stems copied under `components/` and live in Desk / House / Visit / Enter / Signal**
 - [ ] Kit host seams overridden (authenticate / on_confirm / on_run / on_pick / on_verify / on_choose / on_finish / on_refresh)
 - [ ] Wave 1: ActionSheet handle swipe, ContextMenu longpress, Typeahead `input delay:`, PullRefresh `swipe.vertical`
@@ -590,6 +605,7 @@ Signal is felt, not documented.
 The lattice is the product's radical face: **authority made visible.**
 The trace is the product's memory: **Ops as data.**
 The clocks room is the product's honesty: **GET and action are two pipelines.**
+The relay is the product's delivery: **serve is two modes plus one action, not a flag soup. Soft morph first.**
 The door is the product's threshold: **Login and OTP are Caps, not a SPA.**
 The desk / house / visit are the product's rooms: **owned kit, not a gallery.**
 The signal room is the product's grammar: **swipe, longpress, delay — as data.**

@@ -7,10 +7,15 @@ Hard ownership (SoC + locality):
   ux-dom owns className, the Document ``<link>``, and package static.
   App asset folders live here (``ux_compose.assets.WebAssets``).
 
-serve owns process reload, optional browser HMR, optional public tunnel.
+serve is two run modes plus one action, not a flag soup:
+  ``uxcompose serve dev``              origin + ui worker + channel worker + CSS watch
+  ``uxcompose serve prod``             clocks hard off (local prod-like run)
+  ``uxcompose serve restart-channel``  one-shot Channel RAM drop in a running serve dev
+deploy still starts raw uvicorn — it does not call serve.
 """
 from __future__ import annotations
 
+import os
 import sys
 import threading
 
@@ -42,19 +47,23 @@ def _help() -> None:
     print("uxcompose — product lifecycle (composition + delivery)")
     print("")
     print("  uxcompose create-app <dest> [--name NAME] [--level auto|0-3] [--host auto|fastapi|asgi]")
-    print("  uxcompose build [--watch] [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]")
-    print("  uxcompose serve [app:asgi] [--host 0.0.0.0] [--port 8080] [--reload|--no-reload]")
-    print("                 [--hmr] [--watch PATH ...]" )
-    print("                 [--tunnel none|ngrok|cloudflare] [--tunnel-token TOKEN]")
+    print("  uxcompose serve dev  [app:asgi] [--host 0.0.0.0] [--port 8080]")
+    print("                      [--reload-dir PATH ...] [--tunnel none|ngrok|cloudflare]")
+    print("  uxcompose serve prod [app:asgi] [--host 0.0.0.0] [--port 8080]")
+    print("  uxcompose serve restart-channel   # one-shot Channel RAM drop (running serve dev)")
+    print("  uxcompose build [--no-minify] [--skip-tailwind] [--skip-import] [--app app:asgi]")
     print("  uxcompose deploy [--provider docker|fly|render|railway|vps|checklist] [--force] [--name NAME]")
     print("  uxcompose doctor [paths...] [--no-fail]")
     print("  uxcompose add [name] [--force] [--page]   # ownable kit copy (shadcn-style)")
     print("  uxcompose add --list")
     print("")
-    print("Product path: create-app → build → serve → deploy")
+    print("Product path: create-app → serve dev → build → deploy")
+    print("  serve dev  = origin + ui reload + channel + CSS watch")
+    print("  serve prod = clocks hard off (does not replace deploy)")
+    print("  restart-channel = drop Channel RAM once; next *.py save still leaves Channel up")
     print("Kit copy: uxcompose add login  (drops components/login.py — you own it)")
-    print("HMR / tunnel are delivery features of serve (not Document.use).")
-    print("CSS minify: ux_compose.tailwind (finder + ensure). App folders: ux_compose.assets.")
+    print("HMR / tunnel are delivery features of serve dev (not Document.use).")
+    print("CSS minify: uxcompose build (ux_compose.tailwind). App folders: ux_compose.assets.")
     print("Markup kit: uxdom add ui Button. Product Components: uxcompose add login")
 
 
@@ -132,8 +141,8 @@ def _create_app(argv: list[str]) -> int:
     level: int | str = "auto" if str(args.level).lower() == "auto" else int(args.level)
     root = create_app(args.dest, name=args.name, level=level, host=args.host)
     print(f"Created {root.resolve()} (level={args.level}, host={args.host})")
-    print(f"  Next: cd {root} && uxcompose build && uxcompose serve app:asgi")
-    print("  Deploy: uxcompose deploy --provider docker")
+    print(f"  Next: cd {root} && uxcompose serve dev")
+    print("  Ship:  uxcompose build && uxcompose deploy --provider docker")
     return 0
 
 
@@ -142,7 +151,6 @@ def _build(argv: list[str]) -> int:
     from ux_compose.cli_build import format_product_build_report, run_product_build
 
     p = argparse.ArgumentParser(prog="uxcompose build")
-    p.add_argument("--watch", action="store_true", help="Tailwind --watch (XOR with minify)")
     p.add_argument("--no-minify", action="store_true", help="Skip --minify")
     p.add_argument("--skip-tailwind", action="store_true")
     p.add_argument("--skip-import", action="store_true")
@@ -153,7 +161,7 @@ def _build(argv: list[str]) -> int:
             skip_tailwind=args.skip_tailwind,
             skip_import=args.skip_import,
             minify=not args.no_minify,
-            watch=args.watch,
+            watch=False,
             app_ref=args.app,
         )
     except FileNotFoundError as e:
@@ -163,47 +171,170 @@ def _build(argv: list[str]) -> int:
     return 0 if report.ok else 1
 
 
-def _load_asgi(app_ref: str):
-    """Import ``module:attr`` ASGI app object."""
-    if ":" not in app_ref:
-        raise ValueError(f"ASGI path must be module:attr, got {app_ref!r}")
-    mod_name, attr = app_ref.split(":", 1)
-    import importlib
+def _start_tailwind_watch(*, cwd: str | None = None):
+    """Sibling Tailwind --watch. Lives in serve, not in hmr.py.
 
-    mod = importlib.import_module(mod_name)
-    obj = mod
-    for part in attr.split("."):
-        obj = getattr(obj, part)
-    return obj
+    Returns a Popen or None. None is quiet when the tree has no input.css.
+    Missing CLI is a warning, not a failed serve.
+    """
+    import subprocess
+    from pathlib import Path
+
+    from ux_compose.tailwind import argv_with_io, discover_css_io, resolve_tailwind
+
+    root = Path(cwd or ".").resolve()
+    io = discover_css_io(root)
+    if io is None:
+        return None
+    input_css, output_css = io
+    hit = resolve_tailwind(cwd=root, ensure=False)
+    if hit is None:
+        print(
+            "CSS: Tailwind CLI not found — skip sibling --watch "
+            "(pip install pytailwindcss, or run uxcompose build)",
+            file=sys.stderr,
+        )
+        return None
+    output_css.parent.mkdir(parents=True, exist_ok=True)
+    cmd = argv_with_io(
+        hit.argv,
+        input_css=input_css,
+        output_css=output_css,
+        minify=False,
+        watch=True,
+    )
+    cmd = [("--watch=always" if part == "--watch" else part) for part in cmd]
+    env = os.environ.copy()
+    env["PYTHONPATH"] = os.pathsep.join([str(root), env.get("PYTHONPATH", "")])
+    env["UXDOM_TAILWIND_OWNED"] = "1"
+    try:
+        proc = subprocess.Popen(
+            cmd, cwd=str(root), env=env, stdin=subprocess.DEVNULL
+        )
+    except OSError as exc:
+        print(f"CSS: sibling --watch spawn failed: {exc}", file=sys.stderr)
+        return None
+    print(f"CSS: tailwind --watch ({hit.source}) → {output_css}")
+    return proc
+
+
+def _stop_proc(proc) -> None:
+    if proc is None:
+        return
+    proc.terminate()
+    try:
+        proc.wait(timeout=3)
+    except Exception:
+        proc.kill()
+
+
+def _missing_serve_dev_extras() -> list[str]:
+    """Packages origin needs. Missing → fail closed, no second architecture."""
+    missing: list[str] = []
+    for name in ("httpx", "starlette", "websockets"):
+        try:
+            __import__(name)
+        except ImportError:
+            missing.append(name)
+    return missing
+
+
+_SERVE_MODES = {
+    "dev": "dev",
+    "development": "dev",
+    "prod": "prod",
+    "production": "prod",
+    "restart-channel": "restart-channel",
+    "restart_channel": "restart-channel",
+}
+
+
+def _serve_help() -> None:
+    print("uxcompose serve needs a mode — clocks are not flags")
+    print("")
+    print("  uxcompose serve dev  [app:asgi] [--host 0.0.0.0] [--port 8080]")
+    print("                      [--reload-dir PATH ...] [--tunnel none|ngrok|cloudflare]")
+    print("  uxcompose serve prod [app:asgi] [--host 0.0.0.0] [--port 8080]")
+    print("  uxcompose serve restart-channel")
+    print("")
+    print("  dev              origin + ui worker + channel worker + CSS watch")
+    print("  prod             clocks hard off (local prod-like run; deploy still uses uvicorn)")
+    print("  restart-channel  one-shot: drop Channel RAM in a running serve dev")
 
 
 def _serve(argv: list[str]) -> int:
     import argparse
-    from pathlib import Path
 
-    p = argparse.ArgumentParser(prog="uxcompose serve")
+    if not argv or argv[0] in ("-h", "--help"):
+        _serve_help()
+        return 0 if argv else 2
+    raw = argv[0].lower()
+    if raw not in _SERVE_MODES:
+        print(
+            f"unknown serve mode {argv[0]!r} — use 'dev', 'prod', or 'restart-channel'",
+            file=sys.stderr,
+        )
+        _serve_help()
+        return 2
+    mode = _SERVE_MODES[raw]
+    rest = argv[1:]
+
+    if mode == "restart-channel":
+        if rest and rest[0] in ("-h", "--help"):
+            print("uxcompose serve restart-channel")
+            print("  one-shot Channel RAM drop for a running serve dev in this directory")
+            print("  does not change the next *.py save")
+            return 0
+        if rest:
+            print(
+                "serve restart-channel does not accept "
+                + " ".join(rest)
+                + " — it is a one-shot action, not a flag",
+                file=sys.stderr,
+            )
+            return 2
+        from ux_compose.serve_restart import restart_channel
+
+        return restart_channel()
+
+    p = argparse.ArgumentParser(prog=f"uxcompose serve {mode}", add_help=True)
     p.add_argument("app", nargs="?", default="app:asgi")
     p.add_argument("--host", default="0.0.0.0")
     p.add_argument("--port", type=int, default=8080)
-    p.add_argument("--reload", action="store_true")
-    p.add_argument("--no-reload", action="store_true")
-    p.add_argument("--hmr", action="store_true", default=False, help="Attach browser HMR websocket (needs --no-reload)")
-    p.add_argument("--no-hmr", action="store_true", help="Disable browser HMR (default)")
-    p.add_argument("--watch", action="append", default=None, help="Extra HMR watch path (repeatable)")
-    p.add_argument(
-        "--tunnel",
-        default="none",
-        help="Public tunnel after health green: none|ngrok|cloudflare",
-    )
-    p.add_argument("--tunnel-token", default=None)
-    p.add_argument("--health-path", default="/")
-    p.add_argument("--health-timeout", type=float, default=30.0)
-    args = p.parse_args(argv)
+    if mode == "dev":
+        p.add_argument(
+            "--reload-dir",
+            action="append",
+            default=None,
+            dest="reload_dir",
+            help="uvicorn reload dir (repeatable; default . and routes)",
+        )
+        p.add_argument(
+            "--tunnel",
+            default="none",
+            help="Public tunnel after health green: none|ngrok|cloudflare",
+        )
+        p.add_argument("--tunnel-token", default=None)
+        p.add_argument("--health-path", default="/")
+        p.add_argument("--health-timeout", type=float, default=30.0)
+    args, unknown = p.parse_known_args(rest)
+    if unknown:
+        print(
+            f"uxcompose serve {mode} does not accept {' '.join(unknown)}",
+            file=sys.stderr,
+        )
+        if mode == "prod":
+            print("clocks live on 'serve dev', not flags on prod", file=sys.stderr)
+        return 2
 
-    reload = True if not args.no_reload else False
-    if args.reload:
-        reload = True
-    hmr = bool(args.hmr) and not args.no_hmr
+    css_watch = mode == "dev"
+    tunnel_value = getattr(args, "tunnel", "none")
+    tunnel_token = getattr(args, "tunnel_token", None)
+    health_path = getattr(args, "health_path", "/")
+    health_timeout = getattr(args, "health_timeout", 30.0)
+    reload_dirs = list(getattr(args, "reload_dir", None) or [])
+    if not reload_dirs:
+        reload_dirs = [".", "routes"]
 
     try:
         import uvicorn
@@ -211,40 +342,16 @@ def _serve(argv: list[str]) -> int:
         print("uvicorn required: pip install uvicorn", file=sys.stderr)
         return 1
 
-    tunnel_handle = None
-    asgi_obj = None
-    run_target: str | object = args.app
-
-    if hmr and not reload:
-        # Need concrete app object to attach WS route; reload workers re-import
-        try:
-            asgi_obj = _load_asgi(args.app)
-            from ux_compose.hmr import attach_hmr
-
-            watch = list(args.watch or [])
-            if not watch:
-                watch = [".", "routes"]
-            attach_hmr(asgi_obj, watch_paths=watch)
-            run_target = asgi_obj
-            print(f"HMR: websocket /__uxcompose/hmr watching {watch}")
-        except Exception as exc:
-            print(f"HMR attach skipped: {exc}", file=sys.stderr)
-            run_target = args.app
-    elif hmr and reload:
-        print(
-            "HMR: browser WS needs --no-reload to attach on this process; "
-            "using uvicorn --reload only (process HMR).",
-            file=sys.stderr,
-        )
-
-    # Tunnel after origin is up (background thread)
     from ux_compose.tunnel import parse_provider, start_tunnel, wait_for_health
 
     try:
-        provider = parse_provider(args.tunnel)
+        provider = parse_provider(tunnel_value)
     except ValueError as e:
         print(str(e), file=sys.stderr)
         return 2
+
+    tunnel_handle = None
+    css_proc = _start_tailwind_watch() if css_watch else None
 
     def _tunnel_worker() -> None:
         nonlocal tunnel_handle
@@ -252,27 +359,59 @@ def _serve(argv: list[str]) -> int:
             wait_for_health(
                 args.port,
                 host=args.host,
-                path=args.health_path,
-                timeout=args.health_timeout,
+                path=health_path,
+                timeout=health_timeout,
             )
             tunnel_handle = start_tunnel(
-                provider, args.port, token=args.tunnel_token, host=args.host
+                provider, args.port, token=tunnel_token, host=args.host
             )
             if tunnel_handle:
                 print(f"tunnel[{tunnel_handle.provider}]: {tunnel_handle.public_url}")
         except Exception as exc:
             print(f"tunnel failed: {exc}", file=sys.stderr)
 
-    if provider != "none":
-        threading.Thread(target=_tunnel_worker, name="uxcompose-tunnel", daemon=True).start()
+    if mode == "dev":
+        missing = _missing_serve_dev_extras()
+        if missing:
+            print(
+                "serve dev needs "
+                + ", ".join(missing)
+                + " — pip install 'ux-compose[serve]'",
+                file=sys.stderr,
+            )
+            _stop_proc(css_proc)
+            return 1
+        from ux_compose.serve_dev import run as run_serve_dev
+
+        print(
+            f"uxcompose serve dev {args.app} http://{args.host}:{args.port} "
+            f"origin+ui+channel css_watch={css_proc is not None} tunnel={provider}"
+        )
+        if provider != "none":
+            threading.Thread(target=_tunnel_worker, name="uxcompose-tunnel", daemon=True).start()
+        try:
+            return run_serve_dev(
+                app_ref=args.app,
+                host=args.host,
+                port=args.port,
+                reload_dirs=reload_dirs,
+                start_css_watcher=None,
+            )
+        finally:
+            _stop_proc(css_proc)
+            if tunnel_handle is not None:
+                tunnel_handle.close()
 
     print(
-        f"uxcompose serve {args.app} http://{args.host}:{args.port} "
-        f"reload={reload} hmr={hmr and not reload} tunnel={provider}"
+        f"uxcompose serve prod {args.app} http://{args.host}:{args.port} "
+        f"clocks=off tunnel={provider}"
     )
+    if provider != "none":
+        threading.Thread(target=_tunnel_worker, name="uxcompose-tunnel", daemon=True).start()
     try:
-        uvicorn.run(run_target, host=args.host, port=args.port, reload=reload and isinstance(run_target, str))
+        uvicorn.run(args.app, host=args.host, port=args.port)
     finally:
+        _stop_proc(css_proc)
         if tunnel_handle is not None:
             tunnel_handle.close()
     return 0
