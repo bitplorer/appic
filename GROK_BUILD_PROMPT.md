@@ -1,78 +1,138 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (Clock A + ownable kit + Relay / OverlayChrome / author door)
+# Grok Build prompt — APPIC on ux-compose 0.1.0
+## Architecture era: one author door, attach notes, OverlayChrome
 
-Copy **everything below the line** into Grok Build. Do not use React, Vue, JSX,
-TSX, Next, TanStack UI, Svelte, Solid, HTMX-as-architecture, or a client SPA
-runtime as the product. Author in Python with
-**[ux-compose](https://github.com/bitplorer/ux-compose) @ main (`7ea3eb8`, 0.1.0 + ownable kit + serve-dev split + soft morph + OverlayChrome + author helpers + attach notes)**.
-Publish the running product to GitHub repo **appic** under the connected account
-(create the repo if missing; replace stale files that predate ADR 0004).
+Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
+SHA **`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`**.
+Companion law: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md) in the same repo.
+Shape: ux-compose `docs/ARCHITECTURE.md` + ADR 0004 + ADR 0005.
 
-If this prompt and the library disagree, **the library wins**. Do not invent APIs.
+This file is the **metaprompt**. Publish it on **bitplorer/appic**. The
+executing Grok Build agent copies **everything below the line**, reads the
+library first, and ships a complete foundry. If this prompt and the library
+disagree, **the library wins**. Do not invent APIs.
 
-Companion law: keep `FEATURE_INVENTORY.md` in the same repo, sourced from
-`ux_compose.__all__` + `kit/catalog.py` + `docs/reference/host.md`.
-Update it if you vendor a newer SHA.
+The previous APPIC prompt (`f4aeab2`, library SHA `6b84972`) shipped Clock A,
+the ownable kit, Wave 1 Signal, Typeahead hits-slot, and Relay. This prompt
+**adds ADR 0004 as walkable rooms**: one author door (`act` / `field` /
+`status` / `tick` / `maybe_*`), visible attach notes (`AttachNote`,
+`attach_notes()`, `App.attach_notes`), and OverlayChrome (ids, swipe-on-dismiss,
+handle `threshold:48`, enter distances right `x=28` / bottom `y=32`). A foundry
+that hides its author door, its step-downs, or its overlay primitive is unfinished.
 
-The previous APPIC prompt (`f4aeab2`, SHA `6b84972`) shipped Clock A, the ownable
-kit, Wave 1 Signal, Typeahead hits-slot, and Relay. This prompt **adds ADR 0004
-as walkable rooms**: one author door (`act` / `field` / `status` / `tick` /
-`maybe_*`), visible attach notes (`AttachNote`, `attach_notes()`,
-`App.attach_notes`), and OverlayChrome (ids, swipe-on-dismiss, open plan).
-A foundry that hides its author door, its step-downs, or its overlay primitive
-is unfinished.
+Repo **appic already exists**. Do not create a second repo. Consume the
+running foundry; upgrade it; replace stale files that predate ADR 0004.
+
+---
+
+Copy **everything below this line** into Grok Build.
 
 ---
 
 Build **APPIC** — a stunning nocturnal foundry OS — as a **complete product**
-(not a widget zoo) using **https://github.com/bitplorer/ux-compose @ main** as
-the only web UI framework. Fully utilise **every public name** in
-`ux_compose.__all__`, every Clock A payload door, every ownable kit card
-(`uxcompose add`), every Wave 1 Signal, and every catalog pattern in
-`examples/`. Ship a running foundry whose radical face is this:
+(not a widget zoo) using **https://github.com/bitplorer/ux-compose @ main**
+(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, 0.1.0) as the **only** web UI
+framework. Fully utilise **every public name** in `ux_compose.__all__`, every
+Clock A payload door, every ownable kit card (`uxcompose add`), OverlayChrome
+(copied even though it is not a catalog stem), every Wave 1 Signal, and every
+catalog pattern in `examples/`. Ship a running foundry whose radical face is this:
 
 > **The document is the composition root made visible. Caps are seals. Intent
 > is a nucleus. Ops are traces. Routes are a constellation. Skin is WebAssets.
 > GET is Clock A. Action is Clock B. Payload type picks media type. Kit cards
 > are rooms you own. Signal is a grammar you can feel. The author door is one.
-> Attach notes refuse silence. OverlayChrome is the edge primitive.**
+> Attach notes refuse silence. OverlayChrome is the edge primitive. Anchored
+> popovers are a different family.**
 
-Read the library first. Clone or vendor `src/ux_compose` from that repo **and**
+Read the library first. Clone or vendor `src/ux_compose` from that SHA **and**
 the four specialists (`ux-dom`, `ux-behavior`, `ux-channel`, `ux-motion`).
 Play the teaching apps (`apps/nook`, `apps/atelier_studio`, `apps/atelier_shop`,
 `apps/pulse`) and `examples/` before inventing a widget.
 
 Nook is the kit house. APPIC is the foundry that **lives in that house**.
 
+Repo: publish to GitHub **appic** under the connected account
+(**bitplorer/appic**). Create the repo only if missing. Do not create a second
+repo if `appic` already exists.
+
+Keep `FEATURE_INVENTORY.md` in the same repo. Update it if you vendor a newer SHA.
+
+---
+
+## NORTH STAR
+
+APPIC is not a shop, not a component gallery, not a dashboard. It is a private
+foundry for commissioning and collecting handmade objects, authored so that
+**authority, motion, media type, ownership of UI, gesture grammar, the author
+door, attach step-downs, and overlay family vs anchored family are first-class
+rooms a human can walk.**
+
+Editorial. Expensive. Abundant negative space. Concentric radii. One cool
+accent. No purple, gold, neon, gradient-blob slop. No emoji in chrome.
+
+A visitor should feel: *this house has laws, and I can touch them.*
+
+---
+
+## KILL TRIGGERS
+
+If you do any of these, **stop, undo, and continue on the product path**.
+These are not style notes. They are ship-blockers.
+
+1. **Any product UI in React / Vue / Svelte / Solid / Next / TanStack Start /
+   JSX / TSX / `.tsx` / `.jsx`.** A Grok sandbox may keep platform
+   `src/router.tsx` unused — they are not the product. Do **not** scaffold
+   TanStack Start for APPIC.
+2. **`vite` / `npx vite` / `npm run build` / Nitro as the ship gate.** Preview
+   is uvicorn on `0.0.0.0:8080`. Historical failure: Vite treated CSS as JS
+   (`CssSyntaxError: Unknown word export`). CSS first token must be CSS.
+   Never JS `export` in a `.css` file.
+3. **HTMX as architecture.** `use_htmx=False`. HTMX is a Document opt-in and
+   stays **off**.
+4. **HTTP verbs on page units.** No `get` / `post` / `put` / `patch` / `delete`
+   on a Component. Clock A wraps `render()`.
+5. **`from ux_compose.kit import Login` (or any kit card) as the live unit.**
+   Copy via `uxcompose add`, own `components/`. Allowed only in tests / Nook /
+   agents.
+6. **`import ux_channel` / `cek` / `cek_host` / `cek_surface` / `MotionChannel`
+   in product modules.** Isolation Law. Doctor AST-scan stays green.
+7. **`host="batteries"`** or `DirectoryRouter` as the product host. Fails closed.
+8. **Plans with `html=`.** XOR. Morph first from `render()`, then
+   `transition.play`. Close of overlays is morph-only.
+9. **Root `swipe.*` on Dialog / Sheet / ActionSheet.** Swipe lives on dismiss /
+   handle / Keep it / Close. Handle grammar is
+   `click swipe.down swipe.vertical threshold:48`.
+10. **A second helper world.** No private `_tick`. No `appic/ux.py` `act()` that
+    posts a different URL than `/act/{action}`. Official helpers:
+    `from ux_compose import act, tick, field, status, maybe_plan, maybe_fade, maybe_slide`.
+11. **Silent `except ImportError` without `AttachNote`.** Silence was the defect.
+12. **Forcing Command / Dropdown / ContextMenu / Combobox / Select through
+    OverlayChrome.** Wrong family. House is anchored; `/overlay` is edge.
+13. **Invented library names** (`Page`, `when`, `forall`, `ux.div`,
+    `StreamingRoute`, `location.reload()` as the happy path after `.py` save).
+14. **Grok platform Auth ON / Database ON.** Kit `Login` / `Otp` are foundry
+    Caps against the Host store — not Grok accounts.
+15. **Incomplete kit.** A stem that exists on disk but is not live in a room
+    is not utilisation. 23 catalog stems + `components/overlay.py`.
+
 ---
 
 ## 0. Non-negotiable
 
-- **No React / Vue / Svelte / Next / TanStack UI / JSX / TSX / `.tsx` product UI.**
-  No client SPA as source of truth. A Grok sandbox may keep platform
-  `src/router.tsx` files unused; they are not the product. Do not scaffold
-  TanStack Start for APPIC.
-- **No HTMX architecture.** `use_htmx=False`. HTMX is a Document opt-in and
-  stays **off**.
-- Public imports are `from ux_compose import …` only. There is no `ux.div` /
-  `when` / `forall` / `Page`.
-- Product modules **never** `import ux_channel`, `cek`, `cek_host`,
-  `cek_surface`, `MotionChannel`.
-- **Page units have no HTTP verbs.** No `get` / `post` / `put` / `patch` /
-  `delete` on a Component. Clock A wraps `render()`. Extra APIs live on the
-  FastAPI process `build()` returned.
-- **Ownable kit.** Product units are copies under `components/`, dropped by
-  `uxcompose add`, then restyled. Do **not** ship `from ux_compose.kit import Login`
-  as the running card (allowed only in tests / Nook / agents).
+- Public imports are `from ux_compose import …` only.
+- Product modules **never** import the wire.
+- **Page units have no HTTP verbs.** Extra APIs live on the FastAPI process
+  `build()` returned.
+- **Ownable kit.** Product units are copies under `components/`.
 - Serve on `0.0.0.0:8080`. Keep Grok `extensions.js` in the shell. Do not hide
   the Created-with-Grok pill. Vanilla preview-host bridge (`postMessage`
-  `grok-preview-bridge` v1: hello / navigate / history / location / routes / ready).
+  `grok-preview-bridge` v1: hello / navigate / history / location / routes / ready)
+  if platform files exist unused.
 - Canonical product path is what `uxcompose create-app` writes. Deploy looks
   for `app.py`. Default ASGI is `app:asgi`. Sandbox `startup.sh` binds uvicorn
-  to `0.0.0.0:8080`.
+  to `0.0.0.0:8080` via `app:asgi` or `appic.server:app` — **not** `npm run dev`.
 - Auth OFF (Grok §0.5). Database OFF. Domain lives in an in-memory Host store.
-  Kit `Login` / `Otp` are **foundry doors** (Caps `auth.login` / `auth.signup` /
-  `auth.otp`) against the Host store — not Grok platform accounts.
-- `host="batteries"` is leftover and **fails closed**. Do not teach it.
+- Consume the existing **bitplorer/appic** foundry if present. Upgrade rooms.
+  Do not recreate a second product next to a working one.
 
 ---
 
@@ -92,7 +152,8 @@ It harnesses four specialists and must **not** reimplement them:
 (`dispatch`) and L3 (`use_channel` + `use_motion`). Zero rewrite.
 
 PyPI / import / CLI: `ux-compose` / `ux_compose` / **`uxcompose`**.
-`ux_compose.__version__ == "0.1.0"`. Pin vendor to SHA **`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`**.
+`ux_compose.__version__ == "0.1.0"`. Pin vendor to SHA
+**`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`**.
 
 Install (plus vendor so git extras can fail):
 
@@ -122,6 +183,8 @@ for s in login tabs accordion dropdown dialog sheet toast command table paginati
          actionsheet contextmenu typeahead pullrefresh; do
   uxcompose add "$s" --force
 done
+# OverlayChrome is NOT a catalog stem — copy it anyway:
+cp vendor/ux-compose-src/ux_compose/kit/overlay.py components/overlay.py
 ```
 
 If the CLI is not on PATH, copy `src/ux_compose/kit/{stem}.py` into
@@ -159,7 +222,12 @@ ActionInfo, BuildResult, RouteRecord,
 DirectoryRoutesError, HMR_PATH, attach_hmr, client_script_tag,
 IsolationViolation, CSS_URL_PREFIX, OUTPUT_CSS_NAME,
 http_path, is_json_payload, is_stream_payload, apply_html_document
-OverlayChrome, overlay   # kit/overlay.py primitive — not a catalog stem
+```
+
+From the **owned** copy `components/overlay.py` (not `ux_compose.kit`):
+
+```
+OverlayChrome, overlay
 ```
 
 Kit catalog (from `ux_compose.kit.catalog` — for `uxcompose add` + Trace evidence,
@@ -195,6 +263,57 @@ app.attach_notes                  # this App's step-downs
 ```
 
 Level labels: `0 static + routing` · `1 offline interactive` · `2 live channel` · `3 motion`.
+
+### Author helpers — exact signatures (ADR 0004)
+
+```
+act(action, label, *, kind="secondary", target="#stage", on=None, **args)
+    POST form to /act/{action}. Alias that path onto /action/{name}.
+    on= stamps data-channel-on.
+
+tick(comp, *, on="tick", off="tock")
+    Flip comp.stamp. Product uses this — never a private _tick.
+
+field(name, value="", *, placeholder="", kind="text")
+status(text, *, kind="note")          # empty → class "sr"
+
+maybe_plan(name, target, *, ms=140)
+maybe_fade(name, target, *, ms=120)
+maybe_slide(name, target, *, direction="next"|"prev", ms=180)
+    return None when ux-motion is absent
+```
+
+`examples/_common.py` re-exports the same objects. Product imports from
+`ux_compose`.
+
+### OverlayChrome — exact constants
+
+```
+overlay(root_id, *, kind=None, edge=None) -> OverlayChrome
+ids: {root}-scrim / {root}-panel / {root}-dismiss
+
+swipe_on_dismiss():
+  center → click swipe.down
+  right  → click swipe.right
+  left   → click swipe.left
+  bottom → click swipe.down
+  top    → click swipe.up
+
+swipe_on_handle():
+  bottom → click swipe.down swipe.vertical threshold:48
+  top    → click swipe.up swipe.vertical threshold:48
+
+open_plan(*, fade_ms=120, enter_ms=180)  # selectors only, no html=
+  center → fade scrim + rise panel
+  right  → fade scrim + slide x=28
+  left   → fade scrim + slide x=-28
+  bottom → fade scrim + slide y=32
+  top    → fade scrim + slide y=-32
+```
+
+Edge family: Dialog, Sheet, ActionSheet.
+Anchored family (do **not** copy these ids): Dropdown, ContextMenu, Combobox,
+Select, Command.
 
 ### build()
 
@@ -241,6 +360,7 @@ asgi = webassets.mount_css(asgi)
 |---|---|
 | Open / value / query / named step / named band | `MorphState` (qualitative) |
 | Magnitude, lists, money, ISO dates, files, digits | `RefState` + `stamp = MorphState("idle")` |
+| Stamp flip | official `tick(self)` |
 | One-shot message | `notify(...)` |
 | Domain stock / money / bookings | Host store, never the client plane |
 | Protected verb | `@action(caps=("orders.place",))` + host mint at HTTP door |
@@ -277,7 +397,7 @@ Prove Clock A with three page units (not extra FastAPI routes):
 
 ---
 
-## 4. Ownable kit + Wave 1 Signal (the missing law)
+## 4. Ownable kit + OverlayChrome + Wave 1 Signal
 
 ### Copy, then own
 
@@ -285,18 +405,21 @@ Prove Clock A with three page units (not extra FastAPI routes):
 components/           # uxcompose add drops files here
   __init__.py
   login.py            # Login, AuthDecision
+  overlay.py          # OverlayChrome, overlay — NOT a catalog stem
   tabs.py … pullrefresh.py
 routes/enter.py       # subclasses copied Login + Otp — not the library module
 ```
 
 Every one of the **23 catalog stems** must exist as an owned file under
 `components/` **and** appear, live, in a product room (Desk / House / Visit /
-Door / Signal). A kit card that only exists on disk is not utilisation.
+Door / Signal). `components/overlay.py` must exist and be used by Dialog /
+Sheet / ActionSheet **and** the Overlay room. A kit card that only exists on
+disk is not utilisation.
 
 ### Kit grammar (fail closed)
 
 1. Tailwind **`class_*` only**. Restyle to APPIC tokens. No companion CSS per card.
-2. Named keys on MorphState. Quantity on RefState.
+2. Named keys on MorphState. Quantity on RefState. Stamp via official `tick()`.
 3. No viewport `sm:` inside cards. Containment: `min-w-0` + `overflow-x-hidden` + wrap.
 4. **Swipe lives on the handle / Keep it / Close, never on the root.**
    A host-level `swipe.vertical` swallows row clicks (Share / Cancel do nothing).
@@ -308,7 +431,8 @@ Door / Signal). A kit card that only exists on disk is not utilisation.
 8. Pagination: windowed numbers (`WINDOW=1`). 44px chevrons. First/last + gaps
    `max-sm:hidden`. Prev is one named page back, disabled on page 1. Demo 12 pages.
 9. Dialog Keep it: `click swipe.down`. Delete is click-only (Cap).
-10. Sheet Close/Done: `click swipe.right`. ActionSheet handle: `click swipe.down`.
+10. Sheet Close/Done: `click swipe.right`. ActionSheet handle:
+    `click swipe.down swipe.vertical threshold:48`.
 11. ContextMenu: click **or** `longpress`. Floating panel, `menuitem` rows, not a native ul.
 12. Typeahead: the field is the control — `input delay:300`. Live Results morph
     `#{id}-hits` only. The field (`#{id}-q`) is not in that HTML, so a
@@ -323,10 +447,19 @@ Door / Signal). A kit card that only exists on disk is not utilisation.
 `/signal` makes the grammar visible as wax-stamped chips:
 
 `swipe.vertical` · `swipe.horizontal` · `click swipe.down` · `click swipe.right` ·
-`longpress` · `input delay:` · `data-channel-id` · `data-channel-on`
+`click swipe.left` · `longpress` · `input delay:` ·
+`click swipe.down swipe.vertical threshold:48` · `data-channel-id` · `data-channel-on`
 
 A human can **do** each one: pull the ledger, swipe a sheet closed, longpress a
-mark, type into typeahead and watch the filter attach after delay.
+mark, type into typeahead and watch the filter attach after delay, swipe the
+ActionSheet handle without killing row clicks.
+
+### Overlay vs anchored (must be two rooms)
+
+| Room | Family | Proof |
+|---|---|---|
+| `/overlay` | Edge — Dialog / Sheet / ActionSheet | OverlayChrome ids, dismiss grammar, handle `threshold:48`, enter x=28 / y=32, open_plan selectors-only, close morph-only |
+| `/house` | Anchored — Typeahead, Combobox, Select, Dropdown, ContextMenu, Command (Desk), plus Sheet/ActionSheet as guests | Command / Dropdown / ContextMenu **do not** stamp `{id}-scrim`. Prove the family split on Trace |
 
 ---
 
@@ -339,12 +472,12 @@ document.py            # ONE Document + .use(XElement(), Csp.auto())
 requirements.txt
 assets/css/input.css
 assets/static/file/css/output.css
-components/            # OWNABLE KIT COPIES (23 stems)
+components/            # OWNABLE KIT COPIES (23 stems + overlay.py)
 appic/                 # product package
-  server.py            # extra APIs on the FastAPI process (POST /action/{name})
+  server.py            # extra APIs on the FastAPI process (POST /action/{name} + /act/{name})
   chrome.py            # Toasts, Palette, Banner, Ribbon (fragments, no URL)
   store.py             # Host domain
-  ux.py                # App helpers + maybe_slide / maybe_plan
+  ux.py                # App helpers — re-export official act/tick/field/status/maybe_* ; do not invent a second door
   tags.py / marks.py   # SVG marks via svg/path/rect/circle + raw() once
   routes/
     index.py           # class Index → /
@@ -367,6 +500,9 @@ appic/                 # product package
     house.py           # House — Typeahead, Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination, ContextMenu, ActionSheet
     visit.py           # Visit — Stepper, Plans, Calendar, Dialog
     signal.py          # Signal — Wave 1 grammar made visible
+    author.py          # Author — official act / field / status / tick / maybe_*
+    notes.py           # Notes — AttachNote notebooks
+    overlay.py         # Overlay — OverlayChrome vs anchored family
 public/favicon.svg
 public/og.jpg          # 1200×630 custom
 src/lib/og/site.json   # { "title": "APPIC", "card": "custom", "color": "0c0d0b" }
@@ -395,15 +531,19 @@ Render `bundle.surfaces`, `bundle.route_table`, `bundle.action_table`,
 2. **Document SSoT.** Exactly one `Document(...)` in `document.py`. Overlays stay in the tree when closed.
 3. **XOR + Morph-then-Play.** Plans carry **no** `html=`. Morph first from `render()`, then `transition.play`.
 4. **Cap Law.** Protected verbs fail closed without a Channel-minted Cap.
-5. **Encoding.** Qualitative MorphState. Magnitudes on RefState + stamp.
+5. **Encoding.** Qualitative MorphState. Magnitudes on RefState + stamp via official `tick()`.
 6. **Presence continuity.** Stable ids (`id="item-{sku}"`). `scene.stagger_in` on survivors. `scene.share(key, leave=, arrive=)` — share id is identity, not a CSS class.
 7. **Cold import never pulls the wire.** `App.boot("auto")` is L1.
-8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Kit: `class_*` only. Document links `/css/output.css`. `WebAssets.mount_css` serves it. If Tailwind CLI is missing, ship a complete hand-authored `output.css` **and** still call `WebAssets`.
+8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Kit: `class_*` only. Document links `/css/output.css`. `WebAssets.mount_css` serves it. If Tailwind CLI is missing, ship a complete hand-authored `output.css` **and** still call `WebAssets`. First token of every `.css` file is CSS.
 9. **HMR / tunnel** are `uxcompose serve` delivery, not `Document.use`. Expose `HMR_PATH` as a chip on Trace.
 10. **Clock A.** No HTTP verbs on page units. Payload type picks media type. Author Document wraps GET.
 11. **Ownable kit.** Copy, restyle, override host seams. Do not import the library kit as the shipped card.
 12. **Signal.** Swipe on handle / Keep it / Close. Never a root swipe.
-13. **No invented library names.**
+13. **One author door.** Official helpers only.
+14. **Attach notes refuse silence.**
+15. **OverlayChrome is the edge primitive.** Anchored family does not copy its ids.
+16. **Leftovers expire by teaching.** Doctor flags kit-imports, `host="batteries"`, teaching `App.mount` as the product path, root swipe. It does not fail-close on them.
+17. **No invented library names.**
 
 ---
 
@@ -434,6 +574,7 @@ Host extra routes on the ASGI **process** (not on the class):
 - `POST /action/{name}` — progressive enhancer. Cap-suffixed verbs mint then invoke.
   Morph `#surface` with Idiomorph (else outerHTML). Full page GET still works without JS.
   Accept both `dispatch(name, **kwargs)` and `dispatch(name, args={...})`.
+- `POST /act/{name}` — **alias of `/action/{name}`** so official `act()` works.
 - `GET /api/surfaces` — extra FastAPI JSON (proves `default_response_class` was **not** set to HTML)
 - `GET /api/kit` — JSON list of owned kit stems + catalog descriptions (proves kit utilisation)
 - static `/css` via `WebAssets.mount_css`
@@ -446,29 +587,23 @@ Progressive enhancer JS is a **small** host file (Idiomorph + POST `/action/{nam
 
 Cap suffixes that mint: `checkout`, `redeem`, `book`, `verify`, `wipe`,
 `moderate`, `next`, `place`, `reset`, `mint`, `sell`, `login`, `signup`, `finish`,
-`archive`, `pick`.
+`archive`, `pick`, `submit`.
 
 ---
 
 ## 8. Catalog — every pattern ships **in the product**
 
-Source of truth: `ux-compose/examples/` (75 classes) **and** `ux-compose/src/ux_compose/kit/`
-(23 ownable cards). Copy the *contract*, not the demo copy.
+Source of truth: `ux-compose/examples/` (75 classes) **and**
+`ux-compose/src/ux_compose/kit/` (23 ownable cards + overlay primitive).
+Copy the *contract*, not the demo copy.
 
-### Foundation (`foundation.py`)
-Counter (RefState magnitude + MorphState stamp; increment public; **reset is a Cap**),
-Toggle (bool MorphState), Morph vs Ref planes.
-
-### Chrome / Overlays / Forms / Collections / Navigation / Commerce / Live / Motion / Systems
 Keep every pattern from the previous APPIC prompt (Tabs through Shortcuts, Caps,
 `scene.share`, stagger, command palette). Do not drop a working room to make space
 for kit rooms — **add rooms**.
 
-### Ownable kit (this revision's radical addition)
-
-Every stem in §4 appears as a live card in Desk / House / Visit / Door / Signal.
-Host seams are overridden so the cards speak APPIC copy (benches, flax, iron,
-wax seals) not the library's stone demo.
+Every stem in §4 appears as a live card in Desk / House / Visit / Door / Signal /
+Overlay. Host seams are overridden so the cards speak APPIC copy (benches, flax,
+iron, wax seals) not the library's stone demo.
 
 Login: demo any valid email/password signs in; `@blocked.test` fails closed;
 signup requires a digit in the password; submit spends `auth.login` / `auth.signup`.
@@ -477,16 +612,14 @@ spends `auth.otp`.
 
 ---
 
-## 9. Product — APPIC (*Intent. Presence. Caps. Kit. Signal.*)
+## 9. Product — APPIC (*Intent. Presence. Caps. Kit. Signal. Author. Notes. Chrome.*)
 
 A private foundry for commissioning and collecting handmade objects. Editorial,
 expensive, abundant negative space, concentric radii. **The kit is the house
 the foundry lives in.** You copy a card, restyle it, override the seam — then
 it is yours. Signal is how the house listens (swipe, longpress, delayed input).
-
-The radical idea is not “another shop” and not “a component gallery”. It is that
-**authority, motion, media type, ownership of UI, and gesture grammar are
-first-class rooms a human can walk.**
+The author door is how you write. Attach notes are how the house admits a
+missing specialist. OverlayChrome is how the edge family stays one primitive.
 
 **Palette.** Dark ink `#0c0d0b`, elevated `#141512`, surface `#1a1b18`,
 bone `#ebe6d8`, muted `#9a9488`, cool accent `#c8ccd4`, danger `#c17a6e`,
@@ -499,14 +632,14 @@ Fluid `clamp` titles. Tabular nums on money / KPI.
 
 **Motion tokens:** `--motion-stagger: 40ms` … `--motion-slow: 400ms`,
 `--ease-out: cubic-bezier(0.22, 1, 0.36, 1)`. Honor `prefers-reduced-motion`.
-Density + motion **names** on `<body>`. Kit overlays: `slide.enter` for sheets
-and action sheets; `fade` scrim + `rise` panel for dialogs.
+Density + motion **names** on `<body>`. Kit overlays: OverlayChrome `open_plan()`
+for sheets and action sheets (x=28 / y=32); fade scrim + rise panel for dialogs.
 
 ### Surfaces
 
 | Path | Unit | Must exercise |
 |---|---|---|
-| `/` Table | `Index` | Pulse counter+stamp, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, `Level` badge, `__version__` chip, doors into Desk / House / Visit / Enter / Signal / Author / Notes / OverlayChrome |
+| `/` Table | `Index` | Pulse counter+stamp via official `tick()`, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, `Level` badge, `__version__` chip, doors into Desk / House / Visit / Enter / Signal / Author / Notes / Overlay |
 | `/atelier` | `Atelier` | Shelf filter/sort/`stagger_in`, wishlist, compare≤3, lightbox, add-to-bag, link to PDP |
 | `/atelier/{sku}` | `Sku` | DirectoryRoutes `[sku]`. **No `get`.** `render(self, sku="")`. `scene.share` into bag |
 | `/commission` | `Commission` | 4-step wizard + radio/checkbox/slider/date/file/password/autosave/limited note/OTP Cap `identity.verify` (`2048`) / place Cap `orders.place` |
@@ -516,19 +649,19 @@ and action sheets; `fade` scrim + `rise` panel for dialogs.
 | `/ledger` | `Ledger` | Calendar book Cap `calendar.book`, WebAssets `css_href` chip, wipe Cap `settings.wipe` |
 | `/lab` | `Lab` | Remaining examples catalog: tree, carousel, reorder, empty-retry, chips, inline, combobox, accordion, drawer, **`morph_play` hop**, share seat, Morph vs Ref |
 | `/lattice` | `Lattice` | Caps as seals. Intent as nucleus. Ops as traces. **`bind(self.mint)` is a Cap.** SurfaceBundle as stars. `dispatch(..., args={})` proven |
-| `/trace` | `Trace` | Live Ops log, doctor, Isolation evidence, `HMR_PATH`, `Level.label`, bundle tables, CSP header chip, `apply_html_document` note, **kit catalog list** |
+| `/trace` | `Trace` | Live Ops log, doctor, Isolation evidence, `HMR_PATH`, `Level.label`, bundle tables, CSP header chip, `apply_html_document` note, **kit catalog list**, leftover teaching chips, OverlayChrome vs anchored family chips |
 | `/clocks` | `Clocks` | Dual-clock room. Clock A GET vs Clock B action. Payload doors (HTML / JSON / stream) as three gates |
 | `/relay` | `Relay` | Three serve clocks (process / HMR / CSS) as live rings. Modes as named MorphState (`dev` / `prod` / `drop`). Soft-morph law. `HMR_PATH` + `CSS_URL_PREFIX`/`OUTPUT_CSS_NAME` chips. `bind(self.drop)` is the restart-channel analogue |
 | `/health` | `Health` | `render()` returns a **dict**. Includes `ok`, `level`, `label`, `version`, `sealed`, `surfaces`, `kit` |
 | `/pulse` | `Pulse` | `render()` returns a **generator** of HTML chunks. StreamingResponse |
 | `/enter` | `Enter` | **Door.** Owned `Login` + `Otp`. Caps `auth.login` / `auth.signup` / `auth.otp`. `@blocked.test` fails closed |
-| `/desk` | `Desk` | Sidebar, Breadcrumb, Tabs, PullRefresh, Accordion, Command, Toast — all owned copies, restyled |
-| `/house` | `House` | Typeahead, Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination, ContextMenu, ActionSheet |
+| `/desk` | `Desk` | Sidebar, Breadcrumb, Tabs, PullRefresh, Accordion, Command, Toast — all owned copies, restyled. Command is **anchored family** |
+| `/house` | `House` | Typeahead, Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination, ContextMenu, ActionSheet. Anchored vs edge guests labeled |
 | `/visit` | `Visit` | Stepper, Plans, Calendar, Dialog. Finish Cap `flow.finish`. Dialog confirm Cap. Calendar `on_pick` books a bench |
-| `/signal` | `Signal` | Wave 1 grammar as a walkable room. Each synthesizer is a live control, not a legend |
-| `/author` | `Author` | Official `act` / `field` / `status` / `tick` / `maybe_*`. POST `/act/{action}` (aliased to `/action/{name}`). Attach-notes strip |
-| `/notes` | `Notes` | `AttachNote`, `attach_notes()`, `App.attach_notes`. Process vs App notebooks. Doctor capabilities |
-| `/overlay` | `Overlay` | OverlayChrome ids, swipe-on-dismiss, `open_plan()`. Owned Dialog / Sheet / ActionSheet |
+| `/signal` | `Signal` | Wave 1 grammar as a walkable room. Each synthesizer is a live control, not a legend. Include handle `threshold:48` |
+| `/author` | `Author` | Official `act` / `field` / `status` / `tick` / `maybe_*` **imported from `ux_compose`**. POST `/act/{action}` (aliased to `/action/{name}`). `act(..., on=)` once. Attach-notes strip |
+| `/notes` | `Notes` | `AttachNote`, `attach_notes()`, `App.attach_notes`. Process vs App notebooks. Doctor capabilities. Dual-write explained |
+| `/overlay` | `Overlay` | OverlayChrome ids, swipe-on-dismiss, handle grammar printed live, enter distances named (right x=28, bottom y=32), `open_plan()`. Owned Dialog / Sheet / ActionSheet. Family split stated |
 | Chrome | `Toasts`, `Palette`, `Banner`, `Ribbon` | `⌘K`; live Ops ribbon; wax-seal burst on Cap mint |
 
 ### Caps (real, fail closed)
@@ -536,8 +669,6 @@ and action sheets; `fade` scrim + `rise` panel for dialogs.
 `orders.place` · `orders.coupon` · `identity.verify` · `calendar.book` ·
 `settings.wipe` · `comments.moderate` · `admin.reset` · `lattice.mint` ·
 `auth.login` · `auth.signup` · `auth.otp` · `flow.finish` · `rows.archive`
-
-Cap suffixes that mint at the HTTP door also include `submit` (kit Login).
 
 OTP verify accepts `2048`. Coupons: `HOUSE` / `FLAX` / `TABLE`.
 Login blocked: `@blocked.test`. OTP refuse: `000000`.
@@ -551,12 +682,14 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 3. **Sit at the Desk.** Pull-to-refresh the ledger. Command palette `⌘K` posts
    the same `/action/{name}` door. Accordion keeps several panels open.
 4. **Walk the House.** Typeahead filters on `input delay:`. Longpress a mark
-   for ContextMenu. ActionSheet handle swipes down. Carousel pip translates.
-   Pagination windows. Sheet Close swipes right.
+   for ContextMenu. ActionSheet handle swipes down (`threshold:48`) without
+   killing row clicks. Carousel pip translates. Pagination windows. Sheet Close
+   swipes right.
 5. **Pay a Visit.** Stepper named steps; finish is a Cap. Plans radio cards.
    Calendar `on_pick`. Dialog Keep it swipes down; Delete is a Cap.
-6. **Stand in Signal.** Every Wave 1 synthesizer is labeled and live.
-7. **Commission a piece.** Wizard MorphState named steps. Magnitude is RefState + stamp.
+6. **Stand in Signal.** Every Wave 1 synthesizer is labeled and live, including
+   handle `threshold:48`.
+7. **Commission a piece.** Wizard MorphState named steps. Magnitude is RefState + official `tick()`.
 8. **Sort the atelier.** Survivors keep `id="item-{sku}"` and `stagger_in`.
    Add-to-bag plays `scene.share`.
 9. **Open `/health`.** JSON. The document did not wrap it.
@@ -566,10 +699,10 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 13. **Checkout without a Cap is refused.** Host-mint then succeeds.
 14. **Wipe settings** is a Cap. Confirm modal stays in the tree when closed.
 15. **Doctor is green.** Isolation scan of `appic/` + `components/` is clean.
-16. **Own the kit.** Edit a `class_*` string; the card is yours. Trace lists 23 stems.
-17. **Stand in Author.** Hold a presence through official `field()`. Pulse via official `act()` (posts `/act/author.pulse`). Flip `tick()`. Play `maybe_plan` / `maybe_fade` / `maybe_slide`. Status names the last Op.
-18. **Read Notes.** `App.attach_notes` and process-wide `attach_notes()` are two notebooks. Silence was the defect.
-19. **Inspect OverlayChrome.** Dialog / Sheet / ActionSheet share one primitive. Swipe lives on dismiss / handle, never the root. Close is morph-only.
+16. **Own the kit.** Edit a `class_*` string; the card is yours. Trace lists 23 stems + overlay.py.
+17. **Stand in Author.** Hold a presence through official `field()`. Pulse via official `act()` (posts `/act/author.pulse`). Flip official `tick()`. Play `maybe_plan` / `maybe_fade` / `maybe_slide`. Status names the last Op. One `act(..., on=)` chip.
+18. **Read Notes.** `App.attach_notes` and process-wide `attach_notes()` are two notebooks. Silence was the defect. Doctor capabilities listed.
+19. **Inspect OverlayChrome.** Dialog / Sheet / ActionSheet share one primitive. Ids printed. Dismiss grammar printed. Handle `click swipe.down swipe.vertical threshold:48` printed. Enter distances named. Close is morph-only. Anchored family is named as the other house.
 
 ---
 
@@ -588,9 +721,11 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 - [ ] Dual-clock room `/clocks`
 - [ ] Relay room `/relay` — three serve clocks, modes as MorphState, HMR_PATH, restart-channel analogue
 - [ ] **23 kit stems copied under `components/` and live in Desk / House / Visit / Enter / Signal**
+- [ ] `components/overlay.py` exists (not a catalog stem) and is imported by Dialog / Sheet / ActionSheet **and** `/overlay`
 - [ ] Kit host seams overridden (authenticate / on_confirm / on_run / on_pick / on_verify / on_choose / on_finish / on_refresh)
-- [ ] Wave 1: ActionSheet handle swipe, ContextMenu longpress, Typeahead `input delay:`, PullRefresh `swipe.vertical`
-- [ ] `slide.enter` used for sheet / action-sheet open
+- [ ] Wave 1: ActionSheet handle swipe with `threshold:48`, ContextMenu longpress, Typeahead `input delay:`, PullRefresh `swipe.vertical`
+- [ ] OverlayChrome enter distances proven: right sheet `x=28`, bottom actionsheet `y=32`
+- [ ] Anchored family (Command / Dropdown / ContextMenu / Combobox / Select) does **not** copy OverlayChrome ids
 - [ ] `bind()` on Pulse and Lattice mint
 - [ ] `dispatch("…", args={...})` proven
 - [ ] `morph_play` used once; `update_with` used everywhere else
@@ -601,24 +736,40 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 - [ ] Extra FastAPI `GET /api/surfaces` and `GET /api/kit` stay JSON
 - [ ] Custom OG + favicon + `src/lib/og/site.json`
 - [ ] Mobile 390px: no overflow, 44px targets, wrap nav, bottom nav
-- [ ] `startup.sh` binds `0.0.0.0:8080`
-- [ ] Vendor copy of `ux_compose` + specialists + `requirements.txt`
+- [ ] `startup.sh` binds `0.0.0.0:8080` via uvicorn — **not** `npm run dev` / vite
+- [ ] Vendor copy of `ux_compose` + specialists + `requirements.txt` + SHA file
 - [ ] Isolation scan of product package **and** `components/` is clean
 - [ ] No `.tsx` / `.jsx` **product** UI
 - [ ] `FEATURE_INVENTORY.md` and this prompt stay in the repo
 - [ ] `act, tick, field, status, maybe_plan, maybe_fade, maybe_slide` imported from `ux_compose` and live on `/author`
+- [ ] Official `tick()` used for stamp flips — no private `_tick` in product
+- [ ] `act(..., on=)` demonstrated once
 - [ ] `AttachNote`, `attach_notes()`, `App.attach_notes` live on `/notes`
-- [ ] OverlayChrome + `overlay()` used by Dialog / Sheet / ActionSheet and `/overlay`
 - [ ] POST `/act/{name}` aliases `/action/{name}` for official `act()`
+- [ ] CSS first token is CSS (never `export`)
+- [ ] Leftover teaching chips on Trace (`host="batteries"`, kit-import, `App.mount` as product path, root swipe)
 
 ---
 
-## 11. Quality
+## 11. A-tier quality
 
 Editorial, not playful-slop. Sparse type. Concentric radii. One accent.
 Honor reduced motion. Every `@action` mutates state and morphs. Caps are real.
 Motion degrades. Isolation holds. Clock A is correct. The kit is owned.
-Signal is felt, not documented.
+Signal is felt, not documented. The author door is one. Attach notes are
+visible. OverlayChrome is the edge. Anchored is the other house.
+
+| Check | Bar |
+|---|---|
+| 390px | no horizontal overflow, 44px targets, wrap nav, bottom nav |
+| Desktop | abundant negative space, no dense dashboard |
+| Palette | ink / bone / cool only. No purple / gold / neon |
+| Type | Fraunces display, Source Sans 3 body, IBM Plex Mono traces |
+| Motion | OverlayChrome `open_plan` distances; `prefers-reduced-motion` |
+| Console | clean |
+| Caps | fail closed, then succeed after mint |
+| Doctor | Isolation green on `appic/` + `components/` |
+| Preview | uvicorn on `0.0.0.0:8080`, left running |
 
 The lattice is the product's radical face: **authority made visible.**
 The trace is the product's memory: **Ops as data.**
@@ -629,7 +780,7 @@ The desk / house / visit are the product's rooms: **owned kit, not a gallery.**
 The signal room is the product's grammar: **swipe, longpress, delay — as data.**
 The author door is the product's honesty: **one helper world, not two.**
 The notes room is the product's memory of attach: **step-downs are visible.**
-The overlay room is the product's edge: **one primitive, three widgets.**
+The overlay room is the product's edge: **one primitive, three widgets, two families.**
 The atelier PDP is the product's routing proof: **filesystem → HTTP.**
 The health and pulse doors are the product's host proof: **return value picks the container.**
 The skin is WebAssets: **tokens compiled, not inlined.**
