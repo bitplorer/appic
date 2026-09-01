@@ -119,6 +119,7 @@ class Host:
         self.level: int = 0
         self.last_seal: str = ""
         self.pieces: dict[str, Any] = {}
+        self.attach_notes: tuple[Any, ...] = ()
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.trace.append(

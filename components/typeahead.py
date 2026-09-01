@@ -1,9 +1,4 @@
-"""Ownable copy of ux_compose.kit.typeahead — edit freely.
-
-Copied by ``uxcompose add typeahead``. Regenerated against ux-compose
-``f0b8da50`` (hits-slot morph). Restyle ``class_*``. Host seam: ``OPTIONS``, ``on_pick``.
-
-Drop-in typeahead — live filter on ``input delay:``.
+"""Drop-in typeahead — live filter on ``input delay:``.
 
 Unlike Combobox, there is no Filter submit. The field *is* the control.
 Host seam: override ``OPTIONS`` and ``on_pick(label)``.

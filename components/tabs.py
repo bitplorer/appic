@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.tabs — edit freely.
-
-Copied by ``uxcompose add tabs``. Regenerate with ``uxcompose add tabs --force``.
-
-Drop-in tabs — one MorphState key, public select.
+"""Drop-in tabs — one MorphState key, public select.
 
 Host seam: override ``ITEMS``. Opening a tab is not an authority event.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

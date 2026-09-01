@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.otp — edit freely.
-
-Copied by ``uxcompose add otp``. Regenerate with ``uxcompose add otp --force``.
-
-Drop-in OTP — six digits attach before the morph.
+"""Drop-in OTP — six digits attach before the morph.
 
 Host seam: override ``on_verify(code)``. Submit spends ``auth.otp``.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

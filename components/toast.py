@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.toast — edit freely.
-
-Copied by ``uxcompose add toast``. Regenerate with ``uxcompose add toast --force``.
-
-Drop-in toast host — server list is authority.
+"""Drop-in toast host — server list is authority.
 
 Items live in RefState. ``stamp`` is the qualitative dirty tick so the
 unit morphs. Push is public. The stack is a fixed corner — the card is

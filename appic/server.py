@@ -27,6 +27,9 @@ NAV = (
     ("/house", "House"),
     ("/visit", "Visit"),
     ("/signal", "Signal"),
+    ("/author", "Author"),
+    ("/notes", "Notes"),
+    ("/overlay", "Chrome"),
     ("/atelier", "Atelier"),
     ("/bag", "Bag"),
     ("/lattice", "Lattice"),
@@ -116,6 +119,9 @@ def _page_for_path(path: str) -> str:
         "/signal": "signal",
         "/clocks": "clocks",
         "/relay": "relay",
+        "/author": "author",
+        "/notes": "notes",
+        "/overlay": "overlay",
         "/health": "health",
         "/pulse": "pulse",
         "/commission": "commission",
@@ -142,6 +148,9 @@ def _page_for_path(path: str) -> str:
         ("/signal", "signal"),
         ("/clocks", "clocks"),
         ("/relay", "relay"),
+        ("/author", "author"),
+        ("/notes", "notes"),
+        ("/overlay", "overlay"),
     ):
         if p.startswith(href):
             return sid
@@ -239,7 +248,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
         crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
     crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
     bottom = []
-    for href, label in (("/", "Table"), ("/house", "House"), ("/enter", "Door"), ("/signal", "Signal"), ("/relay", "Relay"), ("/trace", "Trace")):
+    for href, label in (("/", "Table"), ("/author", "Author"), ("/house", "House"), ("/enter", "Door"), ("/overlay", "Chrome"), ("/trace", "Trace")):
         current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
         if href == "/" and path in ("/", "/home", ""):
             current = True
@@ -250,8 +259,8 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>APPIC · Intent · Presence · Caps · Kit</title>
-  <meta name="description" content="A foundry OS authored in ux-compose. Intent. Presence. Caps. Ownable kit. Signal." />
+  <title>APPIC · Intent · Presence · Caps · Kit · Signal</title>
+  <meta name="description" content="A foundry OS authored in ux-compose. Intent. Presence. Caps. Ownable kit. Signal. Author door. OverlayChrome." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/__grok/icon-180.png" />
   <meta property="og:title" content="APPIC · Intent · Presence · Caps" />
@@ -280,7 +289,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · 6b84972 · ownable kit · Signal · Relay · Morph then Play · Isolation Law · Caps</span>
+      <span>ux-compose · 7ea3eb8 · one author door · OverlayChrome · attach notes · ownable kit · Signal · Relay</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -363,6 +372,10 @@ def build():
     app._bundle = bundle
     HOST.pieces = dict(registry)
     HOST.level = int(getattr(app, "level", 0) or 0)
+    try:
+        HOST.attach_notes = tuple(getattr(app, "attach_notes", ()) or ())
+    except Exception:
+        HOST.attach_notes = ()
 
     if asgi is None:
         return app, None, bundle
@@ -430,6 +443,9 @@ def build():
     @asgi.get("/signal")
     @asgi.get("/clocks")
     @asgi.get("/relay")
+    @asgi.get("/author")
+    @asgi.get("/notes")
+    @asgi.get("/overlay")
     async def pages(request: Request):
         path = request.url.path
         sid = _page_for_path(path)
@@ -519,6 +535,12 @@ def build():
         page_sid = sid if sid not in {"palette", "toasts", "banner"} else _page_for_path(ref_path)
         page_html = inner if page_sid == sid else _render_surface(app, page_sid)
         return HTMLResponse(_shell(app, page_html, path=ref_path), headers=headers)
+
+    @asgi.post("/act/{name:path}")
+    async def act_door(name: str, request: Request):
+        """Official ux_compose.author.act() posts /act/{action}. Same door as /action/."""
+        return await action_door(name, request)
+
     @asgi.get("/api/doctor")
     def api_doctor():
         report = doctor([], fail=False, bundle=getattr(app, "_bundle", None))
@@ -565,7 +587,7 @@ def build():
             "owned": owned,
             "mounted": stems,
             "count": len(owned),
-            "sha": "6b84972",
+            "sha": "7ea3eb8",
         }
 
     return app, asgi, bundle

@@ -22,6 +22,7 @@ from appic.ux import (
     maybe_plan,
     maybe_share,
     maybe_stagger,
+    morph_play,
     notify,
     p,
     section,
@@ -606,7 +607,11 @@ class Lab(Component):
     def hop(self, **kwargs):
         self.hop = "b" if self.hop == "a" else "a"
         target = "#hop-b" if self.hop == "b" else "#hop-a"
-        return update_with(self, maybe_plan("hop", target, ms=140))
+        plan = maybe_plan("hop", target, ms=140)
+        if plan is not None:
+            return morph_play(target, plan)
+        tick(self)
+        return update_with(self)
 
     @action(caps=())
     def share(self, **kwargs):

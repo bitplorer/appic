@@ -146,7 +146,7 @@
     var btn = form.querySelector("[data-ux-action]");
     var action =
       (btn && btn.getAttribute("data-ux-action")) ||
-      (form.getAttribute("action") || "").replace(/^\/action\//, "");
+      (form.getAttribute("action") || "").replace(/^\/(action|act)\//, "");
     if (!action) return;
     ev.preventDefault();
     var data = {};
@@ -322,7 +322,7 @@
         channel: CHANNEL,
         version: VERSION,
         type: "routes",
-        paths: ["/", "/enter", "/desk", "/house", "/visit", "/signal", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger", "/clocks", "/relay", "/health", "/pulse"],
+        paths: ["/", "/enter", "/desk", "/house", "/visit", "/signal", "/author", "/notes", "/overlay", "/atelier", "/commission", "/bag", "/board", "/studio", "/lab", "/lattice", "/trace", "/ledger", "/clocks", "/relay", "/health", "/pulse"],
       });
       post({ channel: CHANNEL, version: VERSION, type: "ready" });
     }

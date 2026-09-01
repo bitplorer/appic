@@ -1,14 +1,12 @@
-"""Ownable copy of ux_compose.kit.actionsheet — edit freely.
+"""Drop-in action sheet — bottom panel, swipe-down to dismiss.
 
-Copied by ``uxcompose add actionsheet``. Regenerate with ``uxcompose add actionsheet --force``.
-
-Drop-in action sheet — bottom panel, swipe-down to dismiss.
-
-Host seam: override ``ACTIONS`` and ``on_pick(key)``. Destructive keys spend a Cap.
-Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+Swipe lives on the handle and Cancel, not the root. OverlayChrome owns
+scrim/panel/dismiss ids, handle grammar, and the open plan.
 """
 
 from __future__ import annotations
+
+from .overlay import overlay as overlay_chrome
 
 from ux_compose import (
     Component,
@@ -26,24 +24,8 @@ from ux_compose import (
 )
 
 
-def _plan(name: str, target: str, *, y: float = 28, ms: int = 180):
-    try:
-        from ux_compose import scene, slide
-
-        if scene is None or slide is None:
-            return None
-        return scene(name).enter(target, slide.enter(y=y, ms=ms))
-    except Exception:
-        return None
-
-
 class ActionSheet(Component):
-    """A sheet from the bottom. Presence is MorphState. Pick is a named key.
-
-    Swipe lives on the **handle**, not the root. A host-level
-    ``swipe.vertical`` captures the pointer and swallows clicks on the
-    rows. Handle accepts ``click swipe.down``. Rows stay ``click``.
-    """
+    """A sheet from the bottom. Presence is MorphState. Pick is a named key."""
 
     id = "actionsheet"
 
@@ -69,8 +51,8 @@ class ActionSheet(Component):
     )
     class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-stone-900/40"
     class_panel = (
-        "fixed inset-x-0 bottom-0 z-50 flex max-h-[min(28rem,80dvh)] flex-col gap-2 "
-        "rounded-t-3xl border border-stone-200 bg-white px-5 pb-7 pt-1 shadow-xl"
+        "fixed inset-x-0 bottom-0 z-50 flex max-h-[min(28rem,80dvh)] touch-pan-x select-none "
+        "flex-col gap-2 rounded-t-3xl border border-stone-200 bg-white px-5 pb-7 pt-1 shadow-xl"
     )
     class_handle_hit = (
         "mx-auto flex min-h-11 w-full cursor-grab items-center justify-center "
@@ -80,7 +62,6 @@ class ActionSheet(Component):
     class_choice = "m-0 text-sm text-stone-500"
     class_sr = "sr-only"
 
-    # (key, label, destructive)
     ACTIONS = (
         ("share", "Share this piece", False),
         ("pin", "Pin to the desk", False),
@@ -97,10 +78,14 @@ class ActionSheet(Component):
     def _tick(self):
         self.stamp = "b" if self.stamp == "a" else "a"
 
+    def _chrome(self):
+        return overlay_chrome(self.id, kind="actionsheet")
+
     def render(self):
         is_open = bool(self.open)
         picked = str(self.picked or "")
-        overlay = []
+        ch = self._chrome()
+        layer = []
         if is_open:
             rows = [
                 button(
@@ -111,10 +96,11 @@ class ActionSheet(Component):
                 )
                 for key, label, dest in self.ACTIONS
             ]
-            overlay = [
+            layer = [
                 button(
                     span("Close", className=self.class_sr),
                     type="button",
+                    id=ch.scrim_id,
                     className=self.class_scrim,
                     aria_label="Close",
                     **bind(self.close),
@@ -124,9 +110,10 @@ class ActionSheet(Component):
                         span("Dismiss", className=self.class_sr),
                         div("", className=self.class_handle),
                         type="button",
+                        id=ch.dismiss_id,
                         className=self.class_handle_hit,
                         aria_label="Dismiss",
-                        data_channel_on="click swipe.down swipe.vertical threshold:48",
+                        data_channel_on=ch.swipe_on_handle(),
                         **bind(self.close),
                     ),
                     span("Actions", className=self.class_kicker),
@@ -135,32 +122,25 @@ class ActionSheet(Component):
                     button(
                         "Cancel",
                         type="button",
+                        id=f"{self.id}-cancel",
                         className=self.class_btn_ghost + " mt-1 text-stone-500",
-                        data_channel_on="click swipe.down",
+                        data_channel_on=ch.swipe_on_dismiss(),
                         **bind(self.close),
                     ),
+                    id=ch.panel_id,
                     className=self.class_panel,
                     role="dialog",
                     aria_modal="true",
                     aria_labelledby=f"{self.id}-title",
-                    style="touch-action:pan-x;user-select:none;",
                 ),
             ]
         return div(
             span("Sheet · swipe down", className=self.class_kicker),
             h2("Action sheet", className=self.class_title),
-            p(
-                "Opens from the bottom. Swipe the handle or Cancel to dismiss.",
-                className=self.class_lede,
-            ),
+            p("Opens from the bottom. Swipe the handle or Cancel to dismiss.", className=self.class_lede),
             p(f"Last pick · {picked}" if picked else "Nothing picked yet.", className=self.class_choice),
-            button(
-                "Open actions",
-                type="button",
-                className=self.class_btn_primary,
-                **bind(self.open_sheet),
-            ),
-            *overlay,
+            button("Open actions", type="button", className=self.class_btn_primary, **bind(self.open_sheet)),
+            *layer,
             id=self.id,
             className=self.class_card,
             data_open="1" if is_open else "0",
@@ -171,13 +151,13 @@ class ActionSheet(Component):
     def open_sheet(self):
         self.open = True
         self._tick()
-        return update_with(self, _plan("sheet-open", f"#{self.id}", y=32, ms=180))
+        return update_with(self, self._chrome().open_plan())
 
     @action(caps=())
     def close(self):
         self.open = False
         self._tick()
-        return update_with(self, _plan("sheet-close", f"#{self.id}", y=16, ms=140))
+        return update_with(self)
 
     @action(caps=())
     def pick(self, key: str = ""):
@@ -187,11 +167,7 @@ class ActionSheet(Component):
         self.picked = key
         self.open = False
         self._tick()
-        return update_with(
-            self,
-            _plan("sheet-pick", f"#{self.id}", y=12, ms=120),
-            extra_ops=[notify(self.on_pick(key))],
-        )
+        return update_with(self, extra_ops=[notify(self.on_pick(key))])
 
     @action(caps=("orders.archive",))
     def archive(self, key: str = ""):

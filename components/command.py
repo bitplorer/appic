@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.command — edit freely.
-
-Copied by ``uxcompose add command``. Regenerate with ``uxcompose add command --force``.
-
-Drop-in command palette — query attaches before the morph.
+"""Drop-in command palette — query attaches before the morph.
 
 Host seam: override ``COMMANDS`` and ``on_run(key)``. Opening is public.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

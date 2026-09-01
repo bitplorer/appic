@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.sidebar — edit freely.
-
-Copied by ``uxcompose add sidebar``. Regenerate with ``uxcompose add sidebar --force``.
-
-Drop-in sidebar — collapsible rail, one active key.
+"""Drop-in sidebar — collapsible rail, one active key.
 
 Host seam: override ``ITEMS``. Opening a section is public.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

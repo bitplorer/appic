@@ -29,6 +29,7 @@ from appic.ux import (
     ul,
     update_with,
 )
+from ux_compose import HAS_DOM, Level, __version__
 
 BENCHES = (
     ("mira", "Mira", "bench · flax"),
@@ -92,6 +93,9 @@ class Home(Component):
                     a("Open door", href="/enter", className="btn btn-ghost"),
                     a("Walk the house", href="/house", className="btn btn-ghost"),
                     a("Feel signal", href="/signal", className="btn btn-ghost"),
+                    a("Author door", href="/author", className="btn btn-ghost"),
+                    a("Attach notes", href="/notes", className="btn btn-ghost"),
+                    a("OverlayChrome", href="/overlay", className="btn btn-ghost"),
                     a("Stand in relay", href="/relay", className="btn btn-ghost"),
                     button(
                         "Command",
@@ -100,6 +104,12 @@ class Home(Component):
                         **control("palette.toggle"),
                     ),
                     className="hero-actions",
+                ),
+                div(
+                    span(f"L{int(Level(HOST.level) if HOST.level else 0)}", className="chip is-on"),
+                    span(f"ux-compose {__version__}", className="chip"),
+                    span(f"HAS_DOM · {'on' if HAS_DOM else 'shim'}", className="chip"),
+                    className="chip-row",
                 ),
                 form(
                     input_(

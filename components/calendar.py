@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.calendar — edit freely.
-
-Copied by ``uxcompose add calendar``. Regenerate with ``uxcompose add calendar --force``.
-
-Drop-in calendar — month and day are named keys.
+"""Drop-in calendar — month and day are named keys.
 
 Host seam: override ``on_pick(day)``. Quantity never lives on MorphState.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

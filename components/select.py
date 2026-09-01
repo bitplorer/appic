@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.select — edit freely.
-
-Copied by ``uxcompose add select``. Regenerate with ``uxcompose add select --force``.
-
-Drop-in select — grouped options, placeholder, click-away scrim.
+"""Drop-in select — grouped options, placeholder, click-away scrim.
 
 Host seam: override ``GROUPS``. Distinct from Dropdown: a form field with groups.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

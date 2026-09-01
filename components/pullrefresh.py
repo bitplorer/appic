@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.pullrefresh — edit freely.
-
-Copied by ``uxcompose add pullrefresh``. Regenerate with ``uxcompose add pullrefresh --force``.
-
-Drop-in pull-to-refresh — vertical swipe on the list, not a new attribute.
+"""Drop-in pull-to-refresh — vertical swipe on the list, not a new attribute.
 
 Host seam: override ``SEED`` and ``on_refresh()`` (returns extra rows).
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

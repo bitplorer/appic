@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.stepper — edit freely.
-
-Copied by ``uxcompose add stepper``. Regenerate with ``uxcompose add stepper --force``.
-
-Drop-in stepper — named steps, public next, Cap on finish.
+"""Drop-in stepper — named steps, public next, Cap on finish.
 
 Host seam: override ``STEPS`` and ``on_finish()``.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

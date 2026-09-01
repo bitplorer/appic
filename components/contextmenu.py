@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.contextmenu — edit freely.
-
-Copied by ``uxcompose add contextmenu``. Regenerate with ``uxcompose add contextmenu --force``.
-
-Drop-in context menu — click or longpress on the same control.
+"""Drop-in context menu — click or longpress on the same control.
 
 Host seam: override ``ITEMS`` and ``on_run(key)``.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.breadcrumb — edit freely.
-
-Copied by ``uxcompose add breadcrumb``. Regenerate with ``uxcompose add breadcrumb --force``.
-
-Drop-in breadcrumb — trail of named crumbs.
+"""Drop-in breadcrumb — trail of named crumbs.
 
 Host seam: override ``TRAIL``. Walking back is public.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

@@ -8,17 +8,26 @@ from typing import Any
 
 from ux_compose import (
     App,
+    AttachNote,
     Component,
     MorphState,
     RefState,
     action,
+    attach_notes,
     bind,
     control,
     doctor,
+    field,
     morph_play,
     notify,
+    status,
     update_with as _compose_update_with,
 )
+
+try:
+    from ux_compose import HAS_DOM
+except Exception:  # pragma: no cover
+    HAS_DOM = False
 
 try:
     from ux_compose import scene, rise, fade, slide
@@ -42,6 +51,7 @@ from appic.tags import (
     input_,
     label,
     li,
+    main,
     nav,
     p,
     path,
@@ -198,15 +208,18 @@ def act(action_name: str, label: str, *, kind: str = "ghost", **args: Any):
 
 __all__ = [
     "App",
+    "AttachNote",
     "Component",
     "MorphState",
     "RefState",
     "HAS_TAGS",
+    "HAS_DOM",
     "a",
     "act",
     "action",
     "article",
     "aside",
+    "attach_notes",
     "bind",
     "button",
     "circle",
@@ -214,6 +227,7 @@ __all__ = [
     "div",
     "doctor",
     "fade",
+    "field",
     "footer",
     "form",
     "h1",
@@ -223,6 +237,7 @@ __all__ = [
     "input_",
     "label",
     "li",
+    "main",
     "maybe_fade",
     "maybe_plan",
     "maybe_share",
@@ -238,6 +253,7 @@ __all__ = [
     "scene",
     "section",
     "span",
+    "status",
     "svg",
     "table",
     "tbody",

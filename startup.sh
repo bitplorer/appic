@@ -9,6 +9,9 @@ fi
 # :8081 is QA-only — a revive must never inherit a stale built-output preview.
 node scripts/preview.mjs stop >/dev/null 2>&1 || true
 PY="${PYTHON:-python3}"
+if ! command -v "$PY" >/dev/null 2>&1; then
+  PY=python3
+fi
 if [ ! -d /workspace/.pydeps/fastapi ]; then
   "$PY" -m pip install -q --target /workspace/.pydeps fastapi 'uvicorn[standard]' marko itsdangerous python-multipart || true
 fi

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.pagination — edit freely.
-
-Copied by ``uxcompose add pagination``. Regenerate with ``uxcompose add pagination --force``.
-
-Drop-in pagination — opaque page keys, never a quantity MorphState.
+"""Drop-in pagination — opaque page keys, never a quantity MorphState.
 
 Host seam: override ``PAGES`` and ``WINDOW``. Keys are names (``p1``), not ints.
 ``WINDOW`` is how many numbered neighbors sit next to the current page.

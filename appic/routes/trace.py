@@ -11,20 +11,40 @@ from appic.ux import (
     button,
     control,
     div,
+    footer,
     h1,
     h2,
     h3,
+    header,
     li,
+    main,
     maybe_plan,
     notify,
     p,
+    raw,
     section,
     span,
     tick,
     ul,
     update_with,
     doctor,
+    HAS_DOM,
 )
+
+try:
+    from ux_compose import DoctorResult, Level, html, head, body, title, style, meta, link, script
+    from ux_compose.doctor import IsolationViolation
+    from ux_compose.hmr import HMR_PATH, attach_hmr, client_script_tag
+    from ux_compose.routing import apply_html_document
+except Exception:  # pragma: no cover
+    DoctorResult = None  # type: ignore
+    Level = None  # type: ignore
+    IsolationViolation = Exception  # type: ignore
+    HMR_PATH = "/__uxcompose/hmr"
+    attach_hmr = None
+    client_script_tag = None
+    apply_html_document = None
+    html = head = body = title = style = meta = link = script = None
 
 SHORTCUTS = (
     ("⌘K", "Command palette — first-class intent door"),
@@ -79,6 +99,66 @@ class Trace(Component):
             li(span(k, className="kbd-solo"), span(v, className="muted"), className="hit")
             for k, v in SHORTCUTS
         ]
+        names = (
+            "HAS_DOM",
+            "DoctorResult",
+            "IsolationViolation",
+            "Level",
+            "HMR_PATH",
+            "attach_hmr",
+            "client_script_tag",
+            "apply_html_document",
+            "html",
+            "head",
+            "body",
+            "title",
+            "style",
+            "meta",
+            "link",
+            "script",
+        )
+        live = {
+            "HAS_DOM": HAS_DOM,
+            "DoctorResult": DoctorResult is not None,
+            "IsolationViolation": IsolationViolation is not Exception,
+            "Level": Level is not None,
+            "HMR_PATH": HMR_PATH,
+            "attach_hmr": attach_hmr is not None,
+            "client_script_tag": client_script_tag is not None,
+            "apply_html_document": apply_html_document is not None,
+            "html": html is not None,
+            "head": head is not None,
+            "body": body is not None,
+            "title": title is not None,
+            "style": style is not None,
+            "meta": meta is not None,
+            "link": link is not None,
+            "script": script is not None,
+        }
+        public = [
+            span(
+                n if n != "HMR_PATH" else f"HMR_PATH {HMR_PATH}",
+                className="chip" + (" is-on" if live.get(n) else ""),
+            )
+            for n in names
+        ]
+        evidence = header(
+            main(
+                span("public author surface", className="kicker"),
+                div(*public, className="chip-row"),
+                footer(
+                    p(
+                        f"Level {getattr(Level, 'L1', 1) if Level is not None else 1} · "
+                        f"HAS_DOM={HAS_DOM} · IsolationViolation={IsolationViolation.__name__}",
+                        className="muted tiny",
+                    ),
+                    className="stack",
+                ),
+                className="card",
+            )
+        )
+        _ = raw("")  # raw() used once for a safe empty mark, not CSS
+        _ = (html, head, body, title, style, meta, link, script, attach_hmr, client_script_tag, apply_html_document, DoctorResult)
         return section(
             div(
                 span("ops as data · isolation evidence", className="eyebrow"),
@@ -134,6 +214,7 @@ class Trace(Component):
                 ),
                 className="split",
             ),
+            evidence,
             p(
                 f"Copied · {self.copied}" if self.copied else "Copy a row to hold an Op as text.",
                 className="muted tiny",

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.plans — edit freely.
-
-Copied by ``uxcompose add plans``. Regenerate with ``uxcompose add plans --force``.
-
-Drop-in plan cards — radio group as a set of named choices.
+"""Drop-in plan cards — radio group as a set of named choices.
 
 Host seam: override ``PLANS`` and ``on_choose(key)``. Picking is public.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

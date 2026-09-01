@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.table — edit freely.
-
-Copied by ``uxcompose add table``. Regenerate with ``uxcompose add table --force``.
-
-Drop-in data table — sort key MorphState, selection RefState.
+"""Drop-in data table — sort key MorphState, selection RefState.
 
 Host seam: override ``ROWS`` / ``COLUMNS`` and ``on_archive(skus)``.
 Archiving spends a Cap. Selecting is public.

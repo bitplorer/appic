@@ -1,9 +1,4 @@
-"""Ownable copy of ux_compose.kit.carousel — edit freely.
-
-Copied by ``uxcompose add carousel``. Regenerated against ux-compose
-``f0b8da50`` (locked h-72 stage, overlay dots, translating pip).
-
-Drop-in carousel — named slides, never a quantity MorphState.
+"""Drop-in carousel — named slides, never a quantity MorphState.
 
 Host seam: override ``SLIDES``. Prev / next compute the neighbor key.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.

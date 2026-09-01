@@ -1,7 +1,7 @@
-# ux-compose — complete feature inventory (kit era)
+# ux-compose — complete feature inventory (kit era + ADR 0004)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`6b84972`, 2026-08-30, **0.1.0 / Clock A + ownable kit + Typeahead hits-slot + serve-dev split + soft morph**).
+(`7ea3eb8`, 2026-08-31, **0.1.0 / Clock A + ownable kit + OverlayChrome + author door + attach notes + Typeahead hits-slot + serve-dev split + soft morph**).
 Public names: `src/ux_compose/__init__.py` `__all__`. Kit catalog:
 `src/ux_compose/kit/catalog.py`. If this page and the code disagree, **code wins**.
 
@@ -30,7 +30,7 @@ and must **not** reimplement them.
 | Version | `0.1.0` (`ux_compose.__version__`) |
 | Python | ≥ 3.11 classifiers (ux-dom full stack needs ≥ 3.14; sandbox 3.10 vendors source) |
 | License | MIT |
-| Current SHA | `6b84972bf9a6f9508321ef929bff6f18307e7632` |
+| Current SHA | `7ea3eb8813d280a975c4a41d23a2e2d4de40a506` |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
 If you rewrite a Component “to go live”, you have violated the contract.
@@ -70,6 +70,32 @@ Import **only** from `ux_compose`. There is no public `ux.div` / `when` / `foral
 
 `Component`, `MorphState`, `RefState`, `action`, `bind`, `control`, `notify`, `update_with`, `morph_play`
 
+### Author door (ADR 0004)
+
+`act`, `tick`, `field`, `status`, `maybe_plan`, `maybe_fade`, `maybe_slide`
+
+Official `act(action, label, *, kind="secondary", target="#stage", on=None, **args)` posts **`/act/{action}`**.
+`tick(comp)` flips a qualitative MorphState stamp so RefState-only mutations morph.
+`field(name, value, *, placeholder, kind)` is the one input helper.
+`status(text, *, kind="note")` is the live region (`status-note` / `status-warn` / `.sr` when empty).
+`maybe_*` return `None` when ux-motion is absent. `maybe_slide(..., direction="next"|"prev")`.
+
+`examples/_common.py` re-exports these same objects. There is **no second helper world**.
+
+### Attach notes
+
+`AttachNote`, `attach_notes()`
+
+Silence was the defect. Missing specialists write a note instead of raising.
+
+| Name | Role |
+|---|---|
+| `AttachNote` | Frozen: `door`, `wanted`, `reason`, `level_kept` |
+| `attach_notes()` | Snapshot of the **active** notebook (process-wide when no App is bound) |
+| `App.attach_notes` | This App's notebook. Two Apps in one process do not leak. Not a message bus |
+
+Doctor dual-writes so the audit has a process notebook.
+
 ### Motion (via ux-motion, else `None`)
 
 `scene`, `fade`, `rise`, **`slide`**
@@ -94,6 +120,8 @@ Do **not** subclass ux-dom `Component` (MRO collides).
 `HMR_PATH` (`/__uxcompose/hmr`), `attach_hmr`, `client_script_tag`,
 `IsolationViolation`, `scan_isolation`, `scan_dual_document`,
 `CSS_URL_PREFIX` (`/css`), `OUTPUT_CSS_NAME` (`output.css`)
+
+`OverlayChrome`, `overlay` — kit/overlay.py primitive (not a catalog stem). Dialog / Sheet / ActionSheet take ids, dismiss grammar, and the open plan from it. Anchored popovers and Command do not copy these ids. Swipe lives on dismiss / handle, never the root. Close is morph-only.
 
 `materialize(route_class=)` **fails closed**. `host="batteries"` **fails closed**.
 `App.boot("auto")` is Level 1. Channel attaches in `build()` once ASGI exists.
@@ -191,6 +219,8 @@ Helpers (not copied as cards): `KitEntry`, `list_components`, `resolve`,
 - Pagination: windowed numbers. First/last + gaps are `max-sm:hidden`. Prev is one named page back. 44px chevrons.
 - Isolation: kit modules never import `ux_channel`.
 
+**OverlayChrome** (`ux_compose.kit.overlay`, copied as `components/overlay.py`) is **not** a catalog stem. It is the shared edge primitive: `scrim_id` / `panel_id` / `dismiss_id`, `swipe_on_dismiss()`, `swipe_on_handle()`, `open_plan()` (selectors only). Copy it with the widgets; do not invent a fourth overlay family.
+
 Nook rooms (the kit house — copy the *rooming*, not the demo copy):
 
 | Path | Kit used |
@@ -271,3 +301,6 @@ Product CSS is `uxcompose build` (`ux_compose.tailwind` finds / ensures the CLI)
 11. **Ownable kit.** Copy, then edit. Do not ship `from ux_compose.kit import …` as the product unit.
 12. **Signal.** Swipe on the handle / Keep it / Close. Never a root swipe that swallows row clicks.
 13. **No invented library names.**
+14. **One author door.** `act` / `field` / `status` / `tick` / `maybe_*` live on `ux_compose`. Do not keep a second helper world.
+15. **Attach notes refuse silence.** Step-downs write `AttachNote`. They do not raise, and they do not hide.
+16. **OverlayChrome is the edge primitive.** Dialog / Sheet / ActionSheet take ids and dismiss grammar from it. Swipe never on the root.

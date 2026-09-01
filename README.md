@@ -1,10 +1,10 @@
 # APPIC
 
-**Intent. Presence. Caps. Kit. Signal. Relay.**
+**Intent. Presence. Caps. Kit. Signal. Relay. Author. Notes. Chrome.**
 
-A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose) `6b84972` (0.1.0 Clock A + ownable kit + Typeahead hits-slot + serve-dev split + Relay) — the pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
+A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose) `7ea3eb8` (0.1.0 Clock A + ownable kit + OverlayChrome + author door + attach notes + Typeahead hits-slot + serve-dev split + Relay) — the pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
-No React. No Vue. No client runtime as source of truth. Server-authored hypermedia. Progressive L1→L3 with zero rewrite. Page units have no HTTP verbs. Payload type picks media type. **The kit is a house you own.** Signal is a grammar you can feel.
+No React. No Vue. No client runtime as source of truth. Server-authored hypermedia. Progressive L1→L3 with zero rewrite. Page units have no HTTP verbs. Payload type picks media type. **The kit is a house you own.** Signal is a grammar you can feel. The author door is one. Attach notes refuse silence. OverlayChrome is the edge primitive.
 
 ## Run
 
@@ -29,6 +29,9 @@ uxcompose serve dev
 | `/house` | House — Typeahead, Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination, ContextMenu, ActionSheet |
 | `/visit` | Visit — Stepper, Plans, Calendar, Dialog |
 | `/signal` | Signal — Wave 1 grammar (swipe, longpress, input delay:) |
+| `/author` | Author — official `act` / `field` / `status` / `tick` / `maybe_*`. Posts `/act/{action}` |
+| `/notes` | Notes — `AttachNote`, `attach_notes()`, `App.attach_notes` |
+| `/overlay` | Chrome — OverlayChrome ids, swipe-on-dismiss, open plan. Owned Dialog / Sheet / ActionSheet |
 | `/atelier` | Filter, sort, save, compare, look, add to bag |
 | `/atelier/{sku}` | DirectoryRoutes dynamic segment. No `get()`. |
 | `/commission` | Four-step wizard. OTP `2048` and place are Caps |
@@ -48,9 +51,9 @@ Command `⌘K` issues intents without leaving the table.
 
 ## Prompt
 
-The Grok Build prompt that specifies this product lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md). Copy everything below the line into Grok Build. Feature map against ux-compose `main` (`6b84972`, 2026-08-30): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+The Grok Build prompt that specifies this product lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md). Copy everything below the line into Grok Build. Feature map against ux-compose `main` (`7ea3eb8`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
-Kit-era additions in this revision:
+Kit-era + ADR 0004 additions in this revision:
 
 - **23 ownable kit stems** copied under `components/` (shadcn-style). Host seams overridden in `appic/owned.py`.
 - **Nook rooms** — Door, Desk, House, Visit — every kit card sits in a real room.
@@ -58,4 +61,7 @@ Kit-era additions in this revision:
 - **Typeahead hits-slot law** — live Results morph `#typeahead-hits` only. Later input aborts the in-flight Intent. The field keeps what you type.
 - **Clock A doors** — `/health` JSON, `/pulse` stream, `/clocks` dual-clock room.
 - **Relay room** — `serve dev` / `serve prod` / `restart-channel`. Soft morph first. Three clocks as live rings.
+- **Author door** — official `act` / `field` / `status` / `tick` / `maybe_*` as a walkable room. POST `/act/{name}` aliases `/action/{name}`.
+- **Notes room** — attach step-downs made visible. Per-App notebook vs process notebook.
+- **OverlayChrome** — one edge primitive. Dialog / Sheet / ActionSheet take ids, dismiss grammar, and the open plan from it.
 - `slide.enter` helper for sheet / action-sheet presence.

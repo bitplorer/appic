@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.dropdown — edit freely.
-
-Copied by ``uxcompose add dropdown``. Regenerate with ``uxcompose add dropdown --force``.
-
-Drop-in dropdown — open flag + selected value.
+"""Drop-in dropdown — open flag + selected value.
 
 Host seam: override ``OPTIONS``. Click-away is a scrim on this unit.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
