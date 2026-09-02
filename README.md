@@ -1,18 +1,20 @@
 # APPIC
 
-**Intent. Presence. Caps. Kit. Signal. Relay. Author. Notes. Chrome.**
+**Intent. Presence. Caps. Kit. Signal. Relay. Author. Notes. Chrome. Copy.**
 
 A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `7ea3eb8813d280a975c4a41d23a2e2d4de40a506` (0.1.0 Clock A + ownable kit +
 OverlayChrome + author door + attach notes + Typeahead hits-slot + serve-dev
-split + Relay) — the pure-Python composition root for ux-dom, ux-behavior,
-ux-motion, and ux-channel.
+split + Relay + copy press + doctor scan families + Presence cookbook) — the
+pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
-No React. No Vue. No client runtime as source of truth. Server-authored
+No React. No Vue. No JS/TS/TSX as source of truth. Server-authored
 hypermedia. Progressive L1→L3 with zero rewrite. Page units have no HTTP verbs.
-Payload type picks media type. **The kit is a house you own.** Signal is a
-grammar you can feel. The author door is one. Attach notes refuse silence.
-OverlayChrome is the edge primitive. Anchored popovers are a different family.
+Payload type picks media type. **The kit is a house you own.** The copy press
+is the ownership ritual — not a card. Signal is a grammar you can feel. The
+author door is one. Attach notes refuse silence. OverlayChrome is the edge
+primitive. Anchored popovers are a different family. Doctor residuals expire
+by teaching. Presence is continuous.
 
 ## Run
 
@@ -40,7 +42,8 @@ uxcompose serve dev
 | `/author` | Author — official `act` / `field` / `status` / `tick` / `maybe_*`. Posts `/act/{action}` |
 | `/notes` | Notes — `AttachNote`, `attach_notes()`, `App.attach_notes` |
 | `/overlay` | Chrome — OverlayChrome ids, swipe-on-dismiss, handle `threshold:48`, enter x=28 / y=32. Owned Dialog / Sheet / ActionSheet |
-| `/atelier` | Filter, sort, save, compare, look, add to bag |
+| `/copy` | Ownership — the copy press made visible. 23 stems + OverlayChrome-not-a-stem. `copy_component` / `find_app_root` / `KitCopyError` |
+| `/atelier` | Filter, sort, save, compare, look, add to bag. Presence cookbook on sort |
 | `/atelier/{sku}` | DirectoryRoutes dynamic segment. No `get()`. |
 | `/commission` | Four-step wizard. OTP `2048` and place are Caps |
 | `/bag` | Stepper, coupon Caps `HOUSE` / `FLAX` / `TABLE`, checkout Cap |
@@ -48,7 +51,7 @@ uxcompose serve dev
 | `/studio` | Chat, typing presence, moderate Cap |
 | `/lab` | Remaining catalog floor |
 | `/lattice` | Caps as seals, intent as nucleus |
-| `/trace` | Live ops, doctor, isolation, CSP, kit catalog, leftover teaching |
+| `/trace` | Live ops, doctor (hard + teaching), isolation, CSP, kit catalog, leftover teaching |
 | `/ledger` | Book a bench (Cap), WebAssets chip, wipe (Cap) |
 | `/clocks` | Dual-clock room — GET vs action, three payload doors |
 | `/relay` | Three serve clocks. Soft morph. restart-channel as a named drop |
@@ -64,19 +67,34 @@ The Grok Build prompt that specifies this product lives in
 into Grok Build. Feature map against ux-compose `main` (`7ea3eb8`):
 [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
-Architecture-era (ADR 0004) additions:
+Full-utilisation (this generation) additions on top of ADR 0004:
 
-- **23 ownable kit stems** copied under `components/` (shadcn-style). Host seams overridden in `appic/owned.py`.
-- **`components/overlay.py`** — OverlayChrome is **not** a catalog stem. Copy it with the widgets.
+- **Copy press** — `kit/copy.py` (`copy_component`, `find_app_root`,
+  `KitCopyError`) is a helper, not a catalog stem. Walk it on `/copy`.
+  Import rewrite. `css: False`. `--page` aliases `{Cls} as {Cls}Card`.
+  OverlayChrome still copied by hand.
+- **Doctor scan families** — Isolation + dual-Document are hard.
+  Kit-import and leftover aliases (`host="batteries"`, `DirectoryRouter`,
+  `serve="webassets"`) expire by teaching. Trace renders both.
+- **Presence cookbook** — stable ids, `stagger_in` on survivors,
+  `scene.share` key is identity. Named on `/atelier`.
+- **`examples/_common.py` is a re-export** — product imports from
+  `ux_compose`. No second helper world.
+- **`maybe_slide` dist** — `ux_motion.tokens.dist("md")` else `24.0`.
+- **No React / JS / TS / TSX** as product UI. uvicorn on `0.0.0.0:8080`.
+
+Architecture-era (ADR 0004) still in force:
+
+- **23 ownable kit stems** copied under `components/` (shadcn-style). Host seams overridden.
+- **`components/overlay.py`** — OverlayChrome is **not** a catalog stem.
 - **Nook rooms** — Door, Desk, House, Visit — every kit card sits in a real room.
-- **Signal room** — Wave 1 grammar made visible, including handle `click swipe.down swipe.vertical threshold:48`.
-- **Typeahead hits-slot law** — live Results morph `#typeahead-hits` only. Later input aborts the in-flight Intent.
+- **Signal room** — Wave 1 grammar, including handle `click swipe.down swipe.vertical threshold:48`.
+- **Typeahead hits-slot law** — live Results morph `#typeahead-hits` only.
 - **Clock A doors** — `/health` JSON, `/pulse` stream, `/clocks` dual-clock room.
 - **Relay room** — `serve dev` / `serve prod` / `restart-channel`. Soft morph first.
-- **Author door** — official `act` / `field` / `status` / `tick` / `maybe_*` as a walkable room. POST `/act/{name}` aliases `/action/{name}`. No private `_tick`.
-- **Notes room** — attach step-downs made visible. Per-App notebook vs process notebook. Dual-write.
-- **OverlayChrome** — one edge primitive. Dialog / Sheet / ActionSheet take ids, dismiss grammar, and the open plan from it. Enter distances: right sheet `x=28`, bottom actionsheet `y=32`.
-- **Two overlay families** — edge (Dialog / Sheet / ActionSheet) vs anchored (Command / Dropdown / ContextMenu / Combobox / Select). Do not mix.
-- **Leftovers expire by teaching** — doctor flags kit-imports, `host="batteries"`, teaching `App.mount` as the product path, root swipe.
+- **Author door** — official `act` / `field` / `status` / `tick` / `maybe_*`. POST `/act/{name}`.
+- **Notes room** — attach step-downs made visible. Per-App vs process notebook.
+- **Two overlay families** — edge vs anchored. Do not mix.
+- **Leftovers expire by teaching.**
 
 If the prompt and the library disagree, **the library wins**.
