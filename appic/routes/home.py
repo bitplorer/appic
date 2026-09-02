@@ -92,11 +92,7 @@ class Home(Component):
                     ),
                     a("Open door", href="/enter", className="btn btn-ghost"),
                     a("Walk the house", href="/house", className="btn btn-ghost"),
-                    a("Feel signal", href="/signal", className="btn btn-ghost"),
                     a("Author door", href="/author", className="btn btn-ghost"),
-                    a("Attach notes", href="/notes", className="btn btn-ghost"),
-                    a("OverlayChrome", href="/overlay", className="btn btn-ghost"),
-                    a("Stand in relay", href="/relay", className="btn btn-ghost"),
                     button(
                         "Command",
                         type="button",

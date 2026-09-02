@@ -23,20 +23,14 @@ PUBLIC = Path(__file__).resolve().parents[1] / "public"
 NAV = (
     ("/", "Table"),
     ("/enter", "Door"),
-    ("/desk", "Desk"),
     ("/house", "House"),
-    ("/visit", "Visit"),
-    ("/signal", "Signal"),
     ("/author", "Author"),
-    ("/notes", "Notes"),
     ("/overlay", "Chrome"),
     ("/atelier", "Atelier"),
-    ("/bag", "Bag"),
     ("/lattice", "Lattice"),
     ("/trace", "Trace"),
-    ("/clocks", "Clocks"),
-    ("/relay", "Relay"),
 )
+
 
 try:
     from fastapi import FastAPI, Request
@@ -232,10 +226,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
             current = True
         cls = ' class="is-current"' if current else ""
         aria = ' aria-current="page"' if current else ""
-        extra = ""
-        if href == "/bag":
-            extra = f' <span class="bag-count" data-bag-count>{HOST.count()}</span>'
-        nav.append(f'<a href="{href}"{cls}{aria}>{label}{extra}</a>')
+        nav.append(f'<a href="{href}"{cls}{aria}>{label}</a>')
     banner = _render_surface(app, "banner")
     palette = _render_surface(app, "palette")
     toasts = _render_surface(app, "toasts")
@@ -280,6 +271,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
       <a class="brand" href="/">{mark}<span>APPIC</span></a>
       <nav class="nav">{''.join(nav)}</nav>
       <div class="top-tools">
+        <a class="bag-link" href="/bag">Bag <span class="bag-count" data-bag-count>{HOST.count()}</span></a>
         <button type="button" class="btn btn-ghost" data-ux-action="palette.toggle">Command <span class="kbd">⌘K</span></button>
       </div>
     </header>
