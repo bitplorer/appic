@@ -16,6 +16,10 @@ author door is one. Attach notes refuse silence. OverlayChrome is the edge
 primitive. Anchored popovers are a different family. Doctor residuals expire
 by teaching. Presence is continuous.
 
+`/copy` is a live Press room (2026-09-03): 23 catalog stems, OverlayChrome
+copied by hand, `copy_component` / `find_app_root` / `KitCopyError` made
+visible. Pressing an owned stem reports already-owned; unknown stems fail closed.
+
 ## Run
 
 ```bash

@@ -23,6 +23,16 @@ continuity is unfinished.
 Repo **appic already exists**. Do not create a second repo. Consume the
 running foundry; upgrade it; replace stale files that predate this pin.
 
+### Executed 2026-09-03 (this Grok Build)
+
+Deep-dived `ux_compose.__all__`, kit `CATALOG` (23 stems), `kit/copy.py`
+(not a card), OverlayChrome, author door, attach notes, doctor scan
+families, Presence cookbook, Clock A payload doors, Wave 1 Signal.
+Library SHA unchanged. Closed the last hole: **`/copy` is a live Press
+room** — `copy_component` / `find_app_root` / `KitCopyError` / 23 owned
+stems / OverlayChrome-not-a-stem. Pulse morph verified (Clock B). Serve
+is uvicorn on `0.0.0.0:8080`. No React / JS / TS / TSX as source of truth.
+
 ---
 
 Copy **everything below this line** into Grok Build.

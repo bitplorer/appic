@@ -26,6 +26,7 @@ NAV = (
     ("/house", "House"),
     ("/copy", "Copy"),
     ("/author", "Author"),
+    ("/copy", "Press"),
     ("/overlay", "Chrome"),
     ("/atelier", "Atelier"),
     ("/trace", "Trace"),
@@ -114,6 +115,7 @@ def _page_for_path(path: str) -> str:
         "/clocks": "clocks",
         "/relay": "relay",
         "/author": "author",
+        "/copy": "copy",
         "/notes": "notes",
         "/overlay": "overlay",
         "/copy": "copy",
@@ -144,6 +146,7 @@ def _page_for_path(path: str) -> str:
         ("/clocks", "clocks"),
         ("/relay", "relay"),
         ("/author", "author"),
+        ("/copy", "copy"),
         ("/notes", "notes"),
         ("/overlay", "overlay"),
         ("/copy", "copy"),
@@ -438,6 +441,7 @@ def build():
     @asgi.get("/clocks")
     @asgi.get("/relay")
     @asgi.get("/author")
+    @asgi.get("/copy")
     @asgi.get("/notes")
     @asgi.get("/overlay")
     @asgi.get("/copy")

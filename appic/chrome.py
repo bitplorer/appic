@@ -45,6 +45,7 @@ COMMANDS = (
     ("/clocks", "Watch the clocks", "nav"),
     ("/relay", "Stand in relay", "nav"),
     ("/author", "Open the author door", "nav"),
+    ("/copy", "Open the copy press", "nav"),
     ("/notes", "Read attach notes", "nav"),
     ("/overlay", "Inspect OverlayChrome", "nav"),
     ("/copy", "Stand at the press", "nav"),
