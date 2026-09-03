@@ -23,7 +23,7 @@ def cards(*sids: str):
         try:
             tree = inst.render()
         except Exception as exc:
-            tree = p(f"{sid} could not sit. {type(exc).__name__}.", className="muted")
+            tree = p(f"{sid} could not sit. {type(exc).__name__}: {exc}.", className="muted")
         out.append(article(tree, className="kit-card", data_kit=sid))
     return out
 
