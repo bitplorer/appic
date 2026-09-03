@@ -215,6 +215,23 @@ class Trace(Component):
                 className="split",
             ),
             evidence,
+            div(
+                h2("Residuals expire by teaching"),
+                p("Hard scans fail closed. Teaching leftovers stay in the library as chips, never in product source.", className="muted tiny"),
+                div(
+                    span("host=\"batteries\" → host=\"auto\"", className="chip"),
+                    span("DirectoryRouter → DirectoryRoutes", className="chip"),
+                    span("serve=\"webassets\" → serve=\"dual_copy\"", className="chip"),
+                    span("from ux_compose.kit import → uxcompose add", className="chip"),
+                    span("App.mount as product path → build()", className="chip"),
+                    span("root swipe.* → swipe on dismiss / handle", className="chip"),
+                    span("copy press is not a card", className="chip is-on"),
+                    span("Presence continuity", className="chip is-on"),
+                    span("OverlayChrome vs anchored", className="chip is-on"),
+                    className="leftover-row",
+                ),
+                className="card",
+            ),
             p(
                 f"Copied · {self.copied}" if self.copied else "Copy a row to hold an Op as text.",
                 className="muted tiny",

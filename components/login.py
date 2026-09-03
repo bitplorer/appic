@@ -67,7 +67,7 @@ class Login(Component):
     id = "login"
 
     class_card = (
-        "[grid-area:card] self-center mx-auto flex w-full max-w-md flex-col rounded-3xl border "
+        "appic-owned-card [grid-area:card] self-center mx-auto flex w-full max-w-md flex-col rounded-3xl border "
         "border-stone-200 bg-white p-8 text-stone-900 shadow-sm"
     )
     class_head = "mb-8"
@@ -110,9 +110,9 @@ class Login(Component):
     class_hint = "text-xs text-stone-400"
     class_hint_err = "text-xs text-rose-600"
     class_submit = (
-        "mt-2 min-h-11 w-full cursor-pointer rounded-full border-0 "
-        "bg-stone-800 px-5 py-3 text-sm font-semibold text-stone-50 "
-        "hover:bg-stone-700 focus-visible:outline-none "
+        "appic-owned-submit mt-2 min-h-11 w-full cursor-pointer rounded-full border-0 "
+        "px-5 py-3 text-sm font-semibold "
+        "focus-visible:outline-none "
         "focus-visible:ring-2 focus-visible:ring-stone-900/20"
     )
     class_switch = "mt-6 mb-0 text-center text-sm text-stone-500"

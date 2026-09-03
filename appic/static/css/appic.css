@@ -644,5 +644,74 @@ form.inline { display: inline-flex; gap: var(--space-2); align-items: center; ve
   .kit-grid { grid-template-columns: 1fr; }
 }
 
+.appic-owned-card {
+  border-radius: calc(var(--radius-md) + var(--space-5));
+  box-shadow: var(--shadow);
+}
+.appic-owned-submit {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+.appic-owned-submit:hover { filter: brightness(1.06); }
+
+.press-bed {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.press-bed form.inline { width: 100%; }
+.press-bed form.inline button,
+.press-die {
+  width: 100%;
+  min-height: 72px;
+  justify-content: center;
+}
+.press-sheet { overflow: hidden; }
+.press-token {
+  display: grid; place-items: center;
+  min-height: 88px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  font-family: var(--font-display);
+  letter-spacing: var(--tracking-display);
+  transition: background var(--motion-fast) var(--ease-out), color var(--motion-fast) var(--ease-out), border-color var(--motion-fast) var(--ease-out);
+}
+.press-token.is-ink {
+  background: var(--bg-elevated);
+  color: var(--fg);
+}
+.press-token.is-paper {
+  background: #ebe6d8;
+  color: #0c0d0b;
+  border-color: color-mix(in oklab, #0c0d0b 16%, transparent);
+}
+.card.is-uncatalogued {
+  border-style: dashed;
+}
+.btn-chip, button.btn-chip {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font: inherit; font-size: var(--text-sm);
+  color: var(--fg-muted);
+  background: transparent;
+}
+.btn-chip-on, button.btn-chip-on {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  font: inherit; font-size: var(--text-sm);
+  color: var(--fg);
+  background: var(--bg-elevated);
+}
+.leftover-row { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+@media (max-width: 720px) {
+  .press-bed { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
 
 

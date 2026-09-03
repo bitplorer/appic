@@ -39,6 +39,15 @@ from appic.ux import (
 from appic.store import HOST
 
 
+def _slide_dist() -> float:
+    try:
+        from ux_motion import tokens as _tok
+
+        return float(_tok.dist("md"))
+    except Exception:
+        return 24.0
+
+
 class Author(Component):
     id = "author"
     note = MorphState("The author door is one.")
@@ -104,10 +113,28 @@ class Author(Component):
                         act("author.play", "Slide", kind="secondary", target="#author", recipe="slide"),
                         className="row",
                     ),
-                    p(f"last recipe · {kind}", className="mono tiny"),
+                    p(f"last recipe · {kind} · slide dist {_slide_dist()}", className="mono tiny"),
                     className="card",
                 ),
                 className="law-grid",
+            ),
+            div(
+                article(
+                    span("act(..., on=)", className="kicker"),
+                    h2("Channel grammar on the form"),
+                    p("on= stamps data-channel-on. One demonstration. The door is still /act/{action}.", className="muted"),
+                    act("author.pulse", "Pulse on longpress", kind="secondary", target="#author", on="longpress"),
+                    p("data-channel-on=\"longpress\"", className="mono tiny"),
+                    className="card",
+                ),
+                article(
+                    span("maybe_slide dist", className="kicker"),
+                    h2("Motion tokens"),
+                    p("ux_motion.tokens.dist(\"md\") else 24.0. prev → −dist, next → +dist.", className="muted"),
+                    p(str(_slide_dist()), className="mono", id="author-dist"),
+                    className="card",
+                ),
+                className="split",
             ),
             div(
                 h2("Attach notes"),

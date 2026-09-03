@@ -92,6 +92,7 @@ class Home(Component):
                     ),
                     a("Open door", href="/enter", className="btn btn-ghost"),
                     a("Walk the house", href="/house", className="btn btn-ghost"),
+                    a("Stand at the press", href="/copy", className="btn btn-ghost"),
                     a("Author door", href="/author", className="btn btn-ghost"),
                     button(
                         "Command",
@@ -138,6 +139,11 @@ class Home(Component):
                 article(
                     h3("Cap law"),
                     p("Checkout, book, redeem, wipe, verify, mint — fail closed without a Cap."),
+                    className="card",
+                ),
+                article(
+                    h3("Copy press"),
+                    p("The kit is a house you own. uxcompose add copies. OverlayChrome is copied by hand."),
                     className="card",
                 ),
                 className="law-grid",

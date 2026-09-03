@@ -24,10 +24,10 @@ NAV = (
     ("/", "Table"),
     ("/enter", "Door"),
     ("/house", "House"),
+    ("/copy", "Copy"),
     ("/author", "Author"),
     ("/overlay", "Chrome"),
     ("/atelier", "Atelier"),
-    ("/lattice", "Lattice"),
     ("/trace", "Trace"),
 )
 
@@ -116,6 +116,7 @@ def _page_for_path(path: str) -> str:
         "/author": "author",
         "/notes": "notes",
         "/overlay": "overlay",
+        "/copy": "copy",
         "/health": "health",
         "/pulse": "pulse",
         "/commission": "commission",
@@ -145,6 +146,7 @@ def _page_for_path(path: str) -> str:
         ("/author", "author"),
         ("/notes", "notes"),
         ("/overlay", "overlay"),
+        ("/copy", "copy"),
     ):
         if p.startswith(href):
             return sid
@@ -239,7 +241,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
         crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
     crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
     bottom = []
-    for href, label in (("/", "Table"), ("/author", "Author"), ("/house", "House"), ("/enter", "Door"), ("/overlay", "Chrome"), ("/trace", "Trace")):
+    for href, label in (("/", "Table"), ("/copy", "Copy"), ("/house", "House"), ("/author", "Author"), ("/overlay", "Chrome"), ("/trace", "Trace")):
         current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
         if href == "/" and path in ("/", "/home", ""):
             current = True
@@ -281,7 +283,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · 7ea3eb8 · one author door · OverlayChrome · attach notes · ownable kit · Signal · Relay</span>
+      <span>ux-compose · 7ea3eb8 · copy press · one author door · OverlayChrome · attach notes · ownable kit · Signal · Relay</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -438,6 +440,7 @@ def build():
     @asgi.get("/author")
     @asgi.get("/notes")
     @asgi.get("/overlay")
+    @asgi.get("/copy")
     async def pages(request: Request):
         path = request.url.path
         sid = _page_for_path(path)
@@ -581,6 +584,12 @@ def build():
             "count": len(owned),
             "sha": "7ea3eb8",
         }
+
+    @asgi.get("/api/copy")
+    def api_copy():
+        from appic.routes.copy import copy_evidence
+
+        return copy_evidence()
 
     return app, asgi, bundle
 

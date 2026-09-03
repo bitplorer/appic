@@ -1,6 +1,10 @@
 """Product-facing ux-compose imports + XOR-safe motion helpers.
 
 Isolation Law: never import ux_channel or CEK from this package.
+
+Author door: re-export official ``act`` / ``tick`` / ``field`` / ``status`` /
+``maybe_*`` from ``ux_compose``. Do not invent a second helper world.
+``act()`` posts ``/act/{action}``. Presence extras (share / stagger) stay here.
 """
 from __future__ import annotations
 
@@ -21,8 +25,13 @@ from ux_compose import (
     morph_play,
     notify,
     status,
+    tick,
+    maybe_fade,
+    maybe_plan,
+    maybe_slide,
     update_with as _compose_update_with,
 )
+from ux_compose import act as _compose_act
 
 try:
     from ux_compose import HAS_DOM
@@ -71,42 +80,26 @@ from appic.tags import (
 )
 
 
-def tick(comp: Any, *, on: str = "tick", off: str = "tock") -> None:
-    cur = str(getattr(comp, "stamp", "") or "")
-    setattr(comp, "stamp", off if cur == on else on)
-
-
-def maybe_plan(name: str, target: str, *, ms: int = 140):
-    if scene is None or rise is None:
-        return None
-    try:
-        return scene(name).enter(target, rise.enter(ms=ms))
-    except Exception:
-        return None
-
-
-def maybe_fade(name: str, target: str, *, ms: int = 120):
-    if scene is None or fade is None:
-        return None
-    try:
-        return scene(name).enter(target, fade.enter(ms=ms))
-    except Exception:
-        return None
-
-
-def maybe_slide(name: str, target: str, *, y: float = 28, ms: int = 180):
-    if scene is None or slide is None:
-        return None
-    try:
-        return scene(name).enter(target, slide.enter(y=y, ms=ms))
-    except Exception:
-        try:
-            return scene(name).enter(target, slide.enter(ms=ms))
-        except Exception:
-            return None
+def act(
+    action_name: str,
+    label: str,
+    *,
+    kind: str = "secondary",
+    target: str = "#stage",
+    on: str | None = None,
+    **args: Any,
+):
+    """Official author door. POST form to ``/act/{action}``. Same signature."""
+    tree = _compose_act(
+        action_name, label, kind=kind, target=target, on=on, **args
+    )
+    if isinstance(tree, str):
+        return raw(tree)
+    return tree
 
 
 def maybe_share(name: str, key: str, leave: str, arrive: str, *, ms: int = 140):
+    """Presence cookbook: share key is identity, not a CSS class."""
     if scene is None or rise is None:
         return None
     try:
@@ -120,6 +113,7 @@ def maybe_share(name: str, key: str, leave: str, arrive: str, *, ms: int = 140):
 
 
 def maybe_stagger(name: str, ids: list[str], *, ms: int = 90):
+    """Presence cookbook: stagger_in on survivors so they do not remount."""
     if scene is None or rise is None:
         return None
     try:
@@ -135,16 +129,16 @@ def _plan_ops(plan: Any) -> list[Any]:
         from ux_behavior.ops import Op
     except Exception:
         Op = None  # type: ignore
-    raw = getattr(plan, "ops", None)
-    if callable(raw):
+    raw_ops = getattr(plan, "ops", None)
+    if callable(raw_ops):
         try:
-            raw = raw()
+            raw_ops = raw_ops()
         except Exception:
-            raw = None
-    if not raw:
+            raw_ops = None
+    if not raw_ops:
         return []
     out: list[Any] = []
-    items = raw if isinstance(raw, list) else [raw]
+    items = raw_ops if isinstance(raw_ops, list) else [raw_ops]
     for item in items:
         if Op is not None and isinstance(item, Op):
             out.append(item)
@@ -162,6 +156,7 @@ def update_with(component: Any, *rest: Any, extra_ops: Any = None, html: Any = N
     Compatible with the compose author seat:
         update_with(self, scene(...), extra_ops=[notify("…")])
     Channel stamp only allows ui.dom.morph / log.append / transition.play / …
+    XOR: plans carry no html=; html= may live on the morph payload only.
     """
     extra = extra_ops if extra_ops is not None else kwargs.get("extra_ops")
     if extra is None:
@@ -187,23 +182,6 @@ def update_with(component: Any, *rest: Any, extra_ops: Any = None, html: Any = N
         if op is not None:
             ops.append(op)
     return ops
-
-
-def act(action_name: str, label: str, *, kind: str = "ghost", **args: Any):
-    cls = {
-        "primary": "btn btn-primary",
-        "ghost": "btn btn-ghost",
-        "text": "btn btn-text",
-        "danger": "btn btn-danger",
-        "chip": "chip",
-        "chip-on": "chip is-on",
-    }.get(kind, "btn btn-ghost")
-    return button(
-        label,
-        type="button",
-        className=cls,
-        **control(action_name, **args),
-    )
 
 
 __all__ = [
@@ -241,6 +219,7 @@ __all__ = [
     "maybe_fade",
     "maybe_plan",
     "maybe_share",
+    "maybe_slide",
     "maybe_stagger",
     "morph_play",
     "nav",
