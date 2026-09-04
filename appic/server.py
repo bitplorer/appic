@@ -24,9 +24,9 @@ NAV = (
     ("/", "Table"),
     ("/enter", "Door"),
     ("/house", "House"),
+    ("/skin", "Skin"),
+    ("/deploy", "Ship"),
     ("/copy", "Press"),
-    ("/author", "Author"),
-    ("/overlay", "Chrome"),
     ("/atelier", "Atelier"),
     ("/trace", "Trace"),
 )
@@ -61,6 +61,7 @@ _CAP_SUFFIXES = (
     "archive",
     "pick",
     "submit",
+    "deploy",
 )
 
 
@@ -118,6 +119,8 @@ def _page_for_path(path: str) -> str:
         "/notes": "notes",
         "/overlay": "overlay",
         "/copy": "copy",
+        "/skin": "skin",
+        "/deploy": "deploy",
         "/health": "health",
         "/pulse": "pulse",
         "/commission": "commission",
@@ -149,6 +152,8 @@ def _page_for_path(path: str) -> str:
         ("/notes", "notes"),
         ("/overlay", "overlay"),
         ("/copy", "copy"),
+        ("/skin", "skin"),
+        ("/deploy", "deploy"),
     ):
         if p.startswith(href):
             return sid
@@ -243,7 +248,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
         crumbs.append(f'<span class="crumb-sep">/</span><span>{here}</span>')
     crumb_html = f'<nav class="crumbs" aria-label="Breadcrumb">{"".join(crumbs)}</nav>'
     bottom = []
-    for href, label in (("/", "Table"), ("/copy", "Copy"), ("/house", "House"), ("/author", "Author"), ("/overlay", "Chrome"), ("/trace", "Trace")):
+    for href, label in (("/", "Table"), ("/skin", "Skin"), ("/house", "House"), ("/deploy", "Ship"), ("/copy", "Press"), ("/trace", "Trace")):
         current = path.rstrip("/") == href.rstrip("/") or (href != "/" and path.startswith(href))
         if href == "/" and path in ("/", "/home", ""):
             current = True
@@ -254,8 +259,8 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>APPIC · Intent · Presence · Caps · Kit · Signal</title>
-  <meta name="description" content="A foundry OS authored in ux-compose. Intent. Presence. Caps. Ownable kit. Signal. Author door. OverlayChrome." />
+  <title>APPIC · Intent · Presence · Caps · Kit · Signal · Skin · Ship</title>
+  <meta name="description" content="A foundry OS authored in ux-compose. Intent. Presence. Caps. Ownable kit. Signal. WebAssets skin. Deploy providers." />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/__grok/icon-180.png" />
   <meta property="og:title" content="APPIC · Intent · Presence · Caps" />
@@ -285,7 +290,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · 7ea3eb8 · copy press · one author door · OverlayChrome · attach notes · ownable kit · Signal · Relay</span>
+      <span>ux-compose · 7ea3eb8 · copy press · WebAssets skin · deploy providers · one author door · OverlayChrome</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -444,6 +449,8 @@ def build():
     @asgi.get("/notes")
     @asgi.get("/overlay")
     @asgi.get("/copy")
+    @asgi.get("/skin")
+    @asgi.get("/deploy")
     async def pages(request: Request):
         path = request.url.path
         sid = _page_for_path(path)
@@ -593,6 +600,18 @@ def build():
         from appic.routes.copy import copy_evidence
 
         return copy_evidence()
+
+    @asgi.get("/api/skin")
+    def api_skin():
+        from appic.routes.skin import skin_evidence
+
+        return skin_evidence()
+
+    @asgi.get("/api/deploy")
+    def api_deploy():
+        from appic.routes.deploy import deploy_evidence
+
+        return deploy_evidence()
 
     return app, asgi, bundle
 

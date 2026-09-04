@@ -793,5 +793,30 @@ form.inline { display: inline-flex; gap: var(--space-2); align-items: center; ve
   .press-bed { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 
+.swatch-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-3);
+}
+.swatch {
+  display: grid;
+  gap: 6px;
+  padding: var(--space-4);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  position: relative;
+  overflow: hidden;
+}
+.swatch::before {
+  content: "";
+  display: block;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--swatch, var(--accent));
+  border: 1px solid var(--border);
+}
+
+
 
 

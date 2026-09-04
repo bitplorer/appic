@@ -47,6 +47,8 @@ STARS = (
     ("signal", "/signal", "Signal", 90, 32, "Wave 1. Handle threshold:48."),
     ("author", "/author", "Author", 92, 56, "act / tick / field / maybe_*."),
     ("press", "/copy", "Press", 82, 78, "copy_component. Not a card."),
+    ("skin", "/skin", "Skin", 68, 68, "WebAssets. ETag. dual_copy leftover."),
+    ("ship", "/deploy", "Ship", 48, 78, "prepare_deploy. Six providers. Cap."),
     ("chrome", "/overlay", "Chrome", 60, 90, "OverlayChrome. Edge family."),
     ("notes", "/notes", "Notes", 38, 92, "AttachNote. Silence was the defect."),
     ("atelier", "/atelier", "Atelier", 16, 84, "Presence. stagger_in. share."),
@@ -133,6 +135,8 @@ class Home(Component):
                     ),
                     a("Open door", href="/enter", className="btn btn-ghost"),
                     a("Walk the house", href="/house", className="btn btn-ghost"),
+                    a("Read the skin", href="/skin", className="btn btn-ghost"),
+                    a("Prepare a ship", href="/deploy", className="btn btn-ghost"),
                     a("Stand at the press", href="/copy", className="btn btn-ghost"),
                     a("Author door", href="/author", className="btn btn-ghost"),
                     button(
@@ -147,7 +151,7 @@ class Home(Component):
                     span(f"L{int(Level(HOST.level) if HOST.level else 0)}", className="chip is-on"),
                     span(f"ux-compose {__version__}", className="chip"),
                     span(f"HAS_DOM · {'on' if HAS_DOM else 'shim'}", className="chip"),
-                    span("constellation · 14 rooms", className="chip"),
+                    span("constellation · 16 rooms", className="chip"),
                     className="chip-row",
                 ),
                 form(
@@ -211,6 +215,16 @@ class Home(Component):
                 article(
                     h3("Copy press"),
                     p("The kit is a house you own. uxcompose add copies. OverlayChrome is copied by hand."),
+                    className="card",
+                ),
+                article(
+                    h3("Skin"),
+                    p("WebAssets owns /css/output.css. ETag and Last-Modified. dual_copy is the leftover hatch."),
+                    className="card",
+                ),
+                article(
+                    h3("Ship"),
+                    p("Six providers. prepare_deploy writes config. Caps gate the verb. Tunnel after health."),
                     className="card",
                 ),
                 className="law-grid",

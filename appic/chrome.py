@@ -49,6 +49,8 @@ COMMANDS = (
     ("/notes", "Read attach notes", "nav"),
     ("/overlay", "Inspect OverlayChrome", "nav"),
     ("/copy", "Stand at the press", "nav"),
+    ("/skin", "Read the skin", "nav"),
+    ("/deploy", "Prepare a ship", "nav"),
     ("lattice.mint", "Mint the selected Cap", "act"),
     ("home.beat", "Pulse the house", "act"),
     ("atelier.sort_price", "Sort atelier by price", "act"),

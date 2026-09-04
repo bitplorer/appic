@@ -1,10 +1,11 @@
-# ux-compose — complete feature inventory (architecture era · ADR 0004 · full utilisation)
+# ux-compose — complete feature inventory (delivery era · ADR 0004 · WebAssets · deploy)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
 (`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, 2026-08-31,
 **0.1.0 / Clock A + ownable kit + OverlayChrome + author door + attach notes
 + Typeahead hits-slot + serve-dev split + soft morph + copy press + doctor
-scan families + Presence cookbook**).
+scan families + Presence cookbook + WebAssets + prepare_deploy + tunnel**).
+
 
 Public names: `src/ux_compose/__init__.py` `__all__`.
 Kit catalog: `src/ux_compose/kit/catalog.py`.
@@ -22,10 +23,6 @@ a second namespace (`ux.*`), React, Vue, JSX, HTMX-as-architecture, or a
 client SPA as source of truth.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
-
-The Table constellation (2026-09-04) is a product surface, not a sixth catalog:
-14 rooms as named stars around the nucleus. Sight is MorphState. Walk is Clock A.
-
 
 ---
 
@@ -53,6 +50,8 @@ Plus residuals that became rooms:
 | **The copy press is not a card** | `kit/copy.py` (`copy_component`, `find_app_root`, `KitCopyError`) is the ownership ritual. Not in `CATALOG`. OverlayChrome is copied by hand. | `/copy` |
 | **Doctor residuals expire by teaching** | Isolation + dual-Document are hard. Kit-import and leftover aliases (`host="batteries"`, `DirectoryRouter`, `serve="webassets"`) are teaching. Doctor does not fail-close on teaching. | `/trace` |
 | **Presence is continuous** | Stable ids. `stagger_in` on survivors. `scene.share` key is identity, not a CSS class. Same `@action` morphs when `scene is None`. | `/atelier` + `/bag` |
+| **Skin is WebAssets** | `css_href`, `/css/output.css`, ETag / Last-Modified. First token is CSS. `serve="webassets"` leftover vs `serve="dual_copy"`. | `/skin` |
+| **Ship is prepare_deploy** | Six providers. `DeployResult`. Prepare is a Cap. GET does not write. Tunnel `parse_provider` after health. | `/deploy` |
 
 Leftovers expire by teaching. Doctor flags them in product trees. It does **not**
 fail-close on them. Deleting aliases while 0.1 tests lock them is a capability drop.

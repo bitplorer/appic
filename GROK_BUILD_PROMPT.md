@@ -1,10 +1,11 @@
 # Grok Build prompt — APPIC on ux-compose 0.1.0
-## Architecture era · full utilisation · constellation table
+## Delivery era · full utilisation: WebAssets skin, deploy providers, tunnel grammar
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
 SHA **`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`**.
 Companion law: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md) in the same repo.
-Shape: ux-compose `docs/ARCHITECTURE.md` + ADR 0004 + ADR 0005 + `cookbooks/PRESENCE.md`.
+Shape: ux-compose `docs/ARCHITECTURE.md` + ADR 0004 + ADR 0005 + `cookbooks/PRESENCE.md`
++ `ux_compose.assets` + `ux_compose.deploy` + `ux_compose.tunnel`.
 
 This file is the **metaprompt**. Publish it on **bitplorer/appic**. The
 executing Grok Build agent copies **everything below the line**, reads the
@@ -12,13 +13,12 @@ library first, and ships a complete foundry. If this prompt and the library
 disagree, **the library wins**. Do not invent APIs.
 
 Previous generations shipped Clock A, the ownable kit, Wave 1 Signal,
-Typeahead hits-slot, Relay, ADR 0004 rooms (author door, attach notes,
-OverlayChrome). This prompt **closes the remaining public surface**:
-`kit/copy.py` is a helper not a card; doctor scan families (hard vs teaching)
-are walkable; leftover tokens include `serve="webassets"`; Presence cookbook
-is a named law; `examples/_common.py` is a re-export, never a second door.
-A foundry that hides its copy ritual, its doctor residuals, or its presence
-continuity is unfinished.
+Typeahead hits-slot, Relay, ADR 0004 rooms, the copy press. This prompt
+**closes the remaining delivery surface**: WebAssets is a walkable Skin room
+(`/skin`); `prepare_deploy` six providers are a walkable Ship room (`/deploy`);
+tunnel `parse_provider` is named; `CSS_URL_PREFIX` / `OUTPUT_CSS_NAME` / ETag
+are evidence, not comments. A foundry that hides how it is skinned or shipped
+is unfinished.
 
 Repo **appic already exists**. Do not create a second repo. Consume the
 running foundry; upgrade it; replace stale files that predate this pin.
@@ -27,19 +27,14 @@ running foundry; upgrade it; replace stale files that predate this pin.
 
 Deep-dived `ux_compose.__all__`, kit `CATALOG` (23 stems), `kit/copy.py`
 (not a card), OverlayChrome, author door, attach notes, doctor scan
-families, Presence cookbook, Clock A payload doors, Wave 1 Signal.
-Library SHA unchanged. This generation closes the **constellation table**:
-14 rooms as named stars around the Table nucleus. Sight is MorphState.
-Walk is Clock A. Pulse still uses `bind(self.beat)`. Serve is uvicorn on
+families, Presence cookbook, Clock A payload doors, Wave 1 Signal,
+**`ux_compose.assets.WebAssets`**, **`ux_compose.deploy.prepare_deploy`**
+(docker / fly / render / railway / vps / checklist), **`ux_compose.tunnel.parse_provider`**.
+Library SHA unchanged (`7ea3eb8`). Closed the remaining hole: **`/skin` is a
+live WebAssets room** and **`/deploy` is a live Ship room** — providers as
+MorphState, prepare is a Cap (`ship.deploy`), tunnel chips, ETag / first-token
+CSS law. Home constellation names every door. Serve is uvicorn on
 `0.0.0.0:8080`. No React / JS / TS / TSX as source of truth.
-
-Previous generations shipped Clock A, the ownable kit, Wave 1 Signal,
-Typeahead hits-slot, Relay, ADR 0004 rooms, `/copy` press, doctor residuals,
-Presence cookbook. A foundry that hides its rooms as a gallery is unfinished.
-A foundry whose table is a constellation is the product.
-
-Repo **appic already exists**. Do not create a second repo. Consume the
-running foundry; upgrade it; replace stale files that predate this pin.
 
 ---
 
@@ -833,7 +828,7 @@ for sheets and action sheets (x=28 / y=32); fade scrim + rise panel for dialogs.
 
 | Path | Unit | Must exercise |
 |---|---|---|
-| `/` Table | `Index` | Pulse counter+stamp via official `tick()`, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, **constellation of 14 rooms** (sight is MorphState, walk is Clock A), `Level` badge, `__version__` chip, doors into Desk / House / Visit / Enter / Signal / Author / Notes / Overlay / Copy |
+| `/` Table | `Index` | Pulse counter+stamp via official `tick()`, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, `Level` badge, `__version__` chip, doors into Desk / House / Visit / Enter / Signal / Author / Notes / Overlay / Copy |
 | `/atelier` | `Atelier` | Shelf filter/sort/`stagger_in`, wishlist, compare≤3, lightbox, add-to-bag, link to PDP. **Presence cookbook** named on the sort |
 | `/atelier/{sku}` | `Sku` | DirectoryRoutes `[sku]`. **No `get`.** `render(self, sku="")`. `scene.share` into bag |
 | `/commission` | `Commission` | 4-step wizard + radio/checkbox/slider/date/file/password/autosave/limited note/OTP Cap `identity.verify` (`2048`) / place Cap `orders.place` |
@@ -857,6 +852,9 @@ for sheets and action sheets (x=28 / y=32); fade scrim + rise panel for dialogs.
 | `/notes` | `Notes` | `AttachNote`, `attach_notes()`, `App.attach_notes`. Process vs App notebooks. Doctor capabilities. Dual-write explained. `format_report()` lines |
 | `/overlay` | `Overlay` | OverlayChrome ids, swipe-on-dismiss, handle grammar printed live, enter distances named (right x=28, bottom y=32), `open_plan()`. Owned Dialog / Sheet / ActionSheet. Family split stated |
 | `/copy` | `Copy` | **Ownership ritual.** 23 catalog stems as wax-stamped owned files. OverlayChrome called out as uncatalogued. `find_app_root` evidence. Import-rewrite law. `css: False`. `--page` alias `{Cls} as {Cls}Card`. `KitCopyError` named. A restyled `class_*` token proved live. `list_components()` rendered. Doctor `scan_kit_product_imports` teaching chip |
+| `/skin` | `Skin` | **WebAssets.** `css_href`, `CSS_URL_PREFIX` `/css`, `OUTPUT_CSS_NAME` `output.css`. ETag `W/"{mtime_ns}-{size}"` + Last-Modified. First token of `input.css` is CSS. Catalog `css: False`. Leftover `serve="webassets"` vs prefer `serve="dual_copy"`. Named bands via official `tick()` |
+| `/deploy` | `Deploy` | **Ship.** Six providers as MorphState (`docker` `fly` `render` `railway` `vps` `checklist`). `prepare_deploy` + `DeployResult` + `format_deploy_result`. Prepare is Cap `ship.deploy`. Tunnel `parse_provider` (`none`/`ngrok`/`cloudflare`). ASGI law `app:asgi`. GET does **not** write files |
+
 | Chrome | `Toasts`, `Palette`, `Banner`, `Ribbon` | `⌘K`; live Ops ribbon; wax-seal burst on Cap mint |
 
 ### Caps (real, fail closed)
@@ -871,8 +869,7 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 ### Radical interactions (must all work)
 
 1. **Hold an intent on the Table.** Type a verb, press the nucleus, Clock B
-   fires, Trace records the Op, Lattice lights the matching star. **Sight a
-   constellation star** — MorphState names the pose; Walk is Clock A GET.
+   fires, Trace records the Op, Lattice lights the matching star.
 2. **Walk through the Door.** Sign in (Login Cap). Verify (OTP Cap). The ribbon
    bursts a wax seal. `@blocked.test` is refused.
 3. **Sit at the Desk.** Pull-to-refresh the ledger. Command palette `⌘K` posts
@@ -900,6 +897,9 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 18. **Read Notes.** `App.attach_notes` and process-wide `attach_notes()` are two notebooks. Silence was the defect. Doctor capabilities listed. `format_report()` readable.
 19. **Inspect OverlayChrome.** Dialog / Sheet / ActionSheet share one primitive. Ids printed. Dismiss grammar printed. Handle `click swipe.down swipe.vertical threshold:48` printed. Enter distances named. Close is morph-only. Anchored family is named as the other house.
 20. **Stand at the press.** `/copy` shows 23 owned stems, OverlayChrome as the uncatalogued die, import rewrite, `css: False`, `{Cls} as {Cls}Card`, `KitCopyError`, a live restyled token. The press is not a card.
+21. **Read the skin.** `/skin` names `css_href`, prefix `/css`, `output.css`, ETag, first CSS token, leftover `serve="webassets"`. Bands are MorphState. `GET /api/skin` stays JSON.
+22. **Prepare a ship.** `/deploy` chooses a provider (MorphState). Prepare spends `ship.deploy`. Tunnel chips call `parse_provider`. GET does not write. `GET /api/deploy` stays JSON.
+
 
 ---
 
@@ -951,6 +951,10 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 - [ ] Leftover teaching chips on Trace (`host="batteries"`, kit-import, `App.mount` as product path, root swipe, `serve="webassets"`, `DirectoryRouter`)
 - [ ] `app.use_cek(mode="adapt")` — never `mode="require"`
 - [ ] Catalog `css: False` honored — no companion CSS per kit card
+- [ ] **`/skin` WebAssets room** — `css_href`, `CSS_URL_PREFIX`, `OUTPUT_CSS_NAME`, ETag evidence, leftover `serve="webassets"` vs `dual_copy`
+- [ ] **`/deploy` Ship room** — six providers, `prepare_deploy` / `DeployResult`, Cap `ship.deploy`, tunnel `parse_provider`
+- [ ] Extra FastAPI `GET /api/skin`, `GET /api/deploy` stay JSON
+
 
 ---
 
