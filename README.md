@@ -20,6 +20,9 @@ by teaching. Presence is continuous.
 copied by hand, `copy_component` / `find_app_root` / `KitCopyError` made
 visible. Pressing an owned stem reports already-owned; unknown stems fail closed.
 
+The Table is a **constellation** (2026-09-04): 14 rooms as named stars around
+the nucleus. Sight is MorphState. Walk is Clock A.
+
 ## Run
 
 ```bash
@@ -37,7 +40,7 @@ uxcompose serve dev
 
 | Path | Room |
 |------|------|
-| `/` | Table — pulse, hold an intent, sit a bench |
+| `/` | Table — pulse, hold an intent, sight a constellation star, sit a bench |
 | `/enter` | Door — owned Login + OTP. Caps `auth.login` / `auth.otp` |
 | `/desk` | Desk — Sidebar, Breadcrumb, Tabs, PullRefresh, Accordion, Command, Toast |
 | `/house` | House — Typeahead, Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination, ContextMenu, ActionSheet. Anchored family lives here |

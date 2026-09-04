@@ -23,6 +23,10 @@ client SPA as source of truth.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
 
+The Table constellation (2026-09-04) is a product surface, not a sixth catalog:
+14 rooms as named stars around the nucleus. Sight is MorphState. Walk is Clock A.
+
+
 ---
 
 ## 0. Three doors (ADR 0004)

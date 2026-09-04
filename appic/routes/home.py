@@ -37,6 +37,25 @@ BENCHES = (
     ("you", "You", "table · intent"),
 )
 
+# Foundry floor. Positions are percent of the constellation sky.
+# Nucleus is the Table. Stars are rooms you can sight, then walk.
+STARS = (
+    ("door", "/enter", "Door", 10, 22, "Login and OTP. Caps on the hinge."),
+    ("desk", "/desk", "Desk", 28, 10, "Sidebar, Command, pull to refresh."),
+    ("house", "/house", "House", 52, 7, "Anchored family. Typeahead delay."),
+    ("visit", "/visit", "Visit", 74, 16, "Stepper, Plans, Dialog confirm."),
+    ("signal", "/signal", "Signal", 90, 32, "Wave 1. Handle threshold:48."),
+    ("author", "/author", "Author", 92, 56, "act / tick / field / maybe_*."),
+    ("press", "/copy", "Press", 82, 78, "copy_component. Not a card."),
+    ("chrome", "/overlay", "Chrome", 60, 90, "OverlayChrome. Edge family."),
+    ("notes", "/notes", "Notes", 38, 92, "AttachNote. Silence was the defect."),
+    ("atelier", "/atelier", "Atelier", 16, 84, "Presence. stagger_in. share."),
+    ("lattice", "/lattice", "Lattice", 6, 60, "Caps as seals. Intent nucleus."),
+    ("trace", "/trace", "Trace", 8, 40, "Doctor. Hard vs teaching."),
+    ("clocks", "/clocks", "Clocks", 40, 18, "GET is Clock A. Action is B."),
+    ("relay", "/relay", "Relay", 70, 44, "Three serve clocks. Soft morph."),
+)
+
 
 class Home(Component):
     id = "home"
@@ -44,6 +63,14 @@ class Home(Component):
     stamp = MorphState("idle")
     query = MorphState("")
     bench = MorphState("you")
+    sight = MorphState("table")
+
+    def _sighted(self):
+        key = str(self.sight or "table")
+        for row in STARS:
+            if row[0] == key:
+                return row
+        return ("table", "/", "Table", 50, 50, "The document is the composition root made visible.")
 
     def render(self):
         n = int(HOST.pulse or 0)
@@ -69,6 +96,20 @@ class Home(Component):
             )
             for key, name, role in BENCHES
         ]
+        seen = self._sighted()
+        stars = [
+            button(
+                span("", className="star-dot", aria_hidden="true"),
+                span(label, className="star-name"),
+                type="button",
+                className="star" + (" is-on" if self.sight == key else ""),
+                id=f"star-{key}",
+                style=f"left:{x}%;top:{y}%",
+                title=law,
+                **control("home.sight", room=key),
+            )
+            for key, href, label, x, y, law in STARS
+        ]
         return section(
             div(
                 span("page unit · App.mount · progressive L3 · Morph then Play", className="eyebrow"),
@@ -78,9 +119,9 @@ class Home(Component):
                     className="hero-title",
                 ),
                 p(
-                    "A foundry OS authored as legal Results of Ops. "
-                    "You issue intent. The document morphs. Caps gate the verbs that charge. "
-                    "The kit is a house you own. Signal is a grammar you can feel.",
+                    "A nocturnal foundry OS. You issue intent. The document morphs. "
+                    "Caps gate the verbs that charge. The kit is a house you own. "
+                    "Sight a star. Walk the room. The law is under your finger.",
                     className="lede",
                 ),
                 div(
@@ -106,6 +147,7 @@ class Home(Component):
                     span(f"L{int(Level(HOST.level) if HOST.level else 0)}", className="chip is-on"),
                     span(f"ux-compose {__version__}", className="chip"),
                     span(f"HAS_DOM · {'on' if HAS_DOM else 'shim'}", className="chip"),
+                    span("constellation · 14 rooms", className="chip"),
                     className="chip-row",
                 ),
                 form(
@@ -124,6 +166,31 @@ class Home(Component):
                     data_ux="1",
                 ),
                 className="hero",
+            ),
+            div(
+                div(
+                    h2("Constellation"),
+                    p(
+                        "Every public surface of ux-compose sits in a room. "
+                        "Sight a star — MorphState names the pose. Walk it — Clock A GET.",
+                        className="muted",
+                    ),
+                    className="section-head spread",
+                ),
+                div(
+                    *stars,
+                    div(
+                        span("sighted", className="nucleus-kicker"),
+                        span(seen[2], className="nucleus-name"),
+                        p(seen[5], className="muted tiny"),
+                        a("Walk this room", href=seen[1], className="btn btn-primary"),
+                        className="nucleus",
+                        id="constellation-nucleus",
+                    ),
+                    className="constellation",
+                    id="constellation",
+                ),
+                className="house",
             ),
             div(
                 article(
@@ -209,6 +276,18 @@ class Home(Component):
             self,
             maybe_plan("seat", f"#bench-{self.bench}", ms=120),
             extra_ops=[notify(f"seated · {self.bench}")],
+        )
+
+    @action(caps=())
+    def sight(self, room: str = "table", **kwargs):
+        keys = {row[0] for row in STARS}
+        self.sight = room if room in keys else "table"
+        tick(self)
+        label = self._sighted()[2]
+        return update_with(
+            self,
+            maybe_plan("sight", "#constellation-nucleus", ms=120),
+            extra_ops=[notify(f"sighted · {label}")],
         )
 
 

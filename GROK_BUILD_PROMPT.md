@@ -1,5 +1,5 @@
 # Grok Build prompt — APPIC on ux-compose 0.1.0
-## Architecture era · full utilisation: ownership ritual, doctor scan families, presence cookbook
+## Architecture era · full utilisation · constellation table
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
 SHA **`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`**.
@@ -23,15 +23,23 @@ continuity is unfinished.
 Repo **appic already exists**. Do not create a second repo. Consume the
 running foundry; upgrade it; replace stale files that predate this pin.
 
-### Executed 2026-09-03 (this Grok Build)
+### Executed 2026-09-04 (this Grok Build)
 
 Deep-dived `ux_compose.__all__`, kit `CATALOG` (23 stems), `kit/copy.py`
 (not a card), OverlayChrome, author door, attach notes, doctor scan
 families, Presence cookbook, Clock A payload doors, Wave 1 Signal.
-Library SHA unchanged. Closed the last hole: **`/copy` is a live Press
-room** — `copy_component` / `find_app_root` / `KitCopyError` / 23 owned
-stems / OverlayChrome-not-a-stem. Pulse morph verified (Clock B). Serve
-is uvicorn on `0.0.0.0:8080`. No React / JS / TS / TSX as source of truth.
+Library SHA unchanged. This generation closes the **constellation table**:
+14 rooms as named stars around the Table nucleus. Sight is MorphState.
+Walk is Clock A. Pulse still uses `bind(self.beat)`. Serve is uvicorn on
+`0.0.0.0:8080`. No React / JS / TS / TSX as source of truth.
+
+Previous generations shipped Clock A, the ownable kit, Wave 1 Signal,
+Typeahead hits-slot, Relay, ADR 0004 rooms, `/copy` press, doctor residuals,
+Presence cookbook. A foundry that hides its rooms as a gallery is unfinished.
+A foundry whose table is a constellation is the product.
+
+Repo **appic already exists**. Do not create a second repo. Consume the
+running foundry; upgrade it; replace stale files that predate this pin.
 
 ---
 
@@ -825,7 +833,7 @@ for sheets and action sheets (x=28 / y=32); fade scrim + rise panel for dialogs.
 
 | Path | Unit | Must exercise |
 |---|---|---|
-| `/` Table | `Index` | Pulse counter+stamp via official `tick()`, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, `Level` badge, `__version__` chip, doors into Desk / House / Visit / Enter / Signal / Author / Notes / Overlay / Copy |
+| `/` Table | `Index` | Pulse counter+stamp via official `tick()`, **`bind(self.beat)`**, intent field, KPI, benches, last Ops, **constellation of 14 rooms** (sight is MorphState, walk is Clock A), `Level` badge, `__version__` chip, doors into Desk / House / Visit / Enter / Signal / Author / Notes / Overlay / Copy |
 | `/atelier` | `Atelier` | Shelf filter/sort/`stagger_in`, wishlist, compare≤3, lightbox, add-to-bag, link to PDP. **Presence cookbook** named on the sort |
 | `/atelier/{sku}` | `Sku` | DirectoryRoutes `[sku]`. **No `get`.** `render(self, sku="")`. `scene.share` into bag |
 | `/commission` | `Commission` | 4-step wizard + radio/checkbox/slider/date/file/password/autosave/limited note/OTP Cap `identity.verify` (`2048`) / place Cap `orders.place` |
@@ -863,7 +871,8 @@ Login blocked: `@blocked.test`. OTP refuse: `000000`.
 ### Radical interactions (must all work)
 
 1. **Hold an intent on the Table.** Type a verb, press the nucleus, Clock B
-   fires, Trace records the Op, Lattice lights the matching star.
+   fires, Trace records the Op, Lattice lights the matching star. **Sight a
+   constellation star** — MorphState names the pose; Walk is Clock A GET.
 2. **Walk through the Door.** Sign in (Login Cap). Verify (OTP Cap). The ribbon
    bursts a wax seal. `@blocked.test` is refused.
 3. **Sit at the Desk.** Pull-to-refresh the ledger. Command palette `⌘K` posts

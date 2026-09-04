@@ -537,6 +537,86 @@ table.data th { color: var(--fg-subtle); font-weight: 500; }
   border: 1px solid var(--border);
   background: var(--bg-elevated);
 }
+.bench.is-on { border-color: var(--border-strong); color: var(--fg); }
+.bench-name { font-family: var(--font-display); }
+
+.constellation {
+  position: relative;
+  min-height: min(62vh, 560px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in oklab, var(--fg) 7%, transparent), transparent 44%),
+    radial-gradient(900px 420px at 8% -8%, color-mix(in oklab, var(--accent) 6%, transparent), transparent 55%),
+    var(--bg-elevated);
+  overflow: hidden;
+}
+.constellation::before,
+.constellation::after {
+  content: "";
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+.constellation::after { inset: 8%; opacity: 0.55; }
+.constellation .nucleus {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(240px, 58%);
+  text-align: center;
+  display: grid; gap: 8px; justify-items: center;
+  padding: var(--space-5);
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: color-mix(in oklab, var(--surface) 90%, transparent);
+  z-index: 2;
+}
+.nucleus-name {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  letter-spacing: var(--tracking-display);
+}
+.star {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  min-width: 72px;
+  min-height: 44px;
+  padding: 6px;
+  color: var(--fg-muted);
+  background: transparent;
+}
+.star-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--fg-muted);
+  box-shadow: 0 0 0 6px color-mix(in oklab, var(--fg) 4%, transparent);
+}
+.star-name {
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  letter-spacing: var(--tracking-display);
+}
+.star.is-on { color: var(--fg); }
+.star.is-on .star-dot {
+  background: var(--accent);
+  box-shadow:
+    0 0 0 8px color-mix(in oklab, var(--accent) 14%, transparent),
+    0 0 18px color-mix(in oklab, var(--accent) 35%, transparent);
+}
+.star:hover { color: var(--fg); }
+
+@media (max-width: 720px) {
+  .constellation { min-height: 420px; }
+  .constellation .nucleus { width: min(200px, 70%); padding: var(--space-4); }
+  .star-name { font-size: 0.75rem; }
+}
 .bench.is-on { border-color: var(--border-strong); background: var(--surface); }
 .bench-name { font-family: var(--font-display); }
 
