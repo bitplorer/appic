@@ -10,13 +10,18 @@ Grok Build agent copies **everything below the line**, clones the library first,
 and ships a complete foundry. Repo **appic already exists** — upgrade it; do not
 create a second repo.
 
-Deep-dived 2026-09-04 from `src/ux_compose/__init__.py` `__all__`, `kit/catalog.py`
-(23 stems), `kit/copy.py`, `kit/overlay.py`, `author.py`, `attach_notes.py`,
-`doctor.py`, `assets.py`, `deploy.py`, `tunnel.py`, `cli.py`, `app.py`,
-`docs/guides/{PATH,UI,SNIPPETS,CLI,TAILWIND,HOST,serve-hmr-tunnel}.md`,
+Deep-dived **2026-09-05** from `src/ux_compose/__init__.py` `__all__`,
+`kit/catalog.py` (23 stems), `kit/copy.py`, `kit/overlay.py`, `author.py`,
+`attach_notes.py` (`AttachNote`, `AttachNotes`, `note`, `using`, `format_report`),
+`doctor.py` (hard + teaching scans), `assets.py` (`WebAssets`, `CSS_URL_PREFIX`,
+`OUTPUT_CSS_NAME`), `deploy.py` (`prepare_deploy`, `DeployResult`, six providers),
+`tunnel.py` (`parse_provider`, `TunnelHandle`, `wait_for_health`, `start_tunnel`),
+`cli.py` / `cli_build.py` / `serve_dev.py` / `serve_restart.py` / `hmr.py` /
+`tailwind.py` / `dx/probe.py` / `helpers.py` / `progressive.py` / `surfaces.py` /
+`build.py` / `app.py`, `docs/guides/{PATH,UI,SNIPPETS,CLI,TAILWIND,HOST,serve-hmr-tunnel}.md`,
 `docs/ARCHITECTURE.md`, ADR 0004 / 0005, `cookbooks/PRESENCE.md`,
-`examples/README.md`, teaching apps `nook` / `atelier_studio` / `atelier_shop` /
-`pulse`.
+`examples/README.md` (75 Component classes), teaching apps `nook` /
+`atelier_studio` / `atelier_shop` / `pulse`.
 
 ---
 
@@ -31,7 +36,8 @@ framework. Fully utilise **every public name** in `ux_compose.__all__`, every
 Clock A payload door, every ownable kit card (`uxcompose add`), OverlayChrome
 (copied even though it is not a catalog stem), the copy helper, every Wave 1
 Signal, every doctor scan family, the Presence cookbook, WebAssets, prepare_deploy
-(six providers), tunnel grammar, and every catalog pattern in `examples/`.
+(six providers), tunnel grammar, HMR delivery, attach-note notebooks, Tailwind
+resolver, and every catalog pattern in `examples/`.
 
 > **The document is the composition root made visible. Caps are seals. Intent
 > is a nucleus. Ops are traces. Routes are a constellation. Skin is WebAssets.
@@ -39,7 +45,8 @@ Signal, every doctor scan family, the Presence cookbook, WebAssets, prepare_depl
 > are rooms you own. The copy press is the ownership ritual. Signal is a
 > grammar you can feel. The author door is one. Attach notes refuse silence.
 > OverlayChrome is the edge primitive. Anchored popovers are a different
-> family. Doctor residuals expire by teaching. Presence is continuous.**
+> family. Doctor residuals expire by teaching. Presence is continuous.
+> HMR is delivery, not a Document API. Tunnel starts after health is green.**
 
 **No React. No Vue. No JS/TS/TSX as source of truth.** Server-authored
 hypermedia. Python + ux-compose. Serve uvicorn on `0.0.0.0:8080`.
@@ -56,8 +63,8 @@ Grok sandbox: Auth OFF. Database OFF. Do **not** scaffold TanStack Start / React
 APPIC is a private foundry for commissioning and collecting handmade objects,
 authored so that **authority, motion, media type, ownership of UI, the copy
 ritual, gesture grammar, the author door, attach step-downs, overlay family vs
-anchored family, doctor residuals, presence continuity, skin, and ship are
-first-class rooms a human can walk.**
+anchored family, doctor residuals, presence continuity, skin, ship, HMR clocks,
+and tunnel** are first-class rooms a human can walk.
 
 Editorial. Expensive. Abundant negative space. Concentric radii. One cool
 accent (`#c8ccd4` on ink `#0c0d0b`). Bone type `#ebe6d8`. Fraunces + Source
@@ -65,6 +72,9 @@ Sans 3 + IBM Plex Mono. No purple, gold, neon, gradient-blob slop. No emoji
 in chrome.
 
 A visitor should feel: *this house has laws, and I can touch them.*
+
+The Table is a **constellation**: sixteen named stars around a nucleus. Sight
+is MorphState. Walk is Clock A GET. Pulse is Clock B.
 
 ---
 
@@ -99,6 +109,9 @@ If you do any of these, **stop, undo, and continue on the product path**.
 17. **Companion CSS per kit card.** Catalog `css: False`. Markup is Tailwind `class_*` / `className`.
 18. **Ignoring doctor teaching residuals.** Isolation + dual-Document are hard.
     Kit-import and leftover aliases expire by teaching — render them as chips.
+19. **Teaching `App.mount` as the product path.** `build()` is the product door.
+    Mount is the scan step inside it.
+20. **Starting a tunnel before origin health is green.**
 
 ---
 
@@ -199,10 +212,17 @@ Also use (compose submodules, never `ux_channel`):
 
 ```
 ActionInfo, BuildResult, RouteRecord,
-DirectoryRoutesError, HMR_PATH, attach_hmr, client_script_tag,
+DirectoryRoutesError, HMR_PATH, attach_hmr, client_script_tag, HmrClientMiddleware,
 IsolationViolation, CSS_URL_PREFIX, OUTPUT_CSS_NAME,
 http_path, is_json_payload, is_stream_payload, apply_html_document,
-scan_isolation, scan_kit_product_imports, scan_leftover_aliases
+scan_isolation, scan_kit_product_imports, scan_leftover_aliases, scan_dual_document,
+prepare_deploy, DeployResult, format_deploy_result,
+parse_provider, TunnelHandle, local_probe_host, wait_for_health, start_tunnel, provider_available,
+find_product_root, run_product_build, ProductBuildReport, format_product_build_report,
+restart_channel,
+probe, ProbeResult,
+note, using, format_report, current,   # attach_notes submodule
+resolve_tailwind, ensure_tailwind, TailwindResolution
 ```
 
 `scan_dual_document` exists on `ux_compose.doctor` and is invoked by `doctor()`.
@@ -297,7 +317,9 @@ class AttachNote:
 ```
 
 `app.attach_notes` is this App. `attach_notes()` is process-wide. Missing
-specialists write a note instead of raising.
+specialists write a note instead of raising. Submodule: `note()`, `using()`,
+`format_report()`, `current()`. `clear()` is a test helper — do not call from
+product. Two Apps in one process do not leak. Not a message bus. Not HMR.
 
 ### Doctor
 
@@ -333,13 +355,19 @@ Stable ids (`id="item-{sku}"`). Morph the list, then `stagger_in` on survivors.
 `scene.share(key, leave=..., arrive=...)` — key is identity, not a CSS class.
 Without motion, `scene is None` and the same `@action` still morphs.
 
-### WebAssets + deploy + tunnel
+### WebAssets + deploy + tunnel + HMR
 
 - `WebAssets(base_dir=...)`. `css_href` → `/css/output.css`. ETag / Last-Modified.
 - First token of any CSS file must be CSS (never `export`).
 - `prepare_deploy(provider=)` writes Dockerfile / fly.toml / render.yaml /
   railway.json / systemd / checklist. Does not upload. Default ASGI `app:asgi`.
+  Returns `DeployResult`.
 - Tunnel `parse_provider("none"|"ngrok"|"cloudflare")`. Start after health.
+  `TunnelHandle.public_url`. Aliases: `cf` / `cloudflared` / `trycloudflare`.
+- HMR is `uxcompose serve dev` delivery. Path `/__uxcompose/hmr`.
+  `attach_hmr` / `client_script_tag` / `HmrClientMiddleware`. Soft morph on
+  `*.py` save. CSS save never kills the ui worker. Channel RAM drop is
+  `uxcompose serve restart-channel` (`restart_channel()`).
 
 ### Kit catalog (23 stems)
 

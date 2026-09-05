@@ -1,10 +1,11 @@
 # ux-compose — complete feature inventory (delivery era · ADR 0004 · WebAssets · deploy)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, 2026-08-31,
+(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, refreshed 2026-09-05,
 **0.1.0 / Clock A + ownable kit + OverlayChrome + author door + attach notes
 + Typeahead hits-slot + serve-dev split + soft morph + copy press + doctor
-scan families + Presence cookbook + WebAssets + prepare_deploy + tunnel**).
+scan families + Presence cookbook + WebAssets + prepare_deploy + tunnel
++ HMR delivery + restart-channel + Tailwind resolver + probe**).
 
 
 Public names: `src/ux_compose/__init__.py` `__all__`.
@@ -591,3 +592,37 @@ clocks off. Missing extras fail closed — no single-uvicorn fallback.
 - Not permission to treat `kit/copy.py` as a catalog stem or to ship companion
   CSS per kit card.
 - Not permission to ignore doctor teaching residuals, or to fail-close on them.
+
+---
+
+## 11. Delivery names that live off `__all__` (still product law)
+
+These are compose-owned. Product rooms must **walk** them. Product modules
+still never import `ux_channel`.
+
+| Module | Names | Room |
+|---|---|---|
+| `ux_compose.deploy` | `prepare_deploy`, `DeployResult`, `format_deploy_result`. Providers: `docker` `fly` `render` `railway` `vps` `checklist`. Default ASGI `app:asgi`. Does not upload. | `/deploy` |
+| `ux_compose.tunnel` | `parse_provider`, `TunnelHandle`, `local_probe_host`, `wait_for_health`, `start_tunnel`, `provider_available`. Providers: `none` `ngrok` `cloudflare` (aliases `cf` / `cloudflared` / `trycloudflare`). Start **after** origin health. | `/deploy` |
+| `ux_compose.hmr` | `HMR_PATH` (`/__uxcompose/hmr`), `attach_hmr`, `client_script_tag`, `HmrClientMiddleware`. Soft morph on `*.py` save. CSS save never kills ui. | `/relay` |
+| `ux_compose.serve_restart` | `restart_channel`, pidfile + SIGUSR1. `uxcompose serve restart-channel`. | `/relay` |
+| `ux_compose.cli_build` | `find_product_root`, `run_product_build`, `ProductBuildReport`, `format_product_build_report`. | `/skin` |
+| `ux_compose.tailwind` | `resolve_tailwind`, `ensure_tailwind`, `TailwindResolution`, `argv_with_io`, `discover_css_io`. Product CSS is `uxcompose build`. | `/skin` |
+| `ux_compose.assets` | `WebAssets`, `CSS_URL_PREFIX` (`/css`), `OUTPUT_CSS_NAME` (`output.css`). ETag + Last-Modified. | `/skin` |
+| `ux_compose.attach_notes` | `AttachNotes`, `note`, `using`, `format_report`, `current`, `clear` (tests only). | `/notes` |
+| `ux_compose.dx.probe` | `probe`, `ProbeResult` (`ux_dom`, `ux_behavior`, `ux_motion`, `ux_channel`, `directory_routes`). | `/trace` |
+| `ux_compose.surfaces` | `ActionInfo`, `Surface`, `SurfaceBundle`, `SurfaceError`. | `/lattice` |
+| `ux_compose.build` | `BuildResult` = `(app, asgi, bundle)`. `use_htmx=False`. | `/clocks` |
+| `ux_compose.progressive` | `Level` IntEnum. Labels: `static + routing` / `offline interactive` / `live channel` / `motion`. | `/clocks` |
+
+Serve clocks (ADR 0005 — do not collapse):
+
+| Clock | Owner | Signal |
+|---|---|---|
+| Process reload | ui worker, uvicorn `--reload` on `*.py` | new ui process, cold import |
+| Browser live-reload | `hmr.py` WebSocket `/__uxcompose/hmr` | ui death → GET 200 → morph; `location.reload()` on fail |
+| CSS | sibling Tailwind `--watch` + client HEAD `/css/output.css` | stylesheet swap. No process dies |
+
+`serve dev` is origin + ui + channel. Always. `serve prod` is one process,
+clocks off. Missing extras fail closed — no single-uvicorn fallback.
+Tunnel starts after origin health is green.

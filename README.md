@@ -12,7 +12,7 @@ type picks media type. **The kit is a house you own.** The copy press is the
 ownership ritual. Signal is a grammar you can feel. The author door is one.
 Attach notes refuse silence. OverlayChrome is the edge primitive. Doctor
 residuals expire by teaching. Presence is continuous. Skin is WebAssets. Ship
-is `prepare_deploy`.
+is `prepare_deploy`. HMR is delivery. Tunnel waits for health.
 
 The Table is a **constellation**: rooms as named stars around the nucleus.
 Sight is MorphState. Walk is Clock A.
@@ -66,6 +66,6 @@ Command `⌘K` issues intents without leaving the table.
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
 Copy everything below the line into Grok Build. Feature map against ux-compose
-`main` (`7ea3eb8`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+`main` (`7ea3eb8`), refreshed 2026-09-05: [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
