@@ -2,7 +2,7 @@
 
 **Intent. Presence. Caps. Kit. Signal. Relay. Author. Notes. Chrome. Copy. Skin. Ship.**
 
-A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
+A constitution you can walk. A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `7ea3eb8813d280a975c4a41d23a2e2d4de40a506` (0.1.0) — the pure-Python composition
 root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
@@ -66,6 +66,6 @@ Command `⌘K` issues intents without leaving the table.
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
 Copy everything below the line into Grok Build. Feature map against ux-compose
-`main` (`7ea3eb8`), refreshed 2026-09-05: [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+`main` (`7ea3eb8`), refreshed 2026-09-06: [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.

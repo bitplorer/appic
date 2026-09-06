@@ -1,12 +1,13 @@
 # ux-compose — complete feature inventory (delivery era · ADR 0004 · WebAssets · deploy)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, refreshed 2026-09-05,
+(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, refreshed **2026-09-06**,
 **0.1.0 / Clock A + ownable kit + OverlayChrome + author door + attach notes
 + Typeahead hits-slot + serve-dev split + soft morph + copy press + doctor
 scan families + Presence cookbook + WebAssets + prepare_deploy + tunnel
-+ HMR delivery + restart-channel + Tailwind resolver + probe**).
-
++ HMR delivery + restart-channel + Tailwind resolver + probe + Wave 1
+grammar + AuthDecision + morph_play + ProductBatteriesRejected + 75 Atelier
+classes**).
 
 Public names: `src/ux_compose/__init__.py` `__all__`.
 Kit catalog: `src/ux_compose/kit/catalog.py`.
@@ -24,6 +25,151 @@ a second namespace (`ux.*`), React, Vue, JSX, HTMX-as-architecture, or a
 client SPA as source of truth.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+
+---
+
+## 2026-09-06 — full AST pass (delta over 2026-09-05)
+
+Confirmed by walking every `src/ux_compose/**/*.py` and every `examples/**/*.py`.
+Nothing below is invented. The 2026-09-05 body still holds; this section is the
+closed set of names that the metaprompt must now force into product rooms.
+
+### Wave 1 Channel grammar (felt on `/signal`)
+
+| Token | Meaning | Where it is legal |
+|---|---|---|
+| `click` | tap / mouse | every control; always keep click on dismiss |
+| `swipe.down` / `swipe.up` / `swipe.left` / `swipe.right` | edge dismiss | OverlayChrome dismiss, **never** the overlay root |
+| `swipe.vertical` | let row clicks survive | ActionSheet handle |
+| `threshold:48` | px before swipe commits | handle only |
+| `input delay:300` | pause-fired live filter | Typeahead field (`data-channel-on`) |
+| `longpress` | floating panel | ContextMenu |
+
+Root `swipe.*` on Dialog / Sheet / ActionSheet is a defect (swallows row clicks).
+
+### Typeahead hits-slot (kit/typeahead.py)
+
+Live Results morph `#{id}-hits` only. The field is **not** in that HTML, so a
+pause-fired Result cannot rewrite what is still being typed. Query is RefState.
+Value is MorphState (the chosen name). Stamp is MorphState for ticks.
+
+### OverlayChrome exact tables (kit/overlay.py)
+
+```
+KIND_EDGE = {modal,dialog→center; sheet,drawer→right; action,actionsheet→bottom}
+EDGE_SWIPE = {center: click swipe.down; right: click swipe.right; left: click swipe.left;
+              bottom: click swipe.down; top: click swipe.up}
+HANDLE_SWIPE = {bottom: click swipe.down swipe.vertical threshold:48;
+                top:    click swipe.up   swipe.vertical threshold:48}
+EDGE_SLIDE = {right: x=28.0; left: x=-28.0; bottom: y=32.0; top: y=-32.0}
+ids: {root}-scrim / {root}-panel / {root}-dismiss
+open_plan() selectors-only (no html=). Close stays morph-only.
+```
+
+Edge family: Dialog, Sheet, ActionSheet.
+Anchored family (do **not** reuse OverlayChrome ids): Dropdown, ContextMenu,
+Combobox, Select, Command.
+
+### Login / OTP (kit/login.py, kit/otp.py)
+
+`AuthDecision = NamedTuple(ok: bool, message: str = "", blocked: bool = False)`.
+Return value of `Login.authenticate()`. Chrome is MorphState. Email / password /
+OTP digits are RefState. Show/Hide and tab switches attach live form values onto
+RefState *before* the morph. Submit spends `auth.login` / `auth.signup`. OTP
+verify spends `auth.otp`. Channel session plane refuses quantity MorphState.
+
+### Helpers (helpers.py)
+
+```
+bind(action_obj, **kwargs)          # symbol-safe; prefer over control()
+control(action: str, **args)        # stringly hatch: data-ux-action + data-ux-arg-*
+notify(message, **kwargs)
+update_with(component, plan=None, *fields, html=None, strategy="idiomorph", extra_ops=None)
+    morph Op first, then transition.play, then extra_ops. XOR: html= on morph only.
+morph_play(...)                     # hop helper — Lab once, not a second world
+```
+
+### Routing / host fail-closed
+
+| Name | Role |
+|---|---|
+| `RouterHooks` | slots: `resolve_unit`, `accept_symbol`, `on_route` |
+| `http_path` | one path law |
+| `is_json_payload` / `is_stream_payload` | Clock A media-type pick |
+| `apply_html_document` | wrap tree/str → HTML |
+| `DirectoryRoutesError` | scan/import failure |
+| `RouteRecord` | one filesystem page |
+| `ProductBatteriesRejected` | `host="batteries"` fail-closed |
+| `materialize(route_class=)` | **fails closed** |
+
+### DX / delivery names
+
+| Name | Role |
+|---|---|
+| `probe()` / `ProbeResult` | import-spec matrix. Never shells. Never starts a server. `level_available` |
+| `TailwindResolution` | `resolve_tailwind` / `ensure_tailwind` |
+| `HMR_PATH` | `/__uxcompose/hmr` |
+| `attach_hmr` / `client_script_tag` / `HmrClientMiddleware` | delivery under `serve dev` |
+| `restart_channel` | Channel RAM drop (`uxcompose serve restart-channel`) |
+| `CSS_URL_PREFIX` | `/css` |
+| `OUTPUT_CSS_NAME` | `output.css` |
+| `WebAssets` disk | `assets/css/input.css` → `assets/static/file/css/output.css` |
+| `prepare_deploy` / `DeployResult` | six providers, does not upload |
+| `parse_provider` / `TunnelHandle` / `wait_for_health` / `start_tunnel` | after origin health |
+| `Level` | IntEnum L0–L3; `.label` |
+| `ActionInfo` | surface action evidence |
+| `page_slots` | pagination windowed numbers |
+| `copy_component(..., as_page=False)` | `components/{stem}.py` + optional `routes/{stem}.py` |
+| `find_app_root` | walks until `app.py` + `routes/` |
+| `KitCopyError` | unknown stem / dest exists |
+| `BuildResult` | `(app, asgi, bundle)` |
+| `serve dev` workers | origin + ui + channel. CSS watch is a sibling. No `--hmr` flags. |
+| `uxcompose serve` with no mode | exit 2 |
+
+### Kit catalog (23 stems, `css: False`, `page: True`)
+
+login, tabs, accordion, dropdown, dialog, sheet, toast, command, table,
+pagination, combobox, sidebar, breadcrumb, stepper, carousel, calendar, select,
+otp, plans, actionsheet, contextmenu, typeahead, pullrefresh.
+
+Exports include `AuthDecision` (login) and `OverlayChrome`/`overlay` (not a stem).
+
+### Atelier roster — 75 Component classes in `examples/`
+
+Foundation: Counter, Toggle, Planes.
+Chrome: Tabs, Accordion, Dropdown, Drawer, ConfirmModal.
+Shell: AppShell, Breadcrumbs, BottomNav, Popover, OverflowMenu.
+Overlays: Toasts, Confirm, Lightbox, Palette, Banner.
+Forms: SignupForm, Wizard, Search.
+Fields: ChoiceGroup, Combobox, DateField, FileDrop, SliderField, OtpGate,
+PasswordField, Autosave, LimitedNote.
+Lists: Shelf, OptimisticList, Pages, UndoSnack.
+Feeds: Carousel, Comments, Timeline, EmptyRetry, ReorderList, ActivityFeed.
+Table/board: DataTable, Kanban.
+Nav: ShopView, MasterDetail.
+Commerce: Cart, Wishlist, Coupon, CheckoutFlow, StockBadge, CompareTray, Rating.
+Live Caps: LiveOrder.
+Motion: MotionBox, ShareSeat.
+Systems: Chat, NotifyCenter, Tree, Skeleton, Consent, Theme, Stepper, Chips,
+InlineEdit.
+Ops: Calendar, ProgressMeter, CopyClip, Settings, OfflineBanner, Presence,
+KpiStrip, Shortcuts.
+Host demos: Badge (document_boot), Index (live_asgi_app), Hello (page_unit_demo).
+
+`examples/` is the Atelier, not a second catalog. Product owns copies via
+`uxcompose add` + host seams. Teaching apps: `nook`, `atelier_studio`,
+`atelier_shop`, `pulse`.
+
+### Public `__all__` (must appear in product source)
+
+App, build, WebAssets, DirectoryRoutes, DirectoryASGI, RouterHooks, Surface,
+SurfaceBundle, SurfaceError, mount_surfaces, scan_surfaces, validate_surfaces,
+Component, MorphState, RefState, action, bind, control, notify, update_with,
+morph_play, act, tick, field, status, maybe_plan, maybe_fade, maybe_slide,
+AttachNote, attach_notes, Level, doctor, DoctorResult, scene, fade, rise, slide,
+HAS_DOM, raw, __version__, html, head, body, title, style, meta, link, script,
+div, span, h1, h2, h3, p, a, button, form, input_, ul, li, header, footer,
+aside, section, article, nav, main, label, svg, path, rect, circle.
 
 ---
 
