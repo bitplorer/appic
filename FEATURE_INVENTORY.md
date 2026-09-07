@@ -2,6 +2,7 @@
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
 (`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, refreshed **2026-09-06**,
+**reconfirmed 2026-09-07** by a second full AST walk — names unchanged,
 **0.1.0 / Clock A + ownable kit + OverlayChrome + author door + attach notes
 + Typeahead hits-slot + serve-dev split + soft morph + copy press + doctor
 scan families + Presence cookbook + WebAssets + prepare_deploy + tunnel

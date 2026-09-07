@@ -161,7 +161,7 @@ p { margin: 0; }
 .price { font-family: var(--font-display); font-variant-numeric: tabular-nums; }
 .price.xl { font-size: var(--text-xl); }
 
-.hero { display: grid; gap: var(--space-5); padding: var(--space-6) 0 var(--space-4); position: relative; }
+.hero { display: grid; gap: var(--space-4); padding: var(--space-5) 0 var(--space-3); position: relative; }
 .hero::after {
   content: "";
   position: absolute;
@@ -542,7 +542,7 @@ table.data th { color: var(--fg-subtle); font-weight: 500; }
 
 .constellation {
   position: relative;
-  min-height: min(62vh, 560px);
+  min-height: min(52vh, 480px);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
   background:

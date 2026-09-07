@@ -135,10 +135,6 @@ class Home(Component):
                     ),
                     a("Open door", href="/enter", className="btn btn-ghost"),
                     a("Walk the house", href="/house", className="btn btn-ghost"),
-                    a("Read the skin", href="/skin", className="btn btn-ghost"),
-                    a("Prepare a ship", href="/deploy", className="btn btn-ghost"),
-                    a("Stand at the press", href="/copy", className="btn btn-ghost"),
-                    a("Author door", href="/author", className="btn btn-ghost"),
                     button(
                         "Command",
                         type="button",

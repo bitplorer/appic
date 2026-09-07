@@ -10,6 +10,21 @@ Grok Build agent copies **everything below the line**, clones the library first,
 and ships a complete foundry. Repo **appic already exists** — upgrade it; do not
 create a second repo.
 
+## 2026-09-07 — independent re-read (executed)
+
+Re-walked `src/ux_compose/**/*.py` on the same SHA. Public `__all__`, 23 kit
+stems (`css: False`, `page: True`), OverlayChrome (not a stem), copy press,
+author door, attach notes, doctor families, WebAssets, six deploy providers,
+tunnel-after-health, HMR as delivery, probe-never-shells, Typeahead hits-slot,
+AuthDecision, morph_play, ProductBatteriesRejected, and the 75 Atelier classes
+are unchanged. CLI: `create-app` · `serve {dev,prod,restart-channel}` · `build`
+· `deploy` · `doctor` · `add`.
+
+This Grok Build session **executed** the constitution: APPIC is the live
+preview (uvicorn `0.0.0.0:8080`, progressive L3, 53 surfaces, HAS_DOM shim on
+Python 3.11). No React as source of truth. Hero compact so the constellation
+lands above the fold.
+
 Deep-dived **2026-09-06** from a full AST of `src/ux_compose/` plus the four
 specialists' public seams:
 

@@ -66,6 +66,7 @@ Command `⌘K` issues intents without leaving the table.
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
 Copy everything below the line into Grok Build. Feature map against ux-compose
-`main` (`7ea3eb8`), refreshed 2026-09-06: [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+`main` (`7ea3eb8`), inventory 2026-09-06, **reconfirmed and executed 2026-09-07**:
+[`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
