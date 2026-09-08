@@ -18,13 +18,13 @@ from appic.ux import (
     header,
     li,
     main,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     raw,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
     doctor,
@@ -57,7 +57,7 @@ SHORTCUTS = (
 class Trace(Component):
     id = "trace"
     copied = MorphState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     filter_kind = MorphState("all")
 
     def render(self):
@@ -243,13 +243,13 @@ class Trace(Component):
     @action(caps=())
     def set_kind(self, key: str = "all", **kwargs):
         self.filter_kind = key if key in {"all", "morph", "cap", "notify"} else "all"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def clear(self, **kwargs):
         HOST.trace = []
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("trace cleared")])
 
     @action(caps=())
@@ -262,10 +262,10 @@ class Trace(Component):
         rows = list(reversed(rows))
         row = rows[i] if 0 <= i < len(rows) else {}
         self.copied = str(row.get("verb") or "")
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("copy", f"#op-{i}", ms=90),
+            optional_plan("copy", f"#op-{i}", ms=90),
             extra_ops=[notify(self.copied or "empty")],
         )
 

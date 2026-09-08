@@ -5,8 +5,14 @@ Isolation Law: never imports ux_channel. Caps mint through App.submit_intent.
 """
 from __future__ import annotations
 
-import re
+import sys
 from pathlib import Path
+
+_ROOT = Path(__file__).resolve().parents[1]
+if str(_ROOT) not in sys.path:
+    sys.path.insert(0, str(_ROOT))
+
+import re
 from typing import Any
 from urllib.parse import parse_qs, urlparse
 
@@ -14,7 +20,6 @@ from appic.chrome import Banner, Palette, Ribbon, Toasts
 from appic.marks import logo
 from appic.owned import KIT_CLASSES
 from appic.store import HOST
-from appic.tags import _child
 from appic.ux import App, doctor
 
 PACKAGE = Path(__file__).resolve().parent
@@ -161,11 +166,18 @@ def _page_for_path(path: str) -> str:
 
 
 def _serialize(tree: Any) -> str:
-    if tree is None:
+    if tree is None or tree is False:
         return ""
     if isinstance(tree, str):
         return tree
-    return _child(tree)
+    if isinstance(tree, (tuple, list)):
+        return "".join(_serialize(x) for x in tree)
+    try:
+        from ux_compose.helpers import _serialize_tree
+
+        return str(_serialize_tree(tree))
+    except Exception:
+        return str(tree)
 
 
 def _instance(app: App, surface_id: str):
@@ -290,7 +302,7 @@ def _shell(app: App, main_html: str, *, path: str = "/") -> str:
     <main id="main">{main_html}</main>
     <nav class="bottom-nav" aria-label="Primary">{''.join(bottom)}</nav>
     <footer class="foot">
-      <span>ux-compose · 7ea3eb8 · copy press · WebAssets skin · deploy providers · one author door · OverlayChrome</span>
+      <span>ux-compose · fa2ddfe · Python ≥3.14 · cek=require · copy press · WebAssets skin · one author door · OverlayChrome</span>
       <span class="mono">L{int(getattr(app, 'level', 0))} · bag {HOST.count()}</span>
     </footer>
   </div>
@@ -314,16 +326,31 @@ def build():
             app.use_channel(asgi_app=asgi)
         else:
             app.use_channel()
-    except Exception:
-        pass
+    except Exception as exc:
+        try:
+            from ux_compose.attach_notes import note
+
+            note("use_channel", "ux-channel", str(exc), level_kept=1)
+        except Exception:
+            pass
     try:
         app.use_motion()
-    except Exception:
-        pass
+    except Exception as exc:
+        try:
+            from ux_compose.attach_notes import note
+
+            note("use_motion", "ux-motion", str(exc), level_kept=int(getattr(app, "level", 1) or 1))
+        except Exception:
+            pass
     try:
-        app.use_cek(mode="adapt")
-    except Exception:
-        pass
+        app.use_cek(mode="require")
+    except Exception as exc:
+        try:
+            from ux_compose.attach_notes import note
+
+            note("use_cek", "cek-runtime", str(exc), level_kept=int(getattr(app, "level", 1) or 1))
+        except Exception:
+            pass
 
     bundle = app.mount(
         PACKAGE,

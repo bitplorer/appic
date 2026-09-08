@@ -16,13 +16,13 @@ from appic.ux import (
     h1,
     h2,
     h3,
-    maybe_plan,
-    maybe_stagger,
+    optional_plan,
+    optional_stagger,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     update_with,
 )
 
@@ -32,7 +32,7 @@ class Atelier(Component):
     query = MorphState("")
     order = MorphState("alpha")
     lightbox = MorphState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def _visible(self):
         q = str(self.query or HOST.intent or "").lower()
@@ -163,22 +163,22 @@ class Atelier(Component):
     def set_query(self, q: str = "", **kwargs):
         self.query = q
         HOST.intent = q
-        tick(self)
+        mark_dirty(self)
         ids = [f"#item-{p['sku']}" for p in self._visible()]
-        return update_with(self, maybe_stagger("shelf", ids), extra_ops=[notify(q or "all")])
+        return update_with(self, optional_stagger("shelf", ids), extra_ops=[notify(q or "all")])
 
     @action(caps=())
     def sort_alpha(self, **kwargs):
         self.order = "alpha"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Sorted by name")])
 
     @action(caps=())
     def sort_price(self, **kwargs):
         self.order = "price"
-        tick(self)
+        mark_dirty(self)
         ids = [f"#item-{p['sku']}" for p in self._visible()]
-        return update_with(self, maybe_stagger("shelf-price", ids), extra_ops=[notify("Sorted by price")])
+        return update_with(self, optional_stagger("shelf-price", ids), extra_ops=[notify("Sorted by price")])
 
     @action(caps=())
     def add(self, sku: str = "", **kwargs):
@@ -186,10 +186,10 @@ class Atelier(Component):
             return
         HOST.set_line(sku, HOST.qty(sku) + 1)
         HOST.notice = f"Added {BY_SKU[sku]['name']}"
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("bag-pop", f"#item-{sku}", ms=140),
+            optional_plan("bag-pop", f"#item-{sku}", ms=140),
             extra_ops=[notify(HOST.notice)],
         )
 
@@ -199,7 +199,7 @@ class Atelier(Component):
             HOST.wishlist = [s for s in HOST.wishlist if s != sku]
         else:
             HOST.wishlist.append(sku)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -208,13 +208,13 @@ class Atelier(Component):
             HOST.compare = [s for s in HOST.compare if s != sku]
         elif len(HOST.compare) < 3:
             HOST.compare.append(sku)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def look(self, sku: str = "", **kwargs):
         self.lightbox = sku
-        return update_with(self, maybe_plan("look", "#lightbox", ms=180))
+        return update_with(self, optional_plan("look", "#lightbox", ms=180))
 
     @action(caps=())
     def close_look(self, **kwargs):

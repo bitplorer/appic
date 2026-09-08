@@ -1,7 +1,7 @@
 # Grok Build prompt — APPIC on ux-compose 0.1.0
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
-SHA **`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`**.
+SHA **`fa2ddfe3852866702f8665069bb6152207b86c2e`** (2026-09-07 hard-deps cut).
 Companion: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md).
 If this prompt and the library disagree, **the library wins**.
 
@@ -10,23 +10,48 @@ Grok Build agent copies **everything below the line**, clones the library first,
 and ships a complete foundry. Repo **appic already exists** — upgrade it; do not
 create a second repo.
 
-## 2026-09-07 — independent re-read (executed)
+## 2026-09-08 — independent re-read (executed)
 
-Re-walked `src/ux_compose/**/*.py` on the same SHA. Public `__all__`, 23 kit
-stems (`css: False`, `page: True`), OverlayChrome (not a stem), copy press,
-author door, attach notes, doctor families, WebAssets, six deploy providers,
-tunnel-after-health, HMR as delivery, probe-never-shells, Typeahead hits-slot,
-AuthDecision, morph_play, ProductBatteriesRejected, and the 75 Atelier classes
-are unchanged. CLI: `create-app` · `serve {dev,prod,restart-channel}` · `build`
-· `deploy` · `doctor` · `add`.
+Re-walked `src/ux_compose/**/*.py` on **`fa2ddfe`**. Breaking cut vs the
+2026-09-07 pin (`7ea3eb8`):
 
-This Grok Build session **executed** the constitution: APPIC is the live
-preview (uvicorn `0.0.0.0:8080`, progressive L3, 53 surfaces, HAS_DOM shim on
-Python 3.11). No React as source of truth. Hero compact so the constellation
-lands above the fold.
+| Was (7ea3eb8) | Now (fa2ddfe) |
+|---|---|
+| `tick(comp)` flips `comp.stamp` | `mark_dirty(comp)` flips `comp.dirty` |
+| `maybe_plan` / `maybe_fade` / `maybe_slide` | `optional_plan` / `optional_fade` / `optional_slide` |
+| Optional specialists / `HAS_DOM=False` product path | **Python ≥3.14 hard-deps**. Missing specialists fail loud |
+| Kit `_render_html` / `html_fallback` | Gone. Document-only `render()` trees |
+| `build(cek=)` default `adapt` / product `use_cek(mode="adapt")` | **`cek="require"`** (cek-runtime Cap Host). `adapt` is compare-only lab |
+| `create-app` without `routes/index.py` | Emits `routes/index.py` so GET `/` is not 404 |
+| `doctor` soft on incomplete stack | Exits non-zero unless `--no-fail` |
+| extras `[dom]`/`[behavior]`/`[motion]`/`[channel]`/`[full]` unlock ladder | Empty aliases. Specialists live in `[project].dependencies` |
 
-Deep-dived **2026-09-06** from a full AST of `src/ux_compose/` plus the four
-specialists' public seams:
+Public `__all__` now exports `mark_dirty`, `optional_plan`, `optional_fade`,
+`optional_slide`. `tick` / `maybe_*` are **not** public. Kit catalog is still
+**23 stems**, `css: False`, `page: True`. OverlayChrome is still not a stem.
+Atelier `examples/` still holds **76 Component classes** (Cart appears in two
+host demos). CLI unchanged: `create-app` · `serve {dev,prod,restart-channel}`
+· `build` · `deploy` · `doctor` · `add`.
+
+This Grok Build session **executed** the constitution against the hard-deps
+cut: APPIC is the live preview (uvicorn `0.0.0.0:8080`, progressive **L3
+motion**, 53 surfaces, **real ux-dom** on CPython 3.14.7). No React as source
+of truth. `use_cek(mode="require")`. Owned kit recopied from `fa2ddfe`.
+Nomen cut applied across every page unit.
+
+Deep-dived **2026-09-08** from a full tree of `src/ux_compose/` plus CHANGELOG
+Unreleased + `__all__` + `kit/catalog.py` + `author.py` + `build.py` (`cek=`).
+
+## 2026-09-07 — independent re-read (historical)
+
+Re-walked `src/ux_compose/**/*.py` on SHA `7ea3eb8`. Names below that SHA used
+`tick` / `maybe_*` / `HAS_DOM` shim. **Superseded by the 2026-09-08 cut.**
+
+---
+
+Copy **everything below this line** into Grok Build. You **are** Grok Build.
+Execute it. Do not stop at a README. Ship a running foundry on `0.0.0.0:8080`.
+
 
 - `ux_compose.__all__` (composition, author door, tags, motion, attach notes)
 - `kit/catalog.py` — 23 stems, `css: False`, `page: True`, `KitEntry`
@@ -74,7 +99,7 @@ Execute it. Do not stop at a README. Ship a running foundry on `0.0.0.0:8080`.
 
 Build **APPIC** as a **complete product** (not a widget zoo) using
 **https://github.com/bitplorer/ux-compose @ main**
-(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, **0.1.0**) as the **only** web UI
+(`fa2ddfe3852866702f8665069bb6152207b86c2e`, **0.1.0**) as the **only** web UI
 framework.
 
 Fully utilise **every public name** in `ux_compose.__all__`, every Clock A
@@ -83,7 +108,7 @@ payload door, every ownable kit card (`uxcompose add`), OverlayChrome
 Signal, every doctor scan family, the Presence cookbook, WebAssets,
 prepare_deploy (six providers), tunnel grammar, HMR delivery, attach-note
 notebooks, Tailwind resolver, probe matrix, morph_play hop, AuthDecision
-verdict, Typeahead hits-slot, and every one of the **75** Atelier Component
+verdict, Typeahead hits-slot, and every one of the **76** Atelier Component
 classes in `examples/`.
 
 > **The document is the composition root made visible. Caps are wax seals
@@ -155,7 +180,7 @@ If you do any of these, **stop, undo, and continue on the product path**.
 9. **Root `swipe.*` on Dialog / Sheet / ActionSheet.** Swipe lives on dismiss /
    handle. Handle grammar: `click swipe.down swipe.vertical threshold:48`.
 10. **A second helper world.** Official:
-    `from ux_compose import act, tick, field, status, maybe_plan, maybe_fade, maybe_slide`.
+    `from ux_compose import act, mark_dirty, field, status, optional_plan, optional_fade, optional_slide`.
     `act()` posts `/act/{action}`. No private `_tick`. No
     `from examples._common import`.
 11. **Silent `except ImportError` without `AttachNote`.**
@@ -176,7 +201,7 @@ If you do any of these, **stop, undo, and continue on the product path**.
 21. **Morphing the Typeahead field from a pause-fired Result.** Hits morph
     `#typeahead-hits` only.
 22. **Putting email / password / OTP digits on MorphState.** RefState +
-    `tick(self)`. Channel session plane refuses quantity MorphState.
+    `mark_dirty(self)`. Channel session plane refuses quantity MorphState.
 23. **`probe()` starting a server or shelling out.** It is import-spec only.
 24. **Hiding the Created-with-Grok pill, stripping `extensions.js`, or dropping
     the vanilla preview-host bridge.**
@@ -273,8 +298,8 @@ Surface, SurfaceBundle, SurfaceError,
 mount_surfaces, scan_surfaces, validate_surfaces,
 Component, MorphState, RefState, action,
 bind, control, notify, update_with, morph_play,
-act, tick, field, status,
-maybe_plan, maybe_fade, maybe_slide,
+act, mark_dirty, field, status,
+optional_plan, optional_fade, optional_slide,
 AttachNote, attach_notes,
 Level, doctor, DoctorResult,
 scene, fade, rise, slide,     # None until ux-motion
@@ -328,7 +353,7 @@ app.use_dom(document=None, *, author=True)
 app.use_behavior()
 app.use_channel(asgi_app=...)     # Isolation door — wire/ only
 app.use_motion()
-app.use_cek(mode="adapt")         # never mode=require in product
+app.use_cek(mode="require")        # default product Cap Host; adapt is lab-only
 app.mint_cap(action, args)
 app.submit_intent / submit_intent_async(..., mint=True)
 app.add(*ComponentClasses)
@@ -360,8 +385,8 @@ act(action, label, *, kind="secondary", target="#stage", on=None, **args)
     Hidden inputs for **args. data-ux=1, data-target={target}.
     on= stamps data-channel-on. control() attrs on the submit button.
 
-tick(comp, *, on="tick", off="tock")
-    Flip comp.stamp. Never a private _tick.
+mark_dirty(comp, *, on="mark_dirty", off="tock")
+    Flip comp.dirty. Never a private _tick.
 
 field(name, value="", *, placeholder="", kind="text")
     className="field". autocomplete="off".
@@ -369,9 +394,9 @@ field(name, value="", *, placeholder="", kind="text")
 status(text, *, kind="note")
     empty → span("", className="sr"); else status status-{kind} role="status".
 
-maybe_plan(name, target, *, ms=140)   → scene.enter(target, rise.enter) or None
-maybe_fade(name, target, *, ms=120)   → scene.enter(target, fade.enter) or None
-maybe_slide(name, target, *, direction="next"|"prev", ms=180)
+optional_plan(name, target, *, ms=140)   → scene.enter(target, rise.enter)  # motion IR, not optional
+optional_fade(name, target, *, ms=120)   → scene.enter(target, fade.enter)
+optional_slide(name, target, *, direction="next"|"prev", ms=180)
     dist from ux_motion.tokens.dist("md"), else 24.0
     prev → −dist, next → +dist
 ```
@@ -431,7 +456,7 @@ a server. Never shells. Render the matrix on `/trace` and `/relay`.
 | Kind | Field |
 |---|---|
 | Open / value / query / named step / named band | `MorphState` (qualitative) |
-| Magnitude, lists, money, ISO dates, files, digits, secrets | `RefState` + `stamp = MorphState("idle")` then `tick(self)` |
+| Magnitude, lists, money, ISO dates, files, digits, secrets | `RefState` + `stamp = MorphState("idle")` then `mark_dirty(self)` |
 | One-shot message | `notify(...)` |
 | Protected verb | `@action(caps=("…",))` + live Cap |
 | Channel session plane | **refuses quantity MorphState** |
@@ -554,7 +579,7 @@ Play them in `/lab` and `/atelier`. Do not invent a second catalog.
 | `/house` | House — Typeahead (hits-slot), Combobox, Select, Dropdown, Sheet, Carousel, Table, Pagination (`page_slots`), ContextMenu, ActionSheet. Anchored family |
 | `/visit` | Visit — Stepper, Plans, Calendar, Dialog |
 | `/signal` | Signal — Wave 1 grammar (swipe, longpress, `input delay:`, handle `threshold:48`) |
-| `/author` | Author — official `act` / `field` / `status` / `tick` / `maybe_*`. Posts `/act/{action}` |
+| `/author` | Author — official `act` / `field` / `status` / `mark_dirty` / `maybe_*`. Posts `/act/{action}` |
 | `/notes` | Notes — `AttachNote`, `attach_notes()`, `App.attach_notes` |
 | `/overlay` | Chrome — OverlayChrome ids, swipe-on-dismiss, handle `threshold:48`, enter x=28 / y=32 |
 | `/copy` | Press — 23 stems + OverlayChrome-not-a-stem. `copy_component` / `find_app_root` / `KitCopyError` |

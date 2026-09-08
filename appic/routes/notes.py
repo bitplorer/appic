@@ -11,9 +11,9 @@ from ux_compose import (
     action,
     attach_notes,
     notify,
-    tick,
+    mark_dirty,
     update_with,
-    maybe_plan,
+    optional_plan,
 )
 
 from appic.ux import (
@@ -33,7 +33,7 @@ from appic.store import HOST
 
 class Notes(Component):
     id = "notes"
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     last = MorphState("idle")
 
     def _rows(self):
@@ -135,11 +135,11 @@ class Notes(Component):
 
     @action(caps=())
     def refresh(self, **kwargs):
-        tick(self)
+        mark_dirty(self)
         app_notes, process = self._rows()
         self.last = f"app {len(app_notes)} · process {len(process)}"
         return update_with(
             self,
-            maybe_plan("notes", "#notes", ms=120),
+            optional_plan("notes", "#notes", ms=120),
             extra_ops=[notify(self.last)],
         )

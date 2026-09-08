@@ -13,7 +13,7 @@ from appic.ux import (
     h2,
     h3,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
@@ -23,7 +23,7 @@ from appic.ux import (
     td,
     th,
     thead,
-    tick,
+    mark_dirty,
     tr,
     ul,
     update_with,
@@ -39,7 +39,7 @@ class Board(Component):
     selected = RefState(())
     undo = RefState(())
     pending = RefState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         view = str(self.view or "kanban")
@@ -149,8 +149,8 @@ class Board(Component):
                 break
         self.undo = tuple(self.undo or ()) + ((cid, prev),)
         self.pending = ""
-        tick(self)
-        return update_with(self, maybe_plan("card", f"#card-{cid}", ms=120), extra_ops=[notify(f"→ {col}")])
+        mark_dirty(self)
+        return update_with(self, optional_plan("card", f"#card-{cid}", ms=120), extra_ops=[notify(f"→ {col}")])
 
     @action(caps=())
     def undo_move(self, **kwargs):
@@ -162,7 +162,7 @@ class Board(Component):
         for c in HOST.board:
             if c["id"] == cid and col:
                 c["col"] = col
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Undone")])
 
     @action(caps=())
@@ -173,7 +173,7 @@ class Board(Component):
         else:
             have.add(cid)
         self.selected = tuple(sorted(have))
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -182,5 +182,5 @@ class Board(Component):
             if c["id"] in set(self.selected or ()):
                 c["col"] = "keep"
         self.selected = ()
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Moved to keep")])

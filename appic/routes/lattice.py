@@ -17,14 +17,14 @@ from appic.ux import (
     h2,
     h3,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     path,
     section,
     span,
     svg,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -50,7 +50,7 @@ class Lattice(Component):
     id = "lattice"
     selected = MorphState("orders.place")
     charged = MorphState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     last = RefState("")
 
     def _current(self):
@@ -181,10 +181,10 @@ class Lattice(Component):
     def select(self, cap: str = "orders.place", **kwargs):
         keys = {row[0] for row in SEALS}
         self.selected = cap if cap in keys else "orders.place"
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("seal-select", f"#seal-{self.selected.replace('.', '-')}", ms=120),
+            optional_plan("seal-select", f"#seal-{self.selected.replace('.', '-')}", ms=120),
             extra_ops=[notify(self.selected)],
         )
 
@@ -196,10 +196,10 @@ class Lattice(Component):
         self.charged = cap
         self.last = cap
         HOST.last_seal = cap
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("seal-mint", "#lattice-nucleus", ms=180),
+            optional_plan("seal-mint", "#lattice-nucleus", ms=180),
             extra_ops=[notify(f"Cap minted · {cap}")],
         )
 
@@ -207,7 +207,7 @@ class Lattice(Component):
     def public_fire(self, verb: str = "home.beat", **kwargs):
         allowed = {name for name, _ in PUBLIC}
         self.last = verb if verb in allowed else "home.beat"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify(f"public · {self.last}")])
 
 

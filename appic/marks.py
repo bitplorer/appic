@@ -1,7 +1,7 @@
 """Sparse monochrome SVG marks — no emoji."""
 from __future__ import annotations
 
-from appic.tags import circle, path, rect, svg
+from ux_compose import circle, path, rect, svg
 
 
 def mark(kind: str):
@@ -34,7 +34,6 @@ def mark(kind: str):
             path(d="M24 14a8 8 0 1 1 8 12L30 52", **stroke),
             **common,
         )
-    # shade
     return svg(
         path(d="M12 28l20-14 20 14v6H12z", **stroke),
         path(d="M32 34v16", **stroke),

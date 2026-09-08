@@ -126,7 +126,7 @@ class Relay(Component):
         if band not in {k for k, _, _ in MODES}:
             band = "dev"
         self.band = band
-        self.pulse = "tock" if self.pulse == "tick" else "tick"
+        self.pulse = "tock" if self.pulse == "mark_dirty" else "mark_dirty"
         return update_with(self)
 
     @action(caps=())

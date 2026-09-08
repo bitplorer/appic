@@ -1,20 +1,19 @@
 # ux-compose — complete feature inventory (delivery era · ADR 0004 · WebAssets · deploy)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-(`7ea3eb8813d280a975c4a41d23a2e2d4de40a506`, refreshed **2026-09-06**,
-**reconfirmed 2026-09-07** by a second full AST walk — names unchanged,
-**0.1.0 / Clock A + ownable kit + OverlayChrome + author door + attach notes
-+ Typeahead hits-slot + serve-dev split + soft morph + copy press + doctor
-scan families + Presence cookbook + WebAssets + prepare_deploy + tunnel
-+ HMR delivery + restart-channel + Tailwind resolver + probe + Wave 1
-grammar + AuthDecision + morph_play + ProductBatteriesRejected + 75 Atelier
-classes**).
+(`fa2ddfe3852866702f8665069bb6152207b86c2e`, refreshed **2026-09-08** against
+the hard-deps cut). Previous pin `7ea3eb8` is historical.
+
+**Nomen cut (BREAKING vs 7ea3eb8):** `tick` → `mark_dirty`; `stamp` MorphState
+→ `dirty`; `maybe_*` → `optional_*`. Python floor is **≥3.14**. Specialists
+are hard dependencies. `HAS_DOM=False` / kit HTML-string fallbacks / optional
+L1 are gone. `build(cek="require")` is the product Cap Host default.
 
 Public names: `src/ux_compose/__init__.py` `__all__`.
-Kit catalog: `src/ux_compose/kit/catalog.py`.
+Kit catalog: `src/ux_compose/kit/catalog.py` (23 stems, `css: False`, `page: True`).
 Copy press (not a card): `src/ux_compose/kit/copy.py`.
 Overlay primitive: `src/ux_compose/kit/overlay.py` (**not** a catalog stem).
-Author helpers: `src/ux_compose/author.py`.
+Author helpers: `src/ux_compose/author.py` (`mark_dirty`, `optional_*`).
 Attach notes: `src/ux_compose/attach_notes.py`.
 Doctor: `src/ux_compose/doctor.py`.
 Presence: `cookbooks/PRESENCE.md`.
@@ -26,6 +25,7 @@ a second namespace (`ux.*`), React, Vue, JSX, HTMX-as-architecture, or a
 client SPA as source of truth.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+
 
 ---
 
@@ -166,7 +166,7 @@ Host demos: Badge (document_boot), Index (live_asgi_app), Hello (page_unit_demo)
 App, build, WebAssets, DirectoryRoutes, DirectoryASGI, RouterHooks, Surface,
 SurfaceBundle, SurfaceError, mount_surfaces, scan_surfaces, validate_surfaces,
 Component, MorphState, RefState, action, bind, control, notify, update_with,
-morph_play, act, tick, field, status, maybe_plan, maybe_fade, maybe_slide,
+morph_play, act, mark_dirty, field, status, optional_plan, optional_fade, optional_slide,
 AttachNote, attach_notes, Level, doctor, DoctorResult, scene, fade, rise, slide,
 HAS_DOM, raw, __version__, html, head, body, title, style, meta, link, script,
 div, span, h1, h2, h3, p, a, button, form, input_, ul, li, header, footer,
@@ -211,8 +211,8 @@ fail-close on them. Deleting aliases while 0.1 tests lock them is a capability d
 | `serve="webassets"` | `serve="dual_copy"` (package-static escape hatch) |
 | Teaching `App.mount` as the product path | `build()` |
 | root `swipe.*` on an overlay card | swipe on dismiss / handle |
-| `from examples._common import` in product | `from ux_compose import act, tick, field, …` |
-| private `_tick` | official `tick(comp)` |
+| `from examples._common import` in product | `from ux_compose import act, mark_dirty, field, …` |
+| private `_tick` | official `mark_dirty(comp)` |
 
 ---
 
@@ -236,7 +236,7 @@ and must **not** reimplement them.
 | Version | `0.1.0` (`ux_compose.__version__`) |
 | Python | ≥ 3.11 classifiers (ux-dom full stack needs ≥ 3.14; sandbox 3.10 vendors source) |
 | License | MIT |
-| Current SHA | `7ea3eb8813d280a975c4a41d23a2e2d4de40a506` |
+| Current SHA | `fa2ddfe3852866702f8665069bb6152207b86c2e` |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
 If you rewrite a Component “to go live”, you have violated the contract.
@@ -296,9 +296,9 @@ act(action, label, *, kind="secondary", target="#stage", on=None, **args)
     Hidden inputs for **args. data-ux=1, data-target={target}.
     on= stamps data-channel-on. className btn-{kind}; form className "inline".
 
-tick(comp, *, on="tick", off="tock")
+mark_dirty(comp, *, on="tick", off="tock")
     Flip a qualitative MorphState stamp so RefState-only mutations morph.
-    Reads/writes comp.stamp. Product code uses this — never a private _tick.
+    Reads/writes comp.dirty. Product code uses this — never a private _tick.
 
 field(name, value="", *, placeholder="", kind="text")
     One input helper. className="field". autocomplete="off".
@@ -306,9 +306,9 @@ field(name, value="", *, placeholder="", kind="text")
 status(text, *, kind="note")
     Live region. Empty text → span("", className="sr"). Else status status-{kind} role="status".
 
-maybe_plan(name, target, *, ms=140)   → scene.enter(target, rise.enter) or None
-maybe_fade(name, target, *, ms=120)   → scene.enter(target, fade.enter) or None
-maybe_slide(name, target, *, direction="next"|"prev", ms=180)
+optional_plan(name, target, *, ms=140)   → scene.enter(target, rise.enter)
+optional_fade(name, target, *, ms=120)   → scene.enter(target, fade.enter)
+optional_slide(name, target, *, direction="next"|"prev", ms=180)
     → scene.enter(target, slide.enter(x=±dist)) or None
     dist from ux_motion.tokens.dist("md"), else 24.0
     prev → −dist, next → +dist
@@ -620,7 +620,7 @@ room, **and** `/copy` so the press is a walkable room, not a hidden CLI.
 |---|---|
 | Open / value / query / named step / named band | `MorphState` (qualitative) |
 | Magnitude, lists, money, ISO dates, files, digits | `RefState` + `stamp = MorphState("idle")` |
-| Stamp flip so RefState-only mutations morph | official `tick(comp)` — not a private `_tick` |
+| Stamp flip so RefState-only mutations morph | official `mark_dirty(comp)` — not a private `_tick` |
 | One-shot message | `notify(...)` |
 | Domain stock / money / bookings | Host store, never the client plane |
 | Protected verb | `@action(caps=("orders.place",))` + host mint at HTTP door |
@@ -647,7 +647,7 @@ Every pattern is one `Component`. Same class is valid at L1 and L3.
 | Thin wrappers | `form_validation.py` `list_stagger.py` `optimistic_list.py` `page_transition.py` | Point at the real card. Still count as catalog contracts |
 
 Foundation Counter's `_tick` is the **pre-ADR-0004** form. Product code uses
-`from ux_compose import tick`.
+`from ux_compose import mark_dirty`.
 
 ---
 
@@ -711,7 +711,7 @@ clocks off. Missing extras fail closed — no single-uvicorn fallback.
 2. **Document SSoT.** Exactly one `Document(...)` in `document.py`. Overlays stay in the tree when closed.
 3. **XOR + Morph-then-Play.** Plans carry **no** `html=`. Morph first, then `transition.play`.
 4. **Cap Law.** Protected verbs fail closed without a Channel-minted Cap.
-5. **Encoding.** Qualitative MorphState. Magnitudes on RefState + stamp. Stamp via official `tick()`.
+5. **Encoding.** Qualitative MorphState. Magnitudes on RefState + stamp. Stamp via official `mark_dirty()`.
 6. **Presence continuity.** Stable ids. `scene.stagger_in` on survivors. `scene.share(key, leave=, arrive=)` — share id is identity, not a CSS class.
 7. **Cold import never pulls the wire.** `App.boot("auto")` is L1.
 8. **CSS.** No CSS or client JS inside Python strings. Tokens in `assets/css/input.css`. Kit cards: `class_*` only. CSS first token is CSS — never JS `export`. Catalog `css: False`.
@@ -720,7 +720,7 @@ clocks off. Missing extras fail closed — no single-uvicorn fallback.
 11. **Ownable kit.** Copy, then edit. Do not ship `from ux_compose.kit import …` as the product unit.
 12. **Signal.** Swipe on the handle / Keep it / Close. Never a root swipe that swallows row clicks.
 13. **No invented library names.**
-14. **One author door.** `act` / `field` / `status` / `tick` / `maybe_*` live on `ux_compose`. Do not keep a second helper world. Do not import `examples._common` from product.
+14. **One author door.** `act` / `field` / `status` / `mark_dirty` / `optional_*` live on `ux_compose`. Do not keep a second helper world. Do not import `examples._common` from product.
 15. **Attach notes refuse silence.** Step-downs write `AttachNote`. They do not raise, and they do not hide.
 16. **OverlayChrome is the edge primitive.** Dialog / Sheet / ActionSheet take ids and dismiss grammar from it. Handle: `click swipe.down swipe.vertical threshold:48`. Enter: right `x=28`, bottom `y=32`. Anchored family does not copy these ids.
 17. **Leftovers expire by teaching.** Doctor flags kit-imports, `host="batteries"`, `DirectoryRouter`, `serve="webassets"`, teaching `App.mount` as the product path, root swipe. It does not fail-close on them.

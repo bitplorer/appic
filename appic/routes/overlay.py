@@ -13,9 +13,9 @@ from ux_compose import (
     MorphState,
     action,
     notify,
-    tick,
+    mark_dirty,
     update_with,
-    maybe_plan,
+    optional_plan,
 )
 
 from appic.ux import (
@@ -36,7 +36,7 @@ from appic.rooms import cards
 
 class Overlay(Component):
     id = "overlay"
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     kind = MorphState("dialog")
 
     def render(self):
@@ -103,7 +103,7 @@ class Overlay(Component):
         if which not in {"dialog", "sheet", "actionsheet"}:
             which = "dialog"
         self.kind = which
-        tick(self)
+        mark_dirty(self)
         chrome = overlay_chrome(which, kind=which)
-        plan = chrome.open_plan() or maybe_plan("overlay-pick", f"#chrome-{which}", ms=140)
+        plan = chrome.open_plan() or optional_plan("overlay-pick", f"#chrome-{which}", ms=140)
         return update_with(self, plan, extra_ops=[notify(f"chrome · {which}")])

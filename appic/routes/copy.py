@@ -16,7 +16,7 @@ from ux_compose import (
     MorphState,
     action,
     notify,
-    tick,
+    mark_dirty,
     update_with,
 )
 
@@ -110,7 +110,7 @@ def copy_evidence() -> dict:
 
 class Copy(Component):
     id = "copy"
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     selected = MorphState("login")
     last_error = MorphState("")
     root_path = MorphState("")
@@ -250,7 +250,7 @@ class Copy(Component):
             self.last_error = ""
         except Exception as exc:
             self.last_error = f"{type(exc).__name__}: {exc}"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify(f"die · {self.selected}")])
 
     @action(caps=())
@@ -265,7 +265,7 @@ class Copy(Component):
             self.root_path = ""
             self.last_error = f"{type(exc).__name__}: {exc}"
             HOST.log("copy.find_app_root", type(exc).__name__, "morph")
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("root probed")])
 
     @action(caps=())
@@ -277,12 +277,12 @@ class Copy(Component):
         except Exception as exc:
             self.last_error = f"{type(exc).__name__}: {exc}"
             HOST.log("copy.KitCopyError", "not-a-stem", "morph")
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("press refused")])
 
     @action(caps=())
     def restyle(self, **kwargs):
         self.restyle = "paper" if str(self.restyle or "ink") == "ink" else "ink"
-        tick(self)
+        mark_dirty(self)
         HOST.log("copy.restyle", str(self.restyle), "morph")
         return update_with(self, extra_ops=[notify(f"token · {self.restyle}")])

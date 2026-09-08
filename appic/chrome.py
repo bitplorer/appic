@@ -18,11 +18,11 @@ from appic.ux import (
     li,
     p,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
     notify,
-    maybe_plan,
+    optional_plan,
 )
 
 
@@ -64,7 +64,7 @@ COMMANDS = (
 class Toasts(Component):
     id = "toasts"
     items = RefState(())
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     _seq = RefState(0)
 
     def render(self):
@@ -85,17 +85,17 @@ class Toasts(Component):
         self._seq = int(self._seq or 0) + 1
         row = {"id": str(self._seq), "message": message}
         self.items = tuple(self.items or ()) + (row,)
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("toast-in", f"#toast-{row['id']}", ms=100),
+            optional_plan("toast-in", f"#toast-{row['id']}", ms=100),
             extra_ops=[notify(message)],
         )
 
     @action(caps=())
     def clear(self, **kwargs):
         self.items = ()
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
 
@@ -177,7 +177,7 @@ class Palette(Component):
         self.open = not bool(self.open)
         if not self.open:
             self.query = ""
-        return update_with(self, maybe_plan("palette", "#palette", ms=160))
+        return update_with(self, optional_plan("palette", "#palette", ms=160))
 
     @action(caps=())
     def close(self, **kwargs):
@@ -230,7 +230,7 @@ class Ribbon(Component):
     """Live Ops strip — the document naming its own last Results of Ops."""
 
     id = "ribbon"
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         rows = list(HOST.trace or ())[-5:]
@@ -254,6 +254,6 @@ class Ribbon(Component):
 
     @action(caps=())
     def refresh(self, **kwargs):
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 

@@ -16,13 +16,13 @@ from appic.ux import (
     h2,
     input_,
     label,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
     span,
     textarea,
-    tick,
+    mark_dirty,
     update_with,
 )
 
@@ -48,7 +48,7 @@ class Commission(Component):
     draft = RefState("")
     dirty = MorphState(False)
     valid = MorphState("idle")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         step = str(self.step or "intent")
@@ -189,14 +189,14 @@ class Commission(Component):
     def set_step(self, key: str = "intent", **kwargs):
         if key in dict(STEPS):
             self.step = key
-        return update_with(self, maybe_plan("step", "#commission", ms=160))
+        return update_with(self, optional_plan("step", "#commission", ms=160))
 
     @action(caps=())
     def save_title(self, title: str = "", **kwargs):
         if title:
             self.title = title
         self.dirty = True
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -206,7 +206,7 @@ class Commission(Component):
         self.note = (note or "")[:180]
         self.draft = self.note
         self.dirty = False
-        tick(self)
+        mark_dirty(self)
         self.step = "material"
         return update_with(self, extra_ops=[notify("Intent held")])
 
@@ -223,19 +223,19 @@ class Commission(Component):
         else:
             have.add(key)
         self.extras = tuple(sorted(have))
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def thinner(self, **kwargs):
         self.thickness = max(8, int(self.thickness or 18) - 2)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def thicker(self, **kwargs):
         self.thickness = min(40, int(self.thickness or 18) + 2)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -243,13 +243,13 @@ class Commission(Component):
         self.window = key
         month = {"july": "07", "august": "08", "september": "09"}.get(key, "08")
         self.iso = f"2026-{month}-27"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def drop(self, name: str = "sketch.svg", **kwargs):
         self.files = tuple(self.files or ()) + (name,)
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify(f"Held {name}")])
 
     @action(caps=())
@@ -260,7 +260,7 @@ class Commission(Component):
     @action(caps=())
     def set_secret(self, secret: str = "", **kwargs):
         self.secret = secret
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=("identity.verify",))
@@ -268,7 +268,7 @@ class Commission(Component):
         self.otp = (otp or "").strip()
         ok = self.otp == "2048" or len(self.otp) == 4
         self.valid = "ok" if ok else "err"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Verified" if ok else "Need four digits (try 2048)")])
 
     @action(caps=("orders.place",))
@@ -284,5 +284,5 @@ class Commission(Component):
         HOST.kpi["open"] = int(HOST.kpi.get("open", 0)) + 1
         self.step = "intent"
         self.valid = "idle"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Commission placed")])

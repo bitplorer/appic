@@ -10,7 +10,7 @@ owns scrim/panel/dismiss ids, dismiss grammar, and the open plan.
 
 from __future__ import annotations
 
-from .overlay import overlay as overlay_chrome
+from ux_compose.kit.overlay import overlay as overlay_chrome
 
 from ux_compose import (
     Component,

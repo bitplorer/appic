@@ -16,7 +16,7 @@ DEBUG = os.environ.get("DEBUG", "1") not in ("0", "false", "False")
 ASSETS_DIR = BASE_DIR / "assets"
 OUTPUT_CSS = "output.css"
 
-UX_COMPOSE_SHA = "7ea3eb8813d280a975c4a41d23a2e2d4de40a506"
-UX_COMPOSE_SHA_SHORT = "7ea3eb8"
+UX_COMPOSE_SHA = "fa2ddfe3852866702f8665069bb6152207b86c2e"
+UX_COMPOSE_SHA_SHORT = "fa2ddfe"
 
 webassets = WebAssets(base_dir=ASSETS_DIR, dry_run=False)

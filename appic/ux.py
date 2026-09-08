@@ -2,8 +2,8 @@
 
 Isolation Law: never import ux_channel or CEK from this package.
 
-Author door: re-export official ``act`` / ``tick`` / ``field`` / ``status`` /
-``maybe_*`` from ``ux_compose``. Do not invent a second helper world.
+Author door: re-export official ``act`` / ``mark_dirty`` / ``field`` / ``status`` /
+``optional_*`` from ``ux_compose``. Do not invent a second helper world.
 ``act()`` posts ``/act/{action}``. Presence extras (share / stagger) stay here.
 """
 from __future__ import annotations
@@ -11,46 +11,26 @@ from __future__ import annotations
 from typing import Any
 
 from ux_compose import (
+    HAS_DOM,
     App,
     AttachNote,
     Component,
     MorphState,
     RefState,
-    action,
-    attach_notes,
-    bind,
-    control,
-    doctor,
-    field,
-    morph_play,
-    notify,
-    status,
-    tick,
-    maybe_fade,
-    maybe_plan,
-    maybe_slide,
-    update_with as _compose_update_with,
-)
-from ux_compose import act as _compose_act
-
-try:
-    from ux_compose import HAS_DOM
-except Exception:  # pragma: no cover
-    HAS_DOM = False
-
-try:
-    from ux_compose import scene, rise, fade, slide
-except Exception:  # pragma: no cover
-    scene = rise = fade = slide = None
-
-from appic.tags import (
-    HAS_TAGS,
     a,
+    action,
+    act as _compose_act,
     article,
     aside,
+    attach_notes,
+    bind,
     button,
     circle,
+    control,
     div,
+    doctor,
+    fade,
+    field,
     footer,
     form,
     h1,
@@ -61,23 +41,30 @@ from appic.tags import (
     label,
     li,
     main,
+    mark_dirty,
+    morph_play,
     nav,
+    notify,
+    optional_fade,
+    optional_plan,
+    optional_slide,
     p,
     path,
     raw,
     rect,
+    rise,
+    scene,
     section,
+    slide,
     span,
+    status,
     svg,
-    table,
-    tbody,
-    td,
-    textarea,
-    th,
-    thead,
-    tr,
     ul,
+    update_with as _compose_update_with,
 )
+from ux_dom.dom import table, tbody, td, textarea, th, thead, tr
+
+HAS_TAGS = True
 
 
 def act(
@@ -98,7 +85,7 @@ def act(
     return tree
 
 
-def maybe_share(name: str, key: str, leave: str, arrive: str, *, ms: int = 140):
+def optional_share(name: str, key: str, leave: str, arrive: str, *, ms: int = 140):
     """Presence cookbook: share key is identity, not a CSS class."""
     if scene is None or rise is None:
         return None
@@ -112,7 +99,7 @@ def maybe_share(name: str, key: str, leave: str, arrive: str, *, ms: int = 140):
         return None
 
 
-def maybe_stagger(name: str, ids: list[str], *, ms: int = 90):
+def optional_stagger(name: str, ids: list[str], *, ms: int = 90):
     """Presence cookbook: stagger_in on survivors so they do not remount."""
     if scene is None or rise is None:
         return None
@@ -155,7 +142,6 @@ def update_with(component: Any, *rest: Any, extra_ops: Any = None, html: Any = N
 
     Compatible with the compose author seat:
         update_with(self, scene(...), extra_ops=[notify("…")])
-    Channel stamp only allows ui.dom.morph / log.append / transition.play / …
     XOR: plans carry no html=; html= may live on the morph payload only.
     """
     extra = extra_ops if extra_ops is not None else kwargs.get("extra_ops")
@@ -188,10 +174,10 @@ __all__ = [
     "App",
     "AttachNote",
     "Component",
+    "HAS_DOM",
+    "HAS_TAGS",
     "MorphState",
     "RefState",
-    "HAS_TAGS",
-    "HAS_DOM",
     "a",
     "act",
     "action",
@@ -216,14 +202,15 @@ __all__ = [
     "label",
     "li",
     "main",
-    "maybe_fade",
-    "maybe_plan",
-    "maybe_share",
-    "maybe_slide",
-    "maybe_stagger",
+    "mark_dirty",
     "morph_play",
     "nav",
     "notify",
+    "optional_fade",
+    "optional_plan",
+    "optional_share",
+    "optional_slide",
+    "optional_stagger",
     "p",
     "path",
     "raw",
@@ -240,7 +227,6 @@ __all__ = [
     "textarea",
     "th",
     "thead",
-    "tick",
     "tr",
     "ul",
     "update_with",

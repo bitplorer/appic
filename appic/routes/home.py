@@ -20,12 +20,12 @@ from appic.ux import (
     h3,
     input_,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -45,7 +45,7 @@ STARS = (
     ("house", "/house", "House", 52, 7, "Anchored family. Typeahead delay."),
     ("visit", "/visit", "Visit", 74, 16, "Stepper, Plans, Dialog confirm."),
     ("signal", "/signal", "Signal", 90, 32, "Wave 1. Handle threshold:48."),
-    ("author", "/author", "Author", 92, 56, "act / tick / field / maybe_*."),
+    ("author", "/author", "Author", 92, 56, "act / mark_dirty / field / optional_*."),
     ("press", "/copy", "Press", 82, 78, "copy_component. Not a card."),
     ("skin", "/skin", "Skin", 68, 68, "WebAssets. ETag. dual_copy leftover."),
     ("ship", "/deploy", "Ship", 48, 78, "prepare_deploy. Six providers. Cap."),
@@ -62,7 +62,7 @@ STARS = (
 class Home(Component):
     id = "home"
     greeting = MorphState("The table is lit")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     query = MorphState("")
     bench = MorphState("you")
     sight = MorphState("table")
@@ -228,7 +228,7 @@ class Home(Component):
             div(
                 div(
                     h2("House"),
-                    p("KPI values live on the Host. Stamp is the only dirty tick.", className="muted"),
+                    p("KPI values live on the Host. Stamp is the only dirty mark_dirty.", className="muted"),
                     className="section-head",
                 ),
                 div(
@@ -262,10 +262,10 @@ class Home(Component):
     def beat(self, **kwargs):
         HOST.pulse = int(HOST.pulse or 0) + 1
         self.greeting = "Still here" if HOST.pulse > 3 else "The table is lit"
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("pulse", "#home", ms=140),
+            optional_plan("pulse", "#home", ms=140),
             extra_ops=[notify(f"pulse={HOST.pulse}")],
         )
 
@@ -273,7 +273,7 @@ class Home(Component):
     def intend(self, q: str = "", **kwargs):
         HOST.intent = (q or "").strip()
         self.query = HOST.intent
-        tick(self)
+        mark_dirty(self)
         msg = f"Intent held · {HOST.intent}" if HOST.intent else "Intent cleared"
         return update_with(self, extra_ops=[notify(msg)])
 
@@ -281,10 +281,10 @@ class Home(Component):
     def seat(self, who: str = "you", **kwargs):
         keys = {k for k, _, _ in BENCHES}
         self.bench = who if who in keys else "you"
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("seat", f"#bench-{self.bench}", ms=120),
+            optional_plan("seat", f"#bench-{self.bench}", ms=120),
             extra_ops=[notify(f"seated · {self.bench}")],
         )
 
@@ -292,11 +292,11 @@ class Home(Component):
     def sight(self, room: str = "table", **kwargs):
         keys = {row[0] for row in STARS}
         self.sight = room if room in keys else "table"
-        tick(self)
+        mark_dirty(self)
         label = self._sighted()[2]
         return update_with(
             self,
-            maybe_plan("sight", "#constellation-nucleus", ms=120),
+            optional_plan("sight", "#constellation-nucleus", ms=120),
             extra_ops=[notify(f"sighted · {label}")],
         )
 

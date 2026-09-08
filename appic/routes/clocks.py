@@ -25,7 +25,7 @@ from appic.ux import (
     h2,
     p,
     span,
-    tick,
+    mark_dirty,
     update_with,
 )
 
@@ -33,7 +33,7 @@ from appic.ux import (
 class Clocks(Component):
     id = "clocks"
     ticks = MorphState("idle")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         return div(
@@ -76,13 +76,13 @@ class Clocks(Component):
                 className="gate-row",
             ),
             p(f"http_path index.py → {http_path('index.py')}", className="mono"),
-            p(f"stamp {self.stamp}", className="mono", id="clock-stamp"),
+            p(f"dirty {self.dirty}", className="mono", id="clock-dirty"),
             id=self.id,
             className="room",
         )
 
     @action(caps=())
     def tick_b(self):
-        tick(self)
+        mark_dirty(self)
         self.ticks = "tock" if self.ticks == "tick" else "tick"
         return update_with(self)

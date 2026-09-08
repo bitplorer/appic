@@ -24,12 +24,12 @@ from appic.ux import (
     h2,
     h3,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -48,7 +48,7 @@ SWATCHES = (
 class Skin(Component):
     id = "skin"
     band = MorphState("tokens")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         wa = webassets
@@ -171,11 +171,11 @@ class Skin(Component):
         if band not in {"tokens", "compiler", "leftovers"}:
             band = "tokens"
         self.band = band
-        tick(self)
+        mark_dirty(self)
         HOST.log("skin.show", band, "morph")
         return update_with(
             self,
-            maybe_plan("skin-band", "#skin", ms=120),
+            optional_plan("skin-band", "#skin", ms=120),
             extra_ops=[notify(f"skin · {band}")],
         )
 

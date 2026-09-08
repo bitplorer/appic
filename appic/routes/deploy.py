@@ -28,12 +28,12 @@ from appic.ux import (
     h1,
     h2,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -57,7 +57,7 @@ class Deploy(Component):
     provider = MorphState("checklist")
     tunnel = MorphState("none")
     last = RefState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         current = str(self.provider or "checklist")
@@ -145,11 +145,11 @@ class Deploy(Component):
         if provider not in PROVIDERS:
             provider = "checklist"
         self.provider = provider
-        tick(self)
+        mark_dirty(self)
         HOST.log("deploy.choose", provider, "morph")
         return update_with(
             self,
-            maybe_plan("deploy-pick", f"#provider-{provider}", ms=120),
+            optional_plan("deploy-pick", f"#provider-{provider}", ms=120),
             extra_ops=[notify(f"provider · {provider}")],
         )
 
@@ -157,7 +157,7 @@ class Deploy(Component):
     def set_tunnel(self, tunnel: str = "none", **kwargs):
         parsed = parse_tunnel(tunnel)
         self.tunnel = parsed
-        tick(self)
+        mark_dirty(self)
         HOST.log("deploy.tunnel", parsed, "morph")
         return update_with(self, extra_ops=[notify(f"tunnel · {parsed}")])
 
@@ -168,12 +168,12 @@ class Deploy(Component):
             provider = "checklist"
         result = prepare_deploy(provider, cwd=ROOT, force=False, app_name="appic")
         self.last = format_deploy_result(result)
-        tick(self)
+        mark_dirty(self)
         HOST.log("deploy.prepare", provider, "cap")
         HOST.last_seal = f"ship.deploy:{provider}"
         return update_with(
             self,
-            maybe_plan("deploy-prep", "#deploy", ms=160),
+            optional_plan("deploy-prep", "#deploy", ms=160),
             extra_ops=[notify(f"prepared · {provider}")],
         )
 

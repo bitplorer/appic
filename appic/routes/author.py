@@ -1,7 +1,7 @@
 """Page unit: author.py → Author.
 
 The one author door (ADR 0004). Official helpers from ux_compose.author —
-act, field, status, tick, maybe_plan / maybe_fade / maybe_slide — made visible.
+act, field, status, mark_dirty, optional_plan / optional_fade / optional_slide — made visible.
 Isolation: no ux_channel.
 """
 from __future__ import annotations
@@ -13,12 +13,12 @@ from ux_compose import (
     action,
     attach_notes,
     field,
-    maybe_fade,
-    maybe_plan,
-    maybe_slide,
+    optional_fade,
+    optional_plan,
+    optional_slide,
     notify,
     status,
-    tick,
+    mark_dirty,
     update_with,
     act,
 )
@@ -52,7 +52,7 @@ class Author(Component):
     id = "author"
     note = MorphState("The author door is one.")
     query = MorphState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
     kind = MorphState("plan")
 
     def render(self):
@@ -75,7 +75,7 @@ class Author(Component):
             span("one author door · ADR 0004 · ux_compose.author", className="eyebrow"),
             h1("Author"),
             p(
-                "Public helpers live on ux_compose. act, field, status, tick, maybe_*. "
+                "Public helpers live on ux_compose. act, field, status, mark_dirty, optional_*. "
                 "examples/_common.py re-exports the same objects. There is no second helper world.",
                 className="lede",
             ),
@@ -97,16 +97,16 @@ class Author(Component):
                     className="card",
                 ),
                 article(
-                    span("tick()", className="kicker"),
-                    h2("Stamp flip"),
-                    p(f"stamp = {self.stamp}. RefState-only mutations need a qualitative tick to morph.", className="muted"),
-                    act("author.flip", "Flip stamp", kind="secondary", target="#author"),
+                    span("mark_dirty()", className="kicker"),
+                    h2("Dirty flip"),
+                    p(f"dirty = {self.dirty}. RefState-only mutations need a qualitative mark_dirty to morph.", className="muted"),
+                    act("author.flip", "Flip dirty", kind="secondary", target="#author"),
                     className="card",
                 ),
                 article(
-                    span("maybe_*", className="kicker"),
-                    h2("Plans degrade"),
-                    p("maybe_plan / maybe_fade / maybe_slide return None when ux-motion is absent.", className="muted"),
+                    span("optional_*", className="kicker"),
+                    h2("Plans are motion IR"),
+                    p("optional_plan / optional_fade / optional_slide import ux-motion. They are not an optional fork.", className="muted"),
                     div(
                         act("author.play", "Rise", kind="secondary", target="#author", recipe="plan"),
                         act("author.play", "Fade", kind="secondary", target="#author", recipe="fade"),
@@ -128,7 +128,7 @@ class Author(Component):
                     className="card",
                 ),
                 article(
-                    span("maybe_slide dist", className="kicker"),
+                    span("optional_slide dist", className="kicker"),
                     h2("Motion tokens"),
                     p("ux_motion.tokens.dist(\"md\") else 24.0. prev → −dist, next → +dist.", className="muted"),
                     p(str(_slide_dist()), className="mono", id="author-dist"),
@@ -144,7 +144,7 @@ class Author(Component):
             ),
             id=self.id,
             className="page",
-            data_stamp=str(self.stamp),
+            data_dirty=str(self.dirty),
         )
 
     @action(caps=())
@@ -152,36 +152,36 @@ class Author(Component):
         self.query = (q or "").strip()
         self.note = f"Held · {self.query}" if self.query else "Cleared"
         HOST.intent = str(self.query)
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify(self.note)])
 
     @action(caps=())
     def pulse(self, **kwargs):
         HOST.pulse = int(HOST.pulse or 0) + 1
         self.note = f"Pulse {HOST.pulse} via act()"
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_plan("author-pulse", "#author", ms=140),
+            optional_plan("author-pulse", "#author", ms=140),
             extra_ops=[notify(self.note)],
         )
 
     @action(caps=())
     def flip(self, **kwargs):
-        tick(self)
-        self.note = f"stamp · {self.stamp}"
+        mark_dirty(self)
+        self.note = f"dirty · {self.dirty}"
         return update_with(self, extra_ops=[notify(self.note)])
 
     @action(caps=())
     def play(self, recipe: str = "plan", **kwargs):
         self.kind = recipe or "plan"
-        tick(self)
+        mark_dirty(self)
         plan = None
         if self.kind == "fade":
-            plan = maybe_fade("author-fade", "#author", ms=160)
+            plan = optional_fade("author-fade", "#author", ms=160)
         elif self.kind == "slide":
-            plan = maybe_slide("author-slide", "#author", direction="next", ms=180)
+            plan = optional_slide("author-slide", "#author", direction="next", ms=180)
         else:
-            plan = maybe_plan("author-rise", "#author", ms=140)
+            plan = optional_plan("author-rise", "#author", ms=140)
         self.note = f"recipe · {self.kind}"
         return update_with(self, plan, extra_ops=[notify(self.note)])

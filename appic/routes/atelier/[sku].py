@@ -17,12 +17,12 @@ from appic.ux import (
     div,
     h1,
     h2,
-    maybe_share,
+    optional_share,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     update_with,
 )
 
@@ -30,7 +30,7 @@ from appic.ux import (
 class Sku(Component):
     id = "sku"
     current = MorphState("lamp-flax")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def _piece(self):
         sku = str(self.current or "lamp-flax")
@@ -112,8 +112,8 @@ class Sku(Component):
             return
         HOST.set_line(sku, HOST.qty(sku) + 1)
         HOST.notice = f"Added {BY_SKU[sku]['name']}"
-        tick(self)
-        plan = maybe_share("line-to-bag", sku, leave=f"#pdp-{sku}", arrive="#bag", ms=160)
+        mark_dirty(self)
+        plan = optional_share("line-to-bag", sku, leave=f"#pdp-{sku}", arrive="#bag", ms=160)
         return update_with(self, plan, extra_ops=[notify(HOST.notice)])
 
     @action(caps=())
@@ -123,11 +123,11 @@ class Sku(Component):
             HOST.wishlist = [s for s in HOST.wishlist if s != sku]
         else:
             HOST.wishlist.append(sku)
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("wishlist")])
 
     @action(caps=())
     def open(self, sku: str = "", **kwargs):
         self.show(sku)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)

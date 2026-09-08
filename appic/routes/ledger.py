@@ -15,12 +15,12 @@ from appic.ux import (
     h2,
     h3,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -36,7 +36,7 @@ class Ledger(Component):
     copied = MorphState(False)
     phase = MorphState("hold")
     pct = RefState(42)
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         report = doctor([], fail=False)
@@ -149,7 +149,7 @@ class Ledger(Component):
     @action(caps=())
     def pick(self, n: str = "20", **kwargs):
         self.day = int(n or 20)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=("calendar.book",))
@@ -157,14 +157,14 @@ class Ledger(Component):
         d = int(self.day or 20)
         if d not in HOST.booked:
             HOST.booked.append(d)
-        tick(self)
-        return update_with(self, maybe_plan("book", "#ledger", ms=140), extra_ops=[notify(f"Booked {self.month} {d}")])
+        mark_dirty(self)
+        return update_with(self, optional_plan("book", "#ledger", ms=140), extra_ops=[notify(f"Booked {self.month} {d}")])
 
     @action(caps=())
     def advance(self, **kwargs):
         self.pct = min(100, int(self.pct or 0) + 8)
         self.phase = "fire" if self.pct >= 70 else "hold"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -203,7 +203,7 @@ class Ledger(Component):
         HOST.wishlist = []
         HOST.compare = []
         HOST.notice = "House wiped"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Wiped")])
 
 

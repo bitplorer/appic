@@ -17,12 +17,12 @@ from appic.ux import (
     h2,
     input_,
     li,
-    maybe_plan,
+    optional_plan,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -31,7 +31,7 @@ from appic.ux import (
 class Studio(Component):
     id = "studio"
     tab = MorphState("chat")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         tab = str(self.tab or "chat")
@@ -129,8 +129,8 @@ class Studio(Component):
         text = (text or "").strip() or "…"
         HOST.chat.append(f"You: {text}")
         HOST.typing = False
-        tick(self)
-        return update_with(self, maybe_plan("chat", "#studio", ms=100), extra_ops=[notify("sent")])
+        mark_dirty(self)
+        return update_with(self, optional_plan("chat", "#studio", ms=100), extra_ops=[notify("sent")])
 
     @action(caps=())
     def peer_type(self, **kwargs):
@@ -141,18 +141,18 @@ class Studio(Component):
     def peer_done(self, **kwargs):
         HOST.typing = False
         HOST.chat.append("Foundry: held until you place.")
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def mark_read(self, **kwargs):
         HOST.unread = 0
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=("comments.moderate",))
     def moderate(self, **kwargs):
         if HOST.chat:
             HOST.chat = HOST.chat[:-1]
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Hidden")])

@@ -19,15 +19,15 @@ from appic.ux import (
     h3,
     input_,
     li,
-    maybe_plan,
-    maybe_share,
-    maybe_stagger,
+    optional_plan,
+    optional_share,
+    optional_stagger,
     morph_play,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -71,7 +71,7 @@ class Lab(Component):
     pop = MorphState(False)
     overflow = MorphState(False)
     hop = MorphState("a")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         floor = str(self.floor or "house")
@@ -442,8 +442,8 @@ class Lab(Component):
     @action(caps=())
     def set_floor(self, key: str = "house", **kwargs):
         self.floor = key if key in {k for k, _ in FLOORS} else "house"
-        tick(self)
-        return update_with(self, maybe_plan("lab-floor", "#lab", ms=160))
+        mark_dirty(self)
+        return update_with(self, optional_plan("lab-floor", "#lab", ms=160))
 
     @action(caps=())
     def tree_pick(self, key: str = "linen", **kwargs):
@@ -460,16 +460,16 @@ class Lab(Component):
     @action(caps=())
     def prev(self, **kwargs):
         self.carousel = (int(self.carousel or 0) - 1) % len(CATALOG)
-        tick(self)
+        mark_dirty(self)
         sku = CATALOG[self.carousel]["sku"]
-        return update_with(self, maybe_plan("car", f"#car-{sku}", ms=120))
+        return update_with(self, optional_plan("car", f"#car-{sku}", ms=120))
 
     @action(caps=())
     def next(self, **kwargs):
         self.carousel = (int(self.carousel or 0) + 1) % len(CATALOG)
-        tick(self)
+        mark_dirty(self)
         sku = CATALOG[self.carousel]["sku"]
-        return update_with(self, maybe_plan("car", f"#car-{sku}", ms=120))
+        return update_with(self, optional_plan("car", f"#car-{sku}", ms=120))
 
     @action(caps=())
     def up(self, sku: str = "", **kwargs):
@@ -479,20 +479,20 @@ class Lab(Component):
             if i:
                 rows[i - 1], rows[i] = rows[i], rows[i - 1]
             self.order = tuple(rows)
-            tick(self)
+            mark_dirty(self)
         ids = [f"#ord-{s}" for s in (self.order or ())]
-        return update_with(self, maybe_stagger("reorder", ids, ms=70))
+        return update_with(self, optional_stagger("reorder", ids, ms=70))
 
     @action(caps=())
     def stage(self, key: str = "ready", **kwargs):
         self.ready = key if key in {"ready", "loading", "error", "empty"} else "ready"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def retry(self, **kwargs):
         self.ready = "ready"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("shelf recovered")])
 
     @action(caps=())
@@ -521,7 +521,7 @@ class Lab(Component):
     def save_inline(self, text: str = "", **kwargs):
         HOST.inline = (text or "").strip() or HOST.inline
         self.editing = ""
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("held")])
 
     @action(caps=())
@@ -534,14 +534,14 @@ class Lab(Component):
     def bump(self, **kwargs):
         self.pct = min(100, int(self.pct or 0) + 12)
         self.phase = "done" if self.pct >= 100 else "run"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def finish(self, **kwargs):
         self.pct = 100
         self.phase = "done"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -552,7 +552,7 @@ class Lab(Component):
     @action(caps=())
     def sell(self, sku: str = "lamp-flax", **kwargs):
         HOST.stock[sku] = max(0, int(HOST.stock.get(sku, 0)) - 1)
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("sold")])
 
     @action(caps=())
@@ -579,7 +579,7 @@ class Lab(Component):
     @action(caps=())
     def toggle_drawer(self, **kwargs):
         self.drawer = not bool(self.drawer)
-        return update_with(self, maybe_plan("drawer", "#lab-drawer", ms=180))
+        return update_with(self, optional_plan("drawer", "#lab-drawer", ms=180))
 
     @action(caps=())
     def close_drawer(self, **kwargs):
@@ -607,15 +607,15 @@ class Lab(Component):
     def hop(self, **kwargs):
         self.hop = "b" if self.hop == "a" else "a"
         target = "#hop-b" if self.hop == "b" else "#hop-a"
-        plan = maybe_plan("hop", target, ms=140)
+        plan = optional_plan("hop", target, ms=140)
         if plan is not None:
             return morph_play(target, plan)
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def share(self, **kwargs):
-        plan = maybe_share("flax", "sku-flax", "#share-leave", "#share-arrive", ms=160)
+        plan = optional_share("flax", "sku-flax", "#share-leave", "#share-arrive", ms=160)
         return update_with(self, plan, extra_ops=[notify("shared flax")])
 
 

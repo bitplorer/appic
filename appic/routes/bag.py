@@ -15,13 +15,13 @@ from appic.ux import (
     h2,
     input_,
     li,
-    maybe_fade,
-    maybe_plan,
+    optional_fade,
+    optional_plan,
     notify,
     p,
     section,
     span,
-    tick,
+    mark_dirty,
     ul,
     update_with,
 )
@@ -31,7 +31,7 @@ class Bag(Component):
     id = "bag"
     confirm_open = MorphState(False)
     coupon = MorphState("")
-    stamp = MorphState("idle")
+    dirty = MorphState("idle")
 
     def render(self):
         rows = HOST.lines
@@ -131,20 +131,20 @@ class Bag(Component):
     @action(caps=())
     def inc(self, sku: str = "", **kwargs):
         HOST.set_line(sku, HOST.qty(sku) + 1)
-        tick(self)
-        return update_with(self, maybe_plan("qty", f"#bag-{sku}", ms=90))
+        mark_dirty(self)
+        return update_with(self, optional_plan("qty", f"#bag-{sku}", ms=90))
 
     @action(caps=())
     def dec(self, sku: str = "", **kwargs):
         HOST.set_line(sku, max(0, HOST.qty(sku) - 1))
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
     def remove(self, sku: str = "", **kwargs):
         HOST.set_line(sku, 0)
         HOST.notice = "Removed"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify("Removed")])
 
     @action(caps=())
@@ -152,7 +152,7 @@ class Bag(Component):
         HOST.lines = []
         HOST.discount = 0
         HOST.notice = "Bag cleared"
-        tick(self)
+        mark_dirty(self)
         return update_with(self)
 
     @action(caps=())
@@ -161,7 +161,7 @@ class Bag(Component):
             HOST.notice = "Bag is empty"
             return update_with(self, extra_ops=[notify("Empty bag")])
         self.confirm_open = True
-        return update_with(self, maybe_plan("confirm", "#confirm", ms=180))
+        return update_with(self, optional_plan("confirm", "#confirm", ms=180))
 
     @action(caps=())
     def close_confirm(self, **kwargs):
@@ -179,7 +179,7 @@ class Bag(Component):
         else:
             HOST.discount = 0
             HOST.notice = "Unknown coupon"
-        tick(self)
+        mark_dirty(self)
         return update_with(self, extra_ops=[notify(HOST.notice)])
 
     @action(caps=("orders.place",))
@@ -194,9 +194,9 @@ class Bag(Component):
         HOST.discount = 0
         self.confirm_open = False
         HOST.notice = f"Order placed · {HOST.money(total)}"
-        tick(self)
+        mark_dirty(self)
         return update_with(
             self,
-            maybe_fade("order-placed", "#bag", ms=160),
+            optional_fade("order-placed", "#bag", ms=160),
             extra_ops=[notify("Order placed")],
         )
