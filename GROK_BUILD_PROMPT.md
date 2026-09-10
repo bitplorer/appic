@@ -10,6 +10,76 @@ Grok Build agent copies **everything below the line**, clones the library first,
 and ships a complete foundry. Repo **appic already exists** — upgrade it; do not
 create a second repo.
 
+## 2026-09-10 — Grok Build independent re-read (this session)
+
+Walked `src/ux_compose/**/*.py`, `kit/catalog.py` (**81** keys counted from source),
+`__all__`, CHANGELOG Unreleased, `kit_construct.py`, `author.py`, `deploy.py`,
+`doctor.py` (8 scan families), `hmr.py`, `live_client.py`, `chrome.py`,
+`cookbooks/PRESENCE.md`, `apps/{nook,atelier_studio,atelier_shop,pulse}`,
+and pyproject pins. **The library matches the inventory below.** Confirmed
+`len(CATALOG) == 81`, `ALIASES = {"treeview": "tree"}`, OverlayChrome is not a
+stem, Kit Cut 1 helpers live in `ux_compose.kit_construct` (not under `kit/`),
+doctor hard scans are isolation + dual-Document + **store-clone**, teaching
+scans are kit-import + leftovers + render-chrome + docs collision + CEK.
+
+Pins (lockstep):
+
+| Package | SHA |
+|---|---|
+| ux-compose | `060b583f64512302059bd9d4ff691bb6a2f4dd3a` |
+| ux-dom | `e8be99a52bfecd6026c200fa1c3dc6a74f87aacb` |
+| ux-behavior | `793f120e3b1388925772cd069b070d7918b78baa` |
+| ux-motion | `67ff3f0c4912b70b7056f8226a6f226b6fe93f60` |
+| ux-channel | `d0fe7169e687d2935f8b74d40b990b1ee63ef3d4` `#subdirectory=python` |
+| cek-host / cek-surface | `>=0.1.3` |
+
+Python **≥ 3.14**. `ux_compose.__version__ == "0.1.0"`. Deploy providers:
+`docker | fly | render | railway | vps | checklist`. HMR path:
+`/__uxcompose/hmr`. Clock B live: `POST /ux-channel/action`.
+
+### Grok Build sandbox floor — do not skip
+
+This workspace ships Python **3.10**. ux-compose **will not import** on 3.10.
+`apt` does not work. Use **uv**:
+
+```bash
+uv python install 3.14
+PY314=/root/.local/share/uv/python/cpython-3.14-linux-x86_64-gnu/bin/python3.14
+uv venv /workspace/.venv --python "$PY314"
+# the venv has NO pip module — never python -m pip
+uv pip install --python /workspace/.venv/bin/python \
+  -e "/tmp/repos/ux-compose[serve]" fastapi "uvicorn[standard]"
+# or, after the foundry is copied:
+uv pip install --python /workspace/.venv/bin/python -r /workspace/requirements.txt
+export PYTHONPATH=/workspace
+/workspace/.venv/bin/python -m uvicorn app:asgi --host 0.0.0.0 --port 8080
+```
+
+`startup.sh` must be idempotent: probe `http://127.0.0.1:8080/`, start uvicorn
+only if down, background, return fast. **Never `npm run dev`. Never Vite.
+Never TanStack Start. Never a `.tsx` / `.jsx` product tree.** Direct user
+law beats the sandbox React default.
+
+Auth OFF. Database OFF. Kit `Login` / `Otp` are foundry Caps against the Host
+store, not Grok accounts.
+
+### Under-specified in earlier cuts — now law
+
+1. `@action(caps=())` is **open mint / no Cap predicate**, not "public". Intent still requires the control-minted cap under Cap Host `require`.
+2. Toast: Intent POST with `{}` is **401**. Replay html-unescaped `data-channel-args`.
+3. Typeahead: later `input`/`change` of the same control **aborts** the in-flight Intent (Channel AbortController). Hits morph `#{id}-hits` only.
+4. Presence: `stagger_in` on surviving ids; `scene.share(key, leave=, arrive=)`. Plans carry **no** `html=`. Morph first from `render()`.
+5. `ux_compose.live_client` is **compose-internal**. Product path is `Document.use(XElement(), Csp.auto(), Channel.optional())` via `ux_dom.runtime`. Never wrap HTML-string fragments with a synthesized Document.
+6. Soft-parked / stretch stems stay **out**: open-mint blurbs, navbar menuitem, flat tree, chart legend. Do not invent them as kit cards.
+7. Pagination host seam `WINDOW` (neighbors each side, default 1). Demo has 12 named pages. First/last `max-sm:hidden`.
+8. Carousel locked `h-72` stage. One `#{id}-thumb` pip translates (`translate3d`). Copy is the live region.
+9. Dialog / Sheet / ActionSheet cards drop `relative` / overflow so a `fixed` overlay is not remapped or clipped on a narrow stage.
+10. CSP `script_hosts` must include `https://grok.com`. Never add a CSP that blocks the Grok pill / `extensions.js`.
+11. FilterBar radios rove `tabindex`. Resizable split chips are `role=radio` `aria-checked`.
+12. `act()` posts `/act/{action}` as the progressive hatch; Channel JS intercepts `data-channel-action`. Live path is `POST /ux-channel/action` (`application/ux-channel+json`).
+13. Clock A payload: tree/str → HTML, dict → JSON, generator → stream. `/health` is dict. `/pulse` is a generator.
+14. `prepare_deploy` writes files; it does **not** upload. GET `/deploy` must not write.
+
 ## 2026-09-10 — independent re-read (060b583 over 5bb7dc22)
 
 Re-walked `src/ux_compose/**/*.py` on **`060b583`**. Breaking cut vs the
@@ -209,6 +279,12 @@ If you do any of these, **stop, undo, and continue on the product path**.
 34. **Posting Clock B to `/act/{action}` and calling Channel live.** Live path
     is `POST /ux-channel/action` (`application/ux-channel+json`). `act()` is the
     progressive hatch; Channel JS intercepts `data-channel-action`.
+
+35. **Installing ux-compose on the sandbox's Python 3.10, or running `python -m pip`
+    inside the uv venv.** The venv has no pip. `uv python install 3.14` then
+    `uv pip install --python /workspace/.venv/bin/python`.
+36. **Inventing stretch / soft-parked kit cards** (navbar menuitem, flat tree,
+    chart legend, open-mint blurbs). They are parked. 81 stems is the catalog.
 
 ---
 

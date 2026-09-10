@@ -64,6 +64,8 @@ Copy everything below the line into Grok Build. Feature map against ux-compose
 
 If the prompt and the library disagree, **the library wins**.
 
+Independent Grok Build re-read of ux-compose `060b583` (2026-09-10): 81 stems counted from `kit/catalog.py`, sandbox Python 3.14 via `uv`, open-mint vocab, toast sealed-args, Typeahead AbortController, Presence `stagger_in` / `scene.share`, and `live_client` as compose-internal are now law in the prompt.
+
 ## Pins
 
 | Package | SHA |

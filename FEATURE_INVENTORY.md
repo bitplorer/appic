@@ -11,6 +11,22 @@ Previous APPIC pins: `fa2ddfe` (kit-23) → `5bb7dc22` (kit-81) → **`060b583`*
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
 
+## 2026-09-10 — Grok Build independent re-read (this session)
+
+Re-counted `CATALOG` from `src/ux_compose/kit/catalog.py`: **81** stems.
+`ALIASES = {"treeview": "tree"}`. OverlayChrome is not a stem. Doctor scan
+functions in source: `scan_isolation`, `scan_store_clone`, `scan_dual_document`
+(hard); `scan_kit_product_imports`, `scan_render_chrome`, `scan_leftover_aliases`,
+`scan_fastapi_docs_collision`, `scan_cek_host` (teaching). `prepare_deploy`
+providers: docker, fly, render, railway, vps, checklist. HMR: `/__uxcompose/hmr`.
+Author helpers signatures match `author.py`. Kit Cut 1 helpers live in
+`kit_construct.py`. Grok sandbox Python floor is **3.10** — install 3.14 with
+`uv python install 3.14`; the venv has no pip (`uv pip install --python`).
+Soft-parked / stretch stems (open-mint blurbs, navbar menuitem, flat tree,
+chart legend) stay out of the catalog. If this page and the code disagree,
+**the code wins**.
+
+
 Do not invent a sixth product, a second namespace (`ux.*`), React, Vue, JSX,
 HTMX-as-architecture, or a client SPA as source of truth.
 
