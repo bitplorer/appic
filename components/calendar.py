@@ -1,7 +1,14 @@
 """Drop-in calendar — month and day are named keys.
 
-Host seam: override ``on_pick(day)``. Quantity never lives on MorphState.
+Host seam: render slots OR subclass.
+Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``month``, ``day``. Caps: none. A11y (APG Date Picker grid):
+``role=grid``; weekday ``role=columnheader``; days ``role=row`` /
+``gridcell``; selected day ``aria-selected``.
+Picking a day is public.
 """
 
 from __future__ import annotations
@@ -9,8 +16,9 @@ from __future__ import annotations
 import calendar as _cal
 from datetime import datetime
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     action,
     bind,
@@ -55,6 +63,7 @@ class Calendar(Component):
     """
 
     id = "calendar"
+    _SEAMS = {}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 overflow-x-hidden "
@@ -69,7 +78,8 @@ class Calendar(Component):
         "rounded-full border border-stone-200 bg-white px-4 text-sm font-medium "
         "text-stone-900 hover:bg-stone-100"
     )
-    class_grid = "grid grid-cols-7 gap-1"
+    class_grid = "flex flex-col gap-1"
+    class_row = "grid grid-cols-7 gap-1"
     class_dow = "py-2 text-center text-xs font-medium uppercase tracking-widest text-stone-400"
     class_empty = "min-h-11"
     class_day = (
@@ -92,42 +102,60 @@ class Calendar(Component):
         y, m = _parse_month(str(self.month or "2026-08"))
         return datetime(y, m, 1).strftime("%B %Y")
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         month = str(self.month or "2026-08")
         y, m = _parse_month(month)
         selected = str(self.day or "")
         weeks = _cal.monthcalendar(y, m)
-        cells = [span(name, className=self.class_dow) for name in _WEEKDAYS]
+        header = [
+            span(name, className=self.class_dow, role="columnheader")
+            for name in _WEEKDAYS
+        ]
+        rows = [div(*header, className=self.class_row, role="row")]
         for week in weeks:
+            cells = []
             for d in week:
                 if not d:
-                    cells.append(span("", className=self.class_empty))
+                    cells.append(div(span("", className=self.class_empty), role="gridcell"))
                     continue
                 key = f"{y:04d}-{m:02d}-{d:02d}"
                 on = key == selected
                 cells.append(
-                    button(
-                        str(d),
-                        type="button",
-                        className=self.class_day_on if on else self.class_day,
-                        **bind(self.pick, day=key),
+                    div(
+                        button(
+                            str(d),
+                            type="button",
+                            className=self.class_day_on if on else self.class_day,
+                            aria_selected="true" if on else "false",
+                            **bind(self.pick, day=key),
+                        ),
+                        role="gridcell",
                     )
                 )
+            rows.append(div(*cells, className=self.class_row, role="row"))
         picked = selected or "Nothing chosen"
-        return div(
-            span("Date", className=self.class_kicker),
+        return kit_shell(self,
             div(
                 button("Prev", type="button", className=self.class_btn_ghost, **bind(self.prev)),
                 h2(self._month_label(), className=self.class_title),
                 button("Next", type="button", className=self.class_btn_ghost, **bind(self.next)),
                 className=self.class_head,
             ),
-            div(*cells, className=self.class_grid),
+            div(
+                *rows,
+                className=self.class_grid,
+                role="grid",
+                aria_label=self._month_label(),
+            ),
             p(picked, className=self.class_lede),
             id=self.id,
             className=self.class_card,
             data_month=f"{y:04d}-{m:02d}",
             data_day=selected,
+            chrome=(
+                span("Date", className=self.class_kicker),
+            ),
         )
 
     @action(caps=())

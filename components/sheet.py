@@ -1,15 +1,25 @@
 """Drop-in sheet — edge panel. Same shape as a dialog, different placement.
 
-Swipe lives on Close / Done, not the root. OverlayChrome owns
-scrim/panel/dismiss ids, dismiss grammar, and the open plan.
+Host seam: render slots OR subclass.
+Accepted: ``title``, ``body`` (same type as the RefState attrs); ``shell``
+(bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
+
+``Drawer`` is this Host under another name (right edge). Not a second Host.
+
+MorphState: ``open``. RefState: ``title``, ``body``, ``which``. Caps: none
+on open/close. A11y: ``role=dialog`` ``aria-modal`` labelledby. Escape +
+swipe-right on dismiss (OverlayChrome). Focus: panel tabindex + Close
+autofocus. Swipe lives on Close / Done, not the root.
 """
 
 from __future__ import annotations
 
-from ux_compose.kit.overlay import overlay as overlay_chrome
+from .overlay import overlay as overlay_chrome
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -27,6 +37,7 @@ class Sheet(Component):
     """Drawer from the right. Presence is MorphState. Resting card stays in flow."""
 
     id = "sheet"
+    _SEAMS = {'title': 'title', 'body': 'body'}
 
     class_card = (
         "[grid-area:card] self-start mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 "
@@ -60,11 +71,13 @@ class Sheet(Component):
     def _chrome(self):
         return overlay_chrome(self.id, kind="sheet")
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         is_open = bool(self.open)
         ch = self._chrome()
         layer = []
         if is_open:
+            title_id = f"{self.id}-title"
             layer = [
                 button(
                     span("Close", className=self.class_sr),
@@ -72,6 +85,7 @@ class Sheet(Component):
                     id=ch.scrim_id,
                     className=self.class_scrim,
                     aria_label="Close",
+                    data_channel_on=ch.dismiss_on(),
                     **bind(self.close),
                 ),
                 div(
@@ -82,7 +96,8 @@ class Sheet(Component):
                             type="button",
                             id=ch.dismiss_id,
                             className=self.class_btn_ghost,
-                            data_channel_on=ch.swipe_on_dismiss(),
+                            autofocus=True,
+                            data_channel_on=ch.dismiss_on(),
                             **bind(self.close),
                         ),
                         className=self.class_head,
@@ -90,7 +105,7 @@ class Sheet(Component):
                     h2(
                         str(self.title or "Filters"),
                         className=self.class_title,
-                        id=f"{self.id}-title",
+                        id=title_id,
                     ),
                     p(str(self.body or ""), className=self.class_lede + " flex-1"),
                     button(
@@ -98,19 +113,18 @@ class Sheet(Component):
                         type="button",
                         id=f"{self.id}-done",
                         className=self.class_btn_primary + " mt-auto",
-                        data_channel_on=ch.swipe_on_dismiss(),
+                        data_channel_on=ch.dismiss_on(),
                         **bind(self.close),
                     ),
                     id=ch.panel_id,
                     className=self.class_panel,
                     role="dialog",
                     aria_modal="true",
-                    aria_labelledby=f"{self.id}-title",
+                    aria_labelledby=title_id,
+                    **ch.focus_attrs(),
                 ),
             ]
-        return div(
-            span("Edge", className=self.class_kicker),
-            h2("Filters", className=self.class_title),
+        return kit_shell(self,
             p(
                 "A sheet is a dialog that arrives from the side. Swipe right on Close to dismiss.",
                 className=self.class_lede,
@@ -126,6 +140,10 @@ class Sheet(Component):
             className=self.class_card,
             data_open="1" if is_open else "0",
             data_channel_id=self.id,
+            chrome=(
+                span("Edge", className=self.class_kicker),
+                h2("Filters", className=self.class_title),
+            ),
         )
 
     @action(caps=())
@@ -142,3 +160,6 @@ class Sheet(Component):
     def close(self):
         self.open = False
         return update_with(self)
+
+
+Drawer = Sheet

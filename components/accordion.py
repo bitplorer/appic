@@ -1,13 +1,20 @@
 """Drop-in accordion — open ids as a MorphState tuple.
 
-Host seam: override ``SECTIONS``. Several panels may be open. Reading is public.
+Host seam: render slots OR subclass.
+Accepted: ``sections`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``open_ids`` (identity tuple). Caps: none. A11y (APG Accordion):
+header button ``aria-expanded`` ``aria-controls``; panel ``role=region``
+``aria-labelledby``. Heading wraps the trigger.
 """
 
 from __future__ import annotations
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     action,
     bind,
@@ -28,6 +35,7 @@ class Accordion(Component):
     """
 
     id = "accordion"
+    _SEAMS = {'sections': 'SECTIONS'}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-3 rounded-3xl border "
@@ -69,7 +77,8 @@ class Accordion(Component):
         except TypeError:
             return {str(raw)} if raw else set()
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         opened = self._open_set()
         items = []
         for key, title, body in self._sections():
@@ -79,31 +88,46 @@ class Accordion(Component):
                 className=self.class_caret + (" rotate-180" if is_open else ""),
                 aria_hidden="true",
             )
+            btn_id = f"{self.id}-h-{key}"
+            panel_id = f"{self.id}-p-{key}"
             items.append(
                 section(
-                    button(
-                        span(title, className=self.class_item_title),
-                        span(
-                            caret,
-                            span("Hide" if is_open else "Show", className=self.class_mark),
-                            className="flex items-center gap-2",
+                    h2(
+                        button(
+                            span(title, className=self.class_item_title),
+                            span(
+                                caret,
+                                span("Hide" if is_open else "Show", className=self.class_mark),
+                                className="flex items-center gap-2",
+                            ),
+                            type="button",
+                            id=btn_id,
+                            className=self.class_trigger,
+                            aria_expanded="true" if is_open else "false",
+                            aria_controls=panel_id,
+                            **bind(self.toggle, key=key),
                         ),
-                        type="button",
-                        className=self.class_trigger,
-                        aria_expanded="true" if is_open else "false",
-                        **bind(self.toggle, key=key),
+                        className="m-0",
                     ),
-                    p(body, className=self.class_lede) if is_open else span("", className=self.class_sr),
+                    p(
+                        body,
+                        id=panel_id,
+                        className=self.class_lede,
+                        role="region",
+                        aria_labelledby=btn_id,
+                    ) if is_open else span("", className=self.class_sr, id=panel_id),
                     className=self.class_item,
-                    id=f"acc-{key}",
+                    id=f"{self.id}-{key}",
                 )
             )
-        return div(
-            span("Guide", className=self.class_kicker),
-            h2("How it is made", className=self.class_title),
+        return kit_shell(self,
             *items,
             id=self.id,
             className=self.class_card,
+            chrome=(
+                span("Guide", className=self.class_kicker),
+                h2("How it is made", className=self.class_title),
+            ),
         )
 
     @action(caps=())

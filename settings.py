@@ -1,6 +1,5 @@
 """Environment SSoT — paths, debug, app asset layout.
 
-Document emits <link href="/css/output.css">. This module owns the disk folders.
 Isolation Law: Channel stays behind compose wire/.
 """
 from __future__ import annotations
@@ -12,11 +11,8 @@ from ux_compose import WebAssets
 
 BASE_DIR = Path(__file__).resolve().parent
 DEBUG = os.environ.get("DEBUG", "1") not in ("0", "false", "False")
-
+OPENAPI = False
 ASSETS_DIR = BASE_DIR / "assets"
 OUTPUT_CSS = "output.css"
-
-UX_COMPOSE_SHA = "fa2ddfe3852866702f8665069bb6152207b86c2e"
-UX_COMPOSE_SHA_SHORT = "fa2ddfe"
-
+BRAND = "APPIC"
 webassets = WebAssets(base_dir=ASSETS_DIR, dry_run=False)

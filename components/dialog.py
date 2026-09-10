@@ -1,7 +1,16 @@
 """Drop-in dialog — public ask, Cap-protected confirm.
 
-Host seam: override ``on_confirm()``. Opening is public. Destroying is authority.
+Host seam: render slots OR subclass.
+Accepted: ``title``, ``body`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``open``. RefState: ``title``, ``body``, ``target``.
+Caps: ``items.delete`` on ``confirm`` only. ``ask`` / ``cancel`` are public.
+A11y (APG Dialog): ``role=dialog`` ``aria-modal`` ``aria-labelledby``
+``aria-describedby``. Panel ``tabindex=-1`` + autofocus on Keep. Escape
+and scrim dismiss via OverlayChrome ``dismiss_on()``. Focus trap/restore
+is Channel when live.
 
 Live: the root ``id`` is the region. Channel picks it up.
 Swipe lives on dismiss, not the root and not confirm. OverlayChrome
@@ -10,10 +19,11 @@ owns scrim/panel/dismiss ids, dismiss grammar, and the open plan.
 
 from __future__ import annotations
 
-from ux_compose.kit.overlay import overlay as overlay_chrome
+from .overlay import overlay as overlay_chrome
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -36,6 +46,7 @@ class Dialog(Component):
     """
 
     id = "dialog"
+    _SEAMS = {'title': 'title', 'body': 'body'}
 
     class_card = (
         "[grid-area:card] self-start mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 "
@@ -89,11 +100,14 @@ class Dialog(Component):
             ),
         ]
 
-    def render(self):
-        kids = list(self._resting())
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
+        kids = list(self._resting()) if getattr(self, "shell", True) else []
         if bool(self.open):
             ch = self._chrome()
             who = str(self.target or "row")
+            title_id = f"{self.id}-title"
+            desc_id = f"{self.id}-desc"
             kids.extend([
                 button(
                     span("Close", className=self.class_sr),
@@ -101,6 +115,7 @@ class Dialog(Component):
                     id=ch.scrim_id,
                     className=self.class_scrim,
                     aria_label="Close",
+                    data_channel_on=ch.dismiss_on(),
                     **bind(self.cancel),
                 ),
                 div(
@@ -108,11 +123,12 @@ class Dialog(Component):
                         h2(
                             str(self.title or "Confirm"),
                             className=self.class_title,
-                            id=f"{self.id}-title",
+                            id=title_id,
                         ),
                         p(
                             str(self.body or f"Target {who}. This cannot be undone."),
                             className=self.class_lede,
+                            id=desc_id,
                         ),
                         div(
                             button(
@@ -120,7 +136,8 @@ class Dialog(Component):
                                 type="button",
                                 id=ch.dismiss_id,
                                 className=self.class_btn_ghost,
-                                data_channel_on=ch.swipe_on_dismiss(),
+                                autofocus=True,
+                                data_channel_on=ch.dismiss_on(),
                                 **bind(self.cancel),
                             ),
                             button(
@@ -136,12 +153,14 @@ class Dialog(Component):
                         className=self.class_panel,
                         role="dialog",
                         aria_modal="true",
-                        aria_labelledby=f"{self.id}-title",
+                        aria_labelledby=title_id,
+                        aria_describedby=desc_id,
+                        **ch.focus_attrs(),
                     ),
                     className=self.class_stage,
                 ),
             ])
-        return div(
+        return kit_shell(self,
             *kids,
             id=self.id,
             className=self.class_card,

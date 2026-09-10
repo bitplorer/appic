@@ -1,13 +1,23 @@
 """Drop-in command palette — query attaches before the morph.
 
-Host seam: override ``COMMANDS`` and ``on_run(key)``. Opening is public.
+Host seam: render slots OR subclass.
+Accepted: ``commands`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``open``, ``dirty``. RefState: ``query``. Caps: ``auth.logout``
+on ``sign_out``. Other ``run`` keys are open mint.
+A11y: ``role=dialog`` ``aria-modal`` labelledby; search ``role=combobox``.
+Escape / scrim via OverlayChrome. Focus: panel tabindex + input autofocus.
 """
 
 from __future__ import annotations
 
+from .overlay import overlay as overlay_chrome
+
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -19,6 +29,7 @@ from ux_compose import (
     form,
     h2,
     input_,
+    label,
     li,
     p,
     span,
@@ -35,6 +46,7 @@ class Command(Component):
     """
 
     id = "command"
+    _SEAMS = {'commands': 'COMMANDS'}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
@@ -105,6 +117,9 @@ class Command(Component):
     def _mark_dirty(self):
         self.dirty = "b" if self.dirty == "a" else "a"
 
+    def _chrome(self):
+        return overlay_chrome(self.id, kind="dialog")
+
     def _resting(self):
         return [
             span("Jump", className=self.class_kicker),
@@ -118,52 +133,70 @@ class Command(Component):
             ),
         ]
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         is_open = bool(self.open)
         q = str(self.query or "")
-        kids = list(self._resting())
+        kids = list(self._resting()) if getattr(self, "shell", True) else []
         if is_open:
+            ch = self._chrome()
             hits = self._hits()
-            rows = [
-                li(
-                    button(
-                        span(label),
-                        span(hint, className=self.class_hint),
-                        type="button",
-                        className=self.class_row,
-                        **bind(self.run, key=key),
-                    ),
-                    id=f"cmd-{key}",
+            list_id = f"{self.id}-list"
+            title_id = f"{self.id}-title"
+            rows = []
+            for key, caption, hint in hits[:7]:
+                verb = bind(self.sign_out) if key == "sign-out" else bind(self.run, key=key)
+                rows.append(
+                    li(
+                        button(
+                            span(caption),
+                            span(hint, className=self.class_hint),
+                            type="button",
+                            role="option",
+                            className=self.class_row,
+                            **verb,
+                        ),
+                        id=f"cmd-{key}",
+                    )
                 )
-                for key, label, hint in hits[:7]
-            ]
             listing = (
-                ul(*rows, className=self.class_list, role="listbox")
+                ul(*rows, id=list_id, className=self.class_list, role="listbox")
                 if rows
                 else p(
                     f"No commands match “{q}”." if q else "No commands.",
+                    id=list_id,
                     className=self.class_lede,
+                    role="status",
                 )
             )
             kids.extend([
                 button(
                     span("Close", className=self.class_sr),
                     type="button",
+                    id=ch.scrim_id,
                     className=self.class_scrim,
                     aria_label="Close",
+                    data_channel_on=ch.dismiss_on(),
                     **bind(self.close),
                 ),
                 div(
                     span("Jump", className=self.class_kicker),
-                    h2("Command palette", className=self.class_title),
+                    h2("Command palette", id=title_id, className=self.class_title),
                     form(
+                        label("Filter commands", html_for=f"{self.id}-q", className=self.class_sr),
                         input_(
                             type="search",
                             name="q",
+                            id=f"{self.id}-q",
                             value=q,
                             placeholder="Filter commands",
                             autocomplete="off",
+                            autofocus=True,
                             className=self.class_input,
+                            role="combobox",
+                            aria_expanded="true",
+                            aria_autocomplete="list",
+                            aria_controls=list_id,
                             **bind(self.set_field, field="q"),
                         ),
                         button(
@@ -176,12 +209,23 @@ class Command(Component):
                         className=self.class_form,
                     ),
                     listing,
+                    button(
+                        "Close",
+                        type="button",
+                        id=ch.dismiss_id,
+                        className=self.class_btn_ghost,
+                        data_channel_on=ch.dismiss_on(),
+                        **bind(self.close),
+                    ),
+                    id=ch.panel_id,
                     className=self.class_panel,
                     role="dialog",
                     aria_modal="true",
+                    aria_labelledby=title_id,
+                    **ch.focus_attrs(),
                 ),
             ])
-        return div(
+        return kit_shell(self,
             *kids,
             id=self.id,
             className=self.class_card,
@@ -199,7 +243,7 @@ class Command(Component):
         self.open = True
         self.query = ""
         self._mark_dirty()
-        return update_with(self)
+        return update_with(self, self._chrome().open_plan())
 
     @action(caps=())
     def close(self):
@@ -227,10 +271,21 @@ class Command(Component):
     @action(caps=())
     def run(self, key: str = "", q: str = ""):
         self._take_q(q=q)
-        keys = {row[0] for row in self._commands()}
+        if key == "sign-out":
+            return update_with(self)
+        keys = {row[0] for row in self._commands() if row[0] != "sign-out"}
         if key not in keys:
             return update_with(self)
         msg = self.on_run(key)
+        self.open = False
+        self.query = ""
+        self._mark_dirty()
+        return update_with(self, extra_ops=[notify(msg)])
+
+    @action(caps=("auth.logout",))
+    def sign_out(self, q: str = ""):
+        self._take_q(q=q)
+        msg = self.on_run("sign-out")
         self.open = False
         self.query = ""
         self._mark_dirty()

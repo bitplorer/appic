@@ -1,16 +1,22 @@
 """Drop-in context menu — click or longpress on the same control.
 
-Host seam: override ``ITEMS`` and ``on_run(key)``.
+Host seam: render slots OR subclass.
+Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
 
-Longpress lives on the *trigger*, not the host, so menu items do not inherit it.
-The menu is a floating panel (list-none), not a native tab/list.
+MorphState: ``open``, ``dirty``. RefState: ``ran``. Caps: none.
+A11y (APG Menu): trigger ``aria-haspopup=menu`` ``aria-expanded``
+``aria-controls``; panel ``role=menu`` ``menuitem``. Escape on scrim.
+Longpress lives on the *trigger*, not the host, so menu items do not
+inherit it. The menu is a floating panel (list-none), not a native tab/list.
 """
 
 from __future__ import annotations
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -42,6 +48,7 @@ class ContextMenu(Component):
     """Hold or click the canvas. Items are named keys."""
 
     id = "contextmenu"
+    _SEAMS = {'items': 'ITEMS'}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
@@ -87,9 +94,11 @@ class ContextMenu(Component):
     def _mark_dirty(self):
         self.dirty = "b" if self.dirty == "a" else "a"
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         is_open = bool(self.open)
         ran = str(self.ran or "")
+        menu_id = f"{self.id}-menu"
         layer = []
         if is_open:
             rows = [
@@ -111,13 +120,12 @@ class ContextMenu(Component):
                     type="button",
                     className=self.class_scrim,
                     aria_label="Close menu",
+                    data_channel_on="click keydown.escape",
                     **bind(self.close),
                 ),
-                ul(*rows, className=self.class_menu, role="menu"),
+                ul(*rows, id=menu_id, className=self.class_menu, role="menu"),
             ]
-        return div(
-            span("Hold or click", className=self.class_kicker),
-            h2("Context menu", className=self.class_title),
+        return kit_shell(self,
             p(
                 "The trigger accepts both pointers. Items stay on click only.",
                 className=self.class_lede,
@@ -129,6 +137,9 @@ class ContextMenu(Component):
                     span("Opens the same menu.", className="text-xs text-stone-400"),
                     type="button",
                     className=self.class_canvas,
+                    aria_haspopup="menu",
+                    aria_expanded="true" if is_open else "false",
+                    aria_controls=menu_id,
                     data_channel_on="click longpress delay:480",
                     **bind(self.open_menu),
                 ),
@@ -140,6 +151,10 @@ class ContextMenu(Component):
             role="region",
             data_open="1" if is_open else "0",
             data_channel_id=self.id,
+            chrome=(
+                span("Hold or click", className=self.class_kicker),
+                h2("Context menu", className=self.class_title),
+            ),
         )
 
     @action(caps=())

@@ -1,13 +1,23 @@
 """Drop-in tabs — one MorphState key, public select.
 
-Host seam: override ``ITEMS``. Opening a tab is not an authority event.
+Host seam: render slots OR subclass.
+Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``tab``. Caps: none. A11y (APG Tabs): ``role=tablist`` / ``tab`` /
+``tabpanel``. Ids are ``{id}-tab-{k}`` / ``{id}-p-{k}``. Selected tab
+``tabindex=0`` others ``-1``. ``aria-controls`` points at the panel id;
+panel ``aria-labelledby`` the tab. Inactive panels stay in the tree with
+``hidden`` (honest APG — not omitted). Arrow keys are Channel when
+``keydown`` is live; select stays a public Morph action.
 """
 
 from __future__ import annotations
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     action,
     bind,
@@ -30,6 +40,7 @@ class Tabs(Component):
     """
 
     id = "tabs"
+    _SEAMS = {'items': 'ITEMS'}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 overflow-x-hidden "
@@ -90,35 +101,54 @@ class Tabs(Component):
                 return row
         return items[0]
 
-    def render(self):
-        key, label, title, body = self._current()
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
+        key, _label, _title, _body = self._current()
         segs = []
-        for k, lab, _t, _b in self._items():
+        panels = []
+        for k, lab, title, body in self._items():
             on = k == key
+            tab_id = f"{self.id}-tab-{k}"
+            panel_id = f"{self.id}-p-{k}"
             segs.append(
                 button(
                     lab,
                     type="button",
+                    id=tab_id,
                     role="tab",
                     aria_selected="true" if on else "false",
+                    aria_controls=panel_id,
+                    tabindex="0" if on else "-1",
                     className=self.class_tab_on if on else self.class_tab,
                     **bind(self.select, tab=k),
                 )
             )
-        return div(
-            span("Workspace", className=self.class_kicker),
-            nav(*segs, className=self.class_tablist, role="tablist"),
-            section(
-                span(f"Panel · {label}", className=self.class_kicker),
-                h2(title, className=self.class_title),
-                p(body, className=self.class_lede),
-                id=f"tab-{key}",
-                className=self.class_panel,
-                role="tabpanel",
-            ),
+            panel_attrs = {
+                "id": panel_id,
+                "className": self.class_panel,
+                "role": "tabpanel",
+                "aria_labelledby": tab_id,
+                "tabindex": "0" if on else "-1",
+            }
+            if not on:
+                panel_attrs["hidden"] = True
+            panels.append(
+                section(
+                    span(f"Panel · {lab}", className=self.class_kicker),
+                    h2(title, className=self.class_title),
+                    p(body, className=self.class_lede),
+                    **panel_attrs,
+                )
+            )
+        return kit_shell(self,
+            nav(*segs, className=self.class_tablist, role="tablist", aria_label="Tabs"),
+            *panels,
             id=self.id,
             className=self.class_card,
             data_tab=key,
+            chrome=(
+                span("Workspace", className=self.class_kicker),
+            ),
         )
 
     @action(caps=())

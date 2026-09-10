@@ -4,7 +4,17 @@ Show/Hide and tab switches attach live form values onto RefState *before*
 the morph, so the new input paints with ``value=``. The secret never lives
 on MorphState.
 
-Host seam: override ``authenticate()``. Validation and reveal stay here.
+MorphState: ``mode``, ``show_password``, ``submitting``, ``authed``, ``error_dirty``.
+RefState: ``email``, ``password``, ``name``, field/form errors.
+Caps: ``auth.login`` / ``auth.signup`` on ``submit``. Reveal and mode are public.
+A11y: label ``html_for`` ↔ control ``id``; ``aria-invalid`` + ``aria-describedby``
+on errors. Mode tabs ``role=tablist`` with ``{id}-tab-{mode}`` /
+``{id}-p-{mode}`` ``aria-controls`` + ``tabpanel``. Inactive panel stays
+in the tree with ``hidden``.
+
+Host seam: render slots OR subclass.
+Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
 """
 
@@ -12,8 +22,9 @@ from __future__ import annotations
 
 from typing import NamedTuple
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -28,6 +39,7 @@ from ux_compose import (
     label,
     p,
     h1,
+    section,
 )
 
 
@@ -65,6 +77,7 @@ class Login(Component):
     """
 
     id = "login"
+    _SEAMS = {}
 
     class_card = (
         "[grid-area:card] self-center mx-auto flex w-full max-w-md flex-col rounded-3xl border "
@@ -167,14 +180,15 @@ class Login(Component):
             )
         return self.Accept("Account created" if signup else "Signed in")
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         if bool(self.authed):
             return self._render_success()
         return self._render_card()
 
     def _render_success(self):
         email = str(self.email or "")
-        return div(
+        return kit_shell(self,
             div(
                 span("In", className=self.class_mark),
                 h1("You're in", className=self.class_title + " mt-4"),
@@ -222,17 +236,28 @@ class Login(Component):
                 button(
                     "Sign in",
                     type="button",
+                    id=f"{self.id}-tab-login",
+                    role="tab",
+                    aria_selected="false" if is_signup else "true",
+                    aria_controls=f"{self.id}-p-login",
+                    tabindex="0" if not is_signup else "-1",
                     className=self.class_tab_on if not is_signup else self.class_tab,
                     **bind(self.set_mode, mode="login"),
                 ),
                 button(
                     "Sign up",
                     type="button",
+                    id=f"{self.id}-tab-signup",
+                    role="tab",
+                    aria_selected="true" if is_signup else "false",
+                    aria_controls=f"{self.id}-p-signup",
+                    tabindex="0" if is_signup else "-1",
                     className=self.class_tab_on if is_signup else self.class_tab,
                     **bind(self.set_mode, mode="signup"),
                 ),
                 className=self.class_tabs,
                 role="tablist",
+                aria_label="Account mode",
             ),
         ]
 
@@ -261,7 +286,7 @@ class Login(Component):
             show_pw,
         ))
 
-        kids.append(form(
+        form_tree = form(
             *fields,
             button(
                 submit_label,
@@ -269,9 +294,21 @@ class Login(Component):
                 className=self.class_submit,
                 **bind(self.submit),
             ),
-            id="login-form",
+            id=f"{self.id}-form",
             className=self.class_form,
-        ))
+        )
+        active_mode = "signup" if is_signup else "login"
+        for mode in ("login", "signup"):
+            on = mode == active_mode
+            panel_attrs = {
+                "id": f"{self.id}-p-{mode}",
+                "role": "tabpanel",
+                "aria_labelledby": f"{self.id}-tab-{mode}",
+                "tabindex": "0" if on else "-1",
+            }
+            if not on:
+                panel_attrs["hidden"] = True
+            kids.append(section(form_tree, **panel_attrs) if on else section(**panel_attrs))
 
         if is_signup:
             kids.append(p(
@@ -299,20 +336,25 @@ class Login(Component):
         return div(*kids, id=self.id, className=self.class_card)
 
     def _field(self, name, caption, input_type, value, error, *, placeholder="", autocomplete="off"):
+        fid = f"login-{name}"
+        err_id = f"{fid}-err"
         kids = [
-            label(caption, className=self.class_label),
+            label(caption, className=self.class_label, html_for=fid),
             input_(
                 type=input_type,
                 name=name,
+                id=fid,
                 value=value,
                 placeholder=placeholder,
                 autocomplete=autocomplete,
                 className=self.class_input_err if error else self.class_input,
+                aria_invalid="true" if error else "false",
+                **({"aria_describedby": err_id} if error else {}),
                 **bind(self.set_field, field=name),
             ),
         ]
         if error:
-            kids.append(span(error, className=self.class_hint_err, role="alert"))
+            kids.append(span(error, id=err_id, className=self.class_hint_err, role="alert"))
         return div(*kids, className=self.class_field)
 
     def _password_field(self, value, error, show):
@@ -322,7 +364,7 @@ class Login(Component):
             else f"{self.class_input} {self.class_input_pw}"
         )
         kids = [
-            label("Password", className=self.class_label),
+            label("Password", className=self.class_label, html_for="login-password"),
             div(
                 input_(
                     type="text" if show else "password",
@@ -332,6 +374,8 @@ class Login(Component):
                     placeholder="At least 8 characters",
                     autocomplete="current-password",
                     className=inp,
+                    aria_invalid="true" if error else "false",
+                    **({"aria_describedby": "login-password-err"} if error else {}),
                     **bind(self.set_field, field="password"),
                 ),
                 button(
@@ -344,7 +388,7 @@ class Login(Component):
             ),
         ]
         if error:
-            kids.append(span(error, className=self.class_hint_err, role="alert"))
+            kids.append(span(error, id="login-password-err", className=self.class_hint_err, role="alert"))
         if str(self.mode or "") == "signup" and not error:
             kids.append(span(
                 "Use 8+ characters with at least one number.",

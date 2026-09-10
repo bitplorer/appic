@@ -1,23 +1,19 @@
 # APPIC
 
-**Intent. Presence. Caps. Kit. Signal. Relay. Author. Notes. Chrome. Copy. Skin. Ship. Market. Forge.**
+**Intent. Presence. Caps. Kit. Signal.**
 
-A constitution you can walk. A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
-`5bb7dc22c9c9a3b9a732a1d180f346165b623b90` (0.1.0, kit-81 cut) — the
-pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
+A constitution you can walk. A nocturnal foundry OS authored in
+[ux-compose](https://github.com/bitplorer/ux-compose)
+`060b583f64512302059bd9d4ff691bb6a2f4dd3a` (0.1.0) — the pure-Python
+composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
 Progressive L1→L3 with zero rewrite. Page units have no HTTP verbs. Payload
-type picks media type. **The kit is a house you own — 81 stems.** The copy
-press is the ownership ritual. Signal is a grammar you can feel. The author
-door is one (`act` / `mark_dirty` / `optional_*`). Attach notes refuse silence.
-OverlayChrome is the edge primitive. AlertDialog is interrupting. Doctor
-residuals expire by teaching. Presence is continuous. Skin is WebAssets. Ship
-is `prepare_deploy`. HMR is delivery. Tunnel waits for health. Product Cap
-Host is `cek="require"`. Brand lives on `wrap=brand_wrap(...)`, never inside
-`render()`. `/docs` is a product page. FastAPI Swagger stays off.
+type picks media type. **The kit is a house you own — 81 stems.** Brand lives
+on `wrap=`, never inside `render()`. `/docs` is a product page. FastAPI
+Swagger stays off.
 
-The Table is a **constellation**: rooms as named stars around the nucleus.
+The Table is a constellation: rooms as named stars around an Intent nucleus.
 Sight is MorphState. Walk is Clock A.
 
 ## Run
@@ -28,7 +24,7 @@ Python **≥ 3.14**.
 python3.14 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 export PYTHONPATH="."
-python -m uvicorn appic.server:app --host 0.0.0.0 --port 8080
+python -m uvicorn app:asgi --host 0.0.0.0 --port 8080
 ```
 
 Or the product CLI:
@@ -37,11 +33,28 @@ Or the product CLI:
 uxcompose serve dev
 ```
 
+## Walk
+
+| Room | What you touch |
+|------|----------------|
+| `/` | Table. Hold an Intent. Sight a star. Walk it. |
+| `/enter` | Login + OTP. Secrets on RefState. Submit is a Cap. |
+| `/house` | All 81 owned kit stems, grouped into wings. `shell=False`. |
+| `/atelier` | Market hall — Hero, pricing, marks, quotes, newsletter. |
+| `/commission` | Questionnaire + stepper + plans. Finish spends `orders.place`. |
+| `/bag` | Cart. Quantity is RefState. Checkout is a Cap. |
+| `/forge` | Glaze (named swatches), kiln timer, chart, tree, diff. |
+| `/studio` | `role=log` chat, feed, attachments. |
+| `/chrome` | Menubar / toolbar APG holds. Caps off chrome. |
+| `/overlay` | OverlayChrome family vs anchored family. |
+| `/lab` | Open mint vs Cap. JSON pulse. Stream of light. |
+| `/docs` | Written constitution. Not Swagger. |
+| `/copy` | Ownership ritual. `uxcompose add`. |
+
 ## Prompt
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
-Copy everything below the line into Grok Build. Feature map against ux-compose
-`main` (`5bb7dc22`), inventory 2026-09-09:
+Feature map against ux-compose `main` (`060b583`), inventory 2026-09-10:
 [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.

@@ -1,13 +1,16 @@
 """Drop-in OTP — six digits attach before the morph.
 
-Host seam: override ``on_verify(code)``. Submit spends ``auth.otp``.
+Host seam: render slots OR subclass.
+Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
 """
 
 from __future__ import annotations
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -32,6 +35,7 @@ class Otp(Component):
     """
 
     id = "otp"
+    _SEAMS = {}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-md flex-col gap-4 rounded-3xl border "
@@ -93,9 +97,10 @@ class Otp(Component):
     def _mark_dirty(self):
         self.dirty = "b" if self.dirty == "a" else "a"
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         if bool(self.ok):
-            return div(
+            return kit_shell(self,
                 div(
                     span("Ok", className=self.class_mark),
                     h2("Code accepted", className=self.class_title),
@@ -114,24 +119,24 @@ class Otp(Component):
             )
         code = str(self.code or "")
         err = str(self.err or "")
-        return div(
-            span("Verify", className=self.class_kicker),
-            h2("Enter the code", className=self.class_title),
-            p("Six digits. They attach before the morph.", className=self.class_lede),
+        return kit_shell(self,
             form(
-                label("One-time code", className=self.class_label),
+                label("One-time code", className=self.class_label, html_for="otp-code"),
                 input_(
                     type="text",
                     name="code",
+                    id="otp-code",
                     value=code,
                     maxlength="6",
                     inputmode="numeric",
                     autocomplete="one-time-code",
                     placeholder="••••••",
                     className=self.class_input_err if err else self.class_input,
+                    aria_invalid="true" if err else "false",
+                    **({"aria_describedby": "otp-code-err"} if err else {}),
                     **bind(self.set_field, field="code"),
                 ),
-                span(err, className=self.class_hint_err, role="alert") if err else span(
+                span(err, id="otp-code-err", className=self.class_hint_err, role="alert") if err else span(
                     "Use 123456 in the demo. 000000 is refused.",
                     className=self.class_hint,
                 ),
@@ -146,6 +151,11 @@ class Otp(Component):
             ),
             id=self.id,
             className=self.class_card,
+            chrome=(
+                span("Verify", className=self.class_kicker),
+                h2("Enter the code", className=self.class_title),
+                p("Six digits. They attach before the morph.", className=self.class_lede),
+            ),
         )
 
     @action(caps=())

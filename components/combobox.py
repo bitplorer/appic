@@ -1,14 +1,21 @@
 """Drop-in combobox — type to filter, then pick.
 
 Query is RefState so the typed filter attaches on morph. Value is a name.
-Host seam: override ``OPTIONS``.
+Host seam: render slots OR subclass.
+Accepted: ``options`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``value``, ``open``, ``dirty``. RefState: ``query``. Caps: none.
+A11y (APG Combobox): input ``role=combobox`` ``aria-expanded`` ``aria-controls``
+``aria-autocomplete=list``. Options ``role=option``. Label ``for`` ↔ input id.
 """
 
 from __future__ import annotations
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -20,6 +27,7 @@ from ux_compose import (
     form,
     h2,
     input_,
+    label,
     li,
     p,
     span,
@@ -34,6 +42,7 @@ class Combobox(Component):
     """
 
     id = "combobox"
+    _SEAMS = {'options': 'OPTIONS'}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
@@ -109,7 +118,8 @@ class Combobox(Component):
         elif kwargs.get("q") is not None:
             self.query = str(kwargs["q"])
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         q = str(self.query or "")
         val = str(self.value or "")
         is_open = bool(self.open)
@@ -119,37 +129,47 @@ class Combobox(Component):
                 button(
                     x,
                     type="button",
+                    role="option",
+                    aria_selected="true" if x == val else "false",
                     className=self.class_row_on if x == val else self.class_row,
                     **bind(self.pick, key=x),
                 ),
-                id=f"combo-{i}",
+                id=f"{self.id}-opt-{i}",
             )
             for i, x in enumerate(hits[:6])
         ]
         listing = span("", className=self.class_sr)
+        list_id = f"{self.id}-list"
         if is_open:
             listing = (
-                ul(*rows, className=self.class_list, role="listbox")
+                ul(*rows, id=list_id, className=self.class_list, role="listbox")
                 if rows
                 else p(
                     f"No matches for “{q}”." if q else "No matches.",
+                    id=list_id,
                     className=self.class_empty,
+                    role="status",
                 )
             )
         chosen = f"Chosen · {val}" if val else "Nothing chosen yet."
-        return div(
-            span("Find", className=self.class_kicker),
-            h2("Search the catalog", className=self.class_title),
+        field_id = f"{self.id}-q"
+        return kit_shell(self,
             p(chosen, className=self.class_lede),
             div(
                 form(
+                    label("Filter pieces", html_for=field_id, className=self.class_kicker),
                     input_(
                         type="search",
                         name="q",
+                        id=field_id,
                         value=q,
                         placeholder="Filter pieces",
                         autocomplete="off",
                         className=self.class_input,
+                        role="combobox",
+                        aria_expanded="true" if is_open else "false",
+                        aria_autocomplete="list",
+                        aria_controls=list_id,
                         **bind(self.set_field, field="q"),
                     ),
                     button(
@@ -158,7 +178,7 @@ class Combobox(Component):
                         className=self.class_btn_primary,
                         **bind(self.type_query),
                     ),
-                    id="combobox-form",
+                    id=f"{self.id}-form",
                     className=self.class_form,
                 ),
                 listing,
@@ -175,6 +195,10 @@ class Combobox(Component):
             id=self.id,
             className=self.class_card,
             data_open="1" if is_open else "0",
+            chrome=(
+                span("Find", className=self.class_kicker),
+                h2("Search the catalog", className=self.class_title),
+            ),
         )
 
     @action(caps=())

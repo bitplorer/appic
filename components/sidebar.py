@@ -1,13 +1,19 @@
 """Drop-in sidebar — collapsible rail, one active key.
 
-Host seam: override ``ITEMS``. Opening a section is public.
+Host seam: render slots OR subclass.
+Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
 Style: edit the ``class_*`` Tailwind strings. No companion CSS.
+
+MorphState: ``active``, ``collapsed``. Caps: none. A11y: ``nav`` ``aria-label``,
+``aria-current=page`` on the active item, ``aria-expanded`` on Fold.
 """
 
 from __future__ import annotations
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     action,
     bind,
@@ -16,6 +22,7 @@ from ux_compose import (
     button,
     div,
     h2,
+    nav,
     p,
     span,
 )
@@ -28,6 +35,7 @@ class Sidebar(Component):
     """
 
     id = "sidebar"
+    _SEAMS = {'items': 'ITEMS'}
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] overflow-hidden rounded-3xl "
@@ -89,7 +97,8 @@ class Sidebar(Component):
                 return row
         return items[0]
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         key, label, title, body = self._current()
         slim = bool(self.collapsed)
         links = []
@@ -101,7 +110,9 @@ class Sidebar(Component):
                         lab[:1],
                         type="button",
                         title=lab,
+                        aria_label=lab,
                         className=self.class_item_slim_on if on else self.class_item_slim,
+                        **({"aria_current": "page"} if on else {}),
                         **bind(self.select, key=k),
                     )
                 )
@@ -111,25 +122,30 @@ class Sidebar(Component):
                         lab,
                         type="button",
                         className=self.class_item_on if on else self.class_item,
+                        **({"aria_current": "page"} if on else {}),
                         **bind(self.select, key=k),
                     )
                 )
-        return div(
-            div(
+        return kit_shell(self,
+            nav(
                 span("Lumen", className=self.class_brand),
                 *links,
                 button(
                     "Open" if slim else "Fold",
                     type="button",
                     className=self.class_fold,
+                    aria_expanded="false" if slim else "true",
+                    aria_controls=f"{self.id}-pane",
                     **bind(self.toggle),
                 ),
                 className=self.class_rail_slim if slim else self.class_rail,
+                aria_label="Workspace",
             ),
             div(
                 span(label, className=self.class_kicker),
                 h2(title, className=self.class_title),
                 p(body, className=self.class_lede),
+                id=f"{self.id}-pane",
                 className=self.class_pane,
             ),
             id=self.id,

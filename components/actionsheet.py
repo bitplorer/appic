@@ -1,15 +1,25 @@
 """Drop-in action sheet — bottom panel, swipe-down to dismiss.
 
+Host seam: render slots OR subclass.
+Accepted: ``actions`` (same type as ``ACTIONS``); ``shell`` (bool; ``False``
+renders only the interactive unit, no demo kicker/title/lede card).
+Instance attrs win over class consts.
+
 Swipe lives on the handle and Cancel, not the root. OverlayChrome owns
 scrim/panel/dismiss ids, handle grammar, and the open plan.
+
+MorphState: ``open``, ``dirty``. RefState: ``picked``. Caps: ``orders.archive``
+on archive row. A11y: ``role=dialog`` ``aria-modal`` labelledby. First
+action autofocuses on open. Escape on scrim/Cancel via ``dismiss_on()``.
 """
 
 from __future__ import annotations
 
-from ux_compose.kit.overlay import overlay as overlay_chrome
+from .overlay import overlay as overlay_chrome
 
+from ux_compose.component import Component
+from ux_compose.kit_construct import apply_slots, kit_shell
 from ux_compose import (
-    Component,
     MorphState,
     RefState,
     action,
@@ -28,6 +38,7 @@ class ActionSheet(Component):
     """A sheet from the bottom. Presence is MorphState. Pick is a named key."""
 
     id = "actionsheet"
+    _SEAMS = {'actions': 'ACTIONS'}
 
     class_card = (
         "[grid-area:card] self-start mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
@@ -81,21 +92,25 @@ class ActionSheet(Component):
     def _chrome(self):
         return overlay_chrome(self.id, kind="actionsheet")
 
-    def render(self):
+    def render(self, *, shell=None, **slots):
+        apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         is_open = bool(self.open)
         picked = str(self.picked or "")
         ch = self._chrome()
         layer = []
         if is_open:
-            rows = [
-                button(
-                    label,
-                    type="button",
-                    className=self.class_btn_danger if dest else self.class_btn_ghost,
-                    **bind(self.pick if not dest else self.archive, key=key),
+            rows = []
+            for i, (key, label, dest) in enumerate(self.ACTIONS):
+                extra = {"autofocus": True} if i == 0 else {}
+                rows.append(
+                    button(
+                        label,
+                        type="button",
+                        className=self.class_btn_danger if dest else self.class_btn_ghost,
+                        **extra,
+                        **bind(self.pick if not dest else self.archive, key=key),
+                    )
                 )
-                for key, label, dest in self.ACTIONS
-            ]
             layer = [
                 button(
                     span("Close", className=self.class_sr),
@@ -103,6 +118,7 @@ class ActionSheet(Component):
                     id=ch.scrim_id,
                     className=self.class_scrim,
                     aria_label="Close",
+                    data_channel_on=ch.dismiss_on(),
                     **bind(self.close),
                 ),
                 div(
@@ -124,7 +140,7 @@ class ActionSheet(Component):
                         type="button",
                         id=f"{self.id}-cancel",
                         className=self.class_btn_ghost + " mt-1 text-stone-500",
-                        data_channel_on=ch.swipe_on_dismiss(),
+                        data_channel_on=ch.dismiss_on(),
                         **bind(self.close),
                     ),
                     id=ch.panel_id,
@@ -132,12 +148,10 @@ class ActionSheet(Component):
                     role="dialog",
                     aria_modal="true",
                     aria_labelledby=f"{self.id}-title",
+                    **ch.focus_attrs(),
                 ),
             ]
-        return div(
-            span("Sheet · swipe down", className=self.class_kicker),
-            h2("Action sheet", className=self.class_title),
-            p("Opens from the bottom. Swipe the handle or Cancel to dismiss.", className=self.class_lede),
+        return kit_shell(self,
             p(f"Last pick · {picked}" if picked else "Nothing picked yet.", className=self.class_choice),
             button("Open actions", type="button", className=self.class_btn_primary, **bind(self.open_sheet)),
             *layer,
@@ -145,6 +159,11 @@ class ActionSheet(Component):
             className=self.class_card,
             data_open="1" if is_open else "0",
             data_channel_id=self.id,
+            chrome=(
+                span("Sheet · swipe down", className=self.class_kicker),
+                h2("Action sheet", className=self.class_title),
+                p("Opens from the bottom. Swipe the handle or Cancel to dismiss.", className=self.class_lede),
+            ),
         )
 
     @action(caps=())
