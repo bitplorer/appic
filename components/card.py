@@ -1,4 +1,8 @@
-"""Drop-in card — titled region with an optional action.
+"""Ownable copy of ux_compose.kit.card — edit freely.
+
+Copied by ``uxcompose add card``. Regenerate with ``uxcompose add card --force``.
+
+Drop-in card — titled region with an optional action.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``action`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

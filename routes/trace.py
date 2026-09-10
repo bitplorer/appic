@@ -1,46 +1,56 @@
-"""Doctor residuals expire by teaching. Isolation is hard."""
+"""Page unit — Doctor residuals. Hard vs teaching vs store-clone."""
 from __future__ import annotations
 
-from foundry import app as get_app
-from ux_compose import Component, a, div, h1, li, p, section, span, ul
+from pathlib import Path
+
+from ux_compose import Component, article, div, h1, h2, li, p, section, span, ul, doctor
+from ux_compose.doctor import (
+    scan_isolation,
+    scan_kit_product_imports,
+    scan_leftover_aliases,
+    scan_render_chrome,
+    scan_fastapi_docs_collision,
+    scan_cek_host,
+    scan_store_clone,
+    scan_dual_document,
+)
 
 
 class Trace(Component):
     id = "trace"
 
     def render(self):
-        handle = get_app()
-        report = getattr(handle, "_doctor", None) if handle is not None else None
-        chips = []
-        if report is not None:
-            for attr in ("surfaces", "routes", "errors", "warnings", "residuals"):
-                val = getattr(report, attr, None)
-                if val:
-                    chips.append(span(f"{attr} · {val}", className="chip"))
-            notes = []
-            for name in dir(report):
-                if name.startswith("scan") or name.endswith("_scans"):
-                    continue
-            findings = getattr(report, "findings", None) or getattr(report, "items", None)
-            if findings:
-                notes = [li(str(item)) for item in list(findings)[:24]]
-            else:
-                notes = [li("Doctor ran at boot. Isolation is hard. Kit-import residuals expire by teaching.")]
-        else:
-            chips = [span("doctor pending", className="chip")]
-            notes = [li("The composition root has not published a report yet.")]
+        root = Path(__file__).resolve().parents[1]
+        paths = [
+            str(p)
+            for p in root.rglob("*.py")
+            if "site-packages" not in str(p) and "/.venv/" not in str(p)
+        ]
+        families = (
+            ("isolation (hard)", scan_isolation(paths)),
+            ("dual-Document (hard)", scan_dual_document(paths)),
+            ("store-clone (hard)", scan_store_clone(paths)),
+            ("kit imports (teaching)", scan_kit_product_imports(paths)),
+            ("leftover aliases (teaching)", scan_leftover_aliases(paths)),
+            ("render chrome (teaching)", scan_render_chrome(paths)),
+            ("docs collision (teaching)", scan_fastapi_docs_collision(paths)),
+            ("cek host (teaching)", scan_cek_host(None)),
+        )
+        report = doctor(paths, fail=False)
+        cards = []
+        for name, hits in families:
+            shown = hits or ["clean"]
+            items = [li(h) for h in shown[:8]]
+            cards.append(article(h2(name), ul(*items, className="mono-list"), className="paper"))
         return section(
-            span("scan families", className="kicker"),
-            h1("Trace"),
+            span("Trace", className="eyebrow"),
+            h1("Residuals expire by teaching.", className="display"),
             p(
-                "Isolation and dual-Document fail closed. "
-                "Kit-import, leftover aliases, render-chrome, docs collision, CEK host, "
-                "and store-clone residuals expire by teaching.",
+                f"Doctor ok={getattr(report, 'ok', None)}. Isolation, dual-Document, and store-clone fail closed. "
+                "Kit-import, leftover aliases, render-chrome, docs collision teach.",
                 className="lede",
             ),
-            div(*chips, className="chip-row"),
-            ul(*notes, className="law-list paper"),
-            a("Back to law", href="/docs", className="btn-ghost"),
+            div(*cards, className="map-grid"),
             id=self.id,
-            className="page",
+            className="room",
         )

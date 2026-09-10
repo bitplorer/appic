@@ -1,4 +1,8 @@
-"""Drop-in feed — APG feed of named articles.
+"""Ownable copy of ux_compose.kit.feed — edit freely.
+
+Copied by ``uxcompose add feed``. Regenerate with ``uxcompose add feed --force``.
+
+Drop-in feed — APG feed of named articles.
 
 Host seam: render slots OR subclass.
 Accepted: ``seed``, ``more`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

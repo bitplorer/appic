@@ -1,1 +1,1 @@
-"""Page units. Stem match. No HTTP verbs on Components."""
+"""Page units. Stem == class name. No HTTP verbs."""

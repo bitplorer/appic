@@ -1,4 +1,8 @@
-"""Drop-in empty state — titled void with a public call to action.
+"""Ownable copy of ux_compose.kit.emptystate — edit freely.
+
+Copied by ``uxcompose add emptystate``. Regenerate with ``uxcompose add emptystate --force``.
+
+Drop-in empty state — titled void with a public call to action.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``action`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

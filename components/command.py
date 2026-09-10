@@ -1,4 +1,8 @@
-"""Drop-in command palette — query attaches before the morph.
+"""Ownable copy of ux_compose.kit.command — edit freely.
+
+Copied by ``uxcompose add command``. Regenerate with ``uxcompose add command --force``.
+
+Drop-in command palette — query attaches before the morph.
 
 Host seam: render slots OR subclass.
 Accepted: ``commands`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

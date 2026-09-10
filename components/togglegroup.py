@@ -1,4 +1,8 @@
-"""Drop-in toggle group — exclusive named segment, APG radio group.
+"""Ownable copy of ux_compose.kit.togglegroup — edit freely.
+
+Copied by ``uxcompose add togglegroup``. Regenerate with ``uxcompose add togglegroup --force``.
+
+Drop-in toggle group — exclusive named segment, APG radio group.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

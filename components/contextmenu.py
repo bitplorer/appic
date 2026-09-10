@@ -1,4 +1,8 @@
-"""Drop-in context menu — click or longpress on the same control.
+"""Ownable copy of ux_compose.kit.contextmenu — edit freely.
+
+Copied by ``uxcompose add contextmenu``. Regenerate with ``uxcompose add contextmenu --force``.
+
+Drop-in context menu — click or longpress on the same control.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

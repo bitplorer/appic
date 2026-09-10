@@ -1,4 +1,8 @@
-"""Drop-in description list — named facts as ``dl`` / ``dt`` / ``dd``.
+"""Ownable copy of ux_compose.kit.descriptionlist — edit freely.
+
+Copied by ``uxcompose add descriptionlist``. Regenerate with ``uxcompose add descriptionlist --force``.
+
+Drop-in description list — named facts as ``dl`` / ``dt`` / ``dd``.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

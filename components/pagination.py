@@ -1,4 +1,8 @@
-"""Drop-in pagination — opaque page keys, never a quantity MorphState.
+"""Ownable copy of ux_compose.kit.pagination — edit freely.
+
+Copied by ``uxcompose add pagination``. Regenerate with ``uxcompose add pagination --force``.
+
+Drop-in pagination — opaque page keys, never a quantity MorphState.
 
 Host seam: render slots OR subclass.
 Accepted: ``window``, ``pages`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

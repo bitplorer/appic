@@ -1,4 +1,8 @@
-"""Drop-in scroll area — labelled overflow region, named jump.
+"""Ownable copy of ux_compose.kit.scrollarea — edit freely.
+
+Copied by ``uxcompose add scrollarea``. Regenerate with ``uxcompose add scrollarea --force``.
+
+Drop-in scroll area — labelled overflow region, named jump.
 
 Host seam: render slots OR subclass.
 Accepted: ``marks``, ``body`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

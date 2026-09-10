@@ -1,4 +1,8 @@
-"""Drop-in toast host — server list is authority.
+"""Ownable copy of ux_compose.kit.toast — edit freely.
+
+Copied by ``uxcompose add toast``. Regenerate with ``uxcompose add toast --force``.
+
+Drop-in toast host — server list is authority.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the RefState list); ``shell`` (bool;

@@ -1,4 +1,4 @@
-"""Kept from create-app. Live-safe counter: magnitude is RefState."""
+"""Page unit — hello.py → /hello. Live-safe counter (quantity on RefState)."""
 from __future__ import annotations
 
 from ux_compose import (
@@ -6,6 +6,7 @@ from ux_compose import (
     MorphState,
     RefState,
     action,
+    bind,
     button,
     control,
     div,
@@ -27,12 +28,13 @@ class Hello(Component):
         pulses = int(self.pulses or 0)
         btn = "btn-primary"
         return div(
-            span(str(n), className="text-2xl font-semibold tabular-nums"),
+            span(str(n), className="stat", id="hello-n"),
             button("+1", type="button", className=btn, **control("hello.inc")),
-            span(str(pulses), className="text-2xl font-semibold tabular-nums"),
-            button("pulse", type="button", className=btn, **control("hello.pulse")),
+            span(str(pulses), className="stat", id="hello-p"),
+            button("pulse", type="button", className=btn, **bind(self.pulse)),
             id=self.id,
-            className="page flex items-center gap-3 rounded-2xl border border-stone-200 bg-white p-6 text-stone-900",
+            className="paper row",
+            data_dirty=str(self.dirty or "idle"),
         )
 
     @action(caps=())

@@ -1,4 +1,8 @@
-"""Drop-in separator — composite rule with an optional accessible name.
+"""Ownable copy of ux_compose.kit.separator — edit freely.
+
+Copied by ``uxcompose add separator``. Regenerate with ``uxcompose add separator --force``.
+
+Drop-in separator — composite rule with an optional accessible name.
 
 Host seam: render slots OR subclass.
 Accepted: ``label`` (same type as ``LABEL``); ``shell`` (bool; ``False``

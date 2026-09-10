@@ -1,4 +1,8 @@
-"""Drop-in chat — live log, labeled composer, public send.
+"""Ownable copy of ux_compose.kit.chat — edit freely.
+
+Copied by ``uxcompose add chat``. Regenerate with ``uxcompose add chat --force``.
+
+Drop-in chat — live log, labeled composer, public send.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

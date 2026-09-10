@@ -1,4 +1,8 @@
-"""Drop-in file upload — labeled file control + named list.
+"""Ownable copy of ux_compose.kit.fileupload — edit freely.
+
+Copied by ``uxcompose add fileupload``. Regenerate with ``uxcompose add fileupload --force``.
+
+Drop-in file upload — labeled file control + named list.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

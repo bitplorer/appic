@@ -1,4 +1,8 @@
-"""Drop-in sheet — edge panel. Same shape as a dialog, different placement.
+"""Ownable copy of ux_compose.kit.sheet — edit freely.
+
+Copied by ``uxcompose add drawer``. Regenerate with ``uxcompose add drawer --force``.
+
+Drop-in sheet — edge panel. Same shape as a dialog, different placement.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body`` (same type as the RefState attrs); ``shell``

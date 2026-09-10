@@ -1,4 +1,8 @@
-"""Drop-in hero — titled landing band with a public CTA.
+"""Ownable copy of ux_compose.kit.hero — edit freely.
+
+Copied by ``uxcompose add hero``. Regenerate with ``uxcompose add hero --force``.
+
+Drop-in hero — titled landing band with a public CTA.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``action`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

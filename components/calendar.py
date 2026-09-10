@@ -1,4 +1,8 @@
-"""Drop-in calendar — month and day are named keys.
+"""Ownable copy of ux_compose.kit.calendar — edit freely.
+
+Copied by ``uxcompose add calendar``. Regenerate with ``uxcompose add calendar --force``.
+
+Drop-in calendar — month and day are named keys.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

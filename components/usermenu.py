@@ -1,4 +1,8 @@
-"""Drop-in user menu — identity chrome, Cap on sign-out.
+"""Ownable copy of ux_compose.kit.usermenu — edit freely.
+
+Copied by ``uxcompose add usermenu``. Regenerate with ``uxcompose add usermenu --force``.
+
+Drop-in user menu — identity chrome, Cap on sign-out.
 
 Host seam: render slots OR subclass.
 Accepted: ``name``, ``email`` (str — same as the RefState attrs), ``items``

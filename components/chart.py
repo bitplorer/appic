@@ -1,4 +1,8 @@
-"""Drop-in chart — named series as an SVG image.
+"""Ownable copy of ux_compose.kit.chart — edit freely.
+
+Copied by ``uxcompose add chart``. Regenerate with ``uxcompose add chart --force``.
+
+Drop-in chart — named series as an SVG image.
 
 Host seam: render slots OR subclass.
 Accepted: ``series`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

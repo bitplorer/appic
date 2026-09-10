@@ -1,4 +1,8 @@
-"""Drop-in timeline — named events with a named filter.
+"""Ownable copy of ux_compose.kit.timeline — edit freely.
+
+Copied by ``uxcompose add timeline``. Regenerate with ``uxcompose add timeline --force``.
+
+Drop-in timeline — named events with a named filter.
 
 Host seam: render slots OR subclass.
 Accepted: ``lanes``, ``events`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

@@ -1,80 +1,29 @@
-"""Bag — cart with RefState quantities. Checkout is a Cap."""
+"""Bag — Host stock. Quantity never MorphState."""
 from __future__ import annotations
-
-from store import CATALOG, HOST
-from ux_compose import (
-    Component,
-    MorphState,
-    RefState,
-    a,
-    action,
-    button,
-    control,
-    div,
-    h1,
-    h2,
-    mark_dirty,
-    notify,
-    optional_plan,
-    p,
-    section,
-    span,
-    update_with,
-)
-
+from ux_compose import Component, MorphState, RefState, action, button, control, div, h1, li, mark_dirty, notify, p, section, span, ul, update_with
+from store import HOST
+PIECES = ("linen shirt", "oak board", "wool throw", "clay pourer")
 
 class Bag(Component):
     id = "bag"
-    count = RefState(0)
-    last_sku = RefState("")
     dirty = MorphState("idle")
-
+    items = RefState(())
     def render(self):
-        count = int(self.count or HOST.bag_count())
-        cards = []
-        for item in CATALOG:
-            n = int(HOST.bag.get(item["sku"]) or 0)
-            cards.append(
-                div(
-                    h2(item["name"]),
-                    p(item["lede"], className="muted"),
-                    p(f"{item['price']} · in bag {n}", className="mono"),
-                    button(
-                        f"Add {item['name']}",
-                        type="button",
-                        className="btn-primary",
-                        **control("bag.add", sku=item["sku"]),
-                    ),
-                    className="paper",
-                )
-            )
+        held = list(self.items or HOST.bag)
         return section(
-            span("orders.place on checkout", className="kicker"),
-            h1("Bag"),
-            p(
-                f"{count} objects. Quantity is RefState. Named sku is Morph-safe. "
-                "Checkout spends orders.place.",
-                className="lede",
-            ),
-            div(*cards, className="kit-grid"),
-            button("Checkout", type="button", className="btn-primary", **control("bag.checkout")),
-            a("Commission instead", href="/commission", className="btn-ghost"),
-            id=self.id,
-            className="page",
+            span("Bag", className="eyebrow"),
+            h1("What you keep.", className="display"),
+            p("Lists live on RefState. Checkout would spend orders.place.", className="lede"),
+            div(*[button(name, type="button", className="choice", **control("bag.add", name=name)) for name in PIECES], className="choices"),
+            ul(*[li(n) for n in held] or [li("Empty.")], className="mono-list"),
+            id=self.id, className="room",
         )
-
     @action(caps=())
-    def add(self, sku: str = "cup"):
-        n = HOST.add_bag(sku or "cup")
-        self.count = HOST.bag_count()
-        self.last_sku = sku
+    def add(self, name: str = ""):
+        if name not in PIECES:
+            name = PIECES[0]
+        HOST.bag.append(name)
+        self.items = tuple(HOST.bag)
         mark_dirty(self)
-        plan = optional_plan("bag-pop", f"#{self.id}", ms=140)
-        return update_with(self, plan, extra_ops=[notify(f"added {sku} · {n}")])
-
-    @action(caps=("orders.place",))
-    def checkout(self):
-        self.count = 0
-        HOST.bag.clear()
-        mark_dirty(self)
-        return update_with(self, extra_ops=[notify("checkout sealed")])
+        HOST.log("bag.add", name)
+        return update_with(self, extra_ops=[notify(name)])

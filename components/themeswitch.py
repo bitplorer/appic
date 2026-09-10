@@ -1,4 +1,8 @@
-"""Drop-in theme switch — named light / dark / system, APG radio group.
+"""Ownable copy of ux_compose.kit.themeswitch — edit freely.
+
+Copied by ``uxcompose add themeswitch``. Regenerate with ``uxcompose add themeswitch --force``.
+
+Drop-in theme switch — named light / dark / system, APG radio group.
 
 Host seam: render slots OR subclass.
 Accepted: ``themes`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

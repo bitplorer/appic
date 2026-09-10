@@ -1,4 +1,8 @@
-"""Drop-in diff — named before/after view.
+"""Ownable copy of ux_compose.kit.diff — edit freely.
+
+Copied by ``uxcompose add diff``. Regenerate with ``uxcompose add diff --force``.
+
+Drop-in diff — named before/after view.
 
 Host seam: render slots OR subclass.
 Accepted: ``before``, ``after``, ``views`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

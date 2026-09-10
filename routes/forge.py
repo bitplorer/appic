@@ -1,35 +1,28 @@
-"""Forge — glaze chemistry, kiln time, chart, tree, diff, mockup."""
+"""Forge — workbench kit."""
 from __future__ import annotations
-
-from foundry import kit_tree
-from ux_compose import Component, div, h1, p, section, span
-
+from ux_compose import Component, a, div, h1, p, section, span
 
 class Forge(Component):
     id = "forge"
-
     def render(self):
+        cards = (
+            ("/chart", "Chart", "Named SVG bars. Heights RefState. role=img."),
+            ("/tree", "Tree", "APG treeview. add treeview aliases here."),
+            ("/diff", "Diff", "Named before/after. Radiogroup."),
+            ("/mockup", "Mockup", "Named device frame."),
+            ("/colorpicker", "Glaze", "Named swatches. Hex is RefState."),
+            ("/countdown", "Kiln", "role=timer. Remaining RefState."),
+            ("/progress", "Fire", "progressbar. Magnitude RefState."),
+            ("/attachment", "Files", "Names on RefState."),
+            ("/feed", "Feed", "APG feed of articles."),
+            ("/resizable", "Split", "Named split. Radiogroup + labelled separator."),
+            ("/scrollarea", "Pane", "Labelled overflow. Named jump."),
+            ("/fab", "Dial", "Menu id stays in the tree, hidden when closed."),
+        )
         return section(
-            span("workbench", className="kicker"),
-            h1("Forge"),
-            p(
-                "Color is a named swatch, never a hue quantity. "
-                "Kiln remaining is RefState on a role=timer. "
-                "Bar heights are RefState. Tree expanded ids are names.",
-                className="lede",
-            ),
-            div(
-                kit_tree("colorpicker"),
-                kit_tree("countdown"),
-                kit_tree("progress"),
-                kit_tree("chart"),
-                kit_tree("tree"),
-                kit_tree("diff"),
-                kit_tree("mockup"),
-                kit_tree("attachment"),
-                kit_tree("resizable"),
-                className="kit-grid",
-            ),
-            id=self.id,
-            className="page",
+            span("Forge", className="eyebrow"),
+            h1("The workbench keeps time.", className="display"),
+            p("Magnitudes stay on RefState. Named keys stay on MorphState.", className="lede"),
+            div(*[a(span(t, className="card-title"), span(l, className="muted"), href=h, className="map-card") for h,t,l in cards], className="map-grid"),
+            id=self.id, className="room",
         )

@@ -1,4 +1,8 @@
-"""Drop-in pull-to-refresh — vertical swipe on the list, not a new attribute.
+"""Ownable copy of ux_compose.kit.pullrefresh — edit freely.
+
+Copied by ``uxcompose add pullrefresh``. Regenerate with ``uxcompose add pullrefresh --force``.
+
+Drop-in pull-to-refresh — vertical swipe on the list, not a new attribute.
 
 Host seam: render slots OR subclass.
 Accepted: ``seed``, ``more`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

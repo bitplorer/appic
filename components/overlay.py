@@ -1,4 +1,8 @@
-"""Shared overlay chrome — ids, edge, swipe-on-dismiss, open plan.
+"""Ownable copy of ux_compose.kit.overlay — edit freely.
+
+Copied by ``uxcompose add alertdialog``. Regenerate with ``uxcompose add alertdialog --force``.
+
+Shared overlay chrome — ids, edge, swipe-on-dismiss, open plan.
 
 Dialog / Sheet / ActionSheet / AlertDialog / Command take ids, dismiss
 grammar, and open plan from this primitive. Markup and Tailwind stay on
@@ -14,6 +18,7 @@ restore is Channel when live. ``aria-modal`` lives on the widget.
 
 Isolation Law: this module never imports ux_channel or CEK.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

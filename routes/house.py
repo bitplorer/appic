@@ -1,62 +1,50 @@
-"""Kit house — every owned stem, grouped into wings. Sight then walk."""
+"""Page unit — House. Anchored family map, not OverlayChrome."""
 from __future__ import annotations
 
-from foundry import kit_tree
-from owned import WINGS
-from ux_compose import (
-    Component,
-    MorphState,
-    action,
-    button,
-    control,
-    div,
-    h1,
-    h2,
-    notify,
-    p,
-    section,
-    span,
-    update_with,
+from ux_compose import Component, a, div, h1, h2, li, p, section, span, ul
+
+
+ROOMS = (
+    ("/typeahead", "Typeahead", "Hits morph #typeahead-hits only. delay:300."),
+    ("/combobox", "Combobox", "Type then pick. Ids follow {id}-form / {id}-opt-n."),
+    ("/select", "Select", "Grouped options. Label for ↔ trigger."),
+    ("/dropdown", "Dropdown", "Menu is presence. Value is a named key."),
+    ("/popover", "Popover", "Non-modal, anchored. Escape dismisses."),
+    ("/tooltip", "Tooltip", "role=tooltip described-by. Not a modal."),
+    ("/hovercard", "HoverCard", "Non-modal preview. Anchored family."),
+    ("/navmenu", "NavMenu", "Disclosure of named destinations."),
+    ("/usermenu", "UserMenu", "Sign-out spends auth.logout."),
+    ("/contextmenu", "ContextMenu", "Click or longpress. aria-controls."),
+    ("/carousel", "Carousel", "Named slides. Overlay chevrons. Coalescing pip."),
+    ("/table", "Table", "Sort MorphState, selection RefState. Bind the checkbox."),
+    ("/pagination", "Pagination", "Opaque keys. Windowed numbers."),
+    ("/sheet", "Sheet", "Right edge. Close/Done swipe.right. No root swipe."),
+    ("/actionsheet", "ActionSheet", "Bottom. Handle swipe-down threshold:48."),
 )
 
 
 class House(Component):
     id = "house"
-    wing = MorphState("door")
 
     def render(self):
-        current = str(self.wing or "door")
-        if current not in WINGS:
-            current = "door"
-        title, stems = WINGS[current]
-        tabs = [
-            button(
-                meta[0],
-                type="button",
-                className="chip" + (" is-on" if key == current else ""),
-                **control("house.select", wing=key),
+        cards = [
+            a(
+                span(title, className="card-title"),
+                span(law, className="muted"),
+                href=href,
+                className="map-card",
             )
-            for key, meta in WINGS.items()
+            for href, title, law in ROOMS
         ]
-        rooms = [div(kit_tree(stem), className="paper-slot", data_kit=stem) for stem in stems]
         return section(
-            span("eighty-one owned stems", className="kicker"),
-            h1("House"),
+            span("House", className="eyebrow"),
+            h1("Anchored things stay.", className="display"),
             p(
-                "Copied with uxcompose add. The library keeps the source of truth; "
-                "these files are yours. shell=False drops the Atelier kicker. "
-                "Ids stay in the tree when closed.",
+                "Do not force Dropdown, Combobox, Select, Popover, Tooltip, HoverCard, "
+                "UserMenu, or NavMenu through OverlayChrome. That family is the edge.",
                 className="lede",
             ),
-            div(*tabs, className="chip-row", role="tablist"),
-            h2(title),
-            p(f"{len(stems)} rooms in this wing.", className="muted"),
-            div(*rooms, className="kit-grid"),
+            div(*cards, className="map-grid"),
             id=self.id,
-            className="page",
+            className="room",
         )
-
-    @action(caps=())
-    def select(self, wing: str = "door"):
-        self.wing = wing if wing in WINGS else "door"
-        return update_with(self, extra_ops=[notify(f"wing {self.wing}")])

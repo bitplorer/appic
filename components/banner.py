@@ -1,4 +1,8 @@
-"""Drop-in banner — page-level status strip, public dismiss.
+"""Ownable copy of ux_compose.kit.banner — edit freely.
+
+Copied by ``uxcompose add banner``. Regenerate with ``uxcompose add banner --force``.
+
+Drop-in banner — page-level status strip, public dismiss.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

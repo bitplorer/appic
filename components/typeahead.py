@@ -1,4 +1,8 @@
-"""Drop-in typeahead — live filter on ``input delay:``.
+"""Ownable copy of ux_compose.kit.typeahead — edit freely.
+
+Copied by ``uxcompose add typeahead``. Regenerate with ``uxcompose add typeahead --force``.
+
+Drop-in typeahead — live filter on ``input delay:``.
 
 MorphState: ``value``, ``dirty``. RefState: ``query``. Caps: none.
 A11y: label ``for`` ↔ input id; ``aria-autocomplete`` ``aria-controls``.

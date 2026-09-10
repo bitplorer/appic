@@ -1,4 +1,8 @@
-"""Drop-in countdown — remaining magnitude on RefState.
+"""Ownable copy of ux_compose.kit.countdown — edit freely.
+
+Copied by ``uxcompose add countdown``. Regenerate with ``uxcompose add countdown --force``.
+
+Drop-in countdown — remaining magnitude on RefState.
 
 Host seam: render slots OR subclass.
 Accepted: ``remain`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

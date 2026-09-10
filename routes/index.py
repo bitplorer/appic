@@ -1,7 +1,4 @@
-"""Table — constellation of rooms around an Intent nucleus.
-
-Sight is MorphState (looking is not walking). Walk is Clock A GET.
-"""
+"""Page unit — index.py → GET /. The Table is a constellation."""
 from __future__ import annotations
 
 from ux_compose import (
@@ -9,6 +6,7 @@ from ux_compose import (
     MorphState,
     RefState,
     action,
+    act,
     bind,
     button,
     control,
@@ -19,117 +17,138 @@ from ux_compose import (
     notify,
     optional_plan,
     p,
+    section,
     span,
+    status,
     update_with,
     a,
-    section,
+    ul,
+    li,
+    dl,
+    dt,
+    dd,
+    hr,
 )
+from store import HOST
 
 STARS = (
-    ("enter", "/enter", "Door", "Login, OTP, the seal of entry."),
-    ("house", "/house", "House", "Eighty-one owned kit rooms."),
-    ("atelier", "/atelier", "Atelier", "Market hall. Hero to newsletter."),
-    ("commission", "/commission", "Commission", "Questionnaire, stepper, plans, Cap."),
-    ("bag", "/bag", "Bag", "Cart. Quantity is RefState."),
-    ("forge", "/forge", "Forge", "Glaze, kiln, chart, tree, diff."),
-    ("studio", "/studio", "Studio", "Chat log. Feed. Attachments."),
-    ("chrome", "/chrome", "Chrome", "Menubar, toolbar, APG holds."),
-    ("overlay", "/overlay", "Edge", "OverlayChrome vs anchored family."),
-    ("lab", "/lab", "Lab", "Hold an Intent. Spend a Cap."),
-    ("author", "/author", "Author", "act, field, status, optional_*."),
-    ("docs", "/docs", "Law", "The constitution. Swagger is off."),
+    ("door", "/login", "Door", 12, 22, "Login + OTP. Secrets on RefState. Caps on the hinge."),
+    ("desk", "/sidebar", "Desk", 30, 10, "Sidebar, Tabs, Command, Toast. Caps off chrome."),
+    ("house", "/house", "House", 52, 8, "Anchored family. Typeahead hits-slot law."),
+    ("visit", "/visit", "Visit", 74, 16, "Stepper, Plans, Calendar, Dialog confirm."),
+    ("signal", "/typeahead", "Signal", 90, 32, "Wave 1. delay:300 · longpress · swipe."),
+    ("author", "/author", "Author", 92, 54, "act / mark_dirty / field / optional_*."),
+    ("press", "/copy", "Press", 80, 76, "copy_component. Not a card."),
+    ("skin", "/skin", "Skin", 62, 88, "WebAssets. ETag. dual_copy leftover."),
+    ("ship", "/deploy", "Ship", 42, 86, "prepare_deploy. Six providers."),
+    ("chrome", "/overlay", "Edge", 22, 80, "OverlayChrome vs anchored family."),
+    ("notes", "/notes", "Notes", 8, 62, "AttachNote. Silence was the defect."),
+    ("atelier", "/atelier", "Atelier", 16, 44, "Presence. Kit Cut 1 shell=False."),
+    ("lattice", "/lattice", "Lattice", 38, 30, "Surfaces. Caps as seals."),
+    ("trace", "/trace", "Trace", 58, 20, "Doctor. Hard vs teaching vs store-clone."),
+    ("clocks", "/clocks", "Clocks", 70, 44, "GET is Clock A. Action is Clock B."),
+    ("forge", "/forge", "Forge", 48, 58, "Chart · Tree · Diff · Mockup."),
+    ("kiln", "/countdown", "Kiln", 28, 70, "Countdown remaining is RefState."),
+    ("market", "/market", "Hall", 84, 18, "Hero · Pricing · LogoCloud · Newsletter."),
 )
 
 
 class Index(Component):
     id = "index"
-    sight = MorphState("lab")
-    held = MorphState("idle")
-    beats = RefState(0)
+    sight = MorphState("table")
+    greeting = MorphState("The table is lit")
     dirty = MorphState("idle")
 
+    def _star(self):
+        key = str(self.sight or "table")
+        for row in STARS:
+            if row[0] == key:
+                return row
+        return ("table", "/", "Table", 50, 50, "The document is the composition root made visible.")
+
     def render(self):
-        sight = str(self.sight or "lab")
-        held = str(self.held or "idle")
-        beats = int(self.beats or 0)
-        stars = []
-        for key, href, name, lede in STARS:
-            on = key == sight
-            stars.append(
-                button(
-                    span(name, className="star-name"),
-                    span(lede, className="star-lede"),
-                    type="button",
-                    className="star" + (" is-sight" if on else ""),
-                    aria_pressed="true" if on else "false",
-                    **control("index.sight_star", key=key),
-                )
+        seen = self._star()
+        kpi = HOST.kpi()
+        stars = [
+            button(
+                span("", className="star-dot", aria_hidden="true"),
+                span(label, className="star-name"),
+                type="button",
+                className="star is-on" if self.sight == key else "star",
+                id=f"star-{key}",
+                data_room=key,
+                title=law,
+                **control("index.look", room=key),
             )
-        current = next((s for s in STARS if s[0] == sight), STARS[0])
+            for key, href, label, x, y, law in STARS
+        ]
         return section(
-            span("nocturnal foundry os", className="kicker"),
-            h1("APPIC", className="display"),
-            p(
-                "The document is the composition root made visible. "
-                "Caps are wax seals. Intent is a nucleus you can hold. "
-                "Sight a star, then walk it.",
-                className="lede",
-            ),
             div(
-                div(
-                    span("Nucleus", className="kicker"),
-                    h2("Intent"),
-                    p(f"state · {held}", className="mono"),
-                    p(f"beats · {beats}", className="mono"),
-                    div(
-                        button(
-                            "Hold intent" if held != "held" else "Intent held",
-                            type="button",
-                            className="btn-primary",
-                            **bind(self.hold),
-                        ),
-                        button(
-                            "Spend cap",
-                            type="button",
-                            className="btn-ghost",
-                            **control("index.spend"),
-                        ),
-                        className="row",
-                    ),
-                    className="nucleus",
-                    data_held=held,
+                span("nocturnal foundry · ux-compose 0.1.0 · kit-81", className="eyebrow"),
+                h1(
+                    span(str(self.greeting), className="display"),
+                    span("APPIC", className="word-lg"),
+                    className="hero-title",
                 ),
-                div(*stars, className="constellation", role="list"),
-                className="table-grid",
+                p(
+                    "A constitution you can walk. Sight a star (MorphState), then walk it (Clock A GET). "
+                    "Caps are wax seals. Kit cards are rooms you own.",
+                    className="lede",
+                ),
+                div(
+                    act("index.knock", "Pulse the table", kind="primary", target="#index"),
+                    a("Open the door", href="/enter", className="btn-ghost"),
+                    a("Commission a piece", href="/commission", className="btn-ghost"),
+                    className="hero-actions",
+                ),
+                status(HOST.notice or "The kiln is quiet.", kind="note"),
+                className="hero-copy",
             ),
             div(
-                p(f"Sighted · {current[2]}", className="kicker"),
-                h2(current[2]),
-                p(current[3], className="lede"),
-                a("Walk this room", href=current[1], className="btn-primary"),
-                className="sight-card",
+                div(*stars, className="sky", id="sky", role="list"),
+                div(
+                    span("sighted", className="eyebrow"),
+                    h2(seen[2], className="sight-title"),
+                    p(seen[5], className="sight-law"),
+                    a("Walk this room", href=seen[1], className="btn-primary"),
+                    className="sight-card",
+                    id="sight",
+                ),
+                className="constellation",
             ),
+            hr(className="rule"),
+            dl(
+                dt("Pulse"),
+                dd(str(kpi["pulse"])),
+                dt("Bag"),
+                dd(str(kpi["bag"])),
+                dt("Seals spent"),
+                dd(str(kpi["seals"])),
+                dt("Commissions"),
+                dd(str(kpi["commissions"])),
+                className="kpi",
+            ),
+            ul(
+                li(a("81 kit rooms", href="/house")),
+                li(a("Doctor residuals", href="/trace")),
+                li(a("The written law", href="/docs")),
+                li(a("Clock A / Clock B", href="/clocks")),
+                className="quick"),
             id=self.id,
-            className="page table-page",
+            className="table-room",
         )
 
     @action(caps=())
-    def sight_star(self, key: str = "lab"):
-        allowed = {k for k, *_ in STARS}
-        self.sight = key if key in allowed else "lab"
-        return update_with(self, extra_ops=[notify(f"sight {self.sight}")])
+    def look(self, room: str = "table"):
+        keys = {row[0] for row in STARS}
+        self.sight = room if room in keys else "table"
+        HOST.log("index.sight", str(self.sight))
+        return update_with(self, optional_plan("sight", "#sight"), extra_ops=[notify(str(self.sight))])
 
     @action(caps=())
-    def hold(self):
-        self.held = "held"
-        self.beats = int(self.beats or 0) + 1
+    def knock(self):
+        HOST.pulse += 1
         mark_dirty(self)
-        plan = optional_plan("nucleus-hold", f"#{self.id}", ms=160)
-        return update_with(self, plan, extra_ops=[notify("intent held")])
-
-    @action(caps=("orders.place",))
-    def spend(self):
-        self.held = "spent"
-        self.beats = int(self.beats or 0) + 1
-        mark_dirty(self)
-        return update_with(self, extra_ops=[notify("cap spent")])
+        self.greeting = "The table heard you"
+        HOST.notice = "A pulse crossed the cloth."
+        return update_with(self, extra_ops=[notify("pulsed")])

@@ -1,25 +1,30 @@
-"""Door — Login + OTP. Secrets stay on RefState. Submit is a Cap."""
+"""Page unit — Door room. Login and OTP live as kit rooms; this is the hinge."""
 from __future__ import annotations
 
-from foundry import kit_tree
 from ux_compose import Component, a, div, h1, p, section, span
+
+from store import HOST
 
 
 class Enter(Component):
     id = "enter"
 
     def render(self):
+        who = HOST.authed or "a guest"
         return section(
-            span("the door", className="kicker"),
-            h1("Enter"),
+            span("Door", className="eyebrow"),
+            h1("Come in.", className="display"),
             p(
-                "Mode tabs are MorphState. Email, password, and OTP digits live on RefState. "
-                "Submit spends auth.login. Reveal is public. Try any valid email and eight letters, "
-                "or @blocked.test to feel a refused Cap.",
+                f"The house currently knows {who}. Sign-in is a card. "
+                "The six digits spend auth.otp. Secrets never sit on MorphState.",
                 className="lede",
             ),
-            div(kit_tree("login"), kit_tree("otp"), className="stack-paper"),
-            a("Back to the table", href="/", className="btn-ghost"),
+            div(
+                a("Sign in", href="/login", className="btn-primary"),
+                a("Hold the seal", href="/otp", className="btn-ghost"),
+                a("User menu", href="/usermenu", className="btn-ghost"),
+                className="hero-actions",
+            ),
             id=self.id,
-            className="page",
+            className="room",
         )

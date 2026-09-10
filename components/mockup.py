@@ -1,4 +1,8 @@
-"""Drop-in mockup — named device frame around a preview.
+"""Ownable copy of ux_compose.kit.mockup — edit freely.
+
+Copied by ``uxcompose add mockup``. Regenerate with ``uxcompose add mockup --force``.
+
+Drop-in mockup — named device frame around a preview.
 
 Host seam: render slots OR subclass.
 Accepted: ``devices``, ``preview`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

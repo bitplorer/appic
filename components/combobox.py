@@ -1,4 +1,8 @@
-"""Drop-in combobox — type to filter, then pick.
+"""Ownable copy of ux_compose.kit.combobox — edit freely.
+
+Copied by ``uxcompose add combobox``. Regenerate with ``uxcompose add combobox --force``.
+
+Drop-in combobox — type to filter, then pick.
 
 Query is RefState so the typed filter attaches on morph. Value is a name.
 Host seam: render slots OR subclass.

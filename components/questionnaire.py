@@ -1,4 +1,8 @@
-"""Drop-in questionnaire — named questions as fieldset radiogroups.
+"""Ownable copy of ux_compose.kit.questionnaire — edit freely.
+
+Copied by ``uxcompose add questionnaire``. Regenerate with ``uxcompose add questionnaire --force``.
+
+Drop-in questionnaire — named questions as fieldset radiogroups.
 
 Host seam: render slots OR subclass.
 Accepted: ``questions`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

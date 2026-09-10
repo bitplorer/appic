@@ -1,4 +1,8 @@
-"""Drop-in menubar — horizontal APG menubar with named submenus.
+"""Ownable copy of ux_compose.kit.menubar — edit freely.
+
+Copied by ``uxcompose add menubar``. Regenerate with ``uxcompose add menubar --force``.
+
+Drop-in menubar — horizontal APG menubar with named submenus.
 
 Host seam: render slots OR subclass.
 Accepted: ``menus`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

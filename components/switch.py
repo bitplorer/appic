@@ -1,4 +1,8 @@
-"""Drop-in switch — boolean MorphState, public flip.
+"""Ownable copy of ux_compose.kit.switch — edit freely.
+
+Copied by ``uxcompose add switch``. Regenerate with ``uxcompose add switch --force``.
+
+Drop-in switch — boolean MorphState, public flip.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

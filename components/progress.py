@@ -1,4 +1,8 @@
-"""Drop-in progress — magnitude on RefState, dirty MorphState.
+"""Ownable copy of ux_compose.kit.progress — edit freely.
+
+Copied by ``uxcompose add progress``. Regenerate with ``uxcompose add progress --force``.
+
+Drop-in progress — magnitude on RefState, dirty MorphState.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

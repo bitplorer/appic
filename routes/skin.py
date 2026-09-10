@@ -1,27 +1,22 @@
-"""Skin — WebAssets + ThemeSwitch. CSS is a frozen sheet after uxcompose build."""
+"""Skin — WebAssets."""
 from __future__ import annotations
-
-from foundry import kit_tree
-from settings import OUTPUT_CSS, webassets
-from ux_compose import Component, div, h1, p, section, span
-
+from ux_compose import Component, WebAssets, h1, p, section, span, dl, dt, dd
+from settings import webassets, OUTPUT_CSS, ASSETS_DIR
 
 class Skin(Component):
     id = "skin"
-
     def render(self):
-        href = "/css/" + OUTPUT_CSS
-        css_dir = getattr(getattr(webassets, "static", None), "css", None)
+        href = getattr(webassets, "css_href", f"/css/{OUTPUT_CSS}")
         return section(
-            span("webassets", className="kicker"),
-            h1("Skin"),
-            p(
-                f"Document links {href}. Theme is a named radiogroup (light / dark / system), "
-                "not a boolean switch. Companion CSS per kit card is forbidden.",
-                className="lede",
+            span("Skin", className="eyebrow"),
+            h1("The skin is a folder with an ETag.", className="display"),
+            p("WebAssets.emit must send ETag / Last-Modified. dual_copy is the leftover alias.", className="lede"),
+            dl(
+                dt("css href"), dd(str(href)),
+                dt("assets"), dd(str(ASSETS_DIR)),
+                dt("output"), dd(OUTPUT_CSS),
+                dt("class"), dd(WebAssets.__name__),
+                className="facts",
             ),
-            p(f"compiler dir · {css_dir}", className="mono"),
-            div(kit_tree("themeswitch"), className="stack-paper"),
-            id=self.id,
-            className="page",
+            id=self.id, className="room",
         )

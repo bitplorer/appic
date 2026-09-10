@@ -1,47 +1,39 @@
-"""Product constitution. FastAPI Swagger stays off. This page owns GET /docs."""
+"""Page unit — GET /docs. Product constitution. FastAPI Swagger stays off."""
 from __future__ import annotations
 
-from ux_compose import Component, a, article, div, h1, h2, li, p, section, span, ul
+from ux_compose import Component, a, article, div, h1, h2, li, p, section, span, ul, __version__
 
 
 class Docs(Component):
     id = "docs"
 
     def render(self):
-        laws = [
-            "Product lifecycle CLI is uxcompose only.",
-            "Page units have no HTTP verbs. Clock A wraps render().",
+        laws = (
+            "The document is the composition root made visible.",
+            "Caps are wax seals that break when spent.",
+            "Intent is a nucleus you can hold.",
+            "GET is Clock A. Action is Clock B.",
+            "Payload type picks media type.",
+            "Brand lives on wrap=, never inside render().",
             "Quantity is RefState. Named things are MorphState.",
-            "Isolation: product modules never import ux_channel.",
-            "GET chrome lives on wrap=, never inside render().",
-            "Plans carry no html=. Morph first, then transition.play.",
-            "Kit cards are rooms you own after uxcompose add.",
+            "81 stems, one house. OverlayChrome is the edge primitive.",
             "AlertDialog is interrupting. Escape does not dismiss it.",
-            "Menubar / FAB closed menus keep their ids, hidden.",
             "Typeahead morphs the hits slot, never the field being typed.",
-            "cek=require is the product Cap Host.",
-            "Levels are additive. L1 stays correct at L3. Zero rewrite.",
-        ]
+            "HMR is delivery, not a Document API.",
+            "Channel owns FileStateStore. Compose keeps lifecycle.",
+            "Kit Cut 1: render(*, shell=False, **slots). apply_slots / kit_shell.",
+            "Doctor scan_store_clone fails closed on a cloned store class.",
+        )
         return section(
-            span("constitution", className="kicker"),
-            h1("Law"),
-            p(
-                "This is GET /docs — a written constitution, not Swagger. "
-                "build(openapi=False) is the default so this room can exist.",
-                className="lede",
-            ),
-            article(
-                h2("Hard invariants"),
-                ul(*[li(law) for law in laws], className="law-list"),
-                className="paper",
-            ),
+            span("Law", className="eyebrow"),
+            h1("A constitution you can walk.", className="display"),
+            p(f"ux-compose {__version__}. FastAPI Swagger is off. This page owns GET /docs.", className="lede"),
+            ul(*[li(law) for law in laws], className="law"),
             div(
-                a("Trace doctor residuals", href="/trace", className="btn-ghost"),
-                a("Notes", href="/notes", className="btn-ghost"),
-                a("Ship", href="/ship", className="btn-ghost"),
-                a("Skin", href="/skin", className="btn-ghost"),
-                className="row",
+                a("Trace residuals", href="/trace", className="btn-primary"),
+                a("Ownership notes", href="/notes", className="btn-ghost"),
+                className="hero-actions",
             ),
             id=self.id,
-            className="page",
+            className="room",
         )

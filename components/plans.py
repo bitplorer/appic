@@ -1,4 +1,8 @@
-"""Drop-in plan cards — radio group as a set of named choices.
+"""Ownable copy of ux_compose.kit.plans — edit freely.
+
+Copied by ``uxcompose add plans``. Regenerate with ``uxcompose add plans --force``.
+
+Drop-in plan cards — radio group as a set of named choices.
 
 Host seam: render slots OR subclass.
 Accepted: ``plans`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

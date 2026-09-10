@@ -1,4 +1,8 @@
-"""Drop-in data table — sort key MorphState, selection RefState.
+"""Ownable copy of ux_compose.kit.table — edit freely.
+
+Copied by ``uxcompose add table``. Regenerate with ``uxcompose add table --force``.
+
+Drop-in data table — sort key MorphState, selection RefState.
 
 Host seam: render slots OR subclass.
 Accepted: ``columns``, ``rows`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

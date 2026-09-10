@@ -1,4 +1,8 @@
-"""Drop-in tabs — one MorphState key, public select.
+"""Ownable copy of ux_compose.kit.tabs — edit freely.
+
+Copied by ``uxcompose add tabs``. Regenerate with ``uxcompose add tabs --force``.
+
+Drop-in tabs — one MorphState key, public select.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

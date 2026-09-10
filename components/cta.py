@@ -1,4 +1,8 @@
-"""Drop-in CTA — titled call with a public (or Cap) action.
+"""Ownable copy of ux_compose.kit.cta — edit freely.
+
+Copied by ``uxcompose add cta``. Regenerate with ``uxcompose add cta --force``.
+
+Drop-in CTA — titled call with a public (or Cap) action.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``action`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

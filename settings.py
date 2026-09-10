@@ -11,8 +11,12 @@ from ux_compose import WebAssets
 
 BASE_DIR = Path(__file__).resolve().parent
 DEBUG = os.environ.get("DEBUG", "1") not in ("0", "false", "False")
+
+# FastAPI Swagger / ReDoc / OpenAPI JSON. Off so routes/docs.py can own GET /docs.
 OPENAPI = False
+
 ASSETS_DIR = BASE_DIR / "assets"
 OUTPUT_CSS = "output.css"
-BRAND = "APPIC"
+PUBLIC_DIR = BASE_DIR / "public"
+
 webassets = WebAssets(base_dir=ASSETS_DIR, dry_run=False)

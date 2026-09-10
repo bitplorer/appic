@@ -1,4 +1,8 @@
-"""Drop-in date picker — named day + month keys, labeled field.
+"""Ownable copy of ux_compose.kit.datepicker — edit freely.
+
+Copied by ``uxcompose add datepicker``. Regenerate with ``uxcompose add datepicker --force``.
+
+Drop-in date picker — named day + month keys, labeled field.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

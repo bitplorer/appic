@@ -1,4 +1,8 @@
-"""Drop-in alert — inline status with optional public dismiss.
+"""Ownable copy of ux_compose.kit.alert — edit freely.
+
+Copied by ``uxcompose add alert``. Regenerate with ``uxcompose add alert --force``.
+
+Drop-in alert — inline status with optional public dismiss.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``kind`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

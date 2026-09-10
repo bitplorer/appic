@@ -1,4 +1,8 @@
-"""Drop-in stepper — named steps, public next, Cap on finish.
+"""Ownable copy of ux_compose.kit.stepper — edit freely.
+
+Copied by ``uxcompose add stepper``. Regenerate with ``uxcompose add stepper --force``.
+
+Drop-in stepper — named steps, public next, Cap on finish.
 
 Host seam: render slots OR subclass.
 Accepted: ``steps`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

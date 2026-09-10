@@ -1,4 +1,8 @@
-"""Drop-in carousel — named slides, never a quantity MorphState.
+"""Ownable copy of ux_compose.kit.carousel — edit freely.
+
+Copied by ``uxcompose add carousel``. Regenerate with ``uxcompose add carousel --force``.
+
+Drop-in carousel — named slides, never a quantity MorphState.
 
 Host seam: render slots OR subclass.
 Accepted: ``slides`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

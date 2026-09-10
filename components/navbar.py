@@ -1,4 +1,8 @@
-"""Drop-in navbar — primary landmark with a mobile menu MorphState.
+"""Ownable copy of ux_compose.kit.navbar — edit freely.
+
+Copied by ``uxcompose add navbar``. Regenerate with ``uxcompose add navbar --force``.
+
+Drop-in navbar — primary landmark with a mobile menu MorphState.
 
 Host seam: render slots OR subclass.
 Accepted: ``links`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

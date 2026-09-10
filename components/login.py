@@ -1,4 +1,8 @@
-"""Drop-in login card — MorphState chrome, RefState secrets, Cap on submit.
+"""Ownable copy of ux_compose.kit.login — edit freely.
+
+Copied by ``uxcompose add login``. Regenerate with ``uxcompose add login --force``.
+
+Drop-in login card — MorphState chrome, RefState secrets, Cap on submit.
 
 Show/Hide and tab switches attach live form values onto RefState *before*
 the morph, so the new input paints with ``value=``. The secret never lives
