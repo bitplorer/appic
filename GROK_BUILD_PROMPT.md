@@ -1,7 +1,7 @@
 # Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + Kit Cut 1)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
-SHA **`060b583f64512302059bd9d4ff691bb6a2f4dd3a`** (2026-09-10 Kit Cut 1 + FileStateStore).
+SHA **`bf55750b5268867aa5931a2171e69ac533808e1e`** (2026-09-11 honesty-locks + FileStateStore).
 Companion: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md).
 If this prompt and the library disagree, **the library wins**.
 
@@ -10,104 +10,141 @@ Grok Build agent copies **everything below the line**, clones the library first,
 and ships a complete foundry. Repo **appic already exists** — upgrade it; do not
 create a second repo.
 
-## 2026-09-10 — Grok Build independent re-read (this session)
+## 2026-09-11 — Grok Build independent re-read (this session)
 
 Walked `src/ux_compose/**/*.py`, `kit/catalog.py` (**81** keys counted from source),
-`__all__`, CHANGELOG Unreleased, `kit_construct.py`, `author.py`, `deploy.py`,
-`doctor.py` (8 scan families), `hmr.py`, `live_client.py`, `chrome.py`,
-`cookbooks/PRESENCE.md`, `apps/{nook,atelier_studio,atelier_shop,pulse}`,
-and pyproject pins. **The library matches the inventory below.** Confirmed
-`len(CATALOG) == 81`, `ALIASES = {"treeview": "tree"}`, OverlayChrome is not a
-stem, Kit Cut 1 helpers live in `ux_compose.kit_construct` (not under `kit/`),
-doctor hard scans are isolation + dual-Document + **store-clone**, teaching
-scans are kit-import + leftovers + render-chrome + docs collision + CEK.
+`__init__.__all__`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`, `AGENTS.md`,
+`CHANGELOG.md` Unreleased honesty-locks (PR #68), `examples/README.md`, and the
+four product apps (`atelier_shop`, `atelier_studio`, `nook`, `pulse`).
 
-Pins (lockstep):
+**Library floor this session**
 
-| Package | SHA |
-|---|---|
-| ux-compose | `060b583f64512302059bd9d4ff691bb6a2f4dd3a` |
+| Pin | SHA |
+| --- | --- |
+| ux-compose | `bf55750b5268867aa5931a2171e69ac533808e1e` |
 | ux-dom | `e8be99a52bfecd6026c200fa1c3dc6a74f87aacb` |
 | ux-behavior | `793f120e3b1388925772cd069b070d7918b78baa` |
 | ux-motion | `67ff3f0c4912b70b7056f8226a6f226b6fe93f60` |
 | ux-channel | `d0fe7169e687d2935f8b74d40b990b1ee63ef3d4` `#subdirectory=python` |
 | cek-host / cek-surface | `>=0.1.3` |
 
-Python **≥ 3.14**. `ux_compose.__version__ == "0.1.0"`. Deploy providers:
-`docker | fly | render | railway | vps | checklist`. HMR path:
-`/__uxcompose/hmr`. Clock B live: `POST /ux-channel/action`.
+Python **≥ 3.14**. Install: `git clone` + `pip install -e ".[serve]"` — **not PyPI**.
 
-### Grok Build sandbox floor — do not skip
+### Honesty locks that are now law (do not reopen)
 
-This workspace ships Python **3.10**. ux-compose **will not import** on 3.10.
-`apt` does not work. Use **uv**:
+These are the 2026-09-10 → 2026-09-11 delta. Previous APPIC pins (`060b583`) missed them.
 
-```bash
-uv python install 3.14
-PY314=/root/.local/share/uv/python/cpython-3.14-linux-x86_64-gnu/bin/python3.14
-uv venv /workspace/.venv --python "$PY314"
-# the venv has NO pip module — never python -m pip
-uv pip install --python /workspace/.venv/bin/python \
-  -e "/tmp/repos/ux-compose[serve]" fastapi "uvicorn[standard]"
-# or, after the foundry is copied:
-uv pip install --python /workspace/.venv/bin/python -r /workspace/requirements.txt
-export PYTHONPATH=/workspace
-/workspace/.venv/bin/python -m uvicorn app:asgi --host 0.0.0.0 --port 8080
-```
+1. **LOCK-1** — Public `__all__` covers host / surface / motion names (`WebAssets`,
+   `DirectoryRoutes`, `DirectoryASGI`, `RouterHooks`, `Surface*`, `DoctorResult`,
+   `scene` / `fade` / `rise` / `slide`). Product source must cite every name.
+2. **ISO-2** — `__init__.py` is AST + text locked against `wire` / `ux_channel`
+   imports. Product modules never import `ux_channel`, `cek`, `cek_host`,
+   `cek_surface`. Cold import never pulls the wire.
+3. **KIT-1** — Command palette **does not** import OverlayChrome. Local
+   `{id}-scrim` / `{id}-panel` / `{id}-dismiss` + `click keydown.escape`.
+   Dialog / Sheet / ActionSheet / AlertDialog stay on OverlayChrome.
+4. **HMR-shell** — `insert_live_client` leaves HTML fragments unwrapped. No
+   synthesized `<!DOCTYPE html>` shell on morph payloads.
+5. **CSS-spawn** — Sibling Tailwind `--watch` lives in `tailwind.py`
+   (`start_tailwind_watch`). `hmr.py` does not `Popen`.
+6. **SWALLOW-1 / SWALLOW-boot** — `_live_channel` swallows `ImportError` only.
+   `ChannelConfig(secret=)` and `Channel.boot` fail closed. `App.use_channel`
+   stamps L2 only when a Channel instance exists.
+7. **SURF-1** — Two walkers, one door: `App.mount` / `scan_surfaces` is catalog
+   scan; `DirectoryRoutes.discover` is HTTP path law. `build()` orchestrates both.
+   Do not merge the walks. Do not teach `App.mount` as a second product path.
+8. **FileStateStore** — Channel owns the JSON sqlite store. `serve_state.py` is
+   lifecycle only (`UXCOMPOSE_STATE_STORE`). Doctor `scan_store_clone` fails
+   closed if a store class reappears in the product tree. APPIC `store.py` is
+   Host memory (commissions, bag, ledger) — **not** a Channel store clone.
+9. **Folder law** — `kit/` is ownable-copy prefix. `kit_construct.py` stays next
+   to `component.py`. CLI verbs stay as library modules, not a `cli/` package.
+   `uxcompose add` rewrites `from ux_compose.kit.X` → `from .X` and **keeps**
+   `from ux_compose.kit_construct import`.
+10. **LEFTOVER-split** — Doctor-scanned tokens (`from ux_compose.kit import`,
+    `host="batteries"`, `DirectoryRouter`, `stunning-root`, nav brand in
+    `render()`) vs agent-only locks (`cli/` package, argv `create`,
+    `docs/MODULE_MAP.md`). Do not credit doctor for names it does not scan.
+11. **PYPI-1** — Brand tables never claim PyPI.
+12. **DOOR-2** — CLI argv `create` is gone. Frozen verb is `uxcompose create-app`.
+13. **openapi=False** — FastAPI Swagger stays off so product `/docs` can own GET.
+14. **Kit Cut 1** — `render(*, shell=False, **slots)`. No `Kit` base. Kits stay
+    `Component` subclasses. `shell=False` drops the Atelier kicker/title/lede.
 
-`startup.sh` must be idempotent: probe `http://127.0.0.1:8080/`, start uvicorn
-only if down, background, return fast. **Never `npm run dev`. Never Vite.
-Never TanStack Start. Never a `.tsx` / `.jsx` product tree.** Direct user
-law beats the sandbox React default.
+### Author surface (do not invent names)
 
-Auth OFF. Database OFF. Kit `Login` / `Otp` are foundry Caps against the Host
-store, not Grok accounts.
+From `ux_compose.__all__`:
 
-### Under-specified in earlier cuts — now law
+`App`, `build`, `WebAssets`, `DirectoryRoutes`, `DirectoryASGI`, `RouterHooks`,
+`Surface`, `SurfaceBundle`, `SurfaceError`, `mount_surfaces`, `scan_surfaces`,
+`validate_surfaces`, `Component`, `MorphState`, `RefState`, `action`, `bind`,
+`control`, `notify`, `update_with`, `morph_play`, `act`, `mark_dirty`, `field`,
+`status`, `optional_plan`, `optional_fade`, `optional_slide`, `AttachNote`,
+`attach_notes`, `Level`, `doctor`, `DoctorResult`, `scene`, `fade`, `rise`,
+`slide`, `HAS_DOM`, DOM tags (`raw` … `progress` including `dl/dt/dd`,
+`table/thead/tbody/tr/th/td`, `fieldset/legend`, `hr/img/progress`).
 
-1. `@action(caps=())` is **open mint / no Cap predicate**, not "public". Intent still requires the control-minted cap under Cap Host `require`.
-2. Toast: Intent POST with `{}` is **401**. Replay html-unescaped `data-channel-args`.
-3. Typeahead: later `input`/`change` of the same control **aborts** the in-flight Intent (Channel AbortController). Hits morph `#{id}-hits` only.
-4. Presence: `stagger_in` on surviving ids; `scene.share(key, leave=, arrive=)`. Plans carry **no** `html=`. Morph first from `render()`.
-5. `ux_compose.live_client` is **compose-internal**. Product path is `Document.use(XElement(), Csp.auto(), Channel.optional())` via `ux_dom.runtime`. Never wrap HTML-string fragments with a synthesized Document.
-6. Soft-parked / stretch stems stay **out**: open-mint blurbs, navbar menuitem, flat tree, chart legend. Do not invent them as kit cards.
-7. Pagination host seam `WINDOW` (neighbors each side, default 1). Demo has 12 named pages. First/last `max-sm:hidden`.
-8. Carousel locked `h-72` stage. One `#{id}-thumb` pip translates (`translate3d`). Copy is the live region.
-9. Dialog / Sheet / ActionSheet cards drop `relative` / overflow so a `fixed` overlay is not remapped or clipped on a narrow stage.
-10. CSP `script_hosts` must include `https://grok.com`. Never add a CSP that blocks the Grok pill / `extensions.js`.
-11. FilterBar radios rove `tabindex`. Resizable split chips are `role=radio` `aria-checked`.
-12. `act()` posts `/act/{action}` as the progressive hatch; Channel JS intercepts `data-channel-action`. Live path is `POST /ux-channel/action` (`application/ux-channel+json`).
-13. Clock A payload: tree/str → HTML, dict → JSON, generator → stream. `/health` is dict. `/pulse` is a generator.
-14. `prepare_deploy` writes files; it does **not** upload. GET `/deploy` must not write.
+Chrome (submodule, not `__all__`): `from ux_compose.chrome import brand_wrap,
+GET_CHROME_ATTR, DEFAULT_BRAND`. Brand lives on `wrap=`, never inside `render()`.
 
-## 2026-09-10 — independent re-read (060b583 over 5bb7dc22)
+Kit is **not** a public import path. Own a copy: `uxcompose add {stem}`.
 
-Re-walked `src/ux_compose/**/*.py` on **`060b583`**. Breaking cut vs the
-2026-09-08 pin (`fa2ddfe`):
+### 81 kit stems (counted from `kit/catalog.py`)
 
-| Was (fa2ddfe) | Now (060b583) |
-|---|---|
-| Kit catalog **23** stems | **81** stems, `css: False`, `page: True`, alias `treeview`→`tree` |
-| OverlayChrome for Dialog / Sheet / ActionSheet | Also AlertDialog + Command. `dismiss_on()` += Escape. `kind="drawer"` is Sheet-right. `focus_attrs()` |
-| `__all__` tags end at svg/path/rect/circle | + `dl dt dd table thead tbody tr th td fieldset legend hr img progress` |
-| No GET brand helper | `ux_compose.chrome.brand_wrap` — Clock A only, never in `render()` |
-| FastAPI Swagger default-on | **Off.** `routes/docs.py` owns GET `/docs`. `build(openapi=True)` to opt in |
-| Doctor 4 families | + `scan_render_chrome` + `scan_fastapi_docs_collision` + `scan_cek_host` |
-| `add dialog` no overlay sibling | `add dialog\|sheet\|actionsheet` copies rewritten `components/overlay.py` |
-| Atelier 75/76 classes | **73** statements / **72** unique (`Cart` twice) |
-| `optional_*` could return None | Names kept; they **use** ux-motion. Complete install. Fail loud |
-| Atelier kicker always on kit rooms | **Kit Cut 1:** `render(*, shell=False, **slots)`. `apply_slots` / `kit_shell` in `ux_compose.kit_construct` |
-| serve-dev pickle MorphState | Channel **FileStateStore**. Compose `serve_state.py` is lifecycle only (ADR 0006) |
-| Doctor 4 + 3 teaching | Hard `scan_store_clone`. Never clone FileStateStore / Memory / Redis store classes |
+login tabs accordion dropdown dialog sheet toast command table pagination
+combobox sidebar breadcrumb stepper carousel calendar select otp plans
+actionsheet contextmenu typeahead pullrefresh drawer navbar navmenu usermenu
+popover tooltip alertdialog formlayout fieldset datepicker switch card
+emptystate stats alert banner progress skeleton hero footer cta avatar badge
+hovercard searchbar fileupload tagsinput multiselect descriptionlist featuregrid
+testimonials newsletter bottomnav separator slider menubar toolbar togglegroup
+spinbutton themeswitch filterbar chat questionnaire pricingsection logocloud
+timeline rating chart resizable tree colorpicker fab diff countdown mockup
+attachment scrollarea feed
 
-Public `__all__` still exports `mark_dirty`, `optional_plan`, `optional_fade`,
-`optional_slide`. `tick` / `maybe_*` are **not** public. OverlayChrome is still
-not a stem. CLI unchanged: `create-app` · `serve {dev,prod,restart-channel}`
-· `build` · `deploy` · `doctor` · `add`. Specialist pins: ux-dom `e8be99a`,
-ux-behavior `793f120`, ux-channel `d0fe716`, ux-motion `67ff3f0`,
-cek-host/cek-surface `>=0.1.3`. Python **≥ 3.14**.
+Alias: `treeview` → `tree`. OverlayChrome is **not** a stem — copy `overlay.py`
+anyway because Dialog/Sheet/ActionSheet import it.
+
+### Encoding law (Channel session plane)
+
+| Kind | Plane |
+| --- | --- |
+| Open / value / query / named step / named band | MorphState |
+| Magnitude, lists, money, ISO dates, files, digits | RefState + `dirty = MorphState("idle")` |
+| One-shot message | `notify(...)` |
+| Domain stock | Host DB (`store.HOST`), never the client plane |
+| Protected verb | `@action(caps=("orders.place",))` + live submit_intent |
+
+The verb that sights a star is `look` — never a same-named action as the
+MorphState field, or the field is overwritten.
+
+### Product (do not ship a widget zoo)
+
+**APPIC** — a nocturnal foundry OS. A constitution you can walk.
+
+The document is the composition root made visible. Caps are wax seals that
+break when spent. Intent is a nucleus. Ops are traces on a ribbon. Routes are
+a constellation. Skin is WebAssets. GET is Clock A. Action is Clock B
+(`POST /ux-channel/action`, `application/ux-channel+json`). Payload type picks
+media type — HTML daylight, JSON pulse, generator stream. Kit cards are rooms
+you own (`shell=False`). Copy press is the ownership ritual. OverlayChrome is
+the edge primitive. Anchored popovers are a different family. AlertDialog is
+interrupting — Escape does not dismiss it. `/docs` is a product page. Typeahead
+morphs the hits slot, never the field being typed.
+
+### Hard stack law
+
+- **No React, Vue, Svelte, Solid, Next, TanStack Start, JSX/TSX as source of truth.**
+- Server-authored hypermedia only. `use_htmx=False`.
+- Preview: `uvicorn app:asgi --host 0.0.0.0 --port 8080`.
+- Auth/DB OFF. Kit Login/OTP use Host store Caps, not Grok accounts.
+- CSP must include `https://grok.com`. Never strip the Grok pill.
+- Isolation: product never imports `ux_channel` outside compose `wire/`.
+- `host="auto"`. Never `"batteries"` or `DirectoryRouter`.
+- Python 3.14 via `uv python install 3.14`. `uv venv` + `uv pip`.
 
 ---
+
 
 Copy **everything below this line** into Grok Build. You **are** Grok Build.
 Execute it. Do not stop at a README. Ship a running foundry on `0.0.0.0:8080`.
@@ -118,7 +155,7 @@ Execute it. Do not stop at a README. Ship a running foundry on `0.0.0.0:8080`.
 
 Build **APPIC** as a **complete product** (not a widget zoo) using
 **https://github.com/bitplorer/ux-compose @ main**
-(`060b583f64512302059bd9d4ff691bb6a2f4dd3a`, **0.1.0**) as the **only** web UI
+(`bf55750b5268867aa5931a2171e69ac533808e1e`, **0.1.0**) as the **only** web UI
 framework.
 
 Fully utilise **every public name** in `ux_compose.__all__` (including the new
@@ -567,7 +604,7 @@ Tokens in `assets/css/input.css`. First token of any CSS file is CSS.
 
 ## 5. Execution order (do not skip)
 
-1. Clone ux-compose `@ 060b583f64512302059bd9d4ff691bb6a2f4dd3a`. Python ≥ 3.14 venv. `pip install -e ".[serve]"`
+1. Clone ux-compose `@ bf55750b5268867aa5931a2171e69ac533808e1e`. Python ≥ 3.14 venv. `pip install -e ".[serve]"`
    plus specialist pins from `pyproject.toml`. Fail loud if import of ux-dom /
    ux-behavior / ux-motion / channel-behind-wire fails.
 2. Product path: `document.py` (one Document; `.use(XElement, Csp.auto(), Channel.optional)`

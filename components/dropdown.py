@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.dropdown — edit freely.
-
-Copied by ``uxcompose add dropdown``. Regenerate with ``uxcompose add dropdown --force``.
-
-Drop-in dropdown — open flag + selected value.
+"""Drop-in dropdown — open flag + selected value.
 
 Host seam: render slots OR subclass.
 Accepted: ``options`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

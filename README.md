@@ -3,28 +3,24 @@
 **A constitution you can walk.**
 
 A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
-`060b583f64512302059bd9d4ff691bb6a2f4dd3a` (0.1.0 — kit-81 + Kit Cut 1 +
-Channel FileStateStore). Pure-Python composition root for ux-dom, ux-behavior,
-ux-motion, and ux-channel.
+`bf55750b5268867aa5931a2171e69ac533808e1e` (0.1.0 — kit-81 + Kit Cut 1 + honesty-locks + Channel FileStateStore). Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
-Page units have no HTTP verbs. Payload type picks media type. **The kit is a
-house you own — 81 stems, `shell=False`.** Caps are wax seals. GET is Clock A.
-Action is Clock B (`POST /ux-channel/action`). Brand lives on `wrap=`, never
-inside `render()`. `/docs` is a product page. FastAPI Swagger stays off.
+Page units have no HTTP verbs. Payload type picks media type. **The kit is a house you own — 81 stems, `shell=False`.** Caps are wax seals. GET is Clock A. Action is Clock B (`POST /ux-channel/action`). Brand lives on `wrap=`, never inside `render()`. `/docs` is a product page. FastAPI Swagger stays off.
 Channel owns FileStateStore. Doctor `scan_store_clone` fails closed.
 
 The Table is a **constellation**: rooms as named stars around a nucleus.
-Sight is MorphState. Walk is Clock A. The verb that sights a star is `look`
-— never a same-named action, or MorphState is overwritten.
+Sight is MorphState. Walk is Clock A. The verb that sights a star is `look` — never a same-named action, or MorphState is overwritten.
 
 ## Run
 
 Python **≥ 3.14**.
 
 ```bash
-python3.14 -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
+uv python install 3.14
+uv venv .venv --python 3.14
+source .venv/bin/activate
+uv pip install -r requirements.txt
 export PYTHONPATH="."
 python -m uvicorn app:asgi --host 0.0.0.0 --port 8080
 ```
@@ -59,18 +55,17 @@ Every kit stem is also a room (`/dialog`, `/typeahead`, `/menubar`, …).
 ## Prompt
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
-Copy everything below the line into Grok Build. Feature map against ux-compose
-`main` (`060b583`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+Copy everything below the line into Grok Build. Feature map against ux-compose `main` (`bf55750`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
-Independent Grok Build re-read of ux-compose `060b583` (2026-09-10): 81 stems counted from `kit/catalog.py`, sandbox Python 3.14 via `uv`, open-mint vocab, toast sealed-args, Typeahead AbortController, Presence `stagger_in` / `scene.share`, and `live_client` as compose-internal are now law in the prompt.
+Independent Grok Build re-read of ux-compose `bf55750` (2026-09-11 honesty-locks): 81 stems counted from `kit/catalog.py`, Command is not OverlayChrome, two walkers / one `build()` door, FileStateStore stays on Channel, public `__all__` lock covers host/surface/motion names.
 
 ## Pins
 
 | Package | SHA |
 |---|---|
-| ux-compose | `060b583f64512302059bd9d4ff691bb6a2f4dd3a` |
+| ux-compose | `bf55750b5268867aa5931a2171e69ac533808e1e` |
 | ux-dom | `e8be99a52bfecd6026c200fa1c3dc6a74f87aacb` |
 | ux-behavior | `793f120e3b1388925772cd069b070d7918b78baa` |
 | ux-motion | `67ff3f0c4912b70b7056f8226a6f226b6fe93f60` |

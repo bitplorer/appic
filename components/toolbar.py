@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.toolbar — edit freely.
-
-Copied by ``uxcompose add toolbar``. Regenerate with ``uxcompose add toolbar --force``.
-
-Drop-in toolbar — APG toolbar of named commands.
+"""Drop-in toolbar — APG toolbar of named commands.
 
 Host seam: render slots OR subclass.
 Accepted: ``groups`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.stats — edit freely.
-
-Copied by ``uxcompose add stats``. Regenerate with ``uxcompose add stats --force``.
-
-Drop-in stats — named metrics as RefState, dirty MorphState.
+"""Drop-in stats — named metrics as RefState, dirty MorphState.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

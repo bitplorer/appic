@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.hovercard — edit freely.
-
-Copied by ``uxcompose add hovercard``. Regenerate with ``uxcompose add hovercard --force``.
-
-Drop-in hover card — richer tooltip, non-modal dialog.
+"""Drop-in hover card — richer tooltip, non-modal dialog.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``trigger``, ``kind`` (str — panel/trigger copy);

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.otp — edit freely.
-
-Copied by ``uxcompose add otp``. Regenerate with ``uxcompose add otp --force``.
-
-Drop-in OTP — six digits attach before the morph.
+"""Drop-in OTP — six digits attach before the morph.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

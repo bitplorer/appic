@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.slider — edit freely.
-
-Copied by ``uxcompose add slider``. Regenerate with ``uxcompose add slider --force``.
-
-Drop-in slider — magnitude on RefState, dirty MorphState.
+"""Drop-in slider — magnitude on RefState, dirty MorphState.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

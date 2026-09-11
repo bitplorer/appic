@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.select — edit freely.
-
-Copied by ``uxcompose add select``. Regenerate with ``uxcompose add select --force``.
-
-Drop-in select — grouped options, placeholder, click-away scrim.
+"""Drop-in select — grouped options, placeholder, click-away scrim.
 
 Host seam: render slots OR subclass.
 Accepted: ``groups`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

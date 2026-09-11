@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.multiselect — edit freely.
-
-Copied by ``uxcompose add multiselect``. Regenerate with ``uxcompose add multiselect --force``.
-
-Drop-in multi-select — named set on RefState, listbox.
+"""Drop-in multi-select — named set on RefState, listbox.
 
 Host seam: render slots OR subclass.
 Accepted: ``options`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

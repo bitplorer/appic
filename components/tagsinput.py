@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.tagsinput — edit freely.
-
-Copied by ``uxcompose add tagsinput``. Regenerate with ``uxcompose add tagsinput --force``.
-
-Drop-in tags input — named chips, RefState list, labeled field.
+"""Drop-in tags input — named chips, RefState list, labeled field.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

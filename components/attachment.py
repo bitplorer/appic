@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.attachment — edit freely.
-
-Copied by ``uxcompose add attachment``. Regenerate with ``uxcompose add attachment --force``.
-
-Drop-in attachment — labeled file names on RefState.
+"""Drop-in attachment — labeled file names on RefState.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

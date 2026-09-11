@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.rating — edit freely.
-
-Copied by ``uxcompose add rating``. Regenerate with ``uxcompose add rating --force``.
-
-Drop-in rating — named stars, APG radio group.
+"""Drop-in rating — named stars, APG radio group.
 
 Host seam: render slots OR subclass.
 Accepted: ``stars`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

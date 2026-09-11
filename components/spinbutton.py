@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.spinbutton — edit freely.
-
-Copied by ``uxcompose add spinbutton``. Regenerate with ``uxcompose add spinbutton --force``.
-
-Drop-in spinbutton — quantity on RefState, APG spinbutton.
+"""Drop-in spinbutton — quantity on RefState, APG spinbutton.
 
 Host seam: render slots OR subclass.
 Accepted: ``min``, ``max`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

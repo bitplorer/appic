@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.skeleton — edit freely.
-
-Copied by ``uxcompose add skeleton``. Regenerate with ``uxcompose add skeleton --force``.
-
-Drop-in skeleton — loading placeholder, busy region.
+"""Drop-in skeleton — loading placeholder, busy region.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

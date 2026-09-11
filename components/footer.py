@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.footer — edit freely.
-
-Copied by ``uxcompose add footer``. Regenerate with ``uxcompose add footer --force``.
-
-Drop-in footer — contentinfo landmark with named links.
+"""Drop-in footer — contentinfo landmark with named links.
 
 Host seam: render slots OR subclass.
 Accepted: ``links`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

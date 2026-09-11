@@ -1,13 +1,12 @@
-"""Ownable copy of ux_compose.kit.overlay — edit freely.
+"""Shared overlay chrome — ids, edge, swipe-on-dismiss, open plan.
 
-Copied by ``uxcompose add alertdialog``. Regenerate with ``uxcompose add alertdialog --force``.
-
-Shared overlay chrome — ids, edge, swipe-on-dismiss, open plan.
-
-Dialog / Sheet / ActionSheet / AlertDialog / Command take ids, dismiss
+Dialog / Sheet / ActionSheet / AlertDialog take ids, dismiss
 grammar, and open plan from this primitive. Markup and Tailwind stay on
 the widget. The defect this exists to stop is copy-pasted scrim/panel/
 dismiss ids plus a root swipe token that swallows row clicks.
+
+Command is a different family (popover-like). It does not import this
+module.
 
 ``kind="drawer"`` is the Sheet edge (right) — not a second Host.
 
@@ -18,7 +17,6 @@ restore is Channel when live. ``aria-modal`` lives on the widget.
 
 Isolation Law: this module never imports ux_channel or CEK.
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

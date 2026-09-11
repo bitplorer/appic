@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.fieldset — edit freely.
-
-Copied by ``uxcompose add fieldset``. Regenerate with ``uxcompose add fieldset --force``.
-
-Drop-in fieldset — grouped named choices under a legend.
+"""Drop-in fieldset — grouped named choices under a legend.
 
 Host seam: render slots OR subclass.
 Accepted: ``options`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

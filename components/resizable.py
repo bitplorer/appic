@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.resizable — edit freely.
-
-Copied by ``uxcompose add resizable``. Regenerate with ``uxcompose add resizable --force``.
-
-Drop-in resizable — named split between two panes.
+"""Drop-in resizable — named split between two panes.
 
 Host seam: render slots OR subclass.
 Accepted: ``splits`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

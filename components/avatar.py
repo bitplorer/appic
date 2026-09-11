@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.avatar — edit freely.
-
-Copied by ``uxcompose add avatar``. Regenerate with ``uxcompose add avatar --force``.
-
-Drop-in avatar — initials stand-in, labelled image role.
+"""Drop-in avatar — initials stand-in, labelled image role.
 
 Host seam: render slots OR subclass.
 Accepted: ``name`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

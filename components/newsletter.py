@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.newsletter — edit freely.
-
-Copied by ``uxcompose add newsletter``. Regenerate with ``uxcompose add newsletter --force``.
-
-Drop-in newsletter — labeled email field, Cap on subscribe.
+"""Drop-in newsletter — labeled email field, Cap on subscribe.
 
 Host seam: render slots OR subclass.
 Accepted: (none — ``shell`` only); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

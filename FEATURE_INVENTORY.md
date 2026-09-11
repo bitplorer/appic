@@ -1,7 +1,7 @@
 # ux-compose — complete feature inventory (kit-81 + Kit Cut 1)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-SHA **`060b583f64512302059bd9d4ff691bb6a2f4dd3a`** (2026-09-10 walk of
+SHA **`bf55750b5268867aa5931a2171e69ac533808e1e`** (2026-09-10 walk of
 `src/ux_compose/**/*.py`, `kit/catalog.py`, `__all__`, CHANGELOG Unreleased,
 `kit_construct.py`, `serve_state.py`, ADR 0006).
 
@@ -112,7 +112,7 @@ and must **not** reimplement them.
 | Version | `0.1.0` (`ux_compose.__version__`) |
 | Python | **≥ 3.14** |
 | License | MIT |
-| Current SHA | `060b583f64512302059bd9d4ff691bb6a2f4dd3a` |
+| Current SHA | `bf55750b5268867aa5931a2171e69ac533808e1e` |
 
 **Progressive Superpower:** Level 1 code remains correct at L2/L3. Zero rewrite.
 Levels are additive attach APIs on a **complete install**, not an optional-package

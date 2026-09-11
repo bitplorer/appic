@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.fab — edit freely.
-
-Copied by ``uxcompose add fab``. Regenerate with ``uxcompose add fab --force``.
-
-Drop-in FAB — floating action with an optional speed-dial menu.
+"""Drop-in FAB — floating action with an optional speed-dial menu.
 
 Host seam: render slots OR subclass.
 Accepted: ``actions`` (tuple[tuple[str, str], ...] — same type as ``ACTIONS``),

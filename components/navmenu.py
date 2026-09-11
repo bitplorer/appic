@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.navmenu — edit freely.
-
-Copied by ``uxcompose add navmenu``. Regenerate with ``uxcompose add navmenu --force``.
-
-Drop-in nav menu — disclosure of named destinations.
+"""Drop-in nav menu — disclosure of named destinations.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

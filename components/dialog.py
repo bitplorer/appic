@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.dialog — edit freely.
-
-Copied by ``uxcompose add dialog``. Regenerate with ``uxcompose add dialog --force``.
-
-Drop-in dialog — public ask, Cap-protected confirm.
+"""Drop-in dialog — public ask, Cap-protected confirm.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.actionsheet — edit freely.
-
-Copied by ``uxcompose add actionsheet``. Regenerate with ``uxcompose add actionsheet --force``.
-
-Drop-in action sheet — bottom panel, swipe-down to dismiss.
+"""Drop-in action sheet — bottom panel, swipe-down to dismiss.
 
 Host seam: render slots OR subclass.
 Accepted: ``actions`` (same type as ``ACTIONS``); ``shell`` (bool; ``False``

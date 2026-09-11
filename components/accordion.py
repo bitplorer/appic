@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.accordion — edit freely.
-
-Copied by ``uxcompose add accordion``. Regenerate with ``uxcompose add accordion --force``.
-
-Drop-in accordion — open ids as a MorphState tuple.
+"""Drop-in accordion — open ids as a MorphState tuple.
 
 Host seam: render slots OR subclass.
 Accepted: ``sections`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

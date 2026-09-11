@@ -16,3 +16,4 @@ artifacts/
 .env.*
 .python-version
 .grok/
+skin/static/file/css/.gitignore

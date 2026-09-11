@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.badge — edit freely.
-
-Copied by ``uxcompose add badge``. Regenerate with ``uxcompose add badge --force``.
-
-Drop-in badge — named status chip.
+"""Drop-in badge — named status chip.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.pricingsection — edit freely.
-
-Copied by ``uxcompose add pricingsection``. Regenerate with ``uxcompose add pricingsection --force``.
-
-Drop-in pricing section — comparison table of named tiers.
+"""Drop-in pricing section — comparison table of named tiers.
 
 Host seam: render slots OR subclass.
 Accepted: ``tiers``, ``features`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

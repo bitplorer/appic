@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.filterbar — edit freely.
-
-Copied by ``uxcompose add filterbar``. Regenerate with ``uxcompose add filterbar --force``.
-
-Drop-in filter bar — labeled query + named filter radiogroup.
+"""Drop-in filter bar — labeled query + named filter radiogroup.
 
 Host seam: render slots OR subclass.
 Accepted: ``filters``, ``pieces`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

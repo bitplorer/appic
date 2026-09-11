@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.tooltip — edit freely.
-
-Copied by ``uxcompose add tooltip``. Regenerate with ``uxcompose add tooltip --force``.
-
-Drop-in tooltip — described-by hint on MorphState open.
+"""Drop-in tooltip — described-by hint on MorphState open.
 
 Host seam: render slots OR subclass.
 Accepted: ``tip`` (same type as ``TIP``), ``trigger`` (str — control label);

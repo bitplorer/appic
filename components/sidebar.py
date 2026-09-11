@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.sidebar — edit freely.
-
-Copied by ``uxcompose add sidebar``. Regenerate with ``uxcompose add sidebar --force``.
-
-Drop-in sidebar — collapsible rail, one active key.
+"""Drop-in sidebar — collapsible rail, one active key.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

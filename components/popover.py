@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.popover — edit freely.
-
-Copied by ``uxcompose add popover``. Regenerate with ``uxcompose add popover --force``.
-
-Drop-in popover — non-modal disclosure anchored to a trigger.
+"""Drop-in popover — non-modal disclosure anchored to a trigger.
 
 Host seam: render slots OR subclass.
 Accepted: ``title``, ``body``, ``trigger`` (str — panel/trigger copy);

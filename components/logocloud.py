@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.logocloud — edit freely.
-
-Copied by ``uxcompose add logocloud``. Regenerate with ``uxcompose add logocloud --force``.
-
-Drop-in logo cloud — named marks, public choose.
+"""Drop-in logo cloud — named marks, public choose.
 
 Host seam: render slots OR subclass.
 Accepted: ``logos`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.formlayout — edit freely.
-
-Copied by ``uxcompose add formlayout``. Regenerate with ``uxcompose add formlayout --force``.
-
-Drop-in form layout — labeled fields with error wiring.
+"""Drop-in form layout — labeled fields with error wiring.
 
 Host seam: render slots OR subclass.
 Accepted: ``fields`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

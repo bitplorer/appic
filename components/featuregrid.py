@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.featuregrid — edit freely.
-
-Copied by ``uxcompose add featuregrid``. Regenerate with ``uxcompose add featuregrid --force``.
-
-Drop-in feature grid — named tiles, public select.
+"""Drop-in feature grid — named tiles, public select.
 
 Host seam: render slots OR subclass.
 Accepted: ``items`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

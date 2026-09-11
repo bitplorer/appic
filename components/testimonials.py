@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.testimonials — edit freely.
-
-Copied by ``uxcompose add testimonials``. Regenerate with ``uxcompose add testimonials --force``.
-
-Drop-in testimonials — named quotes, MorphState index key.
+"""Drop-in testimonials — named quotes, MorphState index key.
 
 Host seam: render slots OR subclass.
 Accepted: ``quotes`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).

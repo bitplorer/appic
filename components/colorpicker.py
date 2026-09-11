@@ -1,8 +1,4 @@
-"""Ownable copy of ux_compose.kit.colorpicker — edit freely.
-
-Copied by ``uxcompose add colorpicker``. Regenerate with ``uxcompose add colorpicker --force``.
-
-Drop-in color picker — named swatches plus a labeled hex field.
+"""Drop-in color picker — named swatches plus a labeled hex field.
 
 Host seam: render slots OR subclass.
 Accepted: ``swatches`` (same type as the matching class const / attr); ``shell`` (bool; ``False`` renders only the interactive unit, no demo kicker/title/lede card).
