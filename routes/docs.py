@@ -23,6 +23,11 @@ class Docs(Component):
             "Channel owns FileStateStore. Compose keeps lifecycle.",
             "Kit Cut 1: render(*, shell=False, **slots). apply_slots / kit_shell.",
             "Doctor scan_store_clone fails closed on a cloned store class.",
+            "Channel Cut C: empty Content-Type on /action is bad_request.",
+            "Cap door is Channel.boot. Redis wins over sqlite. Do not export both.",
+            "Frozen serve verbs: dev / prod / restart-channel.",
+            "cli.py is argv only. serve_dev.py starts CSS watch + tunnel.",
+            "Compose has no FEATURES.md — ARCHITECTURE + OWNERSHIP are the encyclopedia.",
         )
         return section(
             span("Law", className="eyebrow"),

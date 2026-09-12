@@ -90,7 +90,7 @@
     display: inline-flex; align-items: center; min-height: 44px;
     padding: 0 14px; border-radius: 999px; font-size: 0.875rem; color: var(--fg-muted);
   }
-  .room-link:hover { background: color-mix(in oklab, var(--fg) 8%, transparent); color: var(--fg); }
+  .room-link.is-on { background: var(--accent); color: var(--accent-fg); }
   .ghost, .btn-ghost {
     display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
     padding: 0 18px; border-radius: 999px; border: 1px solid var(--border); font-size: 0.875rem;
@@ -153,6 +153,8 @@
   .star[data-room="forge"] { left: 48%; top: 58%; }
   .star[data-room="kiln"] { left: 28%; top: 70%; }
   .star[data-room="market"] { left: 84%; top: 18%; }
+  .star[data-room="cut"] { left: 6%; top: 38%; }
+  .star[data-room="boot"] { left: 44%; top: 42%; }
   @media (max-width: 800px) {
     .sky {
       display: grid; grid-template-columns: repeat(3, 1fr);

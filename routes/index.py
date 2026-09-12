@@ -50,6 +50,8 @@ STARS = (
     ("forge", "/forge", "Forge", 48, 58, "Chart · Tree · Diff · Mockup."),
     ("kiln", "/countdown", "Kiln", 28, 70, "Countdown remaining is RefState."),
     ("market", "/market", "Hall", 84, 18, "Hero · Pricing · LogoCloud · Newsletter."),
+    ("cut", "/cut", "Cut", 6, 38, "Cut C. Empty Content-Type is bad_request."),
+    ("boot", "/boot", "Boot", 44, 42, "Channel.boot is the Cap door. Redis wins."),
 )
 
 
@@ -84,7 +86,7 @@ class Index(Component):
         ]
         return section(
             div(
-                span("nocturnal foundry · ux-compose 0.1.0 · kit-81", className="eyebrow"),
+                span("nocturnal foundry · ux-compose 0.1.0 · kit-81 · Cut C", className="eyebrow"),
                 h1(
                     span(str(self.greeting), className="display"),
                     span("APPIC", className="word-lg"),
@@ -92,7 +94,7 @@ class Index(Component):
                 ),
                 p(
                     "A constitution you can walk. Sight a star (MorphState), then walk it (Clock A GET). "
-                    "Caps are wax seals. Kit cards are rooms you own.",
+                    "Caps are wax seals. Channel.boot is the hinge. Empty Content-Type is bad_request.",
                     className="lede",
                 ),
                 div(
@@ -133,6 +135,8 @@ class Index(Component):
                 li(a("Doctor residuals", href="/trace")),
                 li(a("The written law", href="/docs")),
                 li(a("Clock A / Clock B", href="/clocks")),
+                li(a("Cut C type seal", href="/cut")),
+                li(a("Channel.boot", href="/boot")),
                 className="quick"),
             id=self.id,
             className="table-room",

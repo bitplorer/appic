@@ -1,17 +1,74 @@
-# ux-compose — complete feature inventory (kit-81 + Kit Cut 1)
+# ux-compose — complete feature inventory (kit-81 + Kit Cut 1 + Cut C)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-SHA **`bf55750b5268867aa5931a2171e69ac533808e1e`** (2026-09-10 walk of
+SHA **`7546013bad9847b8ce3a1ad2aa3019c656e9c1d4`** (2026-09-12 walk of
 `src/ux_compose/**/*.py`, `kit/catalog.py`, `__all__`, CHANGELOG Unreleased,
-`kit_construct.py`, `serve_state.py`, ADR 0006).
+`AGENTS.md`, `docs/ARCHITECTURE.md`, `pyproject.toml`).
 
-Previous APPIC pins: `fa2ddfe` (kit-23) → `5bb7dc22` (kit-81) → **`060b583`**
-(Kit Cut 1 + Channel FileStateStore). If this page and the code disagree,
-**the code wins**.
+Previous APPIC pins: `fa2ddfe` (kit-23) → `5bb7dc22` (kit-81) → `060b583`
+(Kit Cut 1 + FileStateStore) → `bf55750` (honesty-locks) → **`7546013`**
+(channel Cut C + Redis precedence + frozen serve verbs + Channel.boot).
+If this page and the code disagree, **the code wins**.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
 
-## 2026-09-10 — Grok Build independent re-read (this session)
+## 2026-09-12 — Grok Build independent re-read (this session)
+
+Walked compose `7546013` + channel pin `985e58a` (Cut C). Counted `CATALOG`
+keys from source: **81 stems + `treeview` alias** (82 dict keys). OverlayChrome
+is not a stem. Doctor scan functions now include **`scan_store_precedence`**
+(hard) besides isolation / store-clone / dual-Document (hard) and kit-import /
+render-chrome / leftover-aliases / docs-collision / cek-host (teaching).
+
+| Pin | SHA |
+| --- | --- |
+| ux-compose | `7546013bad9847b8ce3a1ad2aa3019c656e9c1d4` |
+| ux-dom | `e8be99a52bfecd6026c200fa1c3dc6a74f87aacb` |
+| ux-behavior | `793f120e3b1388925772cd069b070d7918b78baa` |
+| ux-motion | `67ff3f0c4912b70b7056f8226a6f226b6fe93f60` |
+| ux-channel | `985e58aee76ca683774c4d4d58ab30a1d3b6efee` `#subdirectory=python` |
+| cek-host / cek-surface | `>=0.1.3` |
+
+Python **≥ 3.14**. Install: `git clone` + `pip install -e ".[serve]"` — **not PyPI**.
+Grok sandbox Python floor is **3.10** — `uv python install 3.14` then
+`uv pip install --python /workspace/.venv/bin/python`. The venv has no pip.
+
+### Honesty locks that landed after `bf55750` (do not reopen)
+
+1. **CUT-C** — Empty `Content-Type` on HTTP `/ux-channel/action` is `bad_request`.
+   Compose never POSTs without a declared type. Live Clock B is
+   `POST /ux-channel/action` (`application/ux-channel+json`). `act()` remains
+   the progressive hatch (`POST /act/{action}`); Channel JS intercepts.
+2. **CAP-DOOR** — Cap door is **`Channel.boot`**. `ActionRegistry.from_config`
+   is not a frozen wire import. `attach_cek` still calls `apply_host_adapter`
+   (idempotent). Do not assume classic `CapService` when `cek=require`.
+   wire/ frozen imports: `Channel`, `ChannelConfig`, `apply_host_adapter`, `Intent`.
+3. **REDIS-1** — Channel prefers `REDIS_URL`. `prepare_shared_state` skips the
+   sqlite env when Redis is set. Doctor **`scan_store_precedence`** fails closed
+   if both `UXCOMPOSE_STATE_STORE` and `REDIS_URL` remain. Do not export both.
+4. **SERVE-ARGV** — Frozen verbs: `dev` / `prod` / `restart-channel`. argv
+   `development` / `production` / `restart_channel` fail closed.
+5. **CLI-ARGV** — `cli.py` is argv only. `serve_dev.py` starts sibling Tailwind
+   `--watch` and tunnel. Leftover `start_css_watcher=` is gone.
+6. **HEALTH-FMT** — Channel `/ux-channel/health` reports `formats` (HTTP today)
+   vs `codecs` (library). Clock A `/health` is still `dict` JSON.
+7. **ENCYCLOPEDIA** — Compose has no `FEATURES.md` / `ONTOLOGY.md`.
+   ARCHITECTURE + OWNERSHIP are the encyclopedia. Leftover teaching names
+   `start_css_watcher=`, serve argv synonyms, ghost `cli/` / `serve/` / `services/`.
+8. **FRAGMENT** — Homemade `helpers._fragment_for_target` stays until ux-dom
+   owns extract. Serialize remains `to_html_bytes`. No `fragment.py`. Kit Cut 2
+   stretch skipped.
+9. **VCS-PIN** — Scaffold / nook `COMPOSE_VCS_PIN` tracks main tip so cold
+   `pip -r` installs pin-aligned compose.
+10. **Kit catalog** is still **81** stems. Soft-parked / stretch stems stay out.
+
+All prior honesty locks from 2026-09-11 (`LOCK-1`, `ISO-2`, `KIT-1`, `HMR-shell`,
+`CSS-spawn`, `SWALLOW-1`, `SURF-1`, `FileStateStore`, folder law, `LEFTOVER-split`,
+`PYPI-1`, `DOOR-2`, `openapi=False`, Kit Cut 1 `shell=False`) still hold.
+
+---
+
+## 2026-09-10 — Grok Build independent re-read (prior session)
 
 Re-counted `CATALOG` from `src/ux_compose/kit/catalog.py`: **81** stems.
 `ALIASES = {"treeview": "tree"}`. OverlayChrome is not a stem. Doctor scan

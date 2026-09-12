@@ -20,6 +20,8 @@ ROOMS = (
     ("/rail", "Rail"),
     ("/studio", "Studio"),
     ("/overlay", "Edge"),
+    ("/cut", "Cut"),
+    ("/boot", "Boot"),
     ("/trace", "Trace"),
     ("/docs", "Law"),
     ("/deploy", "Ship"),
@@ -59,8 +61,8 @@ def top_nav():
 
 def foot():
     return footer(
-        p("APPIC · ux-compose 0.1.0 · kit-81 · FileStateStore · shell=False"),
-        p("GET is Clock A. Action is Clock B. Caps are wax seals."),
+        p("APPIC · ux-compose 0.1.0 · kit-81 · Cut C · Channel.boot · shell=False"),
+        p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request."),
         className="foot",
         role="contentinfo",
     )

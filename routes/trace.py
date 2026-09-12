@@ -13,6 +13,7 @@ from ux_compose.doctor import (
     scan_cek_host,
     scan_store_clone,
     scan_dual_document,
+    scan_store_precedence,
 )
 
 
@@ -30,6 +31,7 @@ class Trace(Component):
             ("isolation (hard)", scan_isolation(paths)),
             ("dual-Document (hard)", scan_dual_document(paths)),
             ("store-clone (hard)", scan_store_clone(paths)),
+            ("store-precedence (hard)", scan_store_precedence()),
             ("kit imports (teaching)", scan_kit_product_imports(paths)),
             ("leftover aliases (teaching)", scan_leftover_aliases(paths)),
             ("render chrome (teaching)", scan_render_chrome(paths)),
@@ -46,8 +48,8 @@ class Trace(Component):
             span("Trace", className="eyebrow"),
             h1("Residuals expire by teaching.", className="display"),
             p(
-                f"Doctor ok={getattr(report, 'ok', None)}. Isolation, dual-Document, and store-clone fail closed. "
-                "Kit-import, leftover aliases, render-chrome, docs collision teach.",
+                f"Doctor ok={getattr(report, 'ok', None)}. Isolation, dual-Document, store-clone, and store-precedence fail closed. "
+                "Kit-import, leftover aliases, render-chrome, docs collision teach. Redis wins; do not export both store envs.",
                 className="lede",
             ),
             div(*cards, className="map-grid"),
