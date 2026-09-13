@@ -64,28 +64,28 @@ class DatePicker(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_label = "text-sm font-medium"
     class_input = (
-        "w-full min-h-11 cursor-pointer rounded-2xl border border-stone-200 bg-stone-50 "
+        "w-full min-h-11 cursor-pointer rounded-2xl border border-hairline bg-ink-2 "
         "px-4 text-left text-sm"
     )
     class_grid = "mt-3 flex flex-col gap-1"
     class_row = "grid grid-cols-7 gap-1"
     class_day = (
-        "min-h-11 cursor-pointer rounded-xl border-0 bg-transparent text-sm hover:bg-stone-100"
+        "min-h-11 cursor-pointer rounded-xl border-0 bg-transparent text-sm hover:bg-raised-2"
     )
     class_day_on = (
-        "min-h-11 cursor-pointer rounded-xl border-0 bg-stone-900 text-sm font-medium text-stone-50"
+        "min-h-11 cursor-pointer rounded-xl border-0 bg-brass text-sm font-medium text-brass-ink"
     )
     class_head = "flex items-center justify-between"
     class_ghost = (
         "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center "
-        "rounded-full border border-stone-200 bg-white text-sm"
+        "rounded-full border border-hairline bg-raised text-sm"
     )
     class_scrim = "fixed inset-0 z-10 cursor-pointer border-0 bg-transparent"
     class_sr = "sr-only"
@@ -119,7 +119,7 @@ class DatePicker(Component):
         ]
         if is_open:
             header = [
-                span(w, className="text-center text-xs text-stone-400", role="columnheader")
+                span(w, className="text-center text-xs text-mute", role="columnheader")
                 for w in _WEEKDAYS
             ]
             rows = [div(*header, className=self.class_row, role="row")]
@@ -163,7 +163,7 @@ class DatePicker(Component):
                     ),
                     div(*rows, className=self.class_grid, role="grid", aria_label=f"{_cal.month_name[m]} {y}"),
                     id=f"{self.id}-cal",
-                    className="relative z-20 rounded-2xl border border-stone-200 bg-white p-3 shadow-lg",
+                    className="relative z-20 rounded-2xl border border-hairline bg-raised p-3 shadow-room",
                     role="dialog",
                     aria_label="Choose a date",
                 ),

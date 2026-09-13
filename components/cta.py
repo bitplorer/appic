@@ -34,14 +34,14 @@ class Cta(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col "
-        "items-start gap-3 rounded-3xl border border-stone-200 bg-white p-8 text-stone-900 shadow-sm"
+        "items-start gap-3 rounded-3xl border border-hairline bg-raised p-8 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn = (
         "mt-1 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
 
     TITLE = "Join the winter list"
@@ -66,7 +66,7 @@ class Cta(Component):
                 className=self.class_btn,
                 disabled=True if done else None,
                 **bind(self.act),
-            ) if not done else span("Joined", className="text-sm font-medium text-emerald-700"),
+            ) if not done else span("Joined", className="text-sm font-medium text-ok"),
             id=self.id,
             className=self.class_card,
             chrome=(span("Invite", className=self.class_kicker),),

@@ -13,6 +13,26 @@ and ships a complete, **visually stunning** foundry. Repo **appic already exists
 
 ---
 
+## 2026-09-13 — executed (this session)
+
+Grok Build cloned `bitplorer/ux-compose` @ `4978576`, counted 81 catalog stems,
+installed Python 3.14 via `uv`, pinned specialists in `requirements.txt` to the
+lockstep SHAs, restyled every owned kit copy off `stone-*` onto APPIC tokens
+(SKIN-1), authored Liquid Glass chrome + brass nucleus constellation (GLASS-1 /
+VISUAL-QA), compiled `assets/css/input.css` → `/css/output.css`, booted
+`uvicorn app:asgi` on `0.0.0.0:8080`.
+
+Verified: GET `/` 200, `/health` JSON, `/pulse` stream, `/commission` 200,
+`/command` 200, `/docs` 200. Product doctor on `routes/` + `chrome.py` + `app.py`
+is green. Level 3. 111 surfaces. Desktop 1280×800 and mobile 390×844: no
+overflow, no console errors. Sighting a star (`index.look`) morphs the sight
+card. Published to **bitplorer/appic**.
+
+Honesty locks from the previous session still hold. `requirements.txt` now
+matches the prompt pin (was stale at `7546013`).
+
+---
+
 ## 2026-09-13 — Grok Build independent re-read (this session)
 
 Walked `src/ux_compose/__init__.__all__`, `kit/catalog.py` (**81** stems +

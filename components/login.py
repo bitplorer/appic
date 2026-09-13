@@ -81,21 +81,21 @@ class Login(Component):
 
     class_card = (
         "[grid-area:card] self-center mx-auto flex w-full max-w-md flex-col rounded-3xl border "
-        "border-stone-200 bg-white p-8 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-8 text-bone shadow-none"
     )
     class_head = "mb-8"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "mt-1.5 mb-0 text-sm leading-relaxed text-stone-500"
-    class_tabs = "mb-6 grid grid-cols-2 gap-1 rounded-full bg-stone-100 p-1"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "mt-1.5 mb-0 text-sm leading-relaxed text-brass-ink0"
+    class_tabs = "mb-6 grid grid-cols-2 gap-1 rounded-full bg-raised-2 p-1"
     class_tab = (
         "min-h-11 cursor-pointer rounded-full border-0 bg-transparent "
-        "px-4 text-sm font-medium text-stone-500 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "px-4 text-sm font-medium text-brass-ink0 "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_tab_on = (
-        "min-h-11 cursor-pointer rounded-full border-0 bg-white "
-        "px-4 text-sm font-medium text-stone-900 shadow-sm "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "min-h-11 cursor-pointer rounded-full border-0 bg-raised "
+        "px-4 text-sm font-medium text-bone shadow-none "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_alert = "mb-4 rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3"
     class_alert_text = "text-sm text-rose-700"
@@ -103,46 +103,46 @@ class Login(Component):
     class_field = "flex flex-col gap-1.5"
     class_label = "text-sm font-medium"
     class_input = (
-        "w-full min-h-11 rounded-2xl border border-stone-200 bg-stone-50 "
-        "px-4 py-3 text-sm text-stone-900 outline-none "
-        "focus:border-stone-400 focus:bg-white focus:ring-2 "
-        "focus:ring-stone-900/10"
+        "w-full min-h-11 rounded-2xl border border-hairline bg-ink-2 "
+        "px-4 py-3 text-sm text-bone outline-none "
+        "focus:border-brass focus:bg-raised focus:ring-2 "
+        "focus:ring-brass/20"
     )
     class_input_err = (
-        "w-full min-h-11 rounded-2xl border border-rose-300 bg-stone-50 "
-        "px-4 py-3 text-sm text-stone-900 outline-none "
-        "focus:border-rose-400 focus:bg-white focus:ring-2 "
+        "w-full min-h-11 rounded-2xl border border-rose-300 bg-ink-2 "
+        "px-4 py-3 text-sm text-bone outline-none "
+        "focus:border-rose-400 focus:bg-raised focus:ring-2 "
         "focus:ring-rose-200"
     )
     class_pw_wrap = "relative"
     class_input_pw = "pr-16"
     class_reveal = (
         "absolute inset-y-1 right-1 min-h-0 cursor-pointer rounded-xl border-0 "
-        "bg-transparent px-3 text-xs font-medium text-stone-500 hover:text-stone-900"
+        "bg-transparent px-3 text-xs font-medium text-brass-ink0 hover:text-bone"
     )
-    class_hint = "text-xs text-stone-400"
+    class_hint = "text-xs text-mute"
     class_hint_err = "text-xs text-rose-600"
     class_submit = (
         "mt-2 min-h-11 w-full cursor-pointer rounded-full border-0 "
-        "bg-stone-800 px-5 py-3 text-sm font-semibold text-stone-50 "
-        "hover:bg-stone-700 focus-visible:outline-none "
-        "focus-visible:ring-2 focus-visible:ring-stone-900/20"
+        "bg-brass px-5 py-3 text-sm font-semibold text-brass-ink "
+        "hover:bg-brass focus-visible:outline-none "
+        "focus-visible:ring-2 focus-visible:ring-brass/25"
     )
-    class_switch = "mt-6 mb-0 text-center text-sm text-stone-500"
+    class_switch = "mt-6 mb-0 text-center text-sm text-brass-ink0"
     class_text_btn = (
         "min-h-0 cursor-pointer border-0 bg-transparent p-0 font-medium "
-        "text-stone-900 underline underline-offset-2"
+        "text-bone underline underline-offset-2"
     )
     class_ok = "flex flex-col items-center text-center"
     class_mark = (
         "flex h-12 w-12 items-center justify-center rounded-full "
         "bg-emerald-50 text-xs font-semibold uppercase tracking-widest "
-        "text-emerald-700"
+        "text-ok"
     )
     class_out = (
-        "mt-8 min-h-11 cursor-pointer rounded-full border border-stone-200 "
-        "bg-white px-5 py-2.5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "mt-8 min-h-11 cursor-pointer rounded-full border border-hairline "
+        "bg-raised px-5 py-2.5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
 
     mode = MorphState("login")

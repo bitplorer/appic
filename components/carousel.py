@@ -76,25 +76,25 @@ class Carousel(Component):
 
     class_card = (
         "[grid-area:card] relative mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 self-start "
-        "overflow-hidden rounded-3xl border border-stone-200 bg-white p-5 text-stone-900 shadow-sm"
+        "overflow-hidden rounded-3xl border border-hairline bg-raised p-5 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-3xl font-semibold tracking-tight"
-    class_lede = "m-0 max-w-sm text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-3xl font-semibold tracking-tight"
+    class_lede = "m-0 max-w-sm text-sm leading-relaxed text-brass-ink0"
     class_stage = (
         "relative flex h-72 touch-pan-y select-none flex-col justify-end overflow-hidden "
-        "rounded-2xl bg-stone-50 px-16 pb-14 pt-8"
+        "rounded-2xl bg-ink-2 px-16 pb-14 pt-8"
     )
     class_copy = "relative z-[1] flex min-h-0 flex-col gap-3 overflow-hidden"
     class_index = (
-        "pointer-events-none absolute right-5 top-4 z-0 font-serif text-6xl font-medium "
-        "leading-none tracking-tight text-stone-200"
+        "pointer-events-none absolute right-5 top-4 z-0 font-display text-6xl font-medium "
+        "leading-none tracking-tight text-bone"
     )
     class_nav = (
         "absolute top-1/2 z-10 inline-flex size-11 -translate-y-1/2 cursor-pointer items-center "
-        "justify-center rounded-full border-0 bg-white/90 text-stone-900 shadow-sm "
-        "backdrop-blur-sm hover:bg-white hover:shadow "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/20"
+        "justify-center rounded-full border-0 bg-raised/90 text-bone shadow-none "
+        "backdrop-blur-sm hover:bg-raised hover:shadow "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_nav_prev = "left-3"
     class_nav_next = "right-3"
@@ -102,14 +102,14 @@ class Carousel(Component):
     class_dots = "relative inline-flex flex-nowrap items-center"
     class_thumb = (
         "pointer-events-none absolute left-0 top-1/2 z-[1] h-2 w-6 -mt-1 rounded-full "
-        "bg-stone-800 transition-transform duration-300 ease-out motion-reduce:transition-none"
+        "bg-brass transition-transform duration-300 ease-out motion-reduce:transition-none"
     )
     class_dot = (
         "relative z-0 inline-flex h-11 w-6 shrink-0 cursor-pointer items-center justify-center "
         "rounded-full border-0 bg-transparent p-0 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
-    class_pip = "pointer-events-none block h-2 w-2 rounded-full bg-stone-300"
+    class_pip = "pointer-events-none block h-2 w-2 rounded-full bg-raised-2"
     class_sr = "sr-only"
 
     SLIDES = (

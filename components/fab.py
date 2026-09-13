@@ -39,22 +39,22 @@ class Fab(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex min-h-64 w-full max-w-xl flex-col "
-        "gap-4 overflow-hidden rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "gap-4 overflow-hidden rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_fab = (
         "absolute bottom-5 right-5 z-20 inline-flex h-14 w-14 cursor-pointer items-center "
-        "justify-center rounded-full border-0 bg-stone-900 text-lg text-stone-50 shadow-lg"
+        "justify-center rounded-full border-0 bg-brass text-lg text-brass-ink shadow-room"
     )
     class_menu = (
         "absolute bottom-20 right-5 z-30 flex flex-col gap-1 rounded-2xl border "
-        "border-stone-200 bg-white p-1.5 shadow-lg"
+        "border-hairline bg-raised p-1.5 shadow-room"
     )
     class_item = (
         "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-transparent "
-        "px-3.5 text-left text-sm hover:bg-stone-100"
+        "px-3.5 text-left text-sm hover:bg-raised-2"
     )
     class_scrim = "fixed inset-0 z-10 cursor-pointer border-0 bg-transparent"
     class_sr = "sr-only"

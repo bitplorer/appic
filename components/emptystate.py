@@ -35,15 +35,15 @@ class EmptyState(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col "
-        "items-center gap-3 rounded-3xl border border-dashed border-stone-300 bg-white "
-        "px-6 py-10 text-center text-stone-900 shadow-sm"
+        "items-center gap-3 rounded-3xl border border-dashed border-hairline-strong bg-raised "
+        "px-6 py-10 text-center text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 max-w-sm text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 max-w-sm text-sm leading-relaxed text-brass-ink0"
     class_btn = (
         "mt-2 inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
 
     TITLE = "Nothing on the table"
@@ -66,7 +66,7 @@ class EmptyState(Component):
                 p("The empty state morphs away. Clear to see it again.", className=self.class_lede),
                 button("Clear", type="button", className=self.class_btn, **bind(self.clear)),
                 id=self.id,
-                className=self.class_card.replace("border-dashed border-stone-300", "border-stone-200"),
+                className=self.class_card.replace("border-dashed border-hairline-strong", "border-hairline"),
                 aria_labelledby=title_id,
                 data_filled="1",
             )

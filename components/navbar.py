@@ -37,24 +37,24 @@ class Navbar(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] flex-col "
-        "overflow-hidden rounded-3xl border border-stone-200 bg-white text-stone-900 shadow-sm"
+        "overflow-hidden rounded-3xl border border-hairline bg-raised text-bone shadow-none"
     )
     class_bar = "flex items-center justify-between gap-3 px-4 py-3"
     class_brand = "text-sm font-semibold tracking-tight"
     class_links = "hidden items-center gap-1 sm:flex"
     class_link = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border-0 "
-        "bg-transparent px-3 text-sm text-stone-600 hover:bg-stone-100"
+        "bg-transparent px-3 text-sm text-bone-dim hover:bg-raised-2"
     )
     class_link_on = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border-0 "
-        "bg-stone-900 px-3 text-sm font-medium text-stone-50"
+        "bg-brass px-3 text-sm font-medium text-brass-ink"
     )
     class_burger = (
         "inline-flex min-h-11 min-w-11 cursor-pointer items-center justify-center "
-        "rounded-full border border-stone-200 bg-white text-sm sm:hidden"
+        "rounded-full border border-hairline bg-raised text-sm sm:hidden"
     )
-    class_panel = "flex flex-col gap-1 border-t border-stone-100 px-3 py-3 sm:hidden"
+    class_panel = "flex flex-col gap-1 border-t border-hairline px-3 py-3 sm:hidden"
     class_sr = "sr-only"
 
     LINKS = (

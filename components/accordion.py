@@ -39,20 +39,20 @@ class Accordion(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-3 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 pb-4 pl-0 text-sm leading-relaxed text-stone-500"
-    class_item = "border-t border-stone-200 first:border-t-0"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 pb-4 pl-0 text-sm leading-relaxed text-brass-ink0"
+    class_item = "border-t border-hairline first:border-t-0"
     class_trigger = (
         "flex min-h-11 w-full cursor-pointer items-center justify-between "
         "gap-4 border-0 bg-transparent py-3 text-inherit "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
-    class_item_title = "font-serif text-lg font-medium tracking-tight"
-    class_mark = "text-xs font-medium text-stone-400"
-    class_caret = "inline-block text-stone-400 transition-transform"
+    class_item_title = "font-display text-lg font-medium tracking-tight"
+    class_mark = "text-xs font-medium text-mute"
+    class_caret = "inline-block text-mute transition-transform"
     class_sr = "sr-only"
 
     SECTIONS = (

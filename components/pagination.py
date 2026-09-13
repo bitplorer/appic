@@ -103,44 +103,44 @@ class Pagination(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_list = "m-0 grid list-none gap-1.5 p-0"
-    class_item = "rounded-2xl bg-stone-50 px-4 py-3 text-sm"
+    class_item = "rounded-2xl bg-ink-2 px-4 py-3 text-sm"
     class_bar = "mt-1 flex min-w-0 flex-nowrap items-center gap-1"
     class_pages = (
         "flex min-w-0 flex-1 flex-nowrap items-center justify-center gap-0.5 overflow-hidden"
     )
     class_nav = (
         "relative z-10 inline-flex size-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border border-stone-200 bg-white text-stone-900 "
-        "hover:bg-stone-100 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15 "
-        "disabled:cursor-default disabled:opacity-40 disabled:hover:bg-white"
+        "rounded-full border border-hairline bg-raised text-bone "
+        "hover:bg-raised-2 "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25 "
+        "disabled:cursor-default disabled:opacity-40 disabled:hover:bg-raised"
     )
     class_dot = (
         "inline-flex size-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border-0 bg-transparent text-sm text-stone-500 "
-        "hover:bg-stone-100 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "rounded-full border-0 bg-transparent text-sm text-brass-ink0 "
+        "hover:bg-raised-2 "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_dot_on = (
         "inline-flex size-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border-0 bg-stone-800 text-sm text-stone-50 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/20"
+        "rounded-full border-0 bg-brass text-sm text-brass-ink "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_dot_edge = (
         "hidden sm:inline-flex size-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border-0 bg-transparent text-sm text-stone-500 "
-        "hover:bg-stone-100 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "rounded-full border-0 bg-transparent text-sm text-brass-ink0 "
+        "hover:bg-raised-2 "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_gap = (
         "pointer-events-none hidden min-h-11 min-w-6 shrink-0 items-center justify-center "
-        "text-sm text-stone-400 sm:inline-flex"
+        "text-sm text-mute sm:inline-flex"
     )
     class_sr = "sr-only"
 

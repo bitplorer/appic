@@ -67,28 +67,28 @@ class Calendar(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 overflow-x-hidden "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 min-w-0 flex-1 text-center font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 min-w-0 flex-1 text-center font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_head = "flex min-w-0 flex-wrap items-center justify-between gap-2"
     class_btn_ghost = (
         "inline-flex min-h-11 min-w-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border border-stone-200 bg-white px-4 text-sm font-medium "
-        "text-stone-900 hover:bg-stone-100"
+        "rounded-full border border-hairline bg-raised px-4 text-sm font-medium "
+        "text-bone hover:bg-raised-2"
     )
     class_grid = "flex flex-col gap-1"
     class_row = "grid grid-cols-7 gap-1"
-    class_dow = "py-2 text-center text-xs font-medium uppercase tracking-widest text-stone-400"
+    class_dow = "py-2 text-center text-xs font-medium uppercase tracking-widest text-mute"
     class_empty = "min-h-11"
     class_day = (
         "min-h-11 cursor-pointer rounded-2xl border-0 bg-transparent text-sm "
-        "text-stone-700 hover:bg-stone-100"
+        "text-bone hover:bg-raised-2"
     )
     class_day_on = (
-        "min-h-11 cursor-pointer rounded-2xl border-0 bg-stone-800 text-sm "
-        "font-medium text-stone-50"
+        "min-h-11 cursor-pointer rounded-2xl border-0 bg-brass text-sm "
+        "font-medium text-brass-ink"
     )
 
     month = MorphState("2026-08")

@@ -36,20 +36,20 @@ class BottomNav(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col "
-        "overflow-hidden rounded-3xl border border-stone-200 bg-white text-stone-900 shadow-sm"
+        "overflow-hidden rounded-3xl border border-hairline bg-raised text-bone shadow-none"
     )
     class_pane = "flex min-h-40 flex-col justify-end gap-1 px-6 py-6"
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
-    class_bar = "grid grid-cols-3 border-t border-stone-200 bg-stone-50"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
+    class_bar = "grid grid-cols-3 border-t border-hairline bg-ink-2"
     class_item = (
         "flex min-h-14 cursor-pointer flex-col items-center justify-center border-0 "
-        "bg-transparent text-xs text-stone-500"
+        "bg-transparent text-xs text-brass-ink0"
     )
     class_item_on = (
         "flex min-h-14 cursor-pointer flex-col items-center justify-center border-0 "
-        "bg-transparent text-xs font-semibold text-stone-900"
+        "bg-transparent text-xs font-semibold text-bone"
     )
 
     ITEMS = (

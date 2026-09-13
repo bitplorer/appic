@@ -36,12 +36,12 @@ class ScrollArea(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
-    class_port = "max-h-32 overflow-y-auto rounded-2xl border border-stone-200 bg-stone-50 p-4 text-sm leading-relaxed"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
+    class_port = "max-h-32 overflow-y-auto rounded-2xl border border-hairline bg-ink-2 p-4 text-sm leading-relaxed"
 
     MARKS = (("top", "Top"), ("mid", "Middle"), ("end", "End"))
     BODY = (
@@ -60,7 +60,7 @@ class ScrollArea(Component):
                 type="button",
                 role="radio",
                 aria_checked="true" if key == which else "false",
-                className="rounded-full px-3 py-2 text-xs " + ("bg-stone-900 text-stone-50" if key == which else "bg-stone-100"),
+                className="rounded-full px-3 py-2 text-xs " + ("bg-brass text-brass-ink" if key == which else "bg-raised-2"),
                 **bind(self.jump, key=key),
             )
             for key, lab in self.MARKS

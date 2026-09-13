@@ -39,40 +39,40 @@ class Sidebar(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] overflow-hidden rounded-3xl "
-        "border border-stone-200 bg-white text-stone-900 shadow-sm"
+        "border border-hairline bg-raised text-bone shadow-none"
     )
     class_rail = (
-        "flex w-44 shrink-0 flex-col gap-1 border-r border-stone-200 bg-stone-50 p-3"
+        "flex w-44 shrink-0 flex-col gap-1 border-r border-hairline bg-ink-2 p-3"
     )
     class_rail_slim = (
-        "flex w-16 shrink-0 flex-col gap-1 border-r border-stone-200 bg-stone-50 p-2"
+        "flex w-16 shrink-0 flex-col gap-1 border-r border-hairline bg-ink-2 p-2"
     )
-    class_brand = "px-2 py-2 text-xs font-medium uppercase tracking-widest text-stone-400"
+    class_brand = "px-2 py-2 text-xs font-medium uppercase tracking-widest text-mute"
     class_item = (
         "flex min-h-11 cursor-pointer items-center rounded-2xl border-0 "
-        "bg-transparent px-3 text-left text-sm text-stone-600 hover:bg-white"
+        "bg-transparent px-3 text-left text-sm text-bone-dim hover:bg-raised"
     )
     class_item_on = (
         "flex min-h-11 cursor-pointer items-center rounded-2xl border-0 "
-        "bg-white px-3 text-left text-sm font-medium text-stone-900 shadow-sm"
+        "bg-raised px-3 text-left text-sm font-medium text-bone shadow-none"
     )
     class_item_slim = (
         "flex min-h-11 w-full cursor-pointer items-center justify-center "
-        "rounded-2xl border-0 bg-transparent text-sm font-medium text-stone-500 "
-        "hover:bg-white"
+        "rounded-2xl border-0 bg-transparent text-sm font-medium text-brass-ink0 "
+        "hover:bg-raised"
     )
     class_item_slim_on = (
         "flex min-h-11 w-full cursor-pointer items-center justify-center "
-        "rounded-2xl border-0 bg-white text-sm font-medium text-stone-900 shadow-sm"
+        "rounded-2xl border-0 bg-raised text-sm font-medium text-bone shadow-none"
     )
     class_fold = (
         "mt-auto min-h-11 cursor-pointer rounded-2xl border-0 bg-transparent "
-        "px-3 text-left text-xs font-medium text-stone-400 hover:text-stone-900"
+        "px-3 text-left text-xs font-medium text-mute hover:text-bone"
     )
     class_pane = "flex min-w-0 flex-1 flex-col gap-2 p-6"
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
 
     ITEMS = (
         ("desk", "Desk", "A quiet desk", "Today's pieces stay on this unit. The rail is MorphState."),

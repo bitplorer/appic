@@ -41,15 +41,15 @@ class FileUpload(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_label = "text-sm font-medium"
-    class_input = "w-full min-h-11 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-stone-800 file:px-4 file:py-2 file:text-sm file:text-stone-50"
+    class_input = "w-full min-h-11 text-sm file:mr-3 file:rounded-full file:border-0 file:bg-brass file:px-4 file:py-2 file:text-sm file:text-brass-ink"
     class_list = "m-0 flex list-none flex-col gap-1 p-0"
-    class_row = "flex min-h-11 items-center justify-between rounded-xl bg-stone-50 px-3 text-sm"
+    class_row = "flex min-h-11 items-center justify-between rounded-xl bg-ink-2 px-3 text-sm"
     class_x = "min-h-11 cursor-pointer rounded-full border-0 bg-transparent px-3 text-sm"
 
     files = RefState(("moodboard.pdf",))

@@ -40,21 +40,21 @@ class ToggleGroup(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
-    class_group = "flex min-w-0 gap-1 overflow-x-auto rounded-full bg-stone-100 p-1"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
+    class_group = "flex min-w-0 gap-1 overflow-x-auto rounded-full bg-raised-2 p-1"
     class_opt = (
         "min-h-11 flex-1 cursor-pointer whitespace-nowrap rounded-full border-0 "
-        "bg-transparent px-4 text-sm font-medium text-stone-500 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "bg-transparent px-4 text-sm font-medium text-brass-ink0 "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_opt_on = (
         "min-h-11 flex-1 cursor-pointer whitespace-nowrap rounded-full border-0 "
-        "bg-white px-4 text-sm font-medium text-stone-900 shadow-sm "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "bg-raised px-4 text-sm font-medium text-bone shadow-none "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
 
     ITEMS = (

@@ -42,35 +42,35 @@ class ActionSheet(Component):
 
     class_card = (
         "[grid-area:card] self-start mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_primary = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
     class_btn_ghost = (
         "inline-flex min-h-11 w-full cursor-pointer items-center justify-center rounded-2xl "
-        "border border-stone-200 bg-white px-5 py-3 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 py-3 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
     class_btn_danger = (
         "inline-flex min-h-11 w-full cursor-pointer items-center justify-center rounded-2xl "
-        "border-0 bg-rose-700 px-5 py-3 text-sm font-medium text-white hover:bg-rose-800"
+        "border-0 bg-danger px-5 py-3 text-sm font-medium text-white hover:bg-danger"
     )
-    class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-stone-900/40"
+    class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-scrim"
     class_panel = (
         "fixed inset-x-0 bottom-0 z-50 flex max-h-[min(28rem,80dvh)] touch-pan-x select-none "
-        "flex-col gap-2 rounded-t-3xl border border-stone-200 bg-white px-5 pb-7 pt-1 shadow-xl"
+        "flex-col gap-2 rounded-t-3xl border border-hairline bg-raised px-5 pb-7 pt-1 shadow-overlay"
     )
     class_handle_hit = (
         "mx-auto flex min-h-11 w-full cursor-grab items-center justify-center "
         "border-0 bg-transparent p-0"
     )
-    class_handle = "pointer-events-none block h-1.5 w-10 rounded-full bg-stone-300"
-    class_choice = "m-0 text-sm text-stone-500"
+    class_handle = "pointer-events-none block h-1.5 w-10 rounded-full bg-raised-2"
+    class_choice = "m-0 text-sm text-brass-ink0"
     class_sr = "sr-only"
 
     ACTIONS = (
@@ -139,7 +139,7 @@ class ActionSheet(Component):
                         "Cancel",
                         type="button",
                         id=f"{self.id}-cancel",
-                        className=self.class_btn_ghost + " mt-1 text-stone-500",
+                        className=self.class_btn_ghost + " mt-1 text-brass-ink0",
                         data_channel_on=ch.dismiss_on(),
                         **bind(self.close),
                     ),

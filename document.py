@@ -20,7 +20,6 @@ _plugins = (
         script_hosts=(
             "https://unpkg.com",
             "https://cdn.jsdelivr.net",
-            "https://cdn.tailwindcss.com",
             "https://grok.com",
         ),
     ),
@@ -30,14 +29,16 @@ document = Document(
     head=[
         meta(charset="utf-8"),
         meta(name="viewport", content="width=device-width, initial-scale=1"),
-        meta(name="theme-color", content="#0c0d0b"),
-        title("APPIC · a constitution you can walk"),
+        meta(name="theme-color", content="#07080A"),
+        meta(name="description", content="APPIC — a nocturnal foundry you can inhabit. Server-authored in ux-compose."),
+        title("APPIC · a nocturnal foundry"),
         link(rel="icon", type="image/svg+xml", href="/media/favicon.svg"),
+        link(rel="apple-touch-icon", href="/__grok/icon-180.png"),
         link(rel="preconnect", href="https://fonts.googleapis.com"),
         link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
         link(
             rel="stylesheet",
-            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,480;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap",
+            href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,480;9..144,560;9..144,600&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;500;600&display=swap",
         ),
         link(href=f"/css/{OUTPUT_CSS}", rel="stylesheet"),
         script(src="https://grok.com/grok-app-builder/extensions.js", defer=True),

@@ -15,7 +15,7 @@ DEBUG = os.environ.get("DEBUG", "1") not in ("0", "false", "False")
 # FastAPI Swagger / ReDoc / OpenAPI JSON. Off so routes/docs.py can own GET /docs.
 OPENAPI = False
 
-ASSETS_DIR = BASE_DIR / "skin"
+ASSETS_DIR = BASE_DIR / "assets"
 OUTPUT_CSS = "output.css"
 PUBLIC_DIR = BASE_DIR / "public"
 

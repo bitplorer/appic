@@ -50,26 +50,26 @@ class PullRefresh(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_stage = (
-        "flex min-h-56 flex-col gap-2 rounded-2xl border border-stone-200 bg-stone-50 "
+        "flex min-h-56 flex-col gap-2 rounded-2xl border border-hairline bg-ink-2 "
         "px-3 py-3"
     )
     class_list = "m-0 flex list-none flex-col gap-1 p-0"
     class_row = (
-        "rounded-xl border border-stone-200 bg-white px-3 py-3 text-sm text-stone-800"
+        "rounded-xl border border-hairline bg-raised px-3 py-3 text-sm text-bone"
     )
-    class_hint = "m-0 text-center text-xs uppercase tracking-widest text-stone-400"
+    class_hint = "m-0 text-center text-xs uppercase tracking-widest text-mute"
     class_btn_ghost = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
-    class_busy = "m-0 text-center text-sm text-stone-500"
+    class_busy = "m-0 text-center text-sm text-brass-ink0"
 
     SEED = (
         "Reserved the throw.",

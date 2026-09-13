@@ -50,38 +50,38 @@ class Command(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_primary = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
     class_btn_ghost = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
     class_input = (
-        "min-h-11 w-full rounded-2xl border border-stone-200 bg-stone-50 "
-        "px-4 py-3 text-sm text-stone-900 outline-none focus:border-stone-400 "
-        "focus:bg-white focus:ring-2 focus:ring-stone-900/10"
+        "min-h-11 w-full rounded-2xl border border-hairline bg-ink-2 "
+        "px-4 py-3 text-sm text-bone outline-none focus:border-brass "
+        "focus:bg-raised focus:ring-2 focus:ring-brass/20"
     )
-    class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-stone-900/40"
+    class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-scrim"
     class_panel = (
         "fixed left-1/2 top-[16%] z-50 flex w-[min(32rem,calc(100vw-2rem))] "
-        "-translate-x-1/2 flex-col gap-3 rounded-3xl bg-white px-5 py-5 shadow-xl"
+        "-translate-x-1/2 flex-col gap-3 rounded-3xl bg-raised px-5 py-5 shadow-overlay"
     )
     class_form = "flex flex-col gap-2"
     class_list = "m-0 flex max-h-64 list-none flex-col overflow-auto p-0"
     class_row = (
         "flex min-h-11 w-full cursor-pointer items-center justify-between "
         "gap-4 rounded-xl border-0 bg-transparent px-3 text-left "
-        "text-inherit hover:bg-stone-100"
+        "text-inherit hover:bg-raised-2"
     )
-    class_hint = "text-xs uppercase tracking-widest text-stone-400"
+    class_hint = "text-xs uppercase tracking-widest text-mute"
     class_sr = "sr-only"
 
     COMMANDS = (

@@ -38,38 +38,38 @@ class Dropdown(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_wrap = "relative z-20 max-w-72"
     class_trigger = (
         "flex min-h-11 w-full cursor-pointer items-center justify-between "
-        "gap-4 rounded-2xl border border-stone-200 bg-stone-50 px-4 "
+        "gap-4 rounded-2xl border border-hairline bg-ink-2 px-4 "
         "text-sm text-inherit focus-visible:outline-none "
-        "focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_trigger_open = (
         "flex min-h-11 w-full cursor-pointer items-center justify-between "
-        "gap-4 rounded-2xl border border-stone-400 bg-white px-4 "
+        "gap-4 rounded-2xl border border-hairline-strong bg-raised px-4 "
         "text-sm text-inherit focus-visible:outline-none "
-        "focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "focus-visible:ring-2 focus-visible:ring-brass/25"
     )
-    class_caret = "inline-block text-stone-400 transition-transform"
+    class_caret = "inline-block text-mute transition-transform"
     class_menu = (
         "absolute left-0 right-0 top-[calc(100%+0.35rem)] z-30 flex "
-        "flex-col rounded-2xl border border-stone-200 bg-white p-1.5 shadow-lg"
+        "flex-col rounded-2xl border border-hairline bg-raised p-1.5 shadow-room"
     )
     class_option = (
         "flex min-h-11 cursor-pointer items-center justify-between rounded-xl "
-        "border-0 bg-transparent px-3.5 text-left text-sm text-inherit hover:bg-stone-100"
+        "border-0 bg-transparent px-3.5 text-left text-sm text-inherit hover:bg-raised-2"
     )
     class_option_on = (
         "flex min-h-11 cursor-pointer items-center justify-between rounded-xl "
-        "border-0 bg-stone-100 px-3.5 text-left text-sm text-inherit"
+        "border-0 bg-raised-2 px-3.5 text-left text-sm text-inherit"
     )
-    class_check = "text-xs font-medium text-stone-500"
+    class_check = "text-xs font-medium text-brass-ink0"
     class_scrim = "fixed inset-0 z-10 cursor-pointer border-0 bg-transparent"
     class_sr = "sr-only"
 

@@ -38,11 +38,11 @@ class Chart(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
 
     SERIES = (("linen", "Linen"), ("oak", "Oak"), ("wool", "Wool"))
     values = RefState((40, 72, 28))
@@ -100,7 +100,7 @@ class Chart(Component):
                     button(
                         lab,
                         type="button",
-                        className="rounded-full px-3 py-2 text-xs " + ("bg-stone-900 text-stone-50" if key == which else "bg-stone-100"),
+                        className="rounded-full px-3 py-2 text-xs " + ("bg-brass text-brass-ink" if key == which else "bg-raised-2"),
                         **bind(self.choose, key=key),
                     )
                     for key, lab in self._series()

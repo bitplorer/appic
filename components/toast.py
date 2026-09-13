@@ -55,19 +55,19 @@ class Toast(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_primary = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
     class_btn_ghost = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
     class_row = "flex flex-wrap items-center gap-2.5"
     class_stack = (
@@ -76,7 +76,7 @@ class Toast(Component):
     )
     class_item = (
         "flex items-center justify-between gap-3 rounded-2xl border "
-        "border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-sm"
+        "border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-800 shadow-none"
     )
     class_x = (
         "min-h-11 min-w-11 cursor-pointer rounded-full border-0 bg-transparent "

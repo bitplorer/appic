@@ -37,31 +37,31 @@ class MultiSelect(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_wrap = "relative z-20 max-w-80"
     class_trigger = (
         "flex min-h-11 w-full cursor-pointer items-center justify-between rounded-2xl "
-        "border border-stone-200 bg-stone-50 px-4 text-sm"
+        "border border-hairline bg-ink-2 px-4 text-sm"
     )
     class_menu = (
         "absolute left-0 right-0 top-[calc(100%+0.35rem)] z-30 flex flex-col "
-        "rounded-2xl border border-stone-200 bg-white p-1.5 shadow-lg"
+        "rounded-2xl border border-hairline bg-raised p-1.5 shadow-room"
     )
     class_option = (
         "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-transparent "
-        "px-3.5 text-left text-sm hover:bg-stone-100"
+        "px-3.5 text-left text-sm hover:bg-raised-2"
     )
     class_option_on = (
-        "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-stone-100 "
+        "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-raised-2 "
         "px-3.5 text-left text-sm"
     )
     class_all = (
         "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-transparent "
-        "px-3.5 text-left text-xs font-medium uppercase tracking-widest text-stone-400"
+        "px-3.5 text-left text-xs font-medium uppercase tracking-widest text-mute"
     )
     class_scrim = "fixed inset-0 z-10 cursor-pointer border-0 bg-transparent"
     class_sr = "sr-only"

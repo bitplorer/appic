@@ -36,19 +36,19 @@ class Footer(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] flex-col "
-        "gap-3 rounded-3xl border border-stone-200 bg-stone-50 px-6 py-6 text-stone-900 shadow-sm"
+        "gap-3 rounded-3xl border border-hairline bg-ink-2 px-6 py-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
     class_links = "flex flex-wrap gap-2"
     class_link = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border-0 "
-        "bg-transparent px-3 text-sm text-stone-600 hover:bg-white"
+        "bg-transparent px-3 text-sm text-bone-dim hover:bg-raised"
     )
     class_link_on = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border-0 "
-        "bg-white px-3 text-sm font-medium text-stone-900 shadow-sm"
+        "bg-raised px-3 text-sm font-medium text-bone shadow-none"
     )
-    class_copy = "m-0 text-xs text-stone-400"
+    class_copy = "m-0 text-xs text-mute"
 
     LINKS = (
         ("desk", "Desk", "/desk"),

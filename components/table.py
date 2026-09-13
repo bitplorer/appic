@@ -52,32 +52,32 @@ class Table(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_danger = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-rose-800 px-5 text-sm font-medium text-rose-50 hover:bg-rose-700"
+        "border-0 bg-danger px-5 text-sm font-medium text-bone hover:bg-danger"
     )
     class_btn_muted = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-400"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-mute"
     )
     class_toolbar = "flex flex-wrap items-center justify-between gap-3"
     class_wrap = "overflow-x-auto"
     class_table = "w-full min-w-[28rem] border-separate border-spacing-y-0.5 text-left"
     class_th = (
         "min-h-11 cursor-pointer border-0 bg-transparent p-0 text-left text-xs "
-        "font-semibold uppercase tracking-widest text-stone-400"
+        "font-semibold uppercase tracking-widest text-mute"
     )
     class_th_on = (
         "min-h-11 cursor-pointer border-0 bg-transparent p-0 text-left text-xs "
-        "font-semibold uppercase tracking-widest text-stone-900"
+        "font-semibold uppercase tracking-widest text-bone"
     )
-    class_tr = "rounded-xl hover:bg-stone-50"
-    class_tr_on = "rounded-xl bg-stone-100"
+    class_tr = "rounded-xl hover:bg-raised-2"
+    class_tr_on = "rounded-xl bg-raised-2"
     class_td = "px-1.5 py-2 text-sm"
     class_td_price = "px-1.5 py-2 text-sm tabular-nums"
     class_check = (
@@ -85,12 +85,12 @@ class Table(Component):
         "border-0 bg-transparent p-0"
     )
     class_box = (
-        "flex h-5 w-5 items-center justify-center rounded-md border border-stone-300 "
-        "bg-white text-[0.65rem] font-semibold text-white"
+        "flex h-5 w-5 items-center justify-center rounded-md border border-hairline-strong "
+        "bg-raised text-[0.65rem] font-semibold text-white"
     )
     class_box_on = (
         "flex h-5 w-5 items-center justify-center rounded-md border-0 "
-        "bg-stone-800 text-[0.65rem] font-semibold text-white"
+        "bg-brass text-[0.65rem] font-semibold text-white"
     )
     class_sr = "sr-only"
 

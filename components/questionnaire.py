@@ -45,24 +45,24 @@ class Questionnaire(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
-    class_set = "m-0 flex flex-col gap-2 rounded-2xl border border-stone-200 p-4"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
+    class_set = "m-0 flex flex-col gap-2 rounded-2xl border border-hairline p-4"
     class_legend = "px-1 text-sm font-medium"
     class_opt = (
         "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-transparent "
-        "px-3 text-left text-sm hover:bg-stone-50"
+        "px-3 text-left text-sm hover:bg-raised-2"
     )
     class_opt_on = (
-        "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-stone-100 "
+        "flex min-h-11 cursor-pointer items-center rounded-xl border-0 bg-raised-2 "
         "px-3 text-left text-sm font-medium"
     )
     class_btn = (
-        "min-h-11 w-full cursor-pointer rounded-full border-0 bg-stone-800 px-5 "
-        "text-sm font-semibold text-stone-50 hover:bg-stone-700"
+        "min-h-11 w-full cursor-pointer rounded-full border-0 bg-brass px-5 "
+        "text-sm font-semibold text-brass-ink hover:bg-brass"
     )
 
     QUESTIONS = (

@@ -34,14 +34,14 @@ class Hero(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] flex-col "
-        "gap-4 rounded-3xl border border-stone-200 bg-stone-900 px-8 py-12 text-stone-50 shadow-sm"
+        "gap-4 rounded-3xl border border-hairline bg-brass px-8 py-12 text-brass-ink shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 max-w-lg font-serif text-4xl font-semibold tracking-tight"
-    class_lede = "m-0 max-w-md text-sm leading-relaxed text-stone-300"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 max-w-lg font-display text-4xl font-semibold tracking-tight"
+    class_lede = "m-0 max-w-md text-sm leading-relaxed text-bone-dim"
     class_btn = (
         "mt-2 inline-flex min-h-11 w-fit cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-50 px-5 text-sm font-medium text-stone-900 hover:bg-white"
+        "border-0 bg-ink-2 px-5 text-sm font-medium text-bone hover:bg-raised"
     )
 
     TITLE = "Made to be kept"

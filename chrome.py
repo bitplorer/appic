@@ -13,18 +13,20 @@ from ux_compose.chrome import GET_CHROME_ATTR, DEFAULT_BRAND
 ROOMS = (
     ("/", "Table"),
     ("/enter", "Door"),
-    ("/house", "House"),
     ("/commission", "Make"),
     ("/market", "Hall"),
     ("/forge", "Forge"),
-    ("/rail", "Rail"),
-    ("/studio", "Studio"),
+    ("/house", "House"),
     ("/overlay", "Edge"),
-    ("/cut", "Cut"),
-    ("/boot", "Boot"),
-    ("/trace", "Trace"),
     ("/docs", "Law"),
-    ("/deploy", "Ship"),
+)
+
+DOCK = (
+    ("/", "Table"),
+    ("/commission", "Make"),
+    ("/command", "Cmd"),
+    ("/market", "Hall"),
+    ("/docs", "Law"),
 )
 
 
@@ -43,20 +45,26 @@ def mark():
 
 def top_nav():
     links = [
-        a(
-            label,
-            href=href,
-            className="room-link",
-        )
+        a(label, href=href, className="room-link")
         for href, label in ROOMS
     ]
     return header(
         a(mark(), span("APPIC", className="brand"), href="/", className="wordmark", aria_label="APPIC table"),
         nav(*links, className="rooms", aria_label="Rooms"),
-        a("Command", href="/command", className="ghost"),
+        a(
+            "Command",
+            href="/command",
+            className="cmd-chip",
+            aria_label="Open command",
+        ),
         className="top",
         **{GET_CHROME_ATTR: True},
     )
+
+
+def dock():
+    links = [a(label, href=href) for href, label in DOCK]
+    return nav(*links, className="dock", aria_label="Mobile rooms")
 
 
 def foot():
@@ -84,6 +92,7 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 top_nav(),
                 main(node, id="stage", className="stage"),
                 foot(),
+                dock(),
                 className="shell",
                 data_brand=label,
                 **{GET_CHROME_ATTR: True},

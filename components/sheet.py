@@ -41,24 +41,24 @@ class Sheet(Component):
 
     class_card = (
         "[grid-area:card] self-start mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_primary = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
     class_btn_ghost = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
-    class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-stone-900/40"
+    class_scrim = "fixed inset-0 z-40 cursor-pointer border-0 bg-scrim"
     class_panel = (
         "fixed top-0 right-0 z-50 flex h-dvh w-[min(22rem,calc(100vw-1.25rem))] "
-        "touch-pan-y select-none flex-col gap-3 border-l border-stone-200 bg-white px-6 py-7 shadow-xl"
+        "touch-pan-y select-none flex-col gap-3 border-l border-hairline bg-raised px-6 py-7 shadow-overlay"
     )
     class_head = "flex items-start justify-between gap-4"
     class_sr = "sr-only"

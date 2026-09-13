@@ -47,27 +47,27 @@ class FilterBar(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_label = "text-sm font-medium"
     class_input = (
-        "min-h-11 w-full rounded-2xl border border-stone-200 bg-stone-50 px-4 "
-        "text-sm outline-none focus:border-stone-400"
+        "min-h-11 w-full rounded-2xl border border-hairline bg-ink-2 px-4 "
+        "text-sm outline-none focus:border-brass"
     )
     class_chips = "flex flex-wrap gap-1"
     class_chip = (
         "inline-flex min-h-9 cursor-pointer items-center rounded-full border "
-        "border-stone-200 bg-stone-50 px-3 text-xs font-medium"
+        "border-hairline bg-ink-2 px-3 text-xs font-medium"
     )
     class_chip_on = (
         "inline-flex min-h-9 cursor-pointer items-center rounded-full border-0 "
-        "bg-stone-900 px-3 text-xs font-medium text-stone-50"
+        "bg-brass px-3 text-xs font-medium text-brass-ink"
     )
     class_list = "m-0 flex list-none flex-col gap-1 p-0"
-    class_row = "rounded-xl bg-stone-50 px-3 py-2 text-sm"
+    class_row = "rounded-xl bg-ink-2 px-3 py-2 text-sm"
 
     FILTERS = (
         ("all", "All"),

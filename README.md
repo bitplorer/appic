@@ -9,7 +9,8 @@ for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
 Page units have no HTTP verbs. Payload type picks media type. **The kit is a
-house you own — 81 stems, `shell=False`, restyled off stone defaults.** Caps
+house you own — 81 stems, `shell=False`, restyled off stone defaults onto
+APPIC tokens (`bg-ink`, `bg-raised`, `text-bone`, `text-brass`).** Caps
 are wax seals. GET is Clock A. Action is Clock B
 (`POST /ux-channel/action`, `application/ux-channel+json`). Empty Content-Type
 is `bad_request`. Brand lives on `wrap=`, never inside `render()`. `/docs` is
@@ -17,13 +18,17 @@ a product page. FastAPI Swagger stays off. Channel owns FileStateStore. Redis
 wins. Doctor `scan_store_clone`, `scan_store_precedence`, and `scan_cek_host`
 fail closed.
 
-The Table is a **constellation**: rooms as named stars around a nucleus. Sight
-is MorphState. Walk is Clock A. The verb that sights a star is `look` — never
-a same-named action, or MorphState is overwritten.
+The Table is a **constellation**: rooms as named stars around a brass nucleus.
+Sight is MorphState (`look`). Walk is Clock A. The verb that sights a star is
+`look` — never a same-named action, or MorphState is overwritten.
 
 Visual skin is first-class: surgical Liquid Glass on chrome, Linear luminance,
 concentric radii, Fraunces + Source Sans 3 + IBM Plex Mono, brass `#D4B483`
-on ink `#07080A`. Glass is the control layer, not a wallpaper.
+on ink `#07080A`. Glass is the control layer, not a wallpaper. Grain lives on
+the body. Three z-layers: ink base, raised rooms, glass chrome.
+
+Ships at **Level 3**. `build(host="auto", live="auto", cek="require", openapi=False)`.
+111 page-unit surfaces. Product doctor on `routes/` + `chrome.py` + `app.py` is green.
 
 ## Run
 
@@ -47,6 +52,10 @@ uxcompose serve dev
 Frozen serve verbs: `dev` / `prod` / `restart-channel`. argv `development` /
 `production` / `restart_channel` fail closed.
 
+CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
+`npx @tailwindcss/cli`) to `assets/static/file/css/output.css`. Linked as
+`/css/output.css`.
+
 ## Walk
 
 | Room | Path | Law you can touch |
@@ -66,6 +75,7 @@ Frozen serve verbs: `dev` / `prod` / `restart-channel`. argv `development` /
 | Ship | `/deploy` | `prepare_deploy` six providers |
 | Health | `/health` | dict → JSON |
 | Pulse | `/pulse` | generator → stream |
+| Command | `/command` | OS palette. Query attaches. Not OverlayChrome |
 
 Every kit stem is also a room (`/dialog`, `/typeahead`, `/menubar`, …). 81
 catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
@@ -78,10 +88,11 @@ ux-compose `main` (`4978576`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
-Independent Grok Build re-read of ux-compose `4978576` (2026-09-13): 81 stems
-counted from `kit/catalog.py`, `scan_cek_host` is hard, specialist lockstep
-updated, visual skin law (SKIN-1 / GLASS-1 / VISUAL-QA) is equal to Isolation
-Law. Command is not OverlayChrome. Two walkers / one `build()` door. FileStateStore
+Independent Grok Build re-read + execution of ux-compose `4978576` (2026-09-13):
+81 stems counted from `kit/catalog.py`, `scan_cek_host` is hard, specialist
+lockstep applied in `requirements.txt`, visual skin law (SKIN-1 / GLASS-1 /
+VISUAL-QA) is equal to Isolation Law. Owned kit copies restyled off `stone-*`.
+Command is not OverlayChrome. Two walkers / one `build()` door. FileStateStore
 stays on Channel. Redis wins. Empty Content-Type is `bad_request`. Cap door is
 `Channel.boot`. Frozen serve verbs. Public `__all__` lock covers host / surface /
 motion names.

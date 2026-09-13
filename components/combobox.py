@@ -46,42 +46,42 @@ class Combobox(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_primary = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
     class_btn_ghost = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
     class_input = (
-        "min-h-11 w-full flex-1 rounded-2xl border border-stone-200 bg-stone-50 "
-        "px-4 py-3 text-sm text-stone-900 outline-none focus:border-stone-400 "
-        "focus:bg-white focus:ring-2 focus:ring-stone-900/10"
+        "min-h-11 w-full flex-1 rounded-2xl border border-hairline bg-ink-2 "
+        "px-4 py-3 text-sm text-bone outline-none focus:border-brass "
+        "focus:bg-raised focus:ring-2 focus:ring-brass/20"
     )
     class_field = "relative"
     class_form = "flex gap-2"
     class_list = (
         "absolute left-0 right-0 top-[calc(100%+0.35rem)] z-20 m-0 flex list-none "
-        "flex-col rounded-2xl border border-stone-200 bg-white p-1 shadow-lg"
+        "flex-col rounded-2xl border border-hairline bg-raised p-1 shadow-room"
     )
     class_row = (
         "min-h-11 cursor-pointer rounded-xl border-0 bg-transparent px-3 "
-        "text-left text-sm text-inherit hover:bg-stone-100"
+        "text-left text-sm text-inherit hover:bg-raised-2"
     )
     class_row_on = (
-        "min-h-11 cursor-pointer rounded-xl border-0 bg-stone-100 px-3 "
+        "min-h-11 cursor-pointer rounded-xl border-0 bg-raised-2 px-3 "
         "text-left text-sm text-inherit"
     )
     class_empty = (
         "absolute left-0 right-0 top-[calc(100%+0.35rem)] z-20 m-0 rounded-2xl "
-        "border border-stone-200 bg-white px-3 py-3 text-sm text-stone-500 shadow-lg"
+        "border border-hairline bg-raised px-3 py-3 text-sm text-brass-ink0 shadow-room"
     )
     class_sr = "sr-only"
 

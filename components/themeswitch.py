@@ -40,22 +40,22 @@ class ThemeSwitch(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_group = "grid grid-cols-3 gap-2"
     class_opt = (
         "flex min-h-20 cursor-pointer flex-col items-start justify-center gap-1 "
-        "rounded-2xl border border-stone-200 bg-stone-50 px-4 text-left text-inherit"
+        "rounded-2xl border border-hairline bg-ink-2 px-4 text-left text-inherit"
     )
     class_opt_on = (
         "flex min-h-20 cursor-pointer flex-col items-start justify-center gap-1 "
-        "rounded-2xl border border-stone-800 bg-white px-4 text-left text-inherit shadow-sm"
+        "rounded-2xl border border-hairline-strong bg-raised px-4 text-left text-inherit shadow-none"
     )
     class_name = "text-sm font-medium"
-    class_hint = "text-xs text-stone-500"
+    class_hint = "text-xs text-brass-ink0"
 
     THEMES = (
         ("light", "Light", "Paper house"),

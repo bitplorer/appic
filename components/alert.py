@@ -33,10 +33,10 @@ class Alert(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-3 "
-        "rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950 shadow-sm"
+        "rounded-3xl border border-amber-200 bg-amber-50 p-6 text-amber-950 shadow-none"
     )
     class_kicker = "text-xs font-medium uppercase tracking-widest text-amber-700"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
     class_lede = "m-0 text-sm leading-relaxed text-amber-900/80"
     class_x = (
         "self-start min-h-11 cursor-pointer rounded-full border-0 bg-transparent "
@@ -44,7 +44,7 @@ class Alert(Component):
     )
     class_rest = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-3 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
 
     TITLE = "The kiln is warm"
@@ -57,11 +57,11 @@ class Alert(Component):
         apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         if not bool(self.open):
             return kit_shell(self,
-                button("Show alert", type="button", className=self.class_x + " border border-stone-200", **bind(self.show)),
+                button("Show alert", type="button", className=self.class_x + " border border-hairline", **bind(self.show)),
                 chrome=(
-                    span("Quiet", className="text-xs font-medium uppercase tracking-widest text-stone-400"),
-                    h2("No alerts", className="m-0 font-serif text-2xl font-semibold"),
-                    p("Show the note again when you need it.", className="m-0 text-sm text-stone-500"),
+                    span("Quiet", className="text-xs font-medium uppercase tracking-widest text-mute"),
+                    h2("No alerts", className="m-0 font-display text-2xl font-semibold"),
+                    p("Show the note again when you need it.", className="m-0 text-sm text-brass-ink0"),
                 ),
                 id=self.id,
                 className=self.class_rest,

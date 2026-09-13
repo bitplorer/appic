@@ -42,24 +42,24 @@ class AlertDialog(Component):
 
     class_card = (
         "[grid-area:card] self-start mx-auto flex w-full min-w-0 max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_btn_ghost = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone hover:bg-raised-2"
     )
     class_btn_danger = (
         "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-rose-800 px-5 text-sm font-medium text-rose-50 hover:bg-rose-700"
+        "border-0 bg-danger px-5 text-sm font-medium text-bone hover:bg-danger"
     )
-    class_scrim = "fixed inset-0 z-40 bg-stone-900/40"
+    class_scrim = "fixed inset-0 z-40 bg-scrim"
     class_stage = "pointer-events-none fixed inset-0 z-50 flex items-center justify-center p-4"
     class_panel = (
         "pointer-events-auto flex w-[min(28rem,calc(100vw-2rem))] flex-col gap-3 "
-        "rounded-3xl bg-white px-7 py-6 shadow-xl"
+        "rounded-3xl bg-raised px-7 py-6 shadow-overlay"
     )
     class_actions = "mt-3 flex justify-end gap-2"
 

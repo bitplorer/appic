@@ -39,19 +39,19 @@ class LogoCloud(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_row = "flex flex-wrap gap-2"
     class_btn = (
         "inline-flex min-h-14 min-w-14 cursor-pointer flex-col items-center justify-center "
-        "gap-1 rounded-2xl border border-stone-200 bg-stone-50 px-3 py-2 text-xs"
+        "gap-1 rounded-2xl border border-hairline bg-ink-2 px-3 py-2 text-xs"
     )
     class_btn_on = (
         "inline-flex min-h-14 min-w-14 cursor-pointer flex-col items-center justify-center "
-        "gap-1 rounded-2xl border-0 bg-stone-900 px-3 py-2 text-xs text-stone-50"
+        "gap-1 rounded-2xl border-0 bg-brass px-3 py-2 text-xs text-brass-ink"
     )
     class_img = "h-8 w-8 rounded-full object-cover"
 

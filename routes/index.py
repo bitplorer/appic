@@ -4,10 +4,8 @@ from __future__ import annotations
 from ux_compose import (
     Component,
     MorphState,
-    RefState,
     action,
     act,
-    bind,
     button,
     control,
     div,
@@ -93,7 +91,7 @@ class Index(Component):
                     className="hero-title",
                 ),
                 p(
-                    "A constitution you can walk. Sight a star (MorphState), then walk it (Clock A GET). "
+                    "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
                     "Caps are wax seals. Channel.boot is the hinge. Empty Content-Type is bad_request.",
                     className="lede",
                 ),
@@ -107,7 +105,13 @@ class Index(Component):
                 className="hero-copy",
             ),
             div(
-                div(*stars, className="sky", id="sky", role="list"),
+                div(
+                    div("", className="nucleus", aria_hidden="true"),
+                    *stars,
+                    className="sky",
+                    id="sky",
+                    role="list",
+                ),
                 div(
                     span("sighted", className="eyebrow"),
                     h2(seen[2], className="sight-title"),

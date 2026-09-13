@@ -36,11 +36,11 @@ class HoverCard(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_wrap = "relative z-20 inline-flex"
     class_btn = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border-0 "
@@ -48,7 +48,7 @@ class HoverCard(Component):
     )
     class_panel = (
         "absolute left-0 top-[calc(100%+0.4rem)] z-30 w-64 rounded-2xl border "
-        "border-stone-200 bg-white p-4 shadow-lg"
+        "border-hairline bg-raised p-4 shadow-room"
     )
     class_scrim = "fixed inset-0 z-10 cursor-pointer border-0 bg-transparent"
     class_sr = "sr-only"

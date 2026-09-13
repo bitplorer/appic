@@ -47,27 +47,27 @@ class Typeahead(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_input = (
-        "min-h-12 w-full rounded-2xl border border-stone-200 bg-stone-50 "
-        "px-4 py-3 text-sm text-stone-900 outline-none focus:border-stone-400 "
-        "focus:bg-white focus:ring-2 focus:ring-stone-900/10"
+        "min-h-12 w-full rounded-2xl border border-hairline bg-ink-2 "
+        "px-4 py-3 text-sm text-bone outline-none focus:border-brass "
+        "focus:bg-raised focus:ring-2 focus:ring-brass/20"
     )
     class_list = "m-0 flex max-h-56 list-none flex-col gap-0.5 overflow-auto p-0"
     class_row = (
         "flex min-h-11 w-full cursor-pointer items-center rounded-xl border-0 "
-        "bg-transparent px-3 text-left text-sm text-stone-900 hover:bg-stone-100"
+        "bg-transparent px-3 text-left text-sm text-bone hover:bg-raised-2"
     )
     class_row_on = (
         "flex min-h-11 w-full cursor-pointer items-center rounded-xl border-0 "
-        "bg-stone-100 px-3 text-left text-sm text-stone-900"
+        "bg-raised-2 px-3 text-left text-sm text-bone"
     )
-    class_empty = "m-0 px-1 py-3 text-sm text-stone-500"
-    class_choice = "m-0 text-sm text-stone-500"
+    class_empty = "m-0 px-1 py-3 text-sm text-brass-ink0"
+    class_choice = "m-0 text-sm text-brass-ink0"
 
     OPTIONS = (
         "Linen work shirt",

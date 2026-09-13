@@ -35,12 +35,12 @@ class Mockup(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
-    class_frame = "mx-auto flex items-center justify-center rounded-[1.75rem] border-8 border-stone-900 bg-stone-50 p-6 text-sm"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
+    class_frame = "mx-auto flex items-center justify-center rounded-[1.75rem] border-8 border-hairline-strong bg-ink-2 p-6 text-sm"
 
     DEVICES = (("desk", "Desk"), ("phone", "Phone"), ("tile", "Tile"))
     PREVIEW = "Quiet pieces for a working house."
@@ -56,7 +56,7 @@ class Mockup(Component):
                 type="button",
                 role="radio",
                 aria_checked="true" if key == val else "false",
-                className="rounded-full px-3 py-2 text-xs " + ("bg-stone-900 text-stone-50" if key == val else "bg-stone-100"),
+                className="rounded-full px-3 py-2 text-xs " + ("bg-brass text-brass-ink" if key == val else "bg-raised-2"),
                 **bind(self.choose, key=key),
             )
             for key, lab in self.DEVICES

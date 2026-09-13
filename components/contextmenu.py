@@ -52,30 +52,30 @@ class ContextMenu(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_stage = "relative"
     class_canvas = (
         "flex min-h-40 w-full cursor-pointer flex-col items-center justify-center gap-1 "
-        "rounded-2xl border border-dashed border-stone-300 bg-stone-50 px-4 text-center "
+        "rounded-2xl border border-dashed border-hairline-strong bg-ink-2 px-4 text-center "
         "select-none"
     )
     class_menu = (
         "absolute left-1/2 top-1/2 z-30 m-0 flex w-56 list-none "
         "-translate-x-1/2 -translate-y-1/2 flex-col rounded-2xl "
-        "border border-stone-200 bg-white p-1.5 shadow-xl"
+        "border border-hairline bg-raised p-1.5 shadow-overlay"
     )
     class_item = "m-0 block list-none p-0"
     class_row = (
         "flex min-h-11 w-full cursor-pointer items-center rounded-xl border-0 "
-        "bg-transparent px-3 text-left text-sm text-stone-900 hover:bg-stone-100 "
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-stone-900/15"
+        "bg-transparent px-3 text-left text-sm text-bone hover:bg-raised-2 "
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass/25"
     )
     class_scrim = "fixed inset-0 z-20 cursor-pointer border-0 bg-transparent"
-    class_choice = "m-0 text-sm text-stone-500"
+    class_choice = "m-0 text-sm text-brass-ink0"
     class_sr = "sr-only"
 
     ITEMS = (
@@ -133,8 +133,8 @@ class ContextMenu(Component):
             p(f"Ran · {ran}" if ran else "No command yet.", className=self.class_choice),
             div(
                 button(
-                    span("Hold · or click", className="text-sm font-medium text-stone-700"),
-                    span("Opens the same menu.", className="text-xs text-stone-400"),
+                    span("Hold · or click", className="text-sm font-medium text-bone"),
+                    span("Opens the same menu.", className="text-xs text-mute"),
                     type="button",
                     className=self.class_canvas,
                     aria_haspopup="menu",

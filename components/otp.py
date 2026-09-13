@@ -39,40 +39,40 @@ class Otp(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-md flex-col gap-4 rounded-3xl border "
-        "border-stone-200 bg-white p-8 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-8 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_label = "text-sm font-medium"
     class_form = "flex flex-col gap-4"
     class_input = (
-        "w-full min-h-14 rounded-2xl border border-stone-200 bg-stone-50 "
-        "px-4 text-center font-mono text-2xl tracking-[0.4em] text-stone-900 "
-        "outline-none focus:border-stone-400 focus:bg-white focus:ring-2 "
-        "focus:ring-stone-900/10"
+        "w-full min-h-14 rounded-2xl border border-hairline bg-ink-2 "
+        "px-4 text-center font-mono text-2xl tracking-[0.4em] text-bone "
+        "outline-none focus:border-brass focus:bg-raised focus:ring-2 "
+        "focus:ring-brass/20"
     )
     class_input_err = (
-        "w-full min-h-14 rounded-2xl border border-rose-300 bg-stone-50 "
-        "px-4 text-center font-mono text-2xl tracking-[0.4em] text-stone-900 "
-        "outline-none focus:border-rose-400 focus:bg-white focus:ring-2 "
+        "w-full min-h-14 rounded-2xl border border-rose-300 bg-ink-2 "
+        "px-4 text-center font-mono text-2xl tracking-[0.4em] text-bone "
+        "outline-none focus:border-rose-400 focus:bg-raised focus:ring-2 "
         "focus:ring-rose-200"
     )
-    class_hint = "text-xs text-stone-400"
+    class_hint = "text-xs text-mute"
     class_hint_err = "text-xs text-rose-600"
     class_submit = (
-        "min-h-11 w-full cursor-pointer rounded-full border-0 bg-stone-800 "
-        "px-5 text-sm font-semibold text-stone-50 hover:bg-stone-700"
+        "min-h-11 w-full cursor-pointer rounded-full border-0 bg-brass "
+        "px-5 text-sm font-semibold text-brass-ink hover:bg-brass"
     )
     class_ok = "flex flex-col items-center gap-2 py-4 text-center"
     class_mark = (
         "flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 "
-        "text-xs font-semibold uppercase tracking-widest text-emerald-700"
+        "text-xs font-semibold uppercase tracking-widest text-ok"
     )
     class_btn_ghost = (
         "mt-4 inline-flex min-h-11 cursor-pointer items-center justify-center "
-        "rounded-full border border-stone-200 bg-white px-5 text-sm font-medium "
-        "text-stone-900 hover:bg-stone-100"
+        "rounded-full border border-hairline bg-raised px-5 text-sm font-medium "
+        "text-bone hover:bg-raised-2"
     )
 
     code = RefState("")

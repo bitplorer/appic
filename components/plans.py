@@ -39,24 +39,24 @@ class Plans(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-[44rem] flex-col gap-4 overflow-x-hidden rounded-3xl border "
-        "border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_grid = "grid grid-cols-1 gap-3"
     class_plan = (
         "flex min-h-44 cursor-pointer flex-col gap-2 rounded-2xl border "
-        "border-stone-200 bg-stone-50 px-5 py-5 text-left text-inherit"
+        "border-hairline bg-ink-2 px-5 py-5 text-left text-inherit"
     )
     class_plan_on = (
         "flex min-h-44 cursor-pointer flex-col gap-2 rounded-2xl border "
-        "border-stone-800 bg-white px-5 py-5 text-left text-inherit shadow-sm"
+        "border-hairline-strong bg-raised px-5 py-5 text-left text-inherit shadow-none"
     )
-    class_name = "m-0 font-serif text-xl font-medium tracking-tight"
-    class_price = "m-0 font-serif text-3xl font-semibold tracking-tight"
-    class_feat = "m-0 text-sm text-stone-500"
-    class_mark = "text-xs font-semibold uppercase tracking-widest text-stone-400"
+    class_name = "m-0 font-display text-xl font-medium tracking-tight"
+    class_price = "m-0 font-display text-3xl font-semibold tracking-tight"
+    class_feat = "m-0 text-sm text-brass-ink0"
+    class_mark = "text-xs font-semibold uppercase tracking-widest text-mute"
 
     PLANS = (
         (

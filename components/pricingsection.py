@@ -45,21 +45,21 @@ class PricingSection(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-[44rem] flex-col gap-4 "
-        "overflow-x-auto rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "overflow-x-auto rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_table = "w-full min-w-[28rem] border-collapse text-sm"
     class_th = "px-3 py-3 text-left font-medium"
-    class_td = "border-t border-stone-100 px-3 py-3 text-stone-600"
+    class_td = "border-t border-hairline px-3 py-3 text-bone-dim"
     class_btn = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border "
-        "border-stone-200 bg-white px-4 text-sm"
+        "border-hairline bg-raised px-4 text-sm"
     )
     class_btn_on = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-full border-0 "
-        "bg-stone-900 px-4 text-sm text-stone-50"
+        "bg-brass px-4 text-sm text-brass-ink"
     )
 
     TIERS = (

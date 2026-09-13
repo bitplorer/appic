@@ -7,7 +7,6 @@ __pycache__/
 node_modules/
 dist/
 .output/
-.tanstack/
 .DS_Store
 *.log
 screenshots/
@@ -16,4 +15,3 @@ artifacts/
 .env.*
 .python-version
 .grok/
-skin/static/file/css/.gitignore

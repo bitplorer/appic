@@ -42,24 +42,24 @@ class Toolbar(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_bar = (
-        "flex flex-wrap items-center gap-1 rounded-2xl bg-stone-100 p-1"
+        "flex flex-wrap items-center gap-1 rounded-2xl bg-raised-2 p-1"
     )
     class_group = "flex items-center gap-1"
     class_btn = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-xl border-0 "
-        "bg-transparent px-3 text-sm font-medium text-stone-700 hover:bg-white"
+        "bg-transparent px-3 text-sm font-medium text-bone hover:bg-raised"
     )
     class_btn_on = (
         "inline-flex min-h-11 cursor-pointer items-center rounded-xl border-0 "
-        "bg-white px-3 text-sm font-medium text-stone-900 shadow-sm"
+        "bg-raised px-3 text-sm font-medium text-bone shadow-none"
     )
-    class_sep = "mx-1 h-6 w-px bg-stone-300"
+    class_sep = "mx-1 h-6 w-px bg-raised-2"
 
     GROUPS = (
         ("file", "File", (("new", "New"), ("open", "Open"))),

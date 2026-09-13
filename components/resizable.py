@@ -37,14 +37,14 @@ class Resizable(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-xl flex-col gap-4 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
-    class_stage = "flex min-h-36 overflow-hidden rounded-2xl border border-stone-200"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
+    class_stage = "flex min-h-36 overflow-hidden rounded-2xl border border-hairline"
     class_pane = "flex flex-col justify-center px-4 py-4 text-sm"
-    class_sep = "w-px cursor-col-resize bg-stone-200"
+    class_sep = "w-px cursor-col-resize bg-raised-2"
 
     SPLITS = (("even", "Even", "1fr 1fr"), ("wide", "Wide left", "2fr 1fr"), ("rail", "Rail", "1fr 2fr"))
     value = MorphState("even")
@@ -61,7 +61,7 @@ class Resizable(Component):
                         type="button",
                         role="radio",
                         aria_checked="true" if key == val else "false",
-                        className="rounded-full px-3 py-2 text-xs " + ("bg-stone-900 text-stone-50" if key == val else "bg-stone-100"),
+                        className="rounded-full px-3 py-2 text-xs " + ("bg-brass text-brass-ink" if key == val else "bg-raised-2"),
                         **bind(self.split, key=key),
                     )
                     for key, lab, _g in self.SPLITS
@@ -71,9 +71,9 @@ class Resizable(Component):
                 aria_label="Split",
             ),
             div(
-                div("List", className=self.class_pane + " bg-stone-50", aria_label="List pane"),
+                div("List", className=self.class_pane + " bg-ink-2", aria_label="List pane"),
                 span("", className=self.class_sep, role="separator", aria_orientation="vertical", aria_label="Resize"),
-                div("Detail", className=self.class_pane + " bg-white", aria_label="Detail pane"),
+                div("Detail", className=self.class_pane + " bg-raised", aria_label="Detail pane"),
                 className=self.class_stage,
                 style=f"display:grid;grid-template-columns:{grid}",
             ),

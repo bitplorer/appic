@@ -34,10 +34,10 @@ class Banner(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] items-start "
-        "justify-between gap-4 rounded-3xl border border-sky-200 bg-sky-50 px-6 py-5 text-sky-950 shadow-sm"
+        "justify-between gap-4 rounded-3xl border border-sky-200 bg-sky-50 px-6 py-5 text-sky-950 shadow-none"
     )
     class_kicker = "text-xs font-medium uppercase tracking-widest text-sky-700"
-    class_title = "m-0 font-serif text-xl font-semibold tracking-tight"
+    class_title = "m-0 font-display text-xl font-semibold tracking-tight"
     class_lede = "m-0 text-sm leading-relaxed text-sky-900/80"
     class_x = (
         "min-h-11 min-w-11 cursor-pointer rounded-full border-0 bg-transparent "
@@ -45,7 +45,7 @@ class Banner(Component):
     )
     class_rest = (
         "[grid-area:card] self-start relative mx-auto flex w-full max-w-[44rem] flex-col gap-3 "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
 
     TITLE = "Winter hours"
@@ -57,10 +57,10 @@ class Banner(Component):
         apply_slots(self, seams=getattr(self, '_SEAMS', {}), shell=shell, **slots)
         if not bool(self.open):
             return kit_shell(self,
-                button("Show banner", type="button", className=self.class_x + " border border-stone-200 px-4", **bind(self.show)),
+                button("Show banner", type="button", className=self.class_x + " border border-hairline px-4", **bind(self.show)),
                 chrome=(
-                    span("Quiet", className="text-xs font-medium uppercase tracking-widest text-stone-400"),
-                    h2("Banner hidden", className="m-0 font-serif text-2xl font-semibold"),
+                    span("Quiet", className="text-xs font-medium uppercase tracking-widest text-mute"),
+                    h2("Banner hidden", className="m-0 font-display text-2xl font-semibold"),
                 ),
                 id=self.id,
                 className=self.class_rest,

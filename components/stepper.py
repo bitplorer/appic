@@ -35,41 +35,41 @@ class Stepper(Component):
 
     class_card = (
         "[grid-area:card] self-start relative mx-auto flex w-full min-w-0 max-w-xl flex-col gap-5 overflow-x-hidden "
-        "rounded-3xl border border-stone-200 bg-white p-6 text-stone-900 shadow-sm"
+        "rounded-3xl border border-hairline bg-raised p-6 text-bone shadow-none"
     )
-    class_kicker = "text-xs font-medium uppercase tracking-widest text-stone-400"
-    class_title = "m-0 font-serif text-2xl font-semibold tracking-tight"
-    class_lede = "m-0 text-sm leading-relaxed text-stone-500"
+    class_kicker = "text-xs font-medium uppercase tracking-widest text-mute"
+    class_title = "m-0 font-display text-2xl font-semibold tracking-tight"
+    class_lede = "m-0 text-sm leading-relaxed text-brass-ink0"
     class_row = "flex min-w-0 flex-wrap items-center justify-center gap-0"
     class_dot = (
         "flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border border-stone-200 bg-white text-xs font-semibold "
-        "text-stone-500"
+        "rounded-full border border-hairline bg-raised text-xs font-semibold "
+        "text-brass-ink0"
     )
     class_dot_on = (
         "flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border-0 bg-stone-800 text-xs font-semibold text-stone-50"
+        "rounded-full border-0 bg-brass text-xs font-semibold text-brass-ink"
     )
     class_dot_done = (
         "flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center "
-        "rounded-full border-0 bg-stone-200 text-xs font-semibold text-stone-700"
+        "rounded-full border-0 bg-raised-2 text-xs font-semibold text-bone"
     )
-    class_line = "h-px min-w-4 flex-1 bg-stone-200"
-    class_panel = "flex flex-col gap-2 rounded-2xl bg-stone-50 px-5 py-5"
+    class_line = "h-px min-w-4 flex-1 bg-raised-2"
+    class_panel = "flex flex-col gap-2 rounded-2xl bg-ink-2 px-5 py-5"
     class_actions = "flex min-w-0 flex-wrap items-center justify-between gap-2"
     class_btn_primary = (
         "inline-flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full "
-        "border-0 bg-stone-800 px-5 text-sm font-medium text-stone-50 hover:bg-stone-700"
+        "border-0 bg-brass px-5 text-sm font-medium text-brass-ink hover:bg-brass"
     )
     class_btn_ghost = (
         "inline-flex min-h-11 shrink-0 cursor-pointer items-center justify-center rounded-full "
-        "border border-stone-200 bg-white px-5 text-sm font-medium text-stone-900 "
-        "hover:bg-stone-100"
+        "border border-hairline bg-raised px-5 text-sm font-medium text-bone "
+        "hover:bg-raised-2"
     )
     class_ok = "flex flex-col items-center gap-2 py-6 text-center"
     class_mark = (
         "flex h-12 w-12 items-center justify-center rounded-full bg-emerald-50 "
-        "text-xs font-semibold uppercase tracking-widest text-emerald-700"
+        "text-xs font-semibold uppercase tracking-widest text-ok"
     )
 
     STEPS = (
