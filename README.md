@@ -1,24 +1,29 @@
 # APPIC
 
-**A constitution you can walk.**
+**A nocturnal foundry you can inhabit.**
 
-A nocturnal foundry OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
-`7546013bad9847b8ce3a1ad2aa3019c656e9c1d4` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence). Pure-Python composition root for ux-dom,
-ux-behavior, ux-motion, and ux-channel.
+A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
+`4978576bab93d9e496e38a1e7c55e510c03a500f` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
+Channel.boot + Redis precedence + **skin law**). Pure-Python composition root
+for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
 Page units have no HTTP verbs. Payload type picks media type. **The kit is a
-house you own — 81 stems, `shell=False`.** Caps are wax seals. GET is Clock A.
-Action is Clock B (`POST /ux-channel/action`, `application/ux-channel+json`).
-Empty Content-Type is `bad_request`. Brand lives on `wrap=`, never inside
-`render()`. `/docs` is a product page. FastAPI Swagger stays off.
-Channel owns FileStateStore. Redis wins. Doctor `scan_store_clone` and
-`scan_store_precedence` fail closed.
+house you own — 81 stems, `shell=False`, restyled off stone defaults.** Caps
+are wax seals. GET is Clock A. Action is Clock B
+(`POST /ux-channel/action`, `application/ux-channel+json`). Empty Content-Type
+is `bad_request`. Brand lives on `wrap=`, never inside `render()`. `/docs` is
+a product page. FastAPI Swagger stays off. Channel owns FileStateStore. Redis
+wins. Doctor `scan_store_clone`, `scan_store_precedence`, and `scan_cek_host`
+fail closed.
 
-The Table is a **constellation**: rooms as named stars around a nucleus.
-Sight is MorphState. Walk is Clock A. The verb that sights a star is `look` —
-never a same-named action, or MorphState is overwritten.
+The Table is a **constellation**: rooms as named stars around a nucleus. Sight
+is MorphState. Walk is Clock A. The verb that sights a star is `look` — never
+a same-named action, or MorphState is overwritten.
+
+Visual skin is first-class: surgical Liquid Glass on chrome, Linear luminance,
+concentric radii, Fraunces + Source Sans 3 + IBM Plex Mono, brass `#D4B483`
+on ink `#07080A`. Glass is the control layer, not a wallpaper.
 
 ## Run
 
@@ -56,38 +61,40 @@ Frozen serve verbs: `dev` / `prod` / `restart-channel`. argv `development` /
 | Cut | `/cut` | Cut C. A type is a seal. Empty type is `bad_request` |
 | Boot | `/boot` | Channel.boot is the Cap door. Redis wins |
 | Law | `/docs` | Written constitution. Swagger off |
-| Trace | `/trace` | Doctor: hard vs teaching vs store-clone vs precedence |
+| Trace | `/trace` | Doctor: hard vs teaching vs store-clone vs precedence vs cek-host |
 | Press | `/copy` | `copy_component`. Not a card |
 | Ship | `/deploy` | `prepare_deploy` six providers |
 | Health | `/health` | dict → JSON |
 | Pulse | `/pulse` | generator → stream |
 
-Every kit stem is also a room (`/dialog`, `/typeahead`, `/menubar`, …).
-81 catalog stems + OverlayChrome.
+Every kit stem is also a room (`/dialog`, `/typeahead`, `/menubar`, …). 81
+catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
 
 ## Prompt
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
-Copy everything below the line into Grok Build. Feature map against ux-compose
-`main` (`7546013`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+Copy **everything below the line** into Grok Build. Feature map against
+ux-compose `main` (`4978576`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
-Independent Grok Build re-read of ux-compose `7546013` (2026-09-12 Cut C):
-81 stems counted from `kit/catalog.py`, Command is not OverlayChrome, two
-walkers / one `build()` door, FileStateStore stays on Channel, Redis wins,
-empty Content-Type is `bad_request`, Cap door is `Channel.boot`, frozen serve
-verbs, public `__all__` lock covers host/surface/motion names.
+Independent Grok Build re-read of ux-compose `4978576` (2026-09-13): 81 stems
+counted from `kit/catalog.py`, `scan_cek_host` is hard, specialist lockstep
+updated, visual skin law (SKIN-1 / GLASS-1 / VISUAL-QA) is equal to Isolation
+Law. Command is not OverlayChrome. Two walkers / one `build()` door. FileStateStore
+stays on Channel. Redis wins. Empty Content-Type is `bad_request`. Cap door is
+`Channel.boot`. Frozen serve verbs. Public `__all__` lock covers host / surface /
+motion names.
 
 ## Pins
 
 | Package | SHA |
 |---|---|
-| ux-compose | `7546013bad9847b8ce3a1ad2aa3019c656e9c1d4` |
-| ux-dom | `e8be99a52bfecd6026c200fa1c3dc6a74f87aacb` |
-| ux-behavior | `793f120e3b1388925772cd069b070d7918b78baa` |
-| ux-motion | `67ff3f0c4912b70b7056f8226a6f226b6fe93f60` |
-| ux-channel | `985e58aee76ca683774c4d4d58ab30a1d3b6efee` `#subdirectory=python` |
+| ux-compose | `4978576bab93d9e496e38a1e7c55e510c03a500f` |
+| ux-dom | `2e894cd7bca66e1da6c2f9d42b2d1a8bb937c92c` |
+| ux-behavior | `7d46979f59f284bc2d6d961ed372ec849e851dfc` |
+| ux-motion | `bbe7d73466a6c1eccb47e711568c80ce3b4d5487` |
+| ux-channel | `a6ab1594959b287b4754afe09d8aced5504edd8f` `#subdirectory=python` |
 | cek-host / cek-surface | `>=0.1.3` |
 
 License: MIT.
