@@ -22,9 +22,9 @@
   --color-scrim: rgb(7 8 10 / 0.58);
   --shadow-room: 0 24px 60px rgb(0 0 0 / 0.35);
   --shadow-overlay: 0 40px 80px rgb(0 0 0 / 0.5);
-  --radius-ctrl: 8px;
-  --radius-card: 16px;
-  --radius-overlay: 24px;
+  --radius-ctrl: 10px;
+  --radius-card: 20px;
+  --radius-overlay: 28px;
 }
 
 @layer base {
@@ -45,9 +45,9 @@
     --ok: #7d9b76;
     --glass: rgb(12 13 16 / 0.58);
     --grain: 0.04;
-    --r-ctrl: 8px;
-    --r-card: 16px;
-    --r-overlay: 24px;
+    --r-ctrl: 10px;
+    --r-card: 20px;
+    --r-overlay: 28px;
     --z-base: 0;
     --z-raised: 10;
     --z-chrome: 40;
@@ -134,13 +134,23 @@
     width: min(1180px, calc(100% - 24px));
     padding: 10px 14px 10px 16px;
     background: var(--glass);
-    backdrop-filter: blur(22px) saturate(1.35);
-    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
     border: 1px solid var(--hairline-strong);
-    border-radius: 20px;
+    border-radius: 24px;
     box-shadow:
-      inset 0 1px 0 rgb(255 255 255 / 0.14),
+      inset 0 1px 0 rgb(255 255 255 / 0.22),
+      inset 0 -1px 0 rgb(0 0 0 / 0.25),
       0 18px 40px rgb(0 0 0 / 0.28);
+    overflow: hidden;
+  }
+  .top::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.16), transparent 42%);
   }
   .wordmark {
     display: flex;
@@ -203,12 +213,23 @@
     color: var(--bone-dim);
     background: rgb(7 8 10 / 0.28);
   }
-  .cmd-chip kbd {
+  .cmd-chip kbd, .kbd {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     letter-spacing: 0.04em;
     color: var(--brass);
   }
+  .sky-lines {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    color: rgb(212 180 131 / 0.38);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .filament { opacity: 0.55; }
+  .star.is-on ~ .sky-lines { color: var(--brass); }
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -242,11 +263,11 @@
     gap: 4px;
     padding: 8px;
     background: var(--glass);
-    backdrop-filter: blur(22px) saturate(1.35);
-    -webkit-backdrop-filter: blur(22px) saturate(1.35);
+    backdrop-filter: blur(24px) saturate(1.4);
+    -webkit-backdrop-filter: blur(24px) saturate(1.4);
     border: 1px solid var(--hairline-strong);
-    border-radius: 22px;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.12), 0 16px 40px rgb(0 0 0 / 0.4);
+    border-radius: 24px;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), inset 0 -1px 0 rgb(0 0 0 / 0.28), 0 16px 40px rgb(0 0 0 / 0.4);
   }
   .dock a {
     flex: 1;
@@ -530,7 +551,7 @@
       padding: 16px;
       gap: 10px;
     }
-    .sky::after, .nucleus { display: none; }
+    .sky::after, .nucleus, .sky-lines { display: none; }
     .star { position: relative; left: auto !important; top: auto !important; transform: none; }
   }
 }

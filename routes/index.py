@@ -26,6 +26,8 @@ from ux_compose import (
     dt,
     dd,
     hr,
+    svg,
+    path,
 )
 from store import HOST
 
@@ -51,6 +53,27 @@ STARS = (
     ("cut", "/cut", "Cut", 6, 38, "Cut C. Empty Content-Type is bad_request."),
     ("boot", "/boot", "Boot", 44, 42, "Channel.boot is the Cap door. Redis wins."),
 )
+
+
+def _filaments():
+    """Nucleus at 50,48. Public surface has no `line` tag — paths only."""
+    strokes = [
+        path(
+            d=f"M50 48 L{x} {y}",
+            fill="none",
+            stroke="currentColor",
+            stroke_width="0.35",
+            className=f"filament filament-{key}",
+        )
+        for key, _href, _label, x, y, _law in STARS
+    ]
+    return svg(
+        *strokes,
+        viewBox="0 0 100 100",
+        preserveAspectRatio="none",
+        className="sky-lines",
+        aria_hidden="true",
+    )
 
 
 class Index(Component):
@@ -84,7 +107,7 @@ class Index(Component):
         ]
         return section(
             div(
-                span("nocturnal foundry · ux-compose 0.1.0 · kit-81 · Cut C", className="eyebrow"),
+                span("nocturnal foundry · ux-compose 0.1.0 · 80563ab · kit-81", className="eyebrow"),
                 h1(
                     span(str(self.greeting), className="display"),
                     span("APPIC", className="word-lg"),
@@ -106,6 +129,7 @@ class Index(Component):
             ),
             div(
                 div(
+                    _filaments(),
                     div("", className="nucleus", aria_hidden="true"),
                     *stars,
                     className="sky",

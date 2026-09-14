@@ -3,9 +3,9 @@
 **A nocturnal foundry you can inhabit.**
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
-`4978576bab93d9e496e38a1e7c55e510c03a500f` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + **skin law**). Pure-Python composition root
-for ux-dom, ux-behavior, ux-motion, and ux-channel.
+`80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
+Channel.boot + Redis precedence + extract_by_id + **skin law**). Pure-Python
+composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
 Page units have no HTTP verbs. Payload type picks media type. **The kit is a
@@ -16,19 +16,21 @@ are wax seals. GET is Clock A. Action is Clock B
 is `bad_request`. Brand lives on `wrap=`, never inside `render()`. `/docs` is
 a product page. FastAPI Swagger stays off. Channel owns FileStateStore. Redis
 wins. Doctor `scan_store_clone`, `scan_store_precedence`, and `scan_cek_host`
-fail closed.
+fail closed. Morph fragments prefer ux-dom `extract_by_id`.
 
-The Table is a **constellation**: rooms as named stars around a brass nucleus.
+The Table is a **constellation**: rooms as named stars around a brass nucleus,
+joined by faint filaments (`svg` + `path` — there is no public `line` tag).
 Sight is MorphState (`look`). Walk is Clock A. The verb that sights a star is
 `look` — never a same-named action, or MorphState is overwritten.
 
-Visual skin is first-class: surgical Liquid Glass on chrome, Linear luminance,
-concentric radii, Fraunces + Source Sans 3 + IBM Plex Mono, brass `#D4B483`
-on ink `#07080A`. Glass is the control layer, not a wallpaper. Grain lives on
-the body. Three z-layers: ink base, raised rooms, glass chrome.
+Visual skin is first-class: surgical Regular Liquid Glass on chrome, 90°
+specular from the top, Linear luminance, concentric radii, Fraunces + Source
+Sans 3 + IBM Plex Mono, brass `#D4B483` on ink `#07080A`. Glass is the
+control layer, not a wallpaper. Grain lives on the body. Three z-layers: ink
+base, raised rooms, glass chrome.
 
 Ships at **Level 3**. `build(host="auto", live="auto", cek="require", openapi=False)`.
-111 page-unit surfaces. Product doctor on `routes/` + `chrome.py` + `app.py` is green.
+Product doctor on `routes/` + `chrome.py` + `app.py` is green.
 
 ## Run
 
@@ -84,24 +86,23 @@ catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
 Copy **everything below the line** into Grok Build. Feature map against
-ux-compose `main` (`4978576`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+ux-compose `main` (`80563ab`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
-Independent Grok Build re-read + execution of ux-compose `4978576` (2026-09-13):
-81 stems counted from `kit/catalog.py`, `scan_cek_host` is hard, specialist
-lockstep applied in `requirements.txt`, visual skin law (SKIN-1 / GLASS-1 /
-VISUAL-QA) is equal to Isolation Law. Owned kit copies restyled off `stone-*`.
+Independent Grok Build re-read + execution of ux-compose `80563ab` (2026-09-14):
+81 stems counted from `kit/catalog.py`, Soft USE of `extract_by_id`, L5 Pulse
+locks (no new Pulse room), product pin is git tip (scaffold `COMPOSE_VCS_PIN`
+lags at `24a182f`). Visual skin: SPECULAR-90, CONCENTRICITY-1, GLASS-REGULAR.
 Command is not OverlayChrome. Two walkers / one `build()` door. FileStateStore
 stays on Channel. Redis wins. Empty Content-Type is `bad_request`. Cap door is
-`Channel.boot`. Frozen serve verbs. Public `__all__` lock covers host / surface /
-motion names.
+`Channel.boot`. Frozen serve verbs.
 
 ## Pins
 
 | Package | SHA |
 |---|---|
-| ux-compose | `4978576bab93d9e496e38a1e7c55e510c03a500f` |
+| ux-compose | `80563abf1666e45fa43236e7303b1c4319413554` |
 | ux-dom | `2e894cd7bca66e1da6c2f9d42b2d1a8bb937c92c` |
 | ux-behavior | `7d46979f59f284bc2d6d961ed372ec849e851dfc` |
 | ux-motion | `bbe7d73466a6c1eccb47e711568c80ce3b4d5487` |

@@ -1,7 +1,7 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + Kit Cut 1 + Cut C + skin law)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + Kit Cut 1 + Cut C + skin law + extract-by-id)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
-SHA **`4978576bab93d9e496e38a1e7c55e510c03a500f`** (2026-09-12 tip — specialist lockstep
+SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (2026-09-13 tip — specialist lockstep
 ux-dom `2e894cd` · ux-channel `a6ab159` · ux-behavior `7d46979` · ux-motion `bbe7d73`).
 Companion: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md).
 If this prompt and the library disagree, **the library wins**.
@@ -13,80 +13,58 @@ and ships a complete, **visually stunning** foundry. Repo **appic already exists
 
 ---
 
-## 2026-09-13 — executed (this session)
+## 2026-09-14 — devised + executed (this session)
 
-Grok Build cloned `bitplorer/ux-compose` @ `4978576`, counted 81 catalog stems,
-installed Python 3.14 via `uv`, pinned specialists in `requirements.txt` to the
-lockstep SHAs, restyled every owned kit copy off `stone-*` onto APPIC tokens
-(SKIN-1), authored Liquid Glass chrome + brass nucleus constellation (GLASS-1 /
-VISUAL-QA), compiled `assets/css/input.css` → `/css/output.css`, booted
-`uvicorn app:asgi` on `0.0.0.0:8080`.
+Independent re-read of [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose)
+`main` @ **`80563ab`**. Walked `__all__` (86 public names), `kit/catalog.py`
+(**81 stems** + `treeview` alias), `AGENTS.md`, `docs/OWNERSHIP.md`,
+`docs/ARCHITECTURE.md`, `docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`,
+`CHANGELOG` Unreleased, `pyproject.toml`, `doctor.py`, `helpers._fragment_for_target`,
+`scaffold.COMPOSE_VCS_PIN`, Apple Liquid Glass 2026 (WWDC25 / iOS 26 / macOS Tahoe:
+Clarity, Deference, Depth, concentricity, 90° specular, Regular vs Clear glass),
+Linear luminance, Raycast Command-as-OS, Stripe editorial type, visionOS layering.
 
-Verified: GET `/` 200, `/health` JSON, `/pulse` stream, `/commission` 200,
-`/command` 200, `/docs` 200. Product doctor on `routes/` + `chrome.py` + `app.py`
-is green. Level 3. 111 surfaces. Desktop 1280×800 and mobile 390×844: no
-overflow, no console errors. Sighting a star (`index.look`) morphs the sight
-card. Published to **bitplorer/appic**.
+Specialist pins **unchanged** from `4978576`. Compose tip moved for:
 
-Honesty locks from the previous session still hold. `requirements.txt` now
-matches the prompt pin (was stale at `7546013`).
-
----
-
-## 2026-09-13 — Grok Build independent re-read (this session)
-
-Walked `src/ux_compose/__init__.__all__`, `kit/catalog.py` (**81** stems +
-`treeview` alias), `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`,
-`docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`, `CHANGELOG` Unreleased,
-`pyproject.toml` pins, `doctor.py` scan families, and Apple Liquid Glass 2026 /
-Linear luminance / HIG Clarity–Deference–Depth craft notes.
-
-**Library floor this session**
-
-| Pin | SHA |
+| Delta | Law |
 | --- | --- |
-| ux-compose | `4978576bab93d9e496e38a1e7c55e510c03a500f` |
-| ux-dom | `2e894cd7bca66e1da6c2f9d42b2d1a8bb937c92c` |
-| ux-behavior | `7d46979f59f284bc2d6d961ed372ec849e851dfc` |
-| ux-motion | `bbe7d73466a6c1eccb47e711568c80ce3b4d5487` |
-| ux-channel | `a6ab1594959b287b4754afe09d8aced5504edd8f` `#subdirectory=python` |
-| cek-host / cek-surface | `>=0.1.3` |
+| Soft USE `extract_by_id` | `helpers._fragment_for_target` prefers `ux_dom.response.serialize.extract_by_id`. Homemade walker KEEP as escape. No `fragment.py`. **EXTRACT-1** |
+| L5 Pulse httpx locks | Existing Pulse rooms only. No new Pulse room. No MATRIX.md teaching surface. **PULSE-L5** |
+| Scaffold `COMPOSE_VCS_PIN` | Still `24a182f` (chicken-egg #56). Product `requirements.txt` pins **tip `80563ab`**, not the lagging scaffold pin. **VCS-PIN-TIP** |
 
-Python **≥ 3.14**. Install: `git clone` + `pip install -e ".[serve]"` — **not PyPI**.
-Grok sandbox Python floor is **3.10** — `uv python install 3.14` then
-`uv venv .venv --python 3.14` and `uv pip install --python .venv/bin/python`.
-The venv has no pip.
+Visual law tightened to 2026 Liquid Glass craft: glass is a *control-layer
+material* (Regular glass on chrome / overlays; never Clear glass on content
+cards). Specular highlight arrives from **90°** (top inset 1px + inner wash),
+not 45°. Nested radii = parent radius − padding (concentricity). HDR-like
+jewel controls: brass nucleus is the only light source in the sky.
+
+**Executed:** pin `80563ab`, restyle glass specular, constellation filaments,
+⌘K command chip, constitution law for extract-by-id, doctor green, uvicorn
+`0.0.0.0:8080`, published to **bitplorer/appic**.
 
 ### Honesty locks (do not reopen)
 
-Prior locks still hold: `CUT-C`, `CAP-DOOR` (`Channel.boot`), `REDIS-1`,
-`SERVE-ARGV` (`dev` / `prod` / `restart-channel`), `CLI-ARGV`, `HEALTH-FMT`,
-`ENCYCLOPEDIA`, `FRAGMENT`, `VCS-PIN`, `LOCK-1` public `__all__`, `ISO-2` cold
-import, `KIT-1` Command is not OverlayChrome, `HMR-shell`, `CSS-spawn`,
-`SWALLOW-1` / `SWALLOW-boot`, `SURF-1` two walkers one door, FileStateStore on
-Channel, folder law, `LEFTOVER-split`, `PYPI-1`, `DOOR-2` `create-app`,
-`openapi=False`, Kit Cut 1 `shell=False`.
+All prior locks hold: `CUT-C`, `CAP-DOOR` (`Channel.boot`), `REDIS-1`,
+`SERVE-ARGV`, `CLI-ARGV`, `HEALTH-FMT`, `ENCYCLOPEDIA`, `FRAGMENT` (walker
+escape KEEP), `LOCK-1`, `ISO-2`, `KIT-1`, `HMR-shell`, `CSS-spawn`,
+`SWALLOW-1` / `SWALLOW-boot`, `SURF-1`, FileStateStore on Channel, folder
+law, `LEFTOVER-split`, `PYPI-1`, `DOOR-2`, `openapi=False`, Kit Cut 1
+`shell=False`, `CEK-HARD`, `SKIN-1`, `GLASS-1`, `VISUAL-QA`.
 
 **New this session**
 
-1. **PIN-4978576** — Compose tip moved past `7546013`. Specialists lockstep as
-   in `pyproject.toml`. Scaffold `COMPOSE_VCS_PIN` tracks this tip.
-2. **CEK-HARD** — `scan_cek_host` is a **hard** doctor scan (not teaching).
-   `build(cek="require")` after `use_channel` must attach `CekHostCapService` /
-   `kernel_ssot=cek-runtime`. Fail closed if missing.
-3. **SKIN-1** — After `uxcompose add`, **restyle every owned kit copy** onto the
-   APPIC token sheet. Shipping kit-default `stone-900` / `bg-stone-100` is a
-   kill trigger. Tokens live in `assets/css/input.css`. `className` on trees.
-   No CSS inside Python strings. No `cdn.tailwindcss.com`.
-4. **GLASS-1** — Liquid Glass is **surgical**. Backdrop-blur + specular hairline
-   belong on overlay / chrome / command / toast only — never on every card.
-   Three z-layers: ink base, raised room, glass chrome. Concentric radii.
-5. **VISUAL-QA** — A still frame that looks like a component gallery, a docs
-   site, or a shadcn demo **fails** even if every stem is mounted.
+1. **PIN-80563ab** — Compose tip. Specialists lockstep as `pyproject.toml`.
+2. **EXTRACT-1** — Prefer owner `extract_by_id`. Do not invent `fragment.py`.
+3. **PULSE-L5** — No new Pulse room. Locks land on existing rooms.
+4. **VCS-PIN-TIP** — Product pin is git tip, not lagging `COMPOSE_VCS_PIN`.
+5. **SPECULAR-90** — Glass highlight from the top, not a 45° slash.
+6. **CONCENTRICITY-1** — Nested radius = parent radius − padding. Always.
+7. **GLASS-REGULAR** — Regular glass (adapts, stays legible) on chrome.
+   Clear glass (permanently transparent) is forbidden on content rooms.
 
 ### Author surface (do not invent names)
 
-From `ux_compose.__all__`:
+From `ux_compose.__all__` (86):
 
 `App`, `build`, `WebAssets`, `DirectoryRoutes`, `DirectoryASGI`, `RouterHooks`,
 `Surface`, `SurfaceBundle`, `SurfaceError`, `mount_surfaces`, `scan_surfaces`,
@@ -95,14 +73,15 @@ From `ux_compose.__all__`:
 `status`, `optional_plan`, `optional_fade`, `optional_slide`, `AttachNote`,
 `attach_notes`, `Level`, `doctor`, `DoctorResult`, `scene`, `fade`, `rise`,
 `slide`, `HAS_DOM`, DOM tags (`raw` … `progress` including `dl/dt/dd`,
-`table/thead/tbody/tr/th/td`, `fieldset/legend`, `hr/img/progress`).
+`table/thead/tbody/tr/th/td`, `fieldset/legend`, `hr/img/progress`), `__version__`.
 
 Chrome (submodule, not `__all__`): `from ux_compose.chrome import brand_wrap,
 GET_CHROME_ATTR, DEFAULT_BRAND`. Brand lives on `wrap=`, never inside `render()`.
 
 Kit is **not** a public import path. Own a copy: `uxcompose add {stem}`.
-Copy `overlay.py` anyway — Dialog / Sheet / ActionSheet / AlertDialog import it.
-`drawer` is a Sheet alias (same Host). `treeview` alias → `tree`.
+Copy `overlay.py` anyway. `drawer` is a Sheet alias. `treeview` → `tree`.
+
+`line` is **not** a public tag. Constellation filaments use `svg` + `path`.
 
 ### 81 kit stems (counted from `kit/catalog.py`)
 
@@ -146,7 +125,7 @@ foundry on `0.0.0.0:8080`. Then publish the source to **bitplorer/appic**.
 Build **APPIC** as a **complete, premium product** (not a widget zoo, not a
 docs site, not a kit gallery) using
 **https://github.com/bitplorer/ux-compose @ main**
-(`4978576bab93d9e496e38a1e7c55e510c03a500f`, **0.1.0**) as the **only** web UI
+(`80563abf1666e45fa43236e7303b1c4319413554`, **0.1.0**) as the **only** web UI
 framework.
 
 Fully utilise **every public name** in `ux_compose.__all__`, every Clock A
@@ -158,7 +137,8 @@ leftovers, render-chrome, FastAPI docs collision), Presence cookbook, WebAssets,
 `prepare_deploy` (six providers), tunnel grammar, HMR delivery, attach-note
 notebooks, Tailwind resolver, probe matrix, `morph_play` hop, `AuthDecision`
 verdict, Typeahead hits-slot, APG holds, Channel Cut C, Channel.boot, Redis
-precedence, frozen serve verbs, Kit Cut 1 `shell=False`, and the APPIC **skin**.
+precedence, frozen serve verbs, Kit Cut 1 `shell=False`, owner
+`extract_by_id` (Soft USE), and the APPIC **skin**.
 
 **No React. No Vue. No Svelte. No Solid. No Next. No TanStack Start.
 No JSX / TSX / `.tsx` / `.jsx`. No client TypeScript as source of truth.**
@@ -181,9 +161,12 @@ brochure.
 
 Craft references (steal structure, not trademarks):
 
-- **Apple Liquid Glass 2026** — glass is a *material for the control layer*,
-  not a wallpaper. Clarity, Deference, Depth. Concentric radii. Controls float
-  above content and give way to it.
+- **Apple Liquid Glass 2026** (iOS 26 / macOS Tahoe / visionOS 26) — glass is a
+  *material for the control layer*, not a wallpaper. Clarity, Deference, Depth.
+  Concentric radii matching hardware bezels. Controls float above content and
+  give way to it. Specular from **90°** (top). Regular glass adapts for
+  legibility; Clear glass is only for moments where content must optically
+  lens through a control. Never frost every card.
 - **Linear** — dark-first luminance hierarchy. 4px grid. Muted greys; one
   accent pop. Density that still feels calm. Keyboard as the primary pointer.
 - **Raycast** — Command is the OS. Query attaches. The field never remounts.
@@ -194,7 +177,8 @@ Craft references (steal structure, not trademarks):
 Radical product (must be *felt*, not documented):
 
 1. **Sight ≠ walk.** The Table is a constellation. Sighting a star is MorphState
-   (`look`). Walking it is Clock A GET. Two clocks, one sky.
+   (`look`). Walking it is Clock A GET. Two clocks, one sky. Filaments from the
+   brass nucleus to every star are `svg` + `path` (there is no public `line` tag).
 2. **Caps are wax seals.** Protected verbs (`orders.place`, `auth.otp`,
    `auth.logout`, `form.submit`, `list.subscribe`, `stepper.finish`, archive)
    show a seal that cracks when spent. Mint is `once=True` where checkout
@@ -218,6 +202,8 @@ Radical product (must be *felt*, not documented):
    Sign-out spends `auth.logout`.
 10. **Ownership ritual.** `/copy` runs the copy press. Kit cards are rooms you
     own (`shell=False`). Brand lives on `wrap=`, never inside `render()`.
+11. **Extract is owned.** Morph fragments prefer ux-dom `extract_by_id`.
+    Homemade walker is escape only. The foundry never grows a `fragment.py`.
 
 ---
 
@@ -247,9 +233,9 @@ Tailwind `@theme` / utility classes. `uxcompose build` minifies to
   --ok: #7D9B76;
   --glass: rgba(12, 13, 16, 0.58);
   --grain: 0.035;
-  --r-ctrl: 8px;
-  --r-card: 16px;
-  --r-overlay: 24px;
+  --r-ctrl: 10px;
+  --r-card: 20px;
+  --r-overlay: 28px;
   --z-base: 0;
   --z-raised: 10;
   --z-chrome: 40;
@@ -291,19 +277,25 @@ rainbow borders, or 2021 “glassmorphism everywhere.”
    `body`, `pointer-events: none`), no glass.
 2. **Raised rooms** — `--raised` panels, 1px `--hairline`, single soft shadow
    `0 24px 60px rgba(0,0,0,0.35)`, radius `--r-card`. Content lives here.
-3. **Glass chrome** — navbar, command, toast, dialog/sheet panel, menubar.
-   `background: var(--glass); backdrop-filter: blur(22px) saturate(1.35);`
-   `border: 1px solid var(--hairline-strong);` plus a 1px top highlight
-   `linear-gradient(180deg, rgba(255,255,255,0.18), transparent 40%)`.
-   Specular, not frosted-white.
+   **No** backdrop-filter.
+3. **Glass chrome** — navbar, command, toast, dialog/sheet panel, menubar,
+   mobile dock. Regular glass:
+   `background: var(--glass); backdrop-filter: blur(24px) saturate(1.4);`
+   `border: 1px solid var(--hairline-strong);`
+   Specular 90°: `inset 0 1px 0 rgba(255,255,255,0.22)` plus a
+   `linear-gradient(180deg, rgba(255,255,255,0.16), transparent 42%)` overlay
+   (`pointer-events: none`). Inner bottom shade `inset 0 -1px 0 rgba(0,0,0,0.25)`.
+   Specular, not frosted-white. Not a 45° slash.
 
-Concentricity: a control of radius 8 inside a card of padding 16 has card
-radius 24. Nested radii = parent radius − padding. Pill buttons 44× height,
-radius 999. Tap targets ≥ 44px.
+Concentricity: a control of radius 10 inside a card of padding 16 has card
+radius 26. Nested radii = parent radius − padding. Pill buttons 44× height,
+radius 999. Tap targets ≥ 44px. Navbar floating island radius 24 (control
+layer, rounder than content cards).
 
 Spacing is a **4px grid**. Density is Linear-like: compact, not airy-SaaS.
 Mobile 390×844: no horizontal overflow, bottomnav is the mobile landmark,
-navbar desktop tree stays in the tree (hidden), not deleted.
+navbar desktop tree stays in the tree (hidden), not deleted. Constellation
+collapses to a 3-column grid; filaments and nucleus hide.
 
 `prefers-reduced-motion: reduce` disables travel; morph still happens.
 
@@ -323,10 +315,10 @@ After `uxcompose add {stem}`:
 ### What a first screenshot must show
 
 Dark ink, Fraunces wordmark **APPIC**, brass accent used once in the nucleus,
-glass navbar, constellation of named stars, a Command hint `⌘K`, grain
-visible if you look, no purple, no kit-kicker, no Inter-on-white dashboard,
-no emoji toolbar. If it could be mistaken for shadcn/ui or Linear itself,
-restyle until it could not.
+glass navbar with 90° specular, constellation of named stars with faint
+filaments, a Command hint `⌘K`, grain visible if you look, no purple, no
+kit-kicker, no Inter-on-white dashboard, no emoji toolbar. If it could be
+mistaken for shadcn/ui or Linear itself, restyle until it could not.
 
 ---
 
@@ -353,11 +345,19 @@ restyle until it could not.
 - HMR is not a Document API. Frozen serve verbs: `dev` / `prod` /
   `restart-channel`. argv `development` / `production` / `restart_channel`
   fail closed.
-- Do not `pip install ux-compose` from PyPI. Clone + pin.
+- Do not `pip install ux-compose` from PyPI. Clone + pin **tip `80563ab`**.
+  Scaffold `COMPOSE_VCS_PIN` may lag (`24a182f`) — product pin is the tip.
 - `from ux_compose.kit import X` is leftover. Own copies under `components/`.
 - Official helpers only:
   `act, mark_dirty, field, status, optional_plan, optional_fade, optional_slide`.
 - Silent `except ImportError` without `AttachNote` is a kill.
+- Do not add `fragment.py`. Owner `extract_by_id` is the serialize door.
+- Do not add Pulse rooms. L5 locks existing Pulse surfaces only.
+- `ux-space` is a sibling repo, **not** a compose specialist. Do not import it.
+
+Python **≥ 3.14**. Grok sandbox floor is 3.10 — `uv python install 3.14` then
+`uv venv .venv --python 3.14` and `uv pip install --python .venv/bin/python`.
+The venv has no pip.
 
 ---
 
@@ -386,301 +386,93 @@ If you do any of these, **stop, undo, continue on the product path**.
     `/docs` is a product page.
 17. Shipping kit-default `stone-*` / Atelier kicker (`shell` left default).
 18. Purple / neon / gradient-blob / emoji chrome / Inter-as-brand.
-19. Glass on every card. Glass is the control layer.
+19. Glass on every card. Glass is the control layer. Clear glass on content.
 20. A still frame that is a component gallery. APPIC is a house, not a catalog.
 21. Exporting both `REDIS_URL` and `UXCOMPOSE_STATE_STORE`. Redis wins.
     Doctor `scan_store_precedence` fails closed.
 22. Empty `Content-Type` on Clock B POST.
 23. Cap door via `ActionRegistry.from_config`. Cap door is `Channel.boot`.
 24. `scan_cek_host` left red. It is hard.
+25. A new `fragment.py`. Owner extract is the door; homemade walker is escape.
+26. A new Pulse room or `MATRIX.md` teaching surface.
+27. Pinning lagging `COMPOSE_VCS_PIN` (`24a182f`) instead of tip `80563ab`.
+28. 45° glass highlight slash. Specular is 90° from the top.
 
 ---
 
-## 5. PRODUCT ROOMS — every stem earns a place
+## 5. PRODUCT ROOMS (a house, not a catalog)
 
-Do not mount a stem on a sandbox page “to tick the box.” Each stem is a
-**named tool in a named room**. `shell=False`. Copy press owns the files.
+Ship Level 3. `build(host="auto", live="auto", cek="require", openapi=False)`.
+Page units under `routes/`. Kit copies under `components/` with `shell=False`.
+GET chrome in `chrome.py` via `foundry_wrap` + `GET_CHROME_ATTR`.
 
-### Shell (every GET)
-
-| Piece | Stem / API | Role |
+| Room | Path | Law you can touch |
 | --- | --- | --- |
-| Brand wrap | `brand_wrap` + `wrap=` | Wordmark APPIC, never inside render |
-| Navbar | `navbar` | Desktop landmark, two trees |
-| NavMenu | `navmenu` | Destinations disclosure |
-| UserMenu | `usermenu` | Identity; sign-out spends `auth.logout` |
-| Sidebar | `sidebar` | Collapsible rail, active key MorphState |
-| Breadcrumb | `breadcrumb` | Trail, walking back is public |
-| Menubar | `menubar` | APG menubar, inactive menus stay in the tree |
-| Toolbar | `toolbar` | Groups + separators; last command `aria-current` |
-| Command | `command` | OS palette; query attaches |
-| Toast | `toast` | Server list is authority |
-| FAB | `fab` | Speed-dial → Command / commission / chat |
-| BottomNav | `bottomnav` | Mobile sections landmark |
-| Footer | `footer` | `contentinfo`, named links, `aria-current` |
-| ThemeSwitch | `themeswitch` | `light \| dark \| system` |
-| Separator | `separator` | Composite labeled rule, not a bare `hr` |
-| Banner | `banner` | Page-level notice (not `role=alert`) |
-| Alert | `alert` | Inline `role=alert`, dismiss public |
-| Skeleton | `skeleton` | First paint of slow rooms, `aria-busy` |
+| Table | `/` | Constellation. Sight a star (`look`), then walk it. Filaments. |
+| Door | `/enter` `/login` `/otp` | Secrets on RefState. Caps on the hinge. |
+| House | `/house` | Anchored family. Hits-slot law. |
+| Make | `/commission` | Clay / glaze / fire. `orders.place`. |
+| Hall | `/market` | Hero, pricing (bind the button), newsletter. |
+| Forge | `/forge` | Chart, tree, diff, mockup. |
+| Edge | `/overlay` | OverlayChrome vs anchored family. |
+| Cut | `/cut` | Cut C. A type is a seal. Empty type is `bad_request`. |
+| Boot | `/boot` | Channel.boot is the Cap door. Redis wins. |
+| Law | `/docs` | Written constitution. Swagger off. extract_by_id named. |
+| Trace | `/trace` | Doctor: hard vs teaching vs store-clone vs precedence vs cek-host. |
+| Press | `/copy` | `copy_component`. Not a card. |
+| Ship | `/deploy` | `prepare_deploy` six providers. |
+| Health | `/health` | dict → JSON. |
+| Pulse | `/pulse` | generator → stream. No new Pulse rooms. |
+| Command | `/command` | OS palette. Query attaches. Not OverlayChrome. |
 
-### `/` Table — constellation
+Every kit stem is also a room (`/dialog`, `/typeahead`, `/menubar`, …). 81
+catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
 
-Nucleus + named stars. Sight (`look`, MorphState) then walk (GET).
-Stats on RefState (`dirty` is the morph clock). FeatureGrid of rooms.
-HoverCard previews a star without walking. Tooltip on seals.
-Badge for kiln state. Avatar of the maker. Card as a raised star.
-EmptyState when nothing is sighted. PullRefresh on the sky (swipe.down).
-Resizable split: nucleus / sky (`even | wide | rail`).
-
-### `/enter` `/login` `/otp` Door
-
-Login (mode tabs, reveal attaches, submit is a Cap). OTP six digits on
-RefState, verify spends `auth.otp`. Switch for “remain signed”. AlertDialog
-if you try to leave a half-typed secret (Escape does **not** dismiss).
-
-### `/house` Anchored family
-
-Typeahead (hits-slot). SearchBar (listbox). Combobox. Select. MultiSelect.
-TagsInput. Popover. HoverCard. Tooltip. Dropdown. ContextMenu (click or
-longpress). FilterBar. ScrollArea. The field being typed never remounts.
-
-### `/commission` Make — clay / glaze / fire
-
-Stepper (`finish` spends `stepper.finish`). Questionnaire (`form.submit`).
-Plans (choose on the radio, override `on_choose`). FormLayout + Fieldset.
-DatePicker (day is a name). Calendar (`on_pick`). Slider + SpinButton +
-Progress (magnitudes on RefState). ColorPicker (named swatches, never a
-hue quantity). FileUpload + Attachment (names on RefState). Rating (named
-stars `one…five`, radiogroup). Dialog (public ask, Cap confirm). Sheet /
-Drawer (same Host, edge; swipe on handle). ActionSheet (autofocus, swipe
-down on handle). Countdown (`role=timer`, remaining RefState) is the kiln.
-Checkout spends `orders.place` (`mint_cap(..., once=True)`).
-
-### `/market` Hall
-
-Hero. PricingSection (choose binds the **button**, not the row). LogoCloud.
-Testimonials (`which` is a key). Newsletter (`list.subscribe`). CTA. Footer
-already in wrap. Timeline of firings. Carousel of pieces.
-
-### `/forge` Studio
-
-Chart (named SVG bars, heights RefState). Tree (`treeview` alias, APG).
-Diff (named before/after). Mockup (named device frame). Feed (APG feed,
-items RefState). Chat (`role=log`, send public). Table (sort MorphState,
-selection RefState, bind on checkbox, archive is a Cap) + Pagination
-(opaque page keys). Accordion. Tabs. ToggleGroup (not Tabs — no panels).
-DescriptionList. Overlay vs anchored comparison lives in `/overlay`.
-
-### `/overlay` Edge
-
-Side-by-side: OverlayChrome family vs anchored family. Copy on the wall
-explains swipe-on-handle, Escape rules, AlertDialog interruption.
-
-### `/cut` Cut C
-
-A type is a seal. Buttons POST with declared types. An empty Content-Type
-path is shown failing `bad_request`. Live Clock B is
-`POST /ux-channel/action` `application/ux-channel+json`.
-
-### `/boot` Channel.boot
-
-Cap door. Redis wins. FileStateStore stays on Channel. Show
-`scan_store_precedence` as a living lamp. `uxcompose serve restart-channel`
-is documented as the RAM drop, not a sticky flag.
-
-### `/docs` Law
-
-Written constitution. Swagger off. DescriptionList of locks. Accordion of
-ADRs (ownership, host, OverlayChrome, serve-dev, shared store).
-
-### `/trace` Doctor
-
-Render `doctor()` / `DoctorResult`. Hard vs teaching vs store-clone vs
-precedence vs cek-host. Surfaces and routes from the bundle.
-
-### `/copy` Press
-
-Ownership ritual. `uxcompose add` explained by doing it. Not a card.
-
-### `/deploy` Ship
-
-`prepare_deploy` six providers: docker, fly, render, railway, vps, checklist.
-Dockerfile in repo.
-
-### `/health` Pulse JSON
-
-`render()` returns `dict` → `application/json`. No Document wrap.
-
-### `/pulse` Stream
-
-`render()` returns a generator → chunked HTML. No `StreamingResponse` import
-on the page unit.
-
-Every remaining stem (`plans` already in commission, `logocloud` in market,
-etc.) must appear in one of the rooms above. If a stem has no room, **give it
-one** — do not hide it on `/kitchen`.
+The Table's first paint: Fraunces “The table is lit”, brass **APPIC** kicker,
+glass island navbar, brass nucleus, 20 named stars, faint filaments, sight
+card in Regular glass, four KPIs, `⌘K` chip. Sighting morphs `#sight` then
+plays an optional plan. Knocking pulses the Host store.
 
 ---
 
-## 6. PUBLIC API — use every `__all__` name
+## 6. BUILD SEQUENCE
 
-| Name | Where it must appear |
-| --- | --- |
-| `App` / `App.boot` / `app.add` / `app.dispatch` | `app.py` + at least one L1 offline path in `/trace` |
-| `build` | `app.py` — the product door. Two walkers, one door |
-| `WebAssets` | `settings.py` |
-| `DirectoryRoutes` / `DirectoryASGI` / `RouterHooks` | exercised by `build(host="auto")`; surface a note on `/docs` |
-| `Surface` / `SurfaceBundle` / `SurfaceError` / `scan_surfaces` / `validate_surfaces` / `mount_surfaces` | `/trace` + build path (`bind_pages=False` then discover) |
-| `Component` | every unit |
-| `MorphState` / `RefState` | encoding law, everywhere |
-| `action` / `bind` / `control` / `notify` / `update_with` | at least one of each on `/commission` |
-| `morph_play` / `scene` / `fade` / `rise` / `slide` | kiln fire + cart-pop analogue + constellation sight |
-| `act` / `mark_dirty` / `field` / `status` | counter-like live-safe magnitude on `/forge` stats |
-| `optional_plan` / `optional_fade` / `optional_slide` | attach-note step-down when motion is absent |
-| `AttachNote` / `attach_notes` | `/trace` notebook — refuse silence |
-| `Level` | `/boot` shows L0–L3 ladder. Ship at L3 |
-| `doctor` / `DoctorResult` | `/trace` |
-| `HAS_DOM` | guard + attach note |
-| DOM tags in `__all__` | use `dl/dt/dd`, `table/thead/tbody/tr/th/td`, `fieldset/legend`, `svg/path/rect/circle`, `progress`, `img` for real, not as a tag zoo |
-| `raw` | only if a specialist requires it — never to dump CSS/JS strings |
-
-Also: `app.use_channel(asgi_app=…)` (via build), `app.use_motion()`,
-`app.use_cek` through `cek="require"`. `copy_component` on `/copy`.
+1. Clone ux-compose @ `80563ab`. Count `CATALOG` keys. Confirm 81 + alias.
+2. `uv python install 3.14` · `uv venv .venv --python 3.14` ·
+   `uv pip install --python .venv/bin/python -r requirements.txt`.
+3. Pin `requirements.txt` to tip `80563ab` + specialist SHAs from
+   `pyproject.toml`. Do not pin lagging `COMPOSE_VCS_PIN`.
+4. Own all 81 stems (`uxcompose add` or keep already-owned copies).
+   Restyle off `stone-*`. `shell=False`. Copy `overlay.py`.
+5. Author Document + `foundry_wrap` + `build(...)`. Isolation: no
+   `ux_channel` in product modules.
+6. Skin tokens in `assets/css/input.css`. Compile to `/css/output.css`.
+   No `cdn.tailwindcss.com`. No CSS in Python strings.
+7. `startup.sh`: probe `:8080`, start uvicorn only if down, bind
+   `0.0.0.0:8080`. Keep `public/__grok`. CSP allows `https://grok.com`.
+8. Doctor `routes/` + `chrome.py` + `app.py` with `app=` and `bundle=`.
+   Hard scans green. Teaching may speak.
+9. Browser: desktop 1280×800 and mobile 390×844. Sight a star. Open Command.
+   No overflow, no console errors. Still frame is a house, not a catalog.
+10. Publish to **bitplorer/appic**. Update this prompt's session log.
 
 ---
 
-## 7. FILE LAYOUT
+## 7. VERIFY
 
 ```
-app.py                 # build(document=, wrap=brand_wrap, live=auto, level=3,
-                       #        cek=require, openapi=False, host=auto)
-document.py            # ONE Document.use(XElement(), Csp.auto(), Channel.optional())
-chrome.py              # brand_wrap only — GET chrome, brand=0 on Clock B morph
-settings.py            # WebAssets, OPENAPI = False
-store.py               # Host stock (orders, pieces). Not a StateStore clone
-startup.sh             # 0.0.0.0:8080 uvicorn; uv 3.14; idempotent
-requirements.txt       # git pins of compose + four specialists + cek>=0.1.3
-assets/css/input.css   # tokens + @source of Python trees
-assets/static/file/css/output.css   # from uxcompose build
-components/            # owned kit copies (81 + overlay.py)
-routes/                # page units — no HTTP verbs
-  index.py             # GET /
-  enter.py login.py otp.py house.py commission.py market.py forge.py
-  overlay.py cut.py boot.py docs.py trace.py copy.py deploy.py
-  health.py pulse.py
-  # plus a route per stem that is a room, or nest stems inside the rooms above
-skin/                  # grain SVG, brass seal SVG, wordmark SVG (CSS/SVG only)
-public/                # static; do not delete platform __grok if present
-Dockerfile             # prepare_deploy docker
-FEATURE_INVENTORY.md   # keep; retitle pins to this SHA
-GROK_BUILD_PROMPT.md   # this file
-README.md              # how to walk, not how to invent
+GET /          200  HTML  constellation + glass navbar
+GET /health    200  application/json
+GET /pulse     200  streamed
+GET /docs      200  product constitution (not Swagger)
+GET /command   200  palette, query attaches
+GET /cut       200  Cut C is visible
+POST /ux-channel/action  without Content-Type  → bad_request
+doctor(...)    ok True, level 3
 ```
 
-Product path: `uxcompose create-app` then replace with this shape, **or**
-upgrade the existing appic tree in place. `build()` is the door, not
-`App.mount` as a second product.
+Python ≥ 3.14. Isolation holds. Brand on wrap. Caps as seals. Morph then
+play. Glass on chrome only. Specular from the top.
 
----
-
-## 8. SANDBOX / PREVIEW
-
-Grok Build sandbox:
-
-- User has **no shell**. You run tools. Live preview is whatever listens on
-  **`0.0.0.0:8080`**.
-- Python floor is 3.10. Install 3.14:
-  `uv python install 3.14 && uv venv .venv --python 3.14 && source .venv/bin/activate && uv pip install -r requirements.txt`.
-- Do **not** run `npm run dev` / Vite as the app. If leftover React files exist
-  from the sandbox seed, they must not be the served UI. Direct user law wins.
-- `startup.sh` must: probe `http://127.0.0.1:8080/`, start uvicorn only if
-  down, bind `0.0.0.0:8080`, return fast, keep no secrets.
-- Auth OFF. Database OFF. No `.env`.
-- Keep `https://grok.com` in CSP. Do not hide the Grok pill.
-- Verify with a real browser against `http://127.0.0.1:8080` — visible content,
-  no console errors, desktop **and** 390×844. Click Command, sight a star,
-  open an AlertDialog (Escape must not close it), type in Typeahead (field
-  stays), submit a commission Cap, hit `/health` (JSON) and `/pulse` (stream).
-- `uxcompose doctor .` must pass hard scans.
-
----
-
-## 9. MOTION / PRESENCE / SIGNAL
-
-- `App.use_motion()` at L3.
-- Enter constellation stars with `rise` (~160ms). Overlay panels `slide` /
-  `fade`. Kiln fire `morph_play`.
-- XOR: `update_with(self, plan, extra_ops=[notify(...)])` where plan is
-  `scene("…").enter("#id", rise.enter(ms=160))` — **no html=**.
-- Signal grammar (Wave 1): `data-channel-on` for swipe.vertical / longpress /
-  input delay on PullRefresh, ContextMenu, Typeahead, Sheet handle.
-- Presence cookbook: objects that stay keep their ids. Inactive tab panels
-  stay in the tree (hidden). Menubar inactive menus stay in the tree.
-
----
-
-## 10. CHANNEL / CAPS / STORE
-
-- Cap door: `Channel.boot`. wire/ frozen imports (compose-side, not product):
-  `Channel`, `ChannelConfig`, `apply_host_adapter`, `Intent`.
-- Clock B: `POST /ux-channel/action` `application/ux-channel+json`.
-- Redis prefers `REDIS_URL`. Do not also export `UXCOMPOSE_STATE_STORE`.
-- FileStateStore is Channel-owned. Compose `serve_state.py` is lifecycle only.
-  Never clone `FileStateStore` / `MemoryStateStore` / `RedisStateStore` in
-  product code (`scan_store_clone` hard).
-- `mint_cap(action, {}, once=True)` on checkout / place.
-- `/ux-channel/health` reports `formats`. Clock A `/health` is `dict` JSON.
-
----
-
-## 11. CSS / TAILWIND
-
-- Author classes on Python trees (`className="…"`).
-- Tokens + component classes in `assets/css/input.css`.
-- `uxcompose build` minifies. `uxcompose serve dev` watches. Never both
-  `--watch` and `--minify`. Never a second Tailwind writer on `output.css`.
-- No CSS or client JS inside Python strings. No `style(raw(CSS))`.
-- No `cdn.tailwindcss.com` in production.
-
----
-
-## 12. GITHUB PUBLISH
-
-Owner: **bitplorer**. Repo: **appic** (exists). Branch: default (`main`).
-
-1. If `appic` is missing (it is not), `create_repository` name=`appic`,
-   private=false, description=`Nocturnal foundry OS authored in ux-compose`.
-2. Push the **running product** (Python sources, owned kit copies, skin,
-   routes, Dockerfile, startup.sh, requirements.txt, this prompt, inventory,
-   README) via `push_files` / commits. Do not push `node_modules`, `.venv`,
-   `__pycache__`, sandbox React leftovers, or secrets.
-3. README: what APPIC is, pins table, how to walk the rooms, Python 3.14 run
-   snippet, link to ux-compose. No “generated by” essay.
-
----
-
-## 13. ACCEPTANCE
-
-Done only when **all** are true:
-
-1. `GET /` on `0.0.0.0:8080` paints the constellation — Fraunces wordmark,
-   brass used once, glass chrome, grain, no kit-kicker, no React.
-2. All 81 stems + OverlayChrome are **owned copies**, `shell=False`, restyled
-   to APPIC tokens, and appear inside a real room.
-3. Every `__all__` name is exercised (table in §6).
-4. Clock A: HTML rooms, `/health` JSON, `/pulse` stream.
-5. Clock B: declared Content-Type; empty type is `bad_request` on `/cut`.
-6. Typeahead morphs hits, not the field. AlertDialog ignores Escape.
-7. ThemeSwitch retints glass + ink. Reduced motion respected.
-8. `doctor .` hard scans green (isolation, dual-Document, store-clone,
-   store-precedence, cek-host).
-9. Desktop + mobile (390×844) verified in a real browser, no uncaught console
-   errors, no horizontal overflow, 44px targets.
-10. Source published to **bitplorer/appic**.
-11. A stranger’s first screenshot would be called **beautiful**, not
-    “a component library demo.”
-
-If the library and this prompt disagree, **the library wins**. Re-read
-`src/ux_compose/__init__.py`, `kit/catalog.py`, `AGENTS.md`, and
-`docs/OWNERSHIP.md` before inventing a name.
+If the library moved, **the library wins**. Re-count stems. Re-pin tip.
+Do not invent names.

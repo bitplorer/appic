@@ -52,7 +52,8 @@ def top_nav():
         a(mark(), span("APPIC", className="brand"), href="/", className="wordmark", aria_label="APPIC table"),
         nav(*links, className="rooms", aria_label="Rooms"),
         a(
-            "Command",
+            span("Command"),
+            span("⌘K", className="kbd"),
             href="/command",
             className="cmd-chip",
             aria_label="Open command",
@@ -69,7 +70,7 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · ux-compose 0.1.0 · kit-81 · Cut C · Channel.boot · shell=False"),
+        p("APPIC · ux-compose 0.1.0 · 80563ab · kit-81 · Cut C · Channel.boot · extract_by_id"),
         p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request."),
         className="foot",
         role="contentinfo",

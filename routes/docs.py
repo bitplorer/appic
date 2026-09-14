@@ -28,6 +28,8 @@ class Docs(Component):
             "Frozen serve verbs: dev / prod / restart-channel.",
             "cli.py is argv only. serve_dev.py starts CSS watch + tunnel.",
             "Compose has no FEATURES.md — ARCHITECTURE + OWNERSHIP are the encyclopedia.",
+            "Morph fragments prefer ux-dom extract_by_id. Homemade walker is escape. No fragment.py.",
+            "Specular on glass arrives from 90 degrees. Nested radius = parent minus padding.",
         )
         return section(
             span("Law", className="eyebrow"),

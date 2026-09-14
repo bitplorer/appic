@@ -1,16 +1,16 @@
-# ux-compose — feature inventory (kit-81 + Kit Cut 1 + Cut C + pin 4978576)
+# ux-compose — feature inventory (kit-81 + Kit Cut 1 + Cut C + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-SHA `4978576bab93d9e496e38a1e7c55e510c03a500f` (2026-09-13 walk of `__all__`,
+SHA `80563abf1666e45fa43236e7303b1c4319413554` (2026-09-14 walk of `__all__`,
 `kit/catalog.py`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`,
 `docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`, `CHANGELOG` Unreleased,
-`pyproject.toml`, `doctor.py`).
+`pyproject.toml`, `doctor.py`, `helpers._fragment_for_target`).
 
 Prior APPIC pins: `fa2ddfe` (kit-23) → `5bb7dc22` (kit-81) → `060b583`
 (Kit Cut 1 + FileStateStore) → `bf55750` (honesty-locks) → `7546013`
-(Cut C + Redis + frozen serve + Channel.boot) → **`4978576`** (specialist
-lockstep ux-dom `2e894cd` / channel `a6ab159` / behavior `7d46979` / motion
-`bbe7d73`; `scan_cek_host` hard).
+(Cut C + Redis + frozen serve + Channel.boot) → `4978576` (specialist
+lockstep; `scan_cek_host` hard) → **`80563ab`** (Soft USE `extract_by_id`,
+L5 Pulse httpx locks, product pin = git tip not lagging scaffold pin).
 
 If this page and the code disagree, **the code wins**.
 
@@ -18,34 +18,35 @@ This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
 
 ---
 
-## 2026-09-13 — Grok Build independent re-read (this session)
+## 2026-09-14 — Grok Build independent re-read (this session)
 
 Counted `CATALOG` keys from source: **81 stems + `treeview` alias** (82 dict
 keys). OverlayChrome is not a stem. `drawer` is a Sheet alias (same Host).
+Public `__all__`: **86** names. `line` is not a public tag.
 
 | Pin | SHA |
 | --- | --- |
-| ux-compose | `4978576bab93d9e496e38a1e7c55e510c03a500f` |
+| ux-compose | `80563abf1666e45fa43236e7303b1c4319413554` |
 | ux-dom | `2e894cd7bca66e1da6c2f9d42b2d1a8bb937c92c` |
 | ux-behavior | `7d46979f59f284bc2d6d961ed372ec849e851dfc` |
 | ux-motion | `bbe7d73466a6c1eccb47e711568c80ce3b4d5487` |
 | ux-channel | `a6ab1594959b287b4754afe09d8aced5504edd8f` `#subdirectory=python` |
 | cek-host / cek-surface | `>=0.1.3` |
+| scaffold `COMPOSE_VCS_PIN` | `24a182f` (chicken-egg lag — **do not ship this as product pin**) |
 
 Python **≥ 3.14**. Install: `git clone` + `pip install -e ".[serve]"` — **not PyPI**.
 Grok sandbox Python floor is **3.10** — `uv python install 3.14`; the venv has
 no pip (`uv pip install --python`).
 
-### Delta over `7546013`
+### Delta over `4978576`
 
-| Was (`7546013`) | Now (`4978576`) |
+| Was (`4978576`) | Now (`80563ab`) |
 | --- | --- |
-| channel pin `985e58a` (Cut C floor) | channel `a6ab159` (lockstep; Cut C floor still holds) |
-| ux-dom `e8be99a` | ux-dom `2e894cd` (extract-by-id owner gap closed on tip) |
-| ux-behavior `793f120` | ux-behavior `7d46979` |
-| ux-motion `67ff3f0` | ux-motion `bbe7d73` |
-| `scan_cek_host` teaching | **`scan_cek_host` hard** |
-| Visual skin left to poetry | **SKIN-1 / GLASS-1 / VISUAL-QA** in the prompt: restyle owned kit copies; surgical glass; concentric radii |
+| specialist lockstep already at these SHAs | specialists **unchanged** |
+| homemade fragment walker leftover | **Soft USE**: prefer `ux_dom.response.serialize.extract_by_id`; walker KEEP as escape. No `fragment.py`. |
+| Pulse rooms as product demos | **L5 httpx locks** on existing Pulse rooms. No new Pulse room. No MATRIX.md. |
+| product pin = compose tip | same rule; scaffold pin **lags** at `24a182f` |
+| Liquid Glass as poetry | **SPECULAR-90 / CONCENTRICITY-1 / GLASS-REGULAR** craft notes from iOS 26 / macOS Tahoe |
 
 Kit catalog still **81**. Soft-parked / stretch stems stay out.
 
@@ -58,12 +59,14 @@ Kit catalog still **81**. Soft-parked / stretch stems stay out.
 `dev` / `prod` / `restart-channel`. `CLI-ARGV` `cli.py` is argv only.
 `HEALTH-FMT` channel health `formats` vs Clock A `dict`. `ENCYCLOPEDIA` no
 `FEATURES.md` / `ONTOLOGY.md`. `FRAGMENT` homemade walker stays in
-`helpers.py`. `VCS-PIN` scaffold tracks main tip. `LOCK-1` public `__all__`.
+`helpers.py` as escape. `LOCK-1` public `__all__`.
 `ISO-2` cold import. `KIT-1` Command is not OverlayChrome. `HMR-shell`.
 `CSS-spawn`. `SWALLOW-1`. `SURF-1` two walkers one `build()` door.
 FileStateStore on Channel. Folder law. `LEFTOVER-split`. `PYPI-1`.
 `DOOR-2` `create-app`. `openapi=False`. Kit Cut 1 `shell=False`.
-**CEK-HARD**. **SKIN-1**. **GLASS-1**. **VISUAL-QA**. **PIN-4978576**.
+**CEK-HARD**. **SKIN-1**. **GLASS-1**. **VISUAL-QA**. **PIN-80563ab**.
+**EXTRACT-1**. **PULSE-L5**. **VCS-PIN-TIP**. **SPECULAR-90**.
+**CONCENTRICITY-1**. **GLASS-REGULAR**.
 
 ---
 
@@ -84,6 +87,7 @@ FileStateStore on Channel. Folder law. `LEFTOVER-split`. `PYPI-1`.
 
 Chrome (submodule): `brand_wrap`, `GET_CHROME_ATTR`, `DEFAULT_BRAND`.
 Kit is not a public import. `uxcompose add {stem}`. Copy `overlay.py` anyway.
+`line` is not exported — filaments use `path`.
 
 ---
 
@@ -138,6 +142,7 @@ Page units have no HTTP verbs. `render()` return type picks the container:
 - Isolation: product never imports `ux_channel`
 - `act()` remains the progressive hatch (`POST /act/{action}`); Channel JS intercepts
 - `build(cek="require")` attaches `CekHostCapService`
+- Morph fragments prefer ux-dom `extract_by_id`
 
 ---
 
@@ -271,13 +276,15 @@ alias. Alias `treeview` → `tree`.
 
 ---
 
-## Skin law (prompt SKIN-1 / GLASS-1)
+## Skin law (prompt SKIN-1 / GLASS-1 / SPECULAR-90)
 
 After `uxcompose add`, restyle owned copies off kit-default `stone-*`.
-Tokens in `assets/css/input.css`. Surgical glass on chrome/overlays only.
-Three z-layers. Concentric radii. Fraunces + Source Sans 3 + IBM Plex Mono.
-Brass accent `#D4B483` on ink `#07080A`. No purple, no emoji chrome, no
-Inter-as-brand, no component-gallery still frame.
+Tokens in `assets/css/input.css`. Surgical Regular glass on chrome/overlays
+only. Three z-layers. Concentric radii (nested = parent − padding).
+Specular from 90° (top inset + inner wash), never a 45° slash.
+Fraunces + Source Sans 3 + IBM Plex Mono. Brass `#D4B483` on ink `#07080A`.
+No purple, no emoji chrome, no Inter-as-brand, no component-gallery still
+frame.
 
 ---
 
@@ -288,4 +295,6 @@ React / Vue / JSX / TSX as source of truth. PyPI `ux-compose`.
 product modules. `host="batteries"`. HTTP verbs on page units. Dual Document.
 StateStore clones. Both store envs. Swagger on. Brand inside `render()`.
 Plans with `html=`. Root swipe on overlay hosts. Command through OverlayChrome.
-Secrets on MorphState. Typeahead remounting the field.
+Secrets on MorphState. Typeahead remounting the field. `fragment.py`.
+New Pulse rooms. Pinning lagging `COMPOSE_VCS_PIN`. 45° glass slash.
+Clear glass on content cards. Importing `ux-space` as a compose specialist.
