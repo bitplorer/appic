@@ -14,6 +14,7 @@ ROOMS = (
     ("/", "Table"),
     ("/enter", "Door"),
     ("/commission", "Make"),
+    ("/kiln", "Kiln"),
     ("/market", "Hall"),
     ("/forge", "Forge"),
     ("/house", "House"),
@@ -24,8 +25,8 @@ ROOMS = (
 DOCK = (
     ("/", "Table"),
     ("/commission", "Make"),
+    ("/kiln", "Kiln"),
     ("/command", "Cmd"),
-    ("/market", "Hall"),
     ("/docs", "Law"),
 )
 

@@ -6,7 +6,6 @@ from ux_compose import (
     MorphState,
     RefState,
     action,
-    bind,
     button,
     control,
     div,
@@ -23,6 +22,7 @@ from ux_compose import (
     section,
     span,
     update_with,
+    a,
 )
 from store import HOST
 
@@ -99,7 +99,24 @@ class Commission(Component):
                     data_target="#commission",
                     className="stack",
                 ),
+                div(
+                    span("", className="seal is-spent" if self.placed else "seal", aria_hidden="true"),
+                    span(
+                        "Wax spent · orders.place" if self.placed else "Wax intact · mint on place",
+                        className="mono",
+                    ),
+                    a("Walk to the kiln", href="/kiln", className="btn-ghost") if self.placed else span(""),
+                    className="cap-row",
+                ),
             )
+        floor = [
+            div(
+                span(row.get("clay", ""), className="mono"),
+                span(row.get("glaze", ""), className="muted"),
+                className="cap-row",
+            )
+            for row in reversed(HOST.commissions[-5:])
+        ] or [p("Nothing commissioned yet.", className="muted")]
         return section(
             span("Commission", className="eyebrow"),
             h1("Make something that stays.", className="display"),
@@ -107,18 +124,7 @@ class Commission(Component):
             div(*segs, className="segs", role="tablist"),
             div(body, id="commission-panel", className="paper"),
             h2("On the floor", className="sub"),
-            div(
-                *[
-                    div(
-                        span(row.get("clay", ""), className="mono"),
-                        span(row.get("glaze", ""), className="muted"),
-                        className="cap-row",
-                    )
-                    for row in reversed(HOST.commissions[-5:])
-                ]
-                or [p("Nothing commissioned yet.", className="muted")],
-                className="stack",
-            ),
+            div(*floor, className="stack"),
             id=self.id,
             className="room",
         )
@@ -148,9 +154,10 @@ class Commission(Component):
     def place(self, note: str = ""):
         self.note = note
         mark_dirty(self)
-        HOST.commissions.append(
-            {"clay": str(self.clay), "glaze": str(self.glaze), "note": note}
-        )
+        piece = {"clay": str(self.clay), "glaze": str(self.glaze), "note": note}
+        HOST.commissions.append(piece)
+        HOST.pending_fire = piece
         HOST.log("commission.place", f"{self.clay}/{self.glaze}", "cap")
+        HOST.notice = "A piece waits on the kiln shelf."
         self.placed = True
         return update_with(self, extra_ops=[notify("Commission placed")])

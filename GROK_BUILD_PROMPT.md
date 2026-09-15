@@ -13,33 +13,30 @@ and ships a complete, **visually stunning** foundry. Repo **appic already exists
 
 ---
 
-## 2026-09-14 — devised + executed (this session)
+## 2026-09-15 — devised + executed (this session)
 
 Independent re-read of [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose)
 `main` @ **`80563ab`**. Walked `__all__` (86 public names), `kit/catalog.py`
 (**81 stems** + `treeview` alias), `AGENTS.md`, `docs/OWNERSHIP.md`,
 `docs/ARCHITECTURE.md`, `docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`,
-`CHANGELOG` Unreleased, `pyproject.toml`, `doctor.py`, `helpers._fragment_for_target`,
-`scaffold.COMPOSE_VCS_PIN`, Apple Liquid Glass 2026 (WWDC25 / iOS 26 / macOS Tahoe:
-Clarity, Deference, Depth, concentricity, 90° specular, Regular vs Clear glass),
-Linear luminance, Raycast Command-as-OS, Stripe editorial type, visionOS layering.
+Apple Liquid Glass 2026 (Clarity, Deference, Depth, concentricity, 90° specular,
+Regular vs Clear glass), Linear luminance, Raycast Command-as-OS, Stripe
+editorial type, visionOS layering, Craft-like negative space.
 
-Specialist pins **unchanged** from `4978576`. Compose tip moved for:
+Specialist pins **unchanged**. Product gained inhabitable rooms that *use* the
+kit instead of exhibiting it:
 
 | Delta | Law |
 | --- | --- |
-| Soft USE `extract_by_id` | `helpers._fragment_for_target` prefers `ux_dom.response.serialize.extract_by_id`. Homemade walker KEEP as escape. No `fragment.py`. **EXTRACT-1** |
-| L5 Pulse httpx locks | Existing Pulse rooms only. No new Pulse room. No MATRIX.md teaching surface. **PULSE-L5** |
-| Scaffold `COMPOSE_VCS_PIN` | Still `24a182f` (chicken-egg #56). Product `requirements.txt` pins **tip `80563ab`**, not the lagging scaffold pin. **VCS-PIN-TIP** |
+| Kiln as a room | Named firing band is MorphState. Remaining heat is RefState. Commission queues Host `pending_fire`. **KILN-1** |
+| Sky band | Table sky is `night \| dusk \| dawn` MorphState. Filaments stay. Content cards stay raised, not glass. **BAND-1** |
+| Wax on place | `orders.place` cracks a seal in Make. Walk to the kiln. **SEAL-1** |
+| Share card | Custom 1200×630 `public/og.jpg` served at `/og.jpg`. Favicon is the brass nucleus. **OG-1** |
 
-Visual law tightened to 2026 Liquid Glass craft: glass is a *control-layer
-material* (Regular glass on chrome / overlays; never Clear glass on content
-cards). Specular highlight arrives from **90°** (top inset 1px + inner wash),
-not 45°. Nested radii = parent radius − padding (concentricity). HDR-like
-jewel controls: brass nucleus is the only light source in the sky.
+Craft references held: glass only on chrome, specular from the top, concentric
+radii, Fraunces + Source Sans 3 + IBM Plex Mono, brass on ink. No React.
 
-**Executed:** pin `80563ab`, restyle glass specular, constellation filaments,
-⌘K command chip, constitution law for extract-by-id, doctor green, uvicorn
+**Executed:** kiln room, sky bands, wax seal, share card, doctor green, uvicorn
 `0.0.0.0:8080`, published to **bitplorer/appic**.
 
 ### Honesty locks (do not reopen)
@@ -49,18 +46,16 @@ All prior locks hold: `CUT-C`, `CAP-DOOR` (`Channel.boot`), `REDIS-1`,
 escape KEEP), `LOCK-1`, `ISO-2`, `KIT-1`, `HMR-shell`, `CSS-spawn`,
 `SWALLOW-1` / `SWALLOW-boot`, `SURF-1`, FileStateStore on Channel, folder
 law, `LEFTOVER-split`, `PYPI-1`, `DOOR-2`, `openapi=False`, Kit Cut 1
-`shell=False`, `CEK-HARD`, `SKIN-1`, `GLASS-1`, `VISUAL-QA`.
+`shell=False`, `CEK-HARD`, `SKIN-1`, `GLASS-1`, `VISUAL-QA`, `PIN-80563ab`,
+`EXTRACT-1`, `PULSE-L5`, `VCS-PIN-TIP`, `SPECULAR-90`, `CONCENTRICITY-1`,
+`GLASS-REGULAR`.
 
 **New this session**
 
-1. **PIN-80563ab** — Compose tip. Specialists lockstep as `pyproject.toml`.
-2. **EXTRACT-1** — Prefer owner `extract_by_id`. Do not invent `fragment.py`.
-3. **PULSE-L5** — No new Pulse room. Locks land on existing rooms.
-4. **VCS-PIN-TIP** — Product pin is git tip, not lagging `COMPOSE_VCS_PIN`.
-5. **SPECULAR-90** — Glass highlight from the top, not a 45° slash.
-6. **CONCENTRICITY-1** — Nested radius = parent radius − padding. Always.
-7. **GLASS-REGULAR** — Regular glass (adapts, stays legible) on chrome.
-   Clear glass (permanently transparent) is forbidden on content rooms.
+1. **KILN-1** — `/kiln` is a house room, not the countdown kit demo.
+2. **BAND-1** — Sky luminance is a named band. Not a boolean theme switch.
+3. **SEAL-1** — Place spends `orders.place` and queues the hearth.
+4. **OG-1** — Custom card + `/og.jpg` + `/favicon.svg` on the ASGI app.
 
 ### Author surface (do not invent names)
 
@@ -411,7 +406,8 @@ GET chrome in `chrome.py` via `foundry_wrap` + `GET_CHROME_ATTR`.
 | Table | `/` | Constellation. Sight a star (`look`), then walk it. Filaments. |
 | Door | `/enter` `/login` `/otp` | Secrets on RefState. Caps on the hinge. |
 | House | `/house` | Anchored family. Hits-slot law. |
-| Make | `/commission` | Clay / glaze / fire. `orders.place`. |
+| Make | `/commission` | Clay / glaze / fire. `orders.place`. Wax seal. |
+| Kiln | `/kiln` | Named band. Remaining heat is RefState. Host shelf. |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter. |
 | Forge | `/forge` | Chart, tree, diff, mockup. |
 | Edge | `/overlay` | OverlayChrome vs anchored family. |

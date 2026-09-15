@@ -12,9 +12,14 @@ Prior APPIC pins: `fa2ddfe` (kit-23) → `5bb7dc22` (kit-81) → `060b583`
 lockstep; `scan_cek_host` hard) → **`80563ab`** (Soft USE `extract_by_id`,
 L5 Pulse httpx locks, product pin = git tip not lagging scaffold pin).
 
+2026-09-15 product rooms: **KILN-1** `/kiln` named band + RefState remaining;
+**BAND-1** Table sky `night|dusk|dawn`; **SEAL-1** wax on `orders.place`;
+**OG-1** custom share card.
+
 If this page and the code disagree, **the code wins**.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+
 
 ---
 

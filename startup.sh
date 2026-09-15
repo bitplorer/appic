@@ -1,9 +1,9 @@
 #!/bin/sh
 # Preview revive contract: probe 8080, start only if down, return fast.
 set -eu
-cd "$(dirname "$0")"
+cd /workspace
 export PATH="/workspace/.venv/bin:/root/.local/bin:${PATH}"
-export PYTHONPATH="${PYTHONPATH:-.}"
+export PYTHONPATH="/workspace${PYTHONPATH:+:$PYTHONPATH}"
 export PYTHONUNBUFFERED=1
 export UXCOMPOSE_APP="${UXCOMPOSE_APP:-app:asgi}"
 
@@ -21,7 +21,7 @@ nohup /workspace/.venv/bin/python -m uvicorn app:asgi --host 0.0.0.0 --port 8080
   >/tmp/appic-uvicorn.log 2>&1 &
 
 i=0
-while [ "$i" -lt 50 ]; do
+while [ "$i" -lt 80 ]; do
   if curl -fsS --max-time 1 http://127.0.0.1:8080/ >/dev/null 2>&1; then
     exit 0
   fi

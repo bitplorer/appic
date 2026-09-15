@@ -65,7 +65,8 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Table | `/` | Constellation. Sight a star, then walk it |
 | Door | `/enter` `/login` `/otp` | Secrets on RefState. Caps on the hinge |
 | House | `/house` | Anchored family. Hits-slot law |
-| Make | `/commission` | Clay / glaze / fire. `orders.place` |
+| Make | `/commission` | Clay / glaze / fire. `orders.place`. Wax seal |
+| Kiln | `/kiln` | Named band. Remaining heat is RefState. Host shelf |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter |
 | Forge | `/forge` | Chart, tree, diff, mockup |
 | Edge | `/overlay` | OverlayChrome vs anchored family |

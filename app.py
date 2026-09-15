@@ -7,6 +7,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from starlette.staticfiles import StaticFiles
+from starlette.responses import FileResponse
 
 from ux_compose.build import build
 from ux_compose import doctor
@@ -43,6 +44,22 @@ def _mount_public(asgi):
         asgi.mount("/media", StaticFiles(directory=str(public), check_dir=False), name="media")
     except Exception:
         pass
+    og = public / "og.jpg"
+    fav = public / "favicon.svg"
+    if og.is_file() and hasattr(asgi, "add_api_route"):
+        asgi.add_api_route(
+            "/og.jpg",
+            lambda: FileResponse(str(og), media_type="image/jpeg"),
+            methods=["GET"],
+            include_in_schema=False,
+        )
+    if fav.is_file() and hasattr(asgi, "add_api_route"):
+        asgi.add_api_route(
+            "/favicon.svg",
+            lambda: FileResponse(str(fav), media_type="image/svg+xml"),
+            methods=["GET"],
+            include_in_schema=False,
+        )
     return asgi
 
 

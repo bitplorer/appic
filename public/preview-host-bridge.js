@@ -16,9 +16,10 @@
 
   function routes() {
     return [
-      "/", "/enter", "/house", "/commission", "/market", "/forge", "/rail",
+      "/", "/enter", "/house", "/commission", "/kiln", "/market", "/forge", "/rail",
       "/studio", "/overlay", "/trace", "/docs", "/deploy", "/login", "/otp",
-      "/hello", "/health", "/pulse", "/clocks", "/notes", "/author", "/copy"
+      "/hello", "/health", "/pulse", "/clocks", "/notes", "/author", "/copy",
+      "/command", "/cut", "/boot"
     ];
   }
 

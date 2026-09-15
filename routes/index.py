@@ -48,11 +48,13 @@ STARS = (
     ("trace", "/trace", "Trace", 58, 20, "Doctor. Hard vs teaching vs store-clone."),
     ("clocks", "/clocks", "Clocks", 70, 44, "GET is Clock A. Action is Clock B."),
     ("forge", "/forge", "Forge", 48, 58, "Chart · Tree · Diff · Mockup."),
-    ("kiln", "/countdown", "Kiln", 28, 70, "Countdown remaining is RefState."),
+    ("kiln", "/kiln", "Kiln", 28, 70, "Named band. Remaining heat is RefState."),
     ("market", "/market", "Hall", 84, 18, "Hero · Pricing · LogoCloud · Newsletter."),
     ("cut", "/cut", "Cut", 6, 38, "Cut C. Empty Content-Type is bad_request."),
     ("boot", "/boot", "Boot", 44, 42, "Channel.boot is the Cap door. Redis wins."),
 )
+
+BANDS = (("night", "Night"), ("dusk", "Dusk"), ("dawn", "Dawn"))
 
 
 def _filaments():
@@ -80,6 +82,7 @@ class Index(Component):
     id = "index"
     sight = MorphState("table")
     greeting = MorphState("The table is lit")
+    band = MorphState("night")
     dirty = MorphState("idle")
 
     def _star(self):
@@ -92,6 +95,9 @@ class Index(Component):
     def render(self):
         seen = self._star()
         kpi = HOST.kpi()
+        sky = str(self.band or "night")
+        if sky not in {k for k, _ in BANDS}:
+            sky = "night"
         stars = [
             button(
                 span("", className="star-dot", aria_hidden="true"),
@@ -105,6 +111,15 @@ class Index(Component):
             )
             for key, href, label, x, y, law in STARS
         ]
+        bands = [
+            button(
+                label,
+                type="button",
+                className="seg is-on" if sky == key else "seg",
+                **control("index.shift", band=key),
+            )
+            for key, label in BANDS
+        ]
         return section(
             div(
                 span("nocturnal foundry · ux-compose 0.1.0 · 80563ab · kit-81", className="eyebrow"),
@@ -115,15 +130,17 @@ class Index(Component):
                 ),
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
-                    "Caps are wax seals. Channel.boot is the hinge. Empty Content-Type is bad_request.",
+                    "The sky is a named band. Caps are wax seals. Empty Content-Type is bad_request.",
                     className="lede",
                 ),
                 div(
                     act("index.knock", "Pulse the table", kind="primary", target="#index"),
                     a("Open the door", href="/enter", className="btn-ghost"),
                     a("Commission a piece", href="/commission", className="btn-ghost"),
+                    a("Keep the fire", href="/kiln", className="btn-ghost"),
                     className="hero-actions",
                 ),
+                div(*bands, className="segs", role="radiogroup", aria_label="Sky band"),
                 status(HOST.notice or "The kiln is quiet.", kind="note"),
                 className="hero-copy",
             ),
@@ -135,6 +152,7 @@ class Index(Component):
                     className="sky",
                     id="sky",
                     role="list",
+                    data_band=sky,
                 ),
                 div(
                     span("sighted", className="eyebrow"),
@@ -160,6 +178,7 @@ class Index(Component):
             ),
             ul(
                 li(a("81 kit rooms", href="/house")),
+                li(a("The kiln", href="/kiln")),
                 li(a("Doctor residuals", href="/trace")),
                 li(a("The written law", href="/docs")),
                 li(a("Clock A / Clock B", href="/clocks")),
@@ -176,6 +195,14 @@ class Index(Component):
         self.sight = room if room in keys else "table"
         HOST.log("index.sight", str(self.sight))
         return update_with(self, optional_plan("sight", "#sight"), extra_ops=[notify(str(self.sight))])
+
+    @action(caps=())
+    def shift(self, band: str = "night"):
+        keys = {k for k, _ in BANDS}
+        self.band = band if band in keys else "night"
+        mark_dirty(self)
+        HOST.log("index.band", str(self.band))
+        return update_with(self, extra_ops=[notify(str(self.band))])
 
     @action(caps=())
     def knock(self):

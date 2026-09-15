@@ -1,7 +1,7 @@
 """Foundry Host memory. Domain stock lives here — never on MorphState.
 
 Isolation: no ux_channel. Quantity is RefState on Components; this module
-is the Host DB for commissions, bag, ledger, notices.
+is the Host DB for commissions, bag, ledger, notices, kiln queue.
 """
 from __future__ import annotations
 
@@ -22,6 +22,8 @@ class Host:
     bag: list[str] = field(default_factory=list)
     ledger: list[dict[str, Any]] = field(default_factory=list)
     commissions: list[dict[str, Any]] = field(default_factory=list)
+    pending_fire: dict[str, Any] | None = None
+    last_firing: dict[str, Any] | None = None
     authed: str = ""
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
