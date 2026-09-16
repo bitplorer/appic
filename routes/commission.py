@@ -154,10 +154,16 @@ class Commission(Component):
     def place(self, note: str = ""):
         self.note = note
         mark_dirty(self)
-        piece = {"clay": str(self.clay), "glaze": str(self.glaze), "note": note}
+        glaze = str(self.glaze)
+        if HOST.locked_glaze:
+            glaze = str(HOST.locked_glaze.get("oxide") or glaze)
+        clay = str(self.clay)
+        if HOST.wheel_piece:
+            clay = f"{clay}·thrown"
+        piece = {"clay": clay, "glaze": glaze, "note": note}
         HOST.commissions.append(piece)
         HOST.pending_fire = piece
-        HOST.log("commission.place", f"{self.clay}/{self.glaze}", "cap")
+        HOST.log("commission.place", f"{clay}/{glaze}", "cap")
         HOST.notice = "A piece waits on the kiln shelf."
         self.placed = True
         return update_with(self, extra_ops=[notify("Commission placed")])

@@ -113,6 +113,7 @@ class Kiln(Component):
                     ),
                     p(str(n), className="stat", role="timer", aria_live="polite"),
                     p(BAND_COPY.get(band, ""), className="muted"),
+                    a("Walk to the vitrine", href="/vitrine", className="btn-ghost") if band == "done" else span(""),
                     className=f"hearth band-{band}",
                     data_band=band,
                     id="hearth",
@@ -190,6 +191,14 @@ class Kiln(Component):
         if self.band == "done":
             HOST.notice = "Drawn from the kiln."
             HOST.log("kiln.drawn", str(self.piece), "cap")
+            HOST.draw(
+                {
+                    "clay": (HOST.last_firing or {}).get("clay", "clay"),
+                    "glaze": (HOST.last_firing or {}).get("glaze", "glaze"),
+                    "note": (HOST.last_firing or {}).get("note", ""),
+                    "band": "done",
+                }
+            )
         return update_with(
             self,
             optional_plan("hearth", "#hearth"),

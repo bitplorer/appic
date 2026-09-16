@@ -1,7 +1,7 @@
 # ux-compose — feature inventory (kit-81 + Kit Cut 1 + Cut C + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-SHA `80563abf1666e45fa43236e7303b1c4319413554` (2026-09-14 walk of `__all__`,
+SHA `80563abf1666e45fa43236e7303b1c4319413554` (2026-09-16 walk of `__all__`,
 `kit/catalog.py`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`,
 `docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`, `CHANGELOG` Unreleased,
 `pyproject.toml`, `doctor.py`, `helpers._fragment_for_target`).
@@ -15,6 +15,12 @@ L5 Pulse httpx locks, product pin = git tip not lagging scaffold pin).
 2026-09-15 product rooms: **KILN-1** `/kiln` named band + RefState remaining;
 **BAND-1** Table sky `night|dusk|dawn`; **SEAL-1** wax on `orders.place`;
 **OG-1** custom share card.
+
+2026-09-16 foundry loop: **BRIEF-1** `/brief` named answers + `form.submit`;
+**WHEEL-1** `/wheel` named stage + rpm RefState; **GLAZE-1** `/glaze` named
+oxide + `glaze.lock`; **VITRINE-1** `/vitrine` Host stock + named rating;
+**HANDS-1** `/hands` log RefState + `role=log`; **LOOP-1** Brief → Wheel →
+Glaze → Make → Kiln → Vitrine.
 
 If this page and the code disagree, **the code wins**.
 
@@ -72,6 +78,7 @@ FileStateStore on Channel. Folder law. `LEFTOVER-split`. `PYPI-1`.
 **CEK-HARD**. **SKIN-1**. **GLASS-1**. **VISUAL-QA**. **PIN-80563ab**.
 **EXTRACT-1**. **PULSE-L5**. **VCS-PIN-TIP**. **SPECULAR-90**.
 **CONCENTRICITY-1**. **GLASS-REGULAR**.
+**BRIEF-1**. **WHEEL-1**. **GLAZE-1**. **VITRINE-1**. **HANDS-1**. **LOOP-1**.
 
 ---
 

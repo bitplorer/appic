@@ -63,10 +63,15 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Room | Path | Law you can touch |
 |---|---|---|
 | Table | `/` | Constellation. Sight a star, then walk it |
+| Brief | `/brief` | Named answers. Submit spends `form.submit` |
+| Wheel | `/wheel` | Named stage. RPM is RefState. Lift is public |
+| Glaze | `/glaze` | Named oxide. Load is RefState. `glaze.lock` |
 | Door | `/enter` `/login` `/otp` | Secrets on RefState. Caps on the hinge |
 | House | `/house` | Anchored family. Hits-slot law |
 | Make | `/commission` | Clay / glaze / fire. `orders.place`. Wax seal |
 | Kiln | `/kiln` | Named band. Remaining heat is RefState. Host shelf |
+| Vitrine | `/vitrine` | Drawn work. Rating is a named star |
+| Hands | `/hands` | Studio floor. Log is RefState. `role=log` |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter |
 | Forge | `/forge` | Chart, tree, diff, mockup |
 | Edge | `/overlay` | OverlayChrome vs anchored family |
@@ -91,13 +96,13 @@ ux-compose `main` (`80563ab`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
-Independent Grok Build re-read + execution of ux-compose `80563ab` (2026-09-14):
-81 stems counted from `kit/catalog.py`, Soft USE of `extract_by_id`, L5 Pulse
-locks (no new Pulse room), product pin is git tip (scaffold `COMPOSE_VCS_PIN`
-lags at `24a182f`). Visual skin: SPECULAR-90, CONCENTRICITY-1, GLASS-REGULAR.
-Command is not OverlayChrome. Two walkers / one `build()` door. FileStateStore
-stays on Channel. Redis wins. Empty Content-Type is `bad_request`. Cap door is
-`Channel.boot`. Frozen serve verbs.
+Independent Grok Build re-read + execution of ux-compose `80563ab` (2026-09-16):
+foundry loop Brief → Wheel → Glaze → Make → Kiln → Vitrine, Hands on the floor.
+81 stems counted from `kit/catalog.py`. Soft USE of `extract_by_id`. L5 Pulse
+locks (no new Pulse room). Product pin is git tip. Visual skin: SPECULAR-90,
+CONCENTRICITY-1, GLASS-REGULAR. Command is not OverlayChrome. Two walkers /
+one `build()` door. FileStateStore stays on Channel. Redis wins. Empty
+Content-Type is `bad_request`. Cap door is `Channel.boot`. Frozen serve verbs.
 
 ## Pins
 

@@ -12,22 +12,22 @@ from ux_compose.chrome import GET_CHROME_ATTR, DEFAULT_BRAND
 
 ROOMS = (
     ("/", "Table"),
-    ("/enter", "Door"),
+    ("/brief", "Brief"),
+    ("/wheel", "Wheel"),
+    ("/glaze", "Glaze"),
     ("/commission", "Make"),
     ("/kiln", "Kiln"),
-    ("/market", "Hall"),
-    ("/forge", "Forge"),
-    ("/house", "House"),
-    ("/overlay", "Edge"),
+    ("/vitrine", "Vitrine"),
+    ("/hands", "Hands"),
     ("/docs", "Law"),
 )
 
 DOCK = (
     ("/", "Table"),
-    ("/commission", "Make"),
+    ("/wheel", "Wheel"),
     ("/kiln", "Kiln"),
+    ("/vitrine", "Shelf"),
     ("/command", "Cmd"),
-    ("/docs", "Law"),
 )
 
 

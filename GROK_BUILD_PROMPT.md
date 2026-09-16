@@ -13,31 +13,35 @@ and ships a complete, **visually stunning** foundry. Repo **appic already exists
 
 ---
 
-## 2026-09-15 — devised + executed (this session)
+## 2026-09-16 — devised + executed (this session)
 
 Independent re-read of [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose)
 `main` @ **`80563ab`**. Walked `__all__` (86 public names), `kit/catalog.py`
 (**81 stems** + `treeview` alias), `AGENTS.md`, `docs/OWNERSHIP.md`,
-`docs/ARCHITECTURE.md`, `docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`,
-Apple Liquid Glass 2026 (Clarity, Deference, Depth, concentricity, 90° specular,
-Regular vs Clear glass), Linear luminance, Raycast Command-as-OS, Stripe
-editorial type, visionOS layering, Craft-like negative space.
+`docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`, Apple Human Interface
+Guidelines *Materials* (Liquid Glass is the **control layer only** — never the
+content layer), iOS 26 concentricity, 90° specular, Regular vs Clear glass,
+Linear luminance, Raycast Command-as-OS, Stripe editorial type, visionOS
+layering.
 
-Specialist pins **unchanged**. Product gained inhabitable rooms that *use* the
-kit instead of exhibiting it:
+Specialist pins **unchanged**. Product gained the **foundry loop** — rooms that
+*use* the kit as a house you inhabit, not a catalog you tour:
 
 | Delta | Law |
 | --- | --- |
-| Kiln as a room | Named firing band is MorphState. Remaining heat is RefState. Commission queues Host `pending_fire`. **KILN-1** |
-| Sky band | Table sky is `night \| dusk \| dawn` MorphState. Filaments stay. Content cards stay raised, not glass. **BAND-1** |
-| Wax on place | `orders.place` cracks a seal in Make. Walk to the kiln. **SEAL-1** |
-| Share card | Custom 1200×630 `public/og.jpg` served at `/og.jpg`. Favicon is the brass nucleus. **OG-1** |
+| Brief as a room | Named answers. Submit spends `form.submit`. Feeds Make. **BRIEF-1** |
+| Wheel as a room | Named throwing stage is MorphState. RPM is RefState. Lift is public. **WHEEL-1** |
+| Glaze lab as a room | Named oxide. Load is RefState. Lock spends `glaze.lock`. **GLAZE-1** |
+| Vitrine as a room | Drawn work is Host stock. Rating is a named star, never MorphState(int). **VITRINE-1** |
+| Hands as a room | Studio floor. Log is RefState. Typing is MorphState. `role=log`. **HANDS-1** |
+| Loop | Brief → Wheel → Glaze → Make (`orders.place`) → Kiln → Vitrine. **LOOP-1** |
 
 Craft references held: glass only on chrome, specular from the top, concentric
 radii, Fraunces + Source Sans 3 + IBM Plex Mono, brass on ink. No React.
 
-**Executed:** kiln room, sky bands, wax seal, share card, doctor green, uvicorn
-`0.0.0.0:8080`, published to **bitplorer/appic**.
+**Executed:** five inhabitable rooms, constellation re-mapped to the loop,
+Host stock for thrown / recipes / vitrine / briefs / hands, doctor green,
+uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
 
 ### Honesty locks (do not reopen)
 
@@ -48,14 +52,17 @@ escape KEEP), `LOCK-1`, `ISO-2`, `KIT-1`, `HMR-shell`, `CSS-spawn`,
 law, `LEFTOVER-split`, `PYPI-1`, `DOOR-2`, `openapi=False`, Kit Cut 1
 `shell=False`, `CEK-HARD`, `SKIN-1`, `GLASS-1`, `VISUAL-QA`, `PIN-80563ab`,
 `EXTRACT-1`, `PULSE-L5`, `VCS-PIN-TIP`, `SPECULAR-90`, `CONCENTRICITY-1`,
-`GLASS-REGULAR`.
+`GLASS-REGULAR`, `KILN-1`, `BAND-1`, `SEAL-1`, `OG-1`.
 
 **New this session**
 
-1. **KILN-1** — `/kiln` is a house room, not the countdown kit demo.
-2. **BAND-1** — Sky luminance is a named band. Not a boolean theme switch.
-3. **SEAL-1** — Place spends `orders.place` and queues the hearth.
-4. **OG-1** — Custom card + `/og.jpg` + `/favicon.svg` on the ASGI app.
+1. **BRIEF-1** — `/brief` is a house room, not the questionnaire kit demo.
+2. **WHEEL-1** — `/wheel` is a house room, not the spinbutton / slider demo.
+3. **GLAZE-1** — `/glaze` is a house room, not the colorpicker / chart demo.
+4. **VITRINE-1** — `/vitrine` is a house room, not the carousel / rating demo.
+5. **HANDS-1** — `/hands` is a house room, not the chat / feed demo.
+6. **LOOP-1** — The foundry is a loop you can walk. Kit rooms remain, but
+   the Table sights the loop first.
 
 ### Author surface (do not invent names)
 
@@ -96,7 +103,7 @@ attachment scrollarea feed
 | Kind | Plane |
 | --- | --- |
 | Open / value / query / named step / named band / theme | MorphState |
-| Magnitude, lists, money, ISO dates, files, digits, remaining | RefState + `dirty = MorphState("idle")` |
+| Magnitude, lists, money, ISO dates, files, digits, remaining, rpm, load | RefState + `dirty = MorphState("idle")` |
 | One-shot message | `notify(...)` |
 | Domain stock | Host DB (`store.HOST`), never the client plane |
 | Protected verb | `@action(caps=("orders.place",))` + live submit_intent |
@@ -145,6 +152,12 @@ missing. Direct user law beats the sandbox React default.
 
 A visitor should feel: *this is a private atelier OS — expensive, spatial,
 keyboard-first — and every law of the stack is a room I can touch.*
+
+The foundry is a **loop**, not a catalog:
+
+Brief → Wheel → Glaze → Make (`orders.place`) → Kiln → Vitrine.
+
+Hands sit beside the loop. Command is the OS. The Table sights the loop first.
 
 ---
 
@@ -199,6 +212,11 @@ Radical product (must be *felt*, not documented):
     own (`shell=False`). Brand lives on `wrap=`, never inside `render()`.
 11. **Extract is owned.** Morph fragments prefer ux-dom `extract_by_id`.
     Homemade walker is escape only. The foundry never grows a `fragment.py`.
+
+12. **The foundry is a loop.** Brief (`form.submit`) → Wheel (stage MorphState,
+    rpm RefState) → Glaze (`glaze.lock`) → Make (`orders.place`) → Kiln
+    (named band + remaining RefState) → Vitrine (named rating). Hands is the
+    studio floor (`role=log`). Kit demos stay; they are not the house.
 
 ---
 
