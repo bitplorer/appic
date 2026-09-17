@@ -37,8 +37,9 @@ STARS = (
     ("wheel", "/wheel", "Wheel", 32, 14, "Named stage. RPM is RefState. Lift is public."),
     ("glaze", "/glaze", "Glaze", 50, 8, "Named oxide. Load is RefState. Lock spends glaze.lock."),
     ("make", "/commission", "Make", 68, 12, "Clay / glaze / fire. orders.place. Wax seal."),
-    ("kiln", "/kiln", "Kiln", 86, 22, "Named band. Remaining heat is RefState."),
-    ("vitrine", "/vitrine", "Vitrine", 90, 44, "Drawn work. Rating is a named star."),
+    ("kiln", "/kiln", "Kiln", 82, 16, "Named band. Remaining heat is Host stock."),
+    ("watch", "/watch", "Watch", 94, 32, "Night watch. Keep the shared hearth. Ring the bell."),
+    ("vitrine", "/vitrine", "Vitrine", 92, 52, "Drawn work. Rating is a named star."),
     ("hands", "/hands", "Hands", 84, 66, "Studio floor. Log is RefState. role=log."),
     ("house", "/house", "House", 70, 82, "Anchored family. Typeahead hits-slot law."),
     ("hall", "/market", "Hall", 48, 88, "Hero, pricing (bind the button), newsletter."),
@@ -95,7 +96,7 @@ class Index(Component):
     def render(self):
         seen = self._star()
         kpi = HOST.kpi()
-        sky = str(self.band or "night")
+        sky = str(self.band or HOST.sky_band or "night")
         if sky not in {k for k, _ in BANDS}:
             sky = "night"
         stars = [
@@ -120,6 +121,7 @@ class Index(Component):
             )
             for key, label in BANDS
         ]
+        heat = "The kiln is holding." if HOST.firing else (HOST.notice or "The kiln is quiet.")
         return section(
             div(
                 span("nocturnal foundry · ux-compose 0.1.0 · 80563ab · kit-81", className="eyebrow"),
@@ -130,18 +132,19 @@ class Index(Component):
                 ),
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
-                    "Throw, glaze, fire, collect. Caps are wax seals. Empty Content-Type is bad_request.",
+                    "Throw, glaze, fire, sit the watch, collect. Caps are wax seals. "
+                    "The sky band retints the whole house.",
                     className="lede",
                 ),
                 div(
                     act("index.knock", "Pulse the table", kind="primary", target="#index"),
                     a("File a brief", href="/brief", className="btn-ghost"),
                     a("Throw a body", href="/wheel", className="btn-ghost"),
-                    a("Keep the fire", href="/kiln", className="btn-ghost"),
+                    a("Sit the watch", href="/watch", className="btn-ghost"),
                     className="hero-actions",
                 ),
                 div(*bands, className="segs", role="radiogroup", aria_label="Sky band"),
-                status(HOST.notice or "The kiln is quiet.", kind="note"),
+                status(heat, kind="note"),
                 className="hero-copy",
             ),
             div(
@@ -153,6 +156,7 @@ class Index(Component):
                     id="sky",
                     role="list",
                     data_band=sky,
+                    data_sight=str(self.sight or "table"),
                 ),
                 div(
                     span("sighted", className="eyebrow"),
@@ -170,8 +174,8 @@ class Index(Component):
                 dd(str(kpi["pulse"])),
                 dt("Thrown"),
                 dd(str(kpi["thrown"])),
-                dt("Seals spent"),
-                dd(str(kpi["seals"])),
+                dt("Heat"),
+                dd(str(kpi["heat"])),
                 dt("Drawn"),
                 dd(str(kpi["drawn"])),
                 className="kpi",
@@ -181,12 +185,14 @@ class Index(Component):
                 li(a("The wheel", href="/wheel")),
                 li(a("The glaze lab", href="/glaze")),
                 li(a("The kiln", href="/kiln")),
+                li(a("The night watch", href="/watch")),
                 li(a("The vitrine", href="/vitrine")),
                 li(a("Hands at the table", href="/hands")),
                 li(a("The written law", href="/docs")),
                 className="quick"),
             id=self.id,
             className="table-room",
+            data_band=sky,
         )
 
     @action(caps=())
@@ -200,6 +206,7 @@ class Index(Component):
     def shift(self, band: str = "night"):
         keys = {k for k, _ in BANDS}
         self.band = band if band in keys else "night"
+        HOST.sky_band = str(self.band)
         mark_dirty(self)
         HOST.log("index.band", str(self.band))
         return update_with(self, extra_ops=[notify(str(self.band))])

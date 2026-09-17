@@ -4,8 +4,8 @@
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + extract_by_id + **skin law**). Pure-Python
-composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
+Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch**).
+Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
 Page units have no HTTP verbs. Payload type picks media type. **The kit is a
@@ -21,13 +21,22 @@ fail closed. Morph fragments prefer ux-dom `extract_by_id`.
 The Table is a **constellation**: rooms as named stars around a brass nucleus,
 joined by faint filaments (`svg` + `path` — there is no public `line` tag).
 Sight is MorphState (`look`). Walk is Clock A. The verb that sights a star is
-`look` — never a same-named action, or MorphState is overwritten.
+`look` — never a same-named action, or MorphState is overwritten. Sighting a
+star brightens its filament. The sky band (`night | dusk | dawn`) lives on
+Host stock and retints the **whole house**, not just the map.
+
+The foundry is a **loop you can walk**, always visible in chrome:
+
+Brief → Wheel → Glaze → Make → Kiln → **Watch** → Vitrine.
+
+The Night Watch sits with the fire. Kiln and Watch share one hearth (`HOST.heat_remain`).
+Keep is public. A bell is one-shot notify. This is not a Pulse room.
 
 Visual skin is first-class: surgical Regular Liquid Glass on chrome, 90°
 specular from the top, Linear luminance, concentric radii, Fraunces + Source
 Sans 3 + IBM Plex Mono, brass `#D4B483` on ink `#07080A`. Glass is the
 control layer, not a wallpaper. Grain lives on the body. Three z-layers: ink
-base, raised rooms, glass chrome.
+base, raised rooms, glass chrome. Heat rings breathe. The wheel turns at rpm.
 
 Ships at **Level 3**. `build(host="auto", live="auto", cek="require", openapi=False)`.
 Product doctor on `routes/` + `chrome.py` + `app.py` is green.
@@ -62,14 +71,15 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 
 | Room | Path | Law you can touch |
 |---|---|---|
-| Table | `/` | Constellation. Sight a star, then walk it |
+| Table | `/` | Constellation. Sight a star, then walk it. Sky band retints the house |
 | Brief | `/brief` | Named answers. Submit spends `form.submit` |
 | Wheel | `/wheel` | Named stage. RPM is RefState. Lift is public |
 | Glaze | `/glaze` | Named oxide. Load is RefState. `glaze.lock` |
 | Door | `/enter` `/login` `/otp` | Secrets on RefState. Caps on the hinge |
 | House | `/house` | Anchored family. Hits-slot law |
 | Make | `/commission` | Clay / glaze / fire. `orders.place`. Wax seal |
-| Kiln | `/kiln` | Named band. Remaining heat is RefState. Host shelf |
+| Kiln | `/kiln` | Named band. Shared hearth heat. Host shelf |
+| Watch | `/watch` | Night watch. Keep the shared hearth. Ring the bell |
 | Vitrine | `/vitrine` | Drawn work. Rating is a named star |
 | Hands | `/hands` | Studio floor. Log is RefState. `role=log` |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter |
@@ -96,13 +106,9 @@ ux-compose `main` (`80563ab`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
-Independent Grok Build re-read + execution of ux-compose `80563ab` (2026-09-16):
-foundry loop Brief → Wheel → Glaze → Make → Kiln → Vitrine, Hands on the floor.
-81 stems counted from `kit/catalog.py`. Soft USE of `extract_by_id`. L5 Pulse
-locks (no new Pulse room). Product pin is git tip. Visual skin: SPECULAR-90,
-CONCENTRICITY-1, GLASS-REGULAR. Command is not OverlayChrome. Two walkers /
-one `build()` door. FileStateStore stays on Channel. Redis wins. Empty
-Content-Type is `bad_request`. Cap door is `Channel.boot`. Frozen serve verbs.
+Independent Grok Build re-read + execution of ux-compose `80563ab` (2026-09-17):
+Night Watch as a house room, shared hearth heat, sky band as Host atmosphere,
+loop rail in GET chrome, filament brightening, concentric heat rings.
 
 ## Pins
 

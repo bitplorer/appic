@@ -1,4 +1,4 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + Kit Cut 1 + Cut C + skin law + extract-by-id)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + Kit Cut 1 + Cut C + skin law + extract-by-id + night watch)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
 SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (2026-09-13 tip — specialist lockstep
@@ -13,35 +13,36 @@ and ships a complete, **visually stunning** foundry. Repo **appic already exists
 
 ---
 
-## 2026-09-16 — devised + executed (this session)
+## 2026-09-17 — devised + executed (this session)
 
 Independent re-read of [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose)
-`main` @ **`80563ab`**. Walked `__all__` (86 public names), `kit/catalog.py`
+`main` @ **`80563ab`**. Walked `__all__` (**86** public names), `kit/catalog.py`
 (**81 stems** + `treeview` alias), `AGENTS.md`, `docs/OWNERSHIP.md`,
 `docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`, Apple Human Interface
 Guidelines *Materials* (Liquid Glass is the **control layer only** — never the
 content layer), iOS 26 concentricity, 90° specular, Regular vs Clear glass,
 Linear luminance, Raycast Command-as-OS, Stripe editorial type, visionOS
-layering.
+layering, Craft/Things density, Cosmos.so spatial canvas.
 
-Specialist pins **unchanged**. Product gained the **foundry loop** — rooms that
-*use* the kit as a house you inhabit, not a catalog you tour:
+Specialist pins **unchanged**. Product gained the **night watch** — a house
+room that *keeps* the shared hearth, not a catalog of timers — and made the
+sky a climate the whole house inhabits.
 
 | Delta | Law |
 | --- | --- |
-| Brief as a room | Named answers. Submit spends `form.submit`. Feeds Make. **BRIEF-1** |
-| Wheel as a room | Named throwing stage is MorphState. RPM is RefState. Lift is public. **WHEEL-1** |
-| Glaze lab as a room | Named oxide. Load is RefState. Lock spends `glaze.lock`. **GLAZE-1** |
-| Vitrine as a room | Drawn work is Host stock. Rating is a named star, never MorphState(int). **VITRINE-1** |
-| Hands as a room | Studio floor. Log is RefState. Typing is MorphState. `role=log`. **HANDS-1** |
-| Loop | Brief → Wheel → Glaze → Make (`orders.place`) → Kiln → Vitrine. **LOOP-1** |
+| Watch as a room | Named hour. Keep ticks Host heat. Bell is notify. **WATCH-1** |
+| Shared hearth | `HOST.heat_remain` + `HOST.firing`. Kiln and Watch are one fire. **HEAT-1** |
+| Sky as climate | Table band is Host stock. GET chrome `data-band` retints the shell. **ATMOS-2** |
+| Loop in chrome | Brief → Wheel → Glaze → Make → Kiln → Watch → Vitrine is GET chrome, not a page widget. **LOOP-2** |
+| Filament sight | `data-sight` on the sky brightens the named path. Public surface has no `line`. **ORBIT-1** |
+| Heat rings | Concentric ember rings breathe by band. Nested radius = parent − padding. **EMBER-2** |
 
 Craft references held: glass only on chrome, specular from the top, concentric
 radii, Fraunces + Source Sans 3 + IBM Plex Mono, brass on ink. No React.
 
-**Executed:** five inhabitable rooms, constellation re-mapped to the loop,
-Host stock for thrown / recipes / vitrine / briefs / hands, doctor green,
-uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
+**Executed:** Night Watch room, shared hearth, atmosphere bands, loop rail,
+filament brightening, concentric heat rings, constellation Watch star, doctor
+path, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
 
 ### Honesty locks (do not reopen)
 
@@ -52,17 +53,17 @@ escape KEEP), `LOCK-1`, `ISO-2`, `KIT-1`, `HMR-shell`, `CSS-spawn`,
 law, `LEFTOVER-split`, `PYPI-1`, `DOOR-2`, `openapi=False`, Kit Cut 1
 `shell=False`, `CEK-HARD`, `SKIN-1`, `GLASS-1`, `VISUAL-QA`, `PIN-80563ab`,
 `EXTRACT-1`, `PULSE-L5`, `VCS-PIN-TIP`, `SPECULAR-90`, `CONCENTRICITY-1`,
-`GLASS-REGULAR`, `KILN-1`, `BAND-1`, `SEAL-1`, `OG-1`.
+`GLASS-REGULAR`, `KILN-1`, `BAND-1`, `SEAL-1`, `OG-1`,
+`BRIEF-1`, `WHEEL-1`, `GLAZE-1`, `VITRINE-1`, `HANDS-1`, `LOOP-1`.
 
 **New this session**
 
-1. **BRIEF-1** — `/brief` is a house room, not the questionnaire kit demo.
-2. **WHEEL-1** — `/wheel` is a house room, not the spinbutton / slider demo.
-3. **GLAZE-1** — `/glaze` is a house room, not the colorpicker / chart demo.
-4. **VITRINE-1** — `/vitrine` is a house room, not the carousel / rating demo.
-5. **HANDS-1** — `/hands` is a house room, not the chat / feed demo.
-6. **LOOP-1** — The foundry is a loop you can walk. Kit rooms remain, but
-   the Table sights the loop first.
+1. **WATCH-1** — `/watch` is a house room, not the countdown kit demo.
+2. **HEAT-1** — Kiln and Watch share `HOST.heat_remain`. Domain stock, never MorphState(int).
+3. **ATMOS-2** — Sky band is Host climate. Chrome `data-band` retints the shell.
+4. **LOOP-2** — The loop lives in GET chrome. Watch sits between Kiln and Vitrine.
+5. **ORBIT-1** — Sighted filament brightens. Star dots breathe. No public `line`.
+6. **EMBER-2** — Concentric heat rings. Nested radii. Peak is hotter, not louder.
 
 ### Author surface (do not invent names)
 
@@ -102,17 +103,23 @@ attachment scrollarea feed
 
 | Kind | Plane |
 | --- | --- |
-| Open / value / query / named step / named band / theme | MorphState |
-| Magnitude, lists, money, ISO dates, files, digits, remaining, rpm, load | RefState + `dirty = MorphState("idle")` |
+| Open / value / query / named step / named band / theme / hour | MorphState |
+| Magnitude, lists, money, ISO dates, files, digits, remaining, rpm, load, heat | RefState + `dirty = MorphState("idle")` **or Host stock** |
 | One-shot message | `notify(...)` |
 | Domain stock | Host DB (`store.HOST`), never the client plane |
 | Protected verb | `@action(caps=("orders.place",))` + live submit_intent |
+
+Shared hearth heat is **Host stock**, not a quantity MorphState. Kiln `remain`
+and Watch `remain` are mirrors of `HOST.heat_remain` while firing.
 
 The verb that sights a star is `look` — never a same-named action as the
 MorphState field, or the field is overwritten.
 
 XOR: morph HTML from `render()` first, then `transition.play`. Never `html=`
 on a plan. Presence continuity: objects that stay do not remount.
+
+Do **not** add Pulse rooms. L5 locks existing Pulse surfaces only. Watch is
+not Pulse.
 
 ---
 
@@ -155,9 +162,10 @@ keyboard-first — and every law of the stack is a room I can touch.*
 
 The foundry is a **loop**, not a catalog:
 
-Brief → Wheel → Glaze → Make (`orders.place`) → Kiln → Vitrine.
+Brief → Wheel → Glaze → Make (`orders.place`) → Kiln → **Watch** → Vitrine.
 
 Hands sit beside the loop. Command is the OS. The Table sights the loop first.
+The loop rail lives in GET chrome. The sky band retints the house.
 
 ---
 
@@ -181,12 +189,15 @@ Craft references (steal structure, not trademarks):
 - **Stripe editorial** — one display serif for brand moments, then get out of
   the way. Negative space is a material.
 - **visionOS layering** — three explicit z-layers, not box-shadow soup.
+- **Cosmos.so / Kinopio** — spatial canvas. Stars have coordinates. Sighting
+  is not scrolling a list.
 
 Radical product (must be *felt*, not documented):
 
 1. **Sight ≠ walk.** The Table is a constellation. Sighting a star is MorphState
    (`look`). Walking it is Clock A GET. Two clocks, one sky. Filaments from the
    brass nucleus to every star are `svg` + `path` (there is no public `line` tag).
+   The sighted filament brightens (`data-sight` on the sky).
 2. **Caps are wax seals.** Protected verbs (`orders.place`, `auth.otp`,
    `auth.logout`, `form.submit`, `list.subscribe`, `stepper.finish`, archive)
    show a seal that cracks when spent. Mint is `once=True` where checkout
@@ -205,27 +216,28 @@ Radical product (must be *felt*, not documented):
    (pulse, `/health`). Generator → stream (`/pulse`). No `HTMLResponse` imports
    on page units.
 8. **Theme is a named band.** `themeswitch` is a radiogroup `light | dark |
-   system`, not a boolean switch. Glass and ink retint. Grain stays.
+   system`, not a boolean switch. The Table sky is a *climate* band
+   (`night | dusk | dawn`) on Host stock that retints GET chrome.
 9. **Command is the OS.** `⌘K` / the FAB opens Command. Query attaches.
    Sign-out spends `auth.logout`.
 10. **Ownership ritual.** `/copy` runs the copy press. Kit cards are rooms you
     own (`shell=False`). Brand lives on `wrap=`, never inside `render()`.
 11. **Extract is owned.** Morph fragments prefer ux-dom `extract_by_id`.
     Homemade walker is escape only. The foundry never grows a `fragment.py`.
-
 12. **The foundry is a loop.** Brief (`form.submit`) → Wheel (stage MorphState,
     rpm RefState) → Glaze (`glaze.lock`) → Make (`orders.place`) → Kiln
-    (named band + remaining RefState) → Vitrine (named rating). Hands is the
-    studio floor (`role=log`). Kit demos stay; they are not the house.
+    (named band + shared Host heat) → Watch (named hour, keep is public) →
+    Vitrine (named rating). Hands is the studio floor (`role=log`). Kit demos
+    stay; they are not the house. The loop rail is GET chrome.
+13. **One fire.** Kiln and Watch share `HOST.heat_remain`. Remaining is not a
+    quantity MorphState. The night watch can light and keep the kiln from the
+    dark. Countdown kit stays a kit room; Watch is the house.
 
 ---
 
 ## 2. VISUAL SKIN LAW (first-class — equal to Isolation Law)
 
-The previous APPIC failed as a *look* when kit-default `stone-*` classes
-survived `uxcompose add`. That is forbidden.
-
-### Tokens — author in `assets/css/input.css` as CSS variables, consume via
+Tokens — author in `assets/css/input.css` as CSS variables, consume via
 Tailwind `@theme` / utility classes. `uxcompose build` minifies to
 `assets/static/file/css/output.css`. Document `<link>`s that sheet.
 
@@ -249,24 +261,6 @@ Tailwind `@theme` / utility classes. `uxcompose build` minifies to
   --r-ctrl: 10px;
   --r-card: 20px;
   --r-overlay: 28px;
-  --z-base: 0;
-  --z-raised: 10;
-  --z-chrome: 40;
-  --z-overlay: 60;
-  --z-toast: 80;
-  --grid: 4px;
-}
-[data-theme="light"] {
-  --ink: #F4F0E6;
-  --ink-2: #EBE6D8;
-  --raised: #FFFFFF;
-  --raised-2: #F7F4EC;
-  --hairline: rgba(12, 13, 16, 0.08);
-  --hairline-strong: rgba(12, 13, 16, 0.16);
-  --bone: #16150F;
-  --bone-dim: #3C3A32;
-  --mute: #6A6B66;
-  --glass: rgba(255, 252, 245, 0.64);
 }
 ```
 
@@ -280,58 +274,29 @@ Type (load via `<link>` in Document, not JS):
 | Caption | Source Sans 3 | 12px, mute, ls 0.04em uppercase |
 | Mono | **IBM Plex Mono** | 12–13px — Caps, hashes, ops, SHAs |
 
-Never Inter as the brand face. Never Comic / Papyrus / default system-only.
-Never emoji in chrome. Never purple, gold-foil, neon, mesh-gradient blobs,
-rainbow borders, or 2021 “glassmorphism everywhere.”
+Never Inter as the brand face. Never emoji in chrome. Never purple, gold-foil,
+neon, mesh-gradient blobs, rainbow borders, or 2021 “glassmorphism everywhere.”
 
 ### Three layers
 
-1. **Ink base** — `--ink` canvas, 3.5% film grain overlay (`::before` on
-   `body`, `pointer-events: none`), no glass.
-2. **Raised rooms** — `--raised` panels, 1px `--hairline`, single soft shadow
-   `0 24px 60px rgba(0,0,0,0.35)`, radius `--r-card`. Content lives here.
-   **No** backdrop-filter.
+1. **Ink base** — `--ink` canvas, 3.5% film grain overlay, no glass.
+2. **Raised rooms** — `--raised` panels, 1px `--hairline`, single soft shadow.
+   Content lives here. **No** backdrop-filter.
 3. **Glass chrome** — navbar, command, toast, dialog/sheet panel, menubar,
-   mobile dock. Regular glass:
-   `background: var(--glass); backdrop-filter: blur(24px) saturate(1.4);`
-   `border: 1px solid var(--hairline-strong);`
-   Specular 90°: `inset 0 1px 0 rgba(255,255,255,0.22)` plus a
-   `linear-gradient(180deg, rgba(255,255,255,0.16), transparent 42%)` overlay
-   (`pointer-events: none`). Inner bottom shade `inset 0 -1px 0 rgba(0,0,0,0.25)`.
-   Specular, not frosted-white. Not a 45° slash.
+   mobile dock, sight card. Regular glass, 90° specular from the top.
 
 Concentricity: a control of radius 10 inside a card of padding 16 has card
-radius 26. Nested radii = parent radius − padding. Pill buttons 44× height,
-radius 999. Tap targets ≥ 44px. Navbar floating island radius 24 (control
-layer, rounder than content cards).
-
-Spacing is a **4px grid**. Density is Linear-like: compact, not airy-SaaS.
-Mobile 390×844: no horizontal overflow, bottomnav is the mobile landmark,
-navbar desktop tree stays in the tree (hidden), not deleted. Constellation
-collapses to a 3-column grid; filaments and nucleus hide.
+radius 26. Nested radii = parent radius − padding. Heat rings are concentric
+circles inset from the ember. Tap targets ≥ 44px.
 
 `prefers-reduced-motion: reduce` disables travel; morph still happens.
-
-### Restyle mandate
-
-After `uxcompose add {stem}`:
-
-- Keep behaviour, ids, ARIA, Caps, Morph/Ref split, OverlayChrome contracts.
-- Replace every `bg-stone-*`, `text-stone-*`, `bg-white`, `bg-zinc-*`,
-  `bg-neutral-*`, `shadow-md` default with APPIC tokens (`bg-ink`, `bg-raised`,
-  `text-bone`, `border-hairline`, `bg-glass`, `text-brass`, `h-11`).
-- `shell=False` on every kit `render()` used inside a room — the Atelier
-  kicker/title/lede card is **off**. Rooms have APPIC chrome, not kit chrome.
-- Unknown slots fail closed. Documented slots (`title`, `body`, `actions`,
-  `links`, `items`, …) are how you retitle a stem into the foundry.
 
 ### What a first screenshot must show
 
 Dark ink, Fraunces wordmark **APPIC**, brass accent used once in the nucleus,
 glass navbar with 90° specular, constellation of named stars with faint
-filaments, a Command hint `⌘K`, grain visible if you look, no purple, no
-kit-kicker, no Inter-on-white dashboard, no emoji toolbar. If it could be
-mistaken for shadcn/ui or Linear itself, restyle until it could not.
+filaments, a loop rail, a Command hint `⌘K`, grain visible if you look, no
+purple, no kit-kicker, no Inter-on-white dashboard, no emoji toolbar.
 
 ---
 
@@ -354,18 +319,14 @@ mistaken for shadcn/ui or Linear itself, restyle until it could not.
 - Page units have **no HTTP verbs**. `render()` return type picks the container.
 - XOR motion. No `html=` on plans. No root `swipe.*` on overlay hosts.
 - `Document.use(XElement(), Csp.auto(), Channel.optional())` — one Document.
-  Dual-Document fails doctor.
-- HMR is not a Document API. Frozen serve verbs: `dev` / `prod` /
-  `restart-channel`. argv `development` / `production` / `restart_channel`
-  fail closed.
+- Frozen serve verbs: `dev` / `prod` / `restart-channel`.
 - Do not `pip install ux-compose` from PyPI. Clone + pin **tip `80563ab`**.
-  Scaffold `COMPOSE_VCS_PIN` may lag (`24a182f`) — product pin is the tip.
 - `from ux_compose.kit import X` is leftover. Own copies under `components/`.
 - Official helpers only:
   `act, mark_dirty, field, status, optional_plan, optional_fade, optional_slide`.
 - Silent `except ImportError` without `AttachNote` is a kill.
 - Do not add `fragment.py`. Owner `extract_by_id` is the serialize door.
-- Do not add Pulse rooms. L5 locks existing Pulse surfaces only.
+- Do not add Pulse rooms. Watch is not Pulse.
 - `ux-space` is a sibling repo, **not** a compose specialist. Do not import it.
 
 Python **≥ 3.14**. Grok sandbox floor is 3.10 — `uv python install 3.14` then
@@ -374,119 +335,31 @@ The venv has no pip.
 
 ---
 
-## 4. KILL TRIGGERS
+## 4. HOUSE ROOMS (the loop, in order)
 
-If you do any of these, **stop, undo, continue on the product path**.
-
-1. Any product UI in React / Vue / Svelte / Solid / Next / TanStack / JSX / TSX.
-2. `vite` / `npx vite` / `npm run build` / Nitro as the ship gate. Preview is
-   uvicorn. First token of any CSS file must be CSS.
-3. HTMX as architecture. `use_htmx=False`.
-4. HTTP verbs on page units.
-5. `from ux_compose.kit import …` as the live unit. Copy via `uxcompose add`.
-6. `import ux_channel` / `cek*` / `MotionChannel` in product modules.
-7. `host="batteries"` or `DirectoryRouter`.
-8. Plans with `html=`. XOR. Morph first.
-9. Root `swipe.*` on Dialog / Sheet / ActionSheet / AlertDialog / Command.
-10. A second helper world. Official author helpers only.
-11. Silent `except ImportError` without `AttachNote`.
-12. Forcing Command / Dropdown / ContextMenu / Combobox / Select / Popover /
-    HoverCard / Tooltip through OverlayChrome. Command is not OverlayChrome.
-13. Login secrets / OTP digits / file names / money / remaining-ms on MorphState.
-14. Typeahead remounting the field. Morph the hits slot.
-15. Brand / navbar / footer inside `Component.render()`. They live on `wrap=`.
-16. FastAPI Swagger (`docs_url` / `redoc_url` / `openapi_url` not None).
-    `/docs` is a product page.
-17. Shipping kit-default `stone-*` / Atelier kicker (`shell` left default).
-18. Purple / neon / gradient-blob / emoji chrome / Inter-as-brand.
-19. Glass on every card. Glass is the control layer. Clear glass on content.
-20. A still frame that is a component gallery. APPIC is a house, not a catalog.
-21. Exporting both `REDIS_URL` and `UXCOMPOSE_STATE_STORE`. Redis wins.
-    Doctor `scan_store_precedence` fails closed.
-22. Empty `Content-Type` on Clock B POST.
-23. Cap door via `ActionRegistry.from_config`. Cap door is `Channel.boot`.
-24. `scan_cek_host` left red. It is hard.
-25. A new `fragment.py`. Owner extract is the door; homemade walker is escape.
-26. A new Pulse room or `MATRIX.md` teaching surface.
-27. Pinning lagging `COMPOSE_VCS_PIN` (`24a182f`) instead of tip `80563ab`.
-28. 45° glass highlight slash. Specular is 90° from the top.
-
----
-
-## 5. PRODUCT ROOMS (a house, not a catalog)
-
-Ship Level 3. `build(host="auto", live="auto", cek="require", openapi=False)`.
-Page units under `routes/`. Kit copies under `components/` with `shell=False`.
-GET chrome in `chrome.py` via `foundry_wrap` + `GET_CHROME_ATTR`.
-
-| Room | Path | Law you can touch |
+| Room | Path | Plane |
 | --- | --- | --- |
-| Table | `/` | Constellation. Sight a star (`look`), then walk it. Filaments. |
-| Door | `/enter` `/login` `/otp` | Secrets on RefState. Caps on the hinge. |
-| House | `/house` | Anchored family. Hits-slot law. |
-| Make | `/commission` | Clay / glaze / fire. `orders.place`. Wax seal. |
-| Kiln | `/kiln` | Named band. Remaining heat is RefState. Host shelf. |
-| Hall | `/market` | Hero, pricing (bind the button), newsletter. |
-| Forge | `/forge` | Chart, tree, diff, mockup. |
-| Edge | `/overlay` | OverlayChrome vs anchored family. |
-| Cut | `/cut` | Cut C. A type is a seal. Empty type is `bad_request`. |
-| Boot | `/boot` | Channel.boot is the Cap door. Redis wins. |
-| Law | `/docs` | Written constitution. Swagger off. extract_by_id named. |
-| Trace | `/trace` | Doctor: hard vs teaching vs store-clone vs precedence vs cek-host. |
-| Press | `/copy` | `copy_component`. Not a card. |
-| Ship | `/deploy` | `prepare_deploy` six providers. |
-| Health | `/health` | dict → JSON. |
-| Pulse | `/pulse` | generator → stream. No new Pulse rooms. |
-| Command | `/command` | OS palette. Query attaches. Not OverlayChrome. |
+| Table | `/` | Sight MorphState. Band Host climate. Filaments `path`. |
+| Brief | `/brief` | Named answers. `form.submit`. |
+| Wheel | `/wheel` | Stage MorphState. RPM RefState. |
+| Glaze | `/glaze` | Named oxide. Load RefState. `glaze.lock`. |
+| Make | `/commission` | Named steps. `orders.place`. Wax seal. |
+| Kiln | `/kiln` | Named band. Shared Host heat. |
+| Watch | `/watch` | Named hour. Keep ticks Host heat. Bell notify. `role=timer`. |
+| Vitrine | `/vitrine` | Host stock. Named rating. |
+| Hands | `/hands` | Log RefState. `role=log`. |
 
-Every kit stem is also a room (`/dialog`, `/typeahead`, `/menubar`, …). 81
-catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
-
-The Table's first paint: Fraunces “The table is lit”, brass **APPIC** kicker,
-glass island navbar, brass nucleus, 20 named stars, faint filaments, sight
-card in Regular glass, four KPIs, `⌘K` chip. Sighting morphs `#sight` then
-plays an optional plan. Knocking pulses the Host store.
+Kit rooms remain (`/dialog`, `/typeahead`, …). They are not the house.
 
 ---
 
-## 6. BUILD SEQUENCE
+## 5. SHIP GATE
 
-1. Clone ux-compose @ `80563ab`. Count `CATALOG` keys. Confirm 81 + alias.
-2. `uv python install 3.14` · `uv venv .venv --python 3.14` ·
-   `uv pip install --python .venv/bin/python -r requirements.txt`.
-3. Pin `requirements.txt` to tip `80563ab` + specialist SHAs from
-   `pyproject.toml`. Do not pin lagging `COMPOSE_VCS_PIN`.
-4. Own all 81 stems (`uxcompose add` or keep already-owned copies).
-   Restyle off `stone-*`. `shell=False`. Copy `overlay.py`.
-5. Author Document + `foundry_wrap` + `build(...)`. Isolation: no
-   `ux_channel` in product modules.
-6. Skin tokens in `assets/css/input.css`. Compile to `/css/output.css`.
-   No `cdn.tailwindcss.com`. No CSS in Python strings.
-7. `startup.sh`: probe `:8080`, start uvicorn only if down, bind
-   `0.0.0.0:8080`. Keep `public/__grok`. CSP allows `https://grok.com`.
-8. Doctor `routes/` + `chrome.py` + `app.py` with `app=` and `bundle=`.
-   Hard scans green. Teaching may speak.
-9. Browser: desktop 1280×800 and mobile 390×844. Sight a star. Open Command.
-   No overflow, no console errors. Still frame is a house, not a catalog.
-10. Publish to **bitplorer/appic**. Update this prompt's session log.
-
----
-
-## 7. VERIFY
-
-```
-GET /          200  HTML  constellation + glass navbar
-GET /health    200  application/json
-GET /pulse     200  streamed
-GET /docs      200  product constitution (not Swagger)
-GET /command   200  palette, query attaches
-GET /cut       200  Cut C is visible
-POST /ux-channel/action  without Content-Type  → bad_request
-doctor(...)    ok True, level 3
-```
-
-Python ≥ 3.14. Isolation holds. Brand on wrap. Caps as seals. Morph then
-play. Glass on chrome only. Specular from the top.
-
-If the library moved, **the library wins**. Re-count stems. Re-pin tip.
-Do not invent names.
+1. `python -c "from app import asgi, UX"` prints Level 3.
+2. Doctor on `routes/` + `chrome.py` + `app.py` is green (hard scans).
+3. `uvicorn app:asgi --host 0.0.0.0 --port 8080` serves visible HTML.
+4. `/` shows APPIC, constellation, loop rail, ⌘K. No purple. No emoji chrome.
+5. `/watch` can light and keep the kiln. Kiln remaining matches Watch remaining.
+6. Table band dusk/dawn retints chrome on the next GET.
+7. `/health` is JSON. `/pulse` is a stream. `/docs` is a product page.
+8. No React as the product UI. Publish to **bitplorer/appic**.

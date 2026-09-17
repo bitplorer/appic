@@ -5,6 +5,7 @@ from ux_compose import (
     Component,
     MorphState,
     RefState,
+    a,
     action,
     button,
     control,
@@ -44,7 +45,7 @@ SCHEDULE = (
 
 def _band_for(remain: int, firing: bool) -> str:
     if not firing:
-        return "idle"
+        return "idle" if remain <= 0 else "done"
     if remain <= 0:
         return "done"
     if remain <= 2:
@@ -64,6 +65,8 @@ class Kiln(Component):
     dirty = MorphState("idle")
 
     def _n(self) -> int:
+        if HOST.firing:
+            return max(0, int(HOST.heat_remain))
         try:
             return max(0, int(self.remain or 0))
         except (TypeError, ValueError):
@@ -71,20 +74,26 @@ class Kiln(Component):
 
     def _pct(self) -> int:
         n = self._n()
-        if str(self.band or "idle") == "idle":
+        band = str(self.band or "idle")
+        if band == "idle" and not HOST.firing:
             return 0
         return max(0, min(100, int(((12 - n) / 12) * 100)))
 
     def render(self):
-        band = str(self.band or "idle")
+        n = self._n()
+        firing = bool(HOST.firing)
+        band = _band_for(n, firing) if firing else str(self.band or "idle")
         if band not in BANDS:
             band = "idle"
-        n = self._n()
         pct = self._pct()
         piece = str(self.piece or "") or (
             f"{HOST.pending_fire.get('clay')} · {HOST.pending_fire.get('glaze')}"
             if HOST.pending_fire
-            else ""
+            else (
+                f"{HOST.last_firing.get('clay')} · {HOST.last_firing.get('glaze')}"
+                if HOST.last_firing
+                else ""
+            )
         )
         waiting = bool(HOST.pending_fire) and band == "idle"
         lanes = [
@@ -99,14 +108,20 @@ class Kiln(Component):
             span("Kiln", className="eyebrow"),
             h1("Keep the fire overnight.", className="display"),
             p(
-                "The band is MorphState. Remaining heat is RefState. "
-                "A commission waits on the Host, never on the client plane.",
+                "The band is MorphState. Remaining heat is Host stock — the same "
+                "hearth the Night Watch keeps. A commission waits on the Host, never on the client plane.",
                 className="lede",
             ),
             div(
                 div(
                     span("hearth", className="eyebrow"),
-                    div("", className="ember", aria_hidden="true"),
+                    div(
+                        span("", className="ember", aria_hidden="true"),
+                        span("", className="heat-ring r1", aria_hidden="true"),
+                        span("", className="heat-ring r2", aria_hidden="true"),
+                        span("", className="heat-ring r3", aria_hidden="true"),
+                        className="watch-hearth",
+                    ),
                     p(
                         piece or "No piece on the shelf.",
                         className="hearth-piece",
@@ -114,6 +129,7 @@ class Kiln(Component):
                     p(str(n), className="stat", role="timer", aria_live="polite"),
                     p(BAND_COPY.get(band, ""), className="muted"),
                     a("Walk to the vitrine", href="/vitrine", className="btn-ghost") if band == "done" else span(""),
+                    a("Sit the watch", href="/watch", className="btn-ghost"),
                     className=f"hearth band-{band}",
                     data_band=band,
                     id="hearth",
@@ -167,11 +183,10 @@ class Kiln(Component):
             HOST.notice = "Commission a piece before the fire."
             return update_with(self, extra_ops=[notify("empty shelf")])
         self.piece = f"{pending.get('clay', 'clay')} · {pending.get('glaze', 'glaze')}"
+        HOST.light(pending)
         self.remain = 12
         self.band = "warm"
         mark_dirty(self)
-        HOST.pending_fire = None
-        HOST.last_firing = dict(pending)
         HOST.notice = "The kiln is lit."
         HOST.log("kiln.light", str(self.piece))
         return update_with(
@@ -182,23 +197,15 @@ class Kiln(Component):
 
     @action(caps=())
     def tick(self):
-        if str(self.band or "idle") in ("idle", "done"):
+        if not HOST.firing and str(self.band or "idle") in ("idle", "done"):
             return update_with(self, extra_ops=[notify(str(self.band or "idle"))])
-        n = max(0, self._n() - 1)
-        self.remain = n
-        self.band = _band_for(n, True)
+        if not HOST.firing and str(self.band or "idle") not in ("idle", "done"):
+            HOST.firing = True
+            HOST.heat_remain = self._n() or 12
+        band = HOST.tick_heat()
+        self.remain = int(HOST.heat_remain)
+        self.band = band
         mark_dirty(self)
-        if self.band == "done":
-            HOST.notice = "Drawn from the kiln."
-            HOST.log("kiln.drawn", str(self.piece), "cap")
-            HOST.draw(
-                {
-                    "clay": (HOST.last_firing or {}).get("clay", "clay"),
-                    "glaze": (HOST.last_firing or {}).get("glaze", "glaze"),
-                    "note": (HOST.last_firing or {}).get("note", ""),
-                    "band": "done",
-                }
-            )
         return update_with(
             self,
             optional_plan("hearth", "#hearth"),

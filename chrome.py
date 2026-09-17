@@ -10,6 +10,8 @@ from typing import Any
 from ux_compose import a, div, footer, header, main, nav, p, span, svg, path, circle
 from ux_compose.chrome import GET_CHROME_ATTR, DEFAULT_BRAND
 
+from store import HOST
+
 ROOMS = (
     ("/", "Table"),
     ("/brief", "Brief"),
@@ -17,15 +19,26 @@ ROOMS = (
     ("/glaze", "Glaze"),
     ("/commission", "Make"),
     ("/kiln", "Kiln"),
+    ("/watch", "Watch"),
     ("/vitrine", "Vitrine"),
     ("/hands", "Hands"),
     ("/docs", "Law"),
 )
 
+LOOP = (
+    ("/brief", "Brief"),
+    ("/wheel", "Wheel"),
+    ("/glaze", "Glaze"),
+    ("/commission", "Make"),
+    ("/kiln", "Kiln"),
+    ("/watch", "Watch"),
+    ("/vitrine", "Vitrine"),
+)
+
 DOCK = (
     ("/", "Table"),
     ("/wheel", "Wheel"),
-    ("/kiln", "Kiln"),
+    ("/watch", "Watch"),
     ("/vitrine", "Shelf"),
     ("/command", "Cmd"),
 )
@@ -64,6 +77,22 @@ def top_nav():
     )
 
 
+def loop_rail():
+    steps = []
+    for i, (href, label) in enumerate(LOOP):
+        if i:
+            steps.append(span("→", className="loop-arrow", aria_hidden="true"))
+        steps.append(a(label, href=href, className="loop-step"))
+    heat = f"{HOST.heat_remain}h" if HOST.firing else "hearth dark"
+    return nav(
+        span("loop", className="loop-kicker"),
+        *steps,
+        span(heat, className="loop-heat"),
+        className="loop-rail",
+        aria_label="Foundry loop",
+    )
+
+
 def dock():
     links = [a(label, href=href) for href, label in DOCK]
     return nav(*links, className="dock", aria_label="Mobile rooms")
@@ -72,7 +101,7 @@ def dock():
 def foot():
     return footer(
         p("APPIC · ux-compose 0.1.0 · 80563ab · kit-81 · Cut C · Channel.boot · extract_by_id"),
-        p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request."),
+        p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request. The watch keeps the heat."),
         className="foot",
         role="contentinfo",
     )
@@ -89,14 +118,20 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
 
     def wrap(child: Any = None):
         node = child
+        sky = str(HOST.sky_band or "night")
+        if sky not in ("night", "dusk", "dawn"):
+            sky = "night"
         return document(
             div(
                 top_nav(),
+                loop_rail(),
                 main(node, id="stage", className="stage"),
                 foot(),
                 dock(),
                 className="shell",
                 data_brand=label,
+                data_band=sky,
+                data_firing="1" if HOST.firing else "0",
                 **{GET_CHROME_ATTR: True},
             )
         )

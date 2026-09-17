@@ -2,7 +2,8 @@
 
 Isolation: no ux_channel. Quantity is RefState on Components; this module
 is the Host DB for commissions, bag, ledger, notices, kiln queue, thrown
-bodies, locked recipes, vitrine, briefs, and the studio floor.
+bodies, locked recipes, vitrine, briefs, the studio floor, sky band, and
+the shared hearth heat the Night Watch keeps.
 """
 from __future__ import annotations
 
@@ -35,6 +36,10 @@ class Host:
     briefs: list[dict[str, Any]] = field(default_factory=list)
     last_brief: dict[str, Any] | None = None
     hands: list[str] = field(default_factory=list)
+    sky_band: str = "night"
+    firing: bool = False
+    heat_remain: int = 0
+    watch_bells: list[str] = field(default_factory=list)
     _piece_n: int = 0
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
@@ -56,6 +61,39 @@ class Host:
         self.vitrine = self.vitrine[-24:]
         return row
 
+    def light(self, piece: dict[str, Any] | None) -> None:
+        self.firing = True
+        self.heat_remain = 12
+        self.last_firing = dict(piece or {})
+        self.pending_fire = None
+
+    def tick_heat(self) -> str:
+        """Advance shared hearth heat. Returns the kiln band name."""
+        if not self.firing:
+            return "idle"
+        self.heat_remain = max(0, int(self.heat_remain) - 1)
+        if self.heat_remain <= 0:
+            self.firing = False
+            self.heat_remain = 0
+            self.notice = "Drawn from the kiln."
+            self.log("kiln.drawn", str((self.last_firing or {}).get("clay", "")), "cap")
+            self.draw(
+                {
+                    "clay": (self.last_firing or {}).get("clay", "clay"),
+                    "glaze": (self.last_firing or {}).get("glaze", "glaze"),
+                    "note": (self.last_firing or {}).get("note", ""),
+                    "band": "done",
+                }
+            )
+            return "done"
+        if self.heat_remain <= 2:
+            return "cool"
+        if self.heat_remain <= 5:
+            return "peak"
+        if self.heat_remain <= 8:
+            return "soak"
+        return "warm"
+
     def kpi(self) -> dict[str, int]:
         return {
             "pulse": self.pulse,
@@ -64,6 +102,7 @@ class Host:
             "commissions": len(self.commissions),
             "thrown": len(self.thrown),
             "drawn": len(self.vitrine),
+            "heat": int(self.heat_remain),
         }
 
 

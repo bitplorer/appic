@@ -1,4 +1,40 @@
-# ux-compose — feature inventory (kit-81 + Kit Cut 1 + Cut C + pin 80563ab)
+# ux-compose — feature inventory (kit-81 + Kit Cut 1 + Cut C + pin 80563ab + night watch)
+
+Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
+SHA `80563abf1666e45fa43236e7303b1c4319413554` (2026-09-17 walk of `__all__`,
+`kit/catalog.py`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`,
+`docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`).
+
+If this page and the code disagree, **the code wins**.
+
+This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+
+---
+
+## 2026-09-17 — Grok Build independent re-read (this session)
+
+Counted `CATALOG` keys from source: **81 stems + `treeview` alias** (82 dict
+keys). OverlayChrome is not a stem. `drawer` is a Sheet alias (same Host).
+Public `__all__`: **86** names. `line` is not a public tag.
+
+Specialist pins **unchanged** from 2026-09-16.
+
+| Delta | Law |
+| --- | --- |
+| `/watch` house room | **WATCH-1** named hour, keep is public, bell is notify, `role=timer` |
+| Shared hearth | **HEAT-1** `HOST.heat_remain` / `HOST.firing` — Kiln and Watch are one fire |
+| Sky as climate | **ATMOS-2** Host `sky_band` retints GET chrome via `data-band` |
+| Loop in chrome | **LOOP-2** Brief → Wheel → Glaze → Make → Kiln → Watch → Vitrine |
+| Filament sight | **ORBIT-1** `data-sight` brightens the named `path` |
+| Heat rings | **EMBER-2** concentric rings, nested radii, peak is hotter |
+
+Do **not** add Pulse rooms. Watch is not Pulse.
+
+Honesty locks from prior sessions still hold. New: `WATCH-1` `HEAT-1` `ATMOS-2`
+`LOOP-2` `ORBIT-1` `EMBER-2`.
+
+---
+
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
 SHA `80563abf1666e45fa43236e7303b1c4319413554` (2026-09-16 walk of `__all__`,
