@@ -80,6 +80,9 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Make | `/commission` | Clay / glaze / fire. `orders.place`. Wax seal |
 | Kiln | `/kiln` | Named band. Shared hearth heat. Host shelf |
 | Watch | `/watch` | Night watch. Keep the shared hearth. Ring the bell |
+| Air | `/atmosphere` | Named atmosphere. Cone is RefState. Morph-then-Play |
+| Orbit | `/orbit` | Firing window. Remaining hours are RefState |
+| Charge | `/charge` | Intent is a nucleus. Wax is the seal. AttachNote |
 | Vitrine | `/vitrine` | Drawn work. Rating is a named star |
 | Hands | `/hands` | Studio floor. Log is RefState. `role=log` |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter |

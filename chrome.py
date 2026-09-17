@@ -20,8 +20,8 @@ ROOMS = (
     ("/commission", "Make"),
     ("/kiln", "Kiln"),
     ("/watch", "Watch"),
+    ("/atmosphere", "Air"),
     ("/vitrine", "Vitrine"),
-    ("/hands", "Hands"),
     ("/docs", "Law"),
 )
 
@@ -32,13 +32,14 @@ LOOP = (
     ("/commission", "Make"),
     ("/kiln", "Kiln"),
     ("/watch", "Watch"),
+    ("/atmosphere", "Air"),
     ("/vitrine", "Vitrine"),
 )
 
 DOCK = (
     ("/", "Table"),
     ("/wheel", "Wheel"),
-    ("/watch", "Watch"),
+    ("/atmosphere", "Air"),
     ("/vitrine", "Shelf"),
     ("/command", "Cmd"),
 )
@@ -100,7 +101,7 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · ux-compose 0.1.0 · 80563ab · kit-81 · Cut C · Channel.boot · extract_by_id"),
+        p("APPIC · ux-compose 0.1.0 · 80563ab · kit-81 · Cut C · Watch · Air · Orbit · Charge"),
         p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request. The watch keeps the heat."),
         className="foot",
         role="contentinfo",

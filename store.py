@@ -40,6 +40,11 @@ class Host:
     firing: bool = False
     heat_remain: int = 0
     watch_bells: list[str] = field(default_factory=list)
+    atmosphere: str = "oxidation"
+    cone: int = 10
+    window: str = "today"
+    day: str = "thu"
+    remain_h: int = 14
     _piece_n: int = 0
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:

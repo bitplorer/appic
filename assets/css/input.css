@@ -350,6 +350,7 @@
     box-shadow: 0 0 40px rgb(212 180 131 / 0.22), inset 0 0 18px rgb(212 180 131 / 0.12);
     pointer-events: none;
     z-index: 0;
+    animation: nucleus-breathe 4.8s var(--ease) infinite;
   }
   .nucleus::after {
     content: "";
@@ -358,6 +359,15 @@
     border-radius: 999px;
     background: var(--brass);
     box-shadow: 0 0 24px var(--brass);
+  }
+  @keyframes nucleus-breathe {
+    0%, 100% { box-shadow: 0 0 32px rgb(212 180 131 / 0.18), inset 0 0 18px rgb(212 180 131 / 0.1); }
+    50% { box-shadow: 0 0 56px rgb(212 180 131 / 0.34), inset 0 0 22px rgb(212 180 131 / 0.18); }
+  }
+  .filament-loop { opacity: 0.85; color: rgb(212 180 131 / 0.55); }
+  .filament-on { opacity: 1; color: var(--brass); }
+  .star-loop .star-dot {
+    box-shadow: 0 0 0 4px rgb(212 180 131 / 0.16);
   }
   .star {
     position: absolute;
@@ -401,6 +411,9 @@
   .star[data-room="edge"] { left: 10%; top: 70%; }
   .star[data-room="law"] { left: 58%; top: 28%; }
   .star[data-room="watch"] { left: 94%; top: 32%; }
+  .star[data-room="air"] { left: 78%; top: 38%; }
+  .star[data-room="orbit"] { left: 54%; top: 58%; }
+  .star[data-room="charge"] { left: 34%; top: 38%; }
   .star[data-room="command"] { left: 22%; top: 48%; }
   .sky[data-sight="brief"] .filament-brief,
   .sky[data-sight="door"] .filament-door,
@@ -833,8 +846,29 @@
   .vitrine-hero { min-height: 280px; }
   .map-card.is-on { border-color: var(--brass); }
 
+  .air-svg, .charge-svg { width: 200px; height: 200px; margin: 8px auto 16px; color: var(--brass); }
+  .air-ring { opacity: 0.55; }
+  .air-ring-1 { opacity: 1; }
+  .air-core { color: var(--brass); }
+  .air-flame { opacity: 0.82; }
+  .air-chamber.air-oxidation { background: radial-gradient(circle at 50% 62%, rgb(237 232 220 / 0.1), transparent 40%), var(--ink-2); }
+  .air-chamber.air-reduction { background: radial-gradient(circle at 50% 62%, rgb(125 155 118 / 0.18), transparent 42%), var(--ink-2); color: var(--ok); }
+  .air-chamber.air-salt { background: radial-gradient(circle at 50% 62%, rgb(212 180 131 / 0.22), transparent 42%), var(--ink-2); }
+  .air-chamber.air-wood { background: radial-gradient(circle at 50% 62%, rgb(224 93 74 / 0.14), transparent 44%), var(--ink-2); }
+  .air-chamber.air-reduction .air-flame { color: var(--ok); }
+  .air-chamber.air-wood .air-flame { color: var(--danger); }
+  .orbit-ring { opacity: 0.55; }
+  .orbit-dot { opacity: 0.9; }
+  .orbit-chamber.win-soak { background: radial-gradient(circle at 50% 50%, rgb(212 180 131 / 0.16), transparent 46%), var(--ink-2); }
+  .orbit-chamber.win-drawn { background: radial-gradient(circle at 50% 50%, rgb(125 155 118 / 0.16), transparent 46%), var(--ink-2); }
+  .charge-press { color: var(--brass); }
+  .charge-wax { color: var(--brass); opacity: 0.92; }
+  .charge-press.is-spent .charge-wax { color: var(--mute); opacity: 0.55; }
+  .charge-ring { opacity: 0.7; }
+  .charge-cross { color: var(--brass-ink); }
+
   @media (prefers-reduced-motion: reduce) {
-    .wheel-svg { animation: none !important; }
+    .wheel-svg, .nucleus { animation: none !important; }
   }
 
   @media (max-width: 860px) {

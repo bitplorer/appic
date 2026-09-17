@@ -13,6 +13,23 @@ and ships a complete, **visually stunning** foundry. Repo **appic already exists
 
 ---
 
+## 2026-09-17 — Air / Orbit / Charge (Grok Build, this session)
+
+Independent re-read of ux-compose `80563ab`. Product gained three inhabitable
+rooms that complete the foundry as an OS you walk:
+
+| Delta | Law |
+| --- | --- |
+| Air as a room | Named atmosphere (oxidation / reduction / salt / wood). Cone is RefState. Morph-then-Play. **ATMOSPHERE-1** |
+| Orbit as a room | Named window + weekday MorphState. Remaining hours RefState. Host stock on the ring. **ORBIT-1** |
+| Charge as a room | Named Intent. Wax press. AttachNote notebook — not a bus. **CHARGE-1** |
+| Loop extended | Brief → Wheel → Glaze → Make → Kiln → Watch → **Air** → Vitrine. Orbit is time. Charge is wax. **LOOP-2** |
+| Sky | Loop stars ringed. Sighted filament brightens. Nucleus breathes. **SKY-2** |
+
+Craft references held. No React. Doctor green. Published to **bitplorer/appic**.
+
+---
+
 ## 2026-09-17 — devised + executed (this session)
 
 Independent re-read of [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose)

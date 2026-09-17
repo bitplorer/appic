@@ -58,6 +58,12 @@ oxide + `glaze.lock`; **VITRINE-1** `/vitrine` Host stock + named rating;
 **HANDS-1** `/hands` log RefState + `role=log`; **LOOP-1** Brief → Wheel →
 Glaze → Make → Kiln → Vitrine.
 
+2026-09-17 air / time / wax: **ATMOSPHERE-1** `/atmosphere` named air + cone
+RefState + morph-then-play; **ORBIT-1** `/orbit` named window + remaining
+hours RefState; **CHARGE-1** `/charge` named Intent + wax + AttachNote;
+**LOOP-2** Brief → Wheel → Glaze → Make → Kiln → Air → Vitrine;
+**SKY-2** loop stars, sighted filaments, breathing nucleus.
+
 If this page and the code disagree, **the code wins**.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
