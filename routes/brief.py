@@ -129,6 +129,7 @@ class Brief(Component):
         }
         HOST.briefs.append(brief)
         HOST.last_brief = brief
+        HOST.seat(stage="brief", note=f"{self.use}/{self.scale}/{self.fire}")
         HOST.log("brief.submit", f"{self.use}/{self.scale}/{self.fire}", "cap")
         HOST.notice = "A brief is on the table. Throw it."
         self.done = True

@@ -1,4 +1,55 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + lumen + instrument)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + vessel + kintsugi)
+
+Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
+SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (specialist lockstep
+ux-dom `2e894cd` · ux-channel `a6ab159` · ux-behavior `7d46979` · ux-motion `bbe7d73`).
+Companion: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md).
+If this prompt and the library disagree, **the library wins**.
+
+This file is the **metaprompt**. Publish it on **bitplorer/appic**. The executing
+Grok Build agent copies **everything below the line**, clones the library first,
+and ships a complete, **visually stunning** house of making. Repo **appic already exists**
+— upgrade it in place; do not create a second repo. **No React. No Vue. No JS/TS/TSX
+as source of truth.** Python ≥ 3.14. `uxcompose` product path. Kit is owned copies
+(`uxcompose add`, `shell=False`), restyled onto APPIC tokens.
+
+Craft references: Apple HIG Materials (Regular Liquid Glass is the **control layer only**),
+iOS 26 concentricity, 90° specular, Linear luminance, Raycast Command-as-OS,
+Stripe editorial type, visionOS layering, Kinfolk/Cereal quiet luxury,
+haute-horlogerie maisons, kintsugi as material law, Fraunces + Source Sans 3 + IBM Plex Mono,
+brass `#D4B483` on ink `#07080A`. Glass is chrome, not wallpaper. Grain on the body.
+Brass is the only accent — it is also the repair.
+
+---
+
+## 2026-09-18 — Vessel / Cradle / Kintsugi / Gift / Lineage (Grok Build, this session)
+
+Independent re-read of ux-compose `80563ab`. Walked `__all__` (86 public names),
+`kit/catalog.py` (81 stems + `treeview` alias), `AGENTS.md`, `docs/OWNERSHIP.md`,
+`docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`, Presence cookbook (`scene.share`,
+Morph-then-Play, XOR). Specialist pins unchanged.
+
+The foundry made objects but the object was never a room. This session seats the
+**vessel as an inhabitant**. The cradle in GET chrome is presence-continuous.
+Kintsugi mends with brass. Gift is how it leaves. Lineage is the house memory.
+
+| Delta | Law |
+| --- | --- |
+| Vessel as a room | `/vessel` is the piece. Named stage. Host stock. **VESSEL-1** |
+| Cradle in chrome | GET wrap holds `#cradle-vessel`. Objects that stay do not remount. **CRADLE-1** |
+| Shared presence | `scene.share("vessel", leave=…, arrive="#cradle-vessel")`. XOR: no `html=` on the plan. **SHARE-1** |
+| Kintsugi | `/kintsugi` named break (lip \| belly \| foot). Brass is the join. Spends `repair.join`. **KINTSUGI-1** |
+| Gift | `/gift` named destination (keep \| send \| archive). Spends `gift.send`. Cradle empties. **GIFT-1** |
+| Lineage | `/lineage` owned Tree, `shell=False`, NODES from Host stock. Not `/tree`. **LINEAGE-1** |
+| Loop extended | Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → **Mend** → **Gift**. **LOOP-3** |
+
+Honesty locks from prior sessions still hold. New: `VESSEL-1` `CRADLE-1` `SHARE-1` `KINTSUGI-1` `GIFT-1` `LINEAGE-1` `LOOP-3`.
+
+**Executed:** vessel room, chrome cradle, kintsugi, gift, lineage tree, loop rail, constellation stars, command destinations, doctor path, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
+
+---
+
+## 2026-09-18 — Lumen / Instrument / Occupancy (Grok Build, this session)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
 SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (specialist lockstep

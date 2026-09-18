@@ -3,7 +3,8 @@
 Isolation: no ux_channel. Quantity is RefState on Components; this module
 is the Host DB for commissions, bag, ledger, notices, kiln queue, thrown
 bodies, locked recipes, vitrine, briefs, the studio floor, sky climate,
-the shared hearth the Night Watch keeps, occupancy, and the circadian clock.
+the shared hearth the Night Watch keeps, occupancy, the circadian clock,
+the vessel on the cloth, kintsugi joins, gifts, and lineage.
 """
 from __future__ import annotations
 
@@ -14,6 +15,9 @@ from typing import Any
 IST = timezone(timedelta(hours=5, minutes=30))
 
 BANDS = ("night", "dawn", "noon", "dusk")
+STAGES = ("brief", "thrown", "glazed", "firing", "drawn", "mended", "gifted")
+BREAKS = ("lip", "belly", "foot")
+DESTINATIONS = ("keep", "send", "archive")
 
 
 def ist_hour() -> int:
@@ -53,6 +57,26 @@ def waveform_d(band: str) -> str:
     return "M0 18 L240 18"
 
 
+# Bowl silhouette + named cracks. Public surface has no `line` tag.
+VESSEL_BODY = (
+    "M50 10 C36 10 28 22 28 36 L32 86 C32 102 40 114 50 114 "
+    "C60 114 68 102 68 86 L72 36 C72 22 64 10 50 10 Z"
+)
+VESSEL_WELL = (
+    "M50 26 C42 26 40 34 40 40 L42 72 C42 80 46 84 50 84 "
+    "C54 84 58 80 58 72 L60 40 C60 34 58 26 50 26 Z"
+)
+CRACKS = {
+    "lip": "M34 22 Q50 30 66 22",
+    "belly": "M32 54 Q50 44 68 60",
+    "foot": "M40 96 Q50 88 60 96",
+}
+
+
+def crack_d(where: str) -> str:
+    return CRACKS.get(str(where or ""), "")
+
+
 @dataclass
 class Host:
     notice: str = ""
@@ -87,6 +111,11 @@ class Host:
     auto_sky: bool = True
     occupied: list[str] = field(default_factory=list)
     heat_trace: list[int] = field(default_factory=list)
+    vessel: dict[str, Any] | None = None
+    lineage: list[dict[str, Any]] = field(default_factory=list)
+    gifts: list[dict[str, Any]] = field(default_factory=list)
+    repairs: list[dict[str, Any]] = field(default_factory=list)
+    join_n: int = 0
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.ledger.append(
@@ -99,12 +128,113 @@ class Host:
         self._piece_n += 1
         return f"p{self._piece_n:03d}"
 
+    def _line(self, row: dict[str, Any]) -> None:
+        self.lineage.append(
+            {
+                "id": str(row.get("id") or ""),
+                "parent": str(row.get("parent") or "house"),
+                "stage": str(row.get("stage") or ""),
+                "clay": str(row.get("clay") or ""),
+                "glaze": str(row.get("glaze") or ""),
+                "at": _now(),
+            }
+        )
+        self.lineage = self.lineage[-64:]
+
+    def seat(
+        self,
+        *,
+        stage: str,
+        clay: str = "",
+        glaze: str = "",
+        note: str = "",
+        parent: str = "",
+        piece_id: str = "",
+    ) -> dict[str, Any]:
+        """Seat a vessel on the cloth. Presence identity is the piece id."""
+        current = dict(self.vessel or {})
+        stage = stage if stage in STAGES else str(current.get("stage") or "brief")
+        row = {
+            "id": piece_id or current.get("id") or self.next_id(),
+            "stage": stage,
+            "clay": clay or current.get("clay") or "porcelain",
+            "glaze": glaze or current.get("glaze") or "ash",
+            "note": note or current.get("note") or "",
+            "break": current.get("break") or "",
+            "join": current.get("join") or "",
+            "parent": parent or current.get("parent") or "house",
+        }
+        self.vessel = row
+        self._line(row)
+        return row
+
+    def crack(self, where: str) -> dict[str, Any] | None:
+        if not self.vessel:
+            return None
+        if where not in BREAKS:
+            where = "belly"
+        self.vessel["break"] = where
+        self.vessel["join"] = ""
+        self.log("vessel.crack", where)
+        self.notice = f"A break at the {where}."
+        return self.vessel
+
+    def mend(self, where: str = "") -> dict[str, Any] | None:
+        """Kintsugi. Brass is the join. Host stock, never MorphState(int)."""
+        if not self.vessel:
+            return None
+        join = where if where in BREAKS else (self.vessel.get("break") or "belly")
+        self.vessel["join"] = join
+        self.vessel["break"] = ""
+        self.vessel["stage"] = "mended"
+        self.join_n += 1
+        self.repairs.append(
+            {
+                "id": self.vessel.get("id"),
+                "join": join,
+                "at": _now(),
+                "clay": self.vessel.get("clay"),
+            }
+        )
+        self.repairs = self.repairs[-24:]
+        self._line(self.vessel)
+        self.log("kintsugi.join", str(join), "cap")
+        self.notice = f"Brass holds the {join}."
+        return self.vessel
+
+    def gift(self, dest: str) -> dict[str, Any] | None:
+        """The vessel leaves the house. Presence ends. Host stock."""
+        if not self.vessel:
+            return None
+        if dest not in DESTINATIONS:
+            dest = "send"
+        row = dict(self.vessel)
+        row["dest"] = dest
+        row["stage"] = "gifted"
+        row["at"] = _now()
+        self.gifts.append(row)
+        self.gifts = self.gifts[-24:]
+        vid = str(row.get("id") or "")
+        self.vitrine = [p for p in self.vitrine if str(p.get("id")) != vid]
+        self._line(row)
+        self.log("gift.send", f"{vid}/{dest}", "cap")
+        self.notice = "The vessel left the cloth."
+        self.vessel = None
+        return row
+
     def draw(self, piece: dict[str, Any] | None) -> dict[str, Any]:
         row = dict(piece or {})
         row.setdefault("id", self.next_id())
         row.setdefault("band", "done")
         self.vitrine.append(row)
         self.vitrine = self.vitrine[-24:]
+        self.seat(
+            stage="drawn",
+            clay=str(row.get("clay") or ""),
+            glaze=str(row.get("glaze") or ""),
+            note=str(row.get("note") or ""),
+            piece_id=str(row.get("id") or ""),
+        )
         return row
 
     def light(self, piece: dict[str, Any] | None) -> None:
@@ -114,6 +244,12 @@ class Host:
         self.pending_fire = None
         self.heat_trace.append(12)
         self.heat_trace = self.heat_trace[-24:]
+        self.seat(
+            stage="firing",
+            clay=str((piece or {}).get("clay") or ""),
+            glaze=str((piece or {}).get("glaze") or ""),
+            note=str((piece or {}).get("note") or ""),
+        )
 
     def tick_heat(self) -> str:
         """Advance shared hearth heat. Returns the kiln band name."""
@@ -172,6 +308,8 @@ class Host:
             "drawn": len(self.vitrine),
             "heat": int(self.heat_remain),
             "present": len(self.occupied),
+            "joins": int(self.join_n),
+            "gifts": len(self.gifts),
         }
 
 
@@ -198,6 +336,13 @@ def _seed(host: Host) -> Host:
     host.hands = ["the table is lit", "a pulse crossed the cloth"]
     host.occupied = ["table"]
     host.heat_trace = [0, 0, 2, 4, 7, 9, 8, 6, 4, 2, 0]
+    host.seat(
+        stage="drawn",
+        clay="porcelain",
+        glaze="celadon",
+        note="thin lip, still warm in the hand",
+        piece_id="p000",
+    )
     host.notice = "The house is listening."
     host.log("house.open", host.sky_band)
     return host

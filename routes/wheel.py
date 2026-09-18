@@ -198,6 +198,7 @@ class Wheel(Component):
         }
         HOST.thrown.append(piece)
         HOST.wheel_piece = piece
+        HOST.seat(stage="thrown", clay=str(self.stage))
         HOST.log("wheel.lift", str(self.stage))
         HOST.notice = "A body waits for glaze."
         self.thrown = True

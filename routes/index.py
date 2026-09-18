@@ -57,9 +57,13 @@ STARS = (
     ("command", "/command", "Cmd", 22, 48, "OS palette. Query attaches. Not OverlayChrome."),
     ("desk", "/sidebar", "Desk", 16, 8, "Sidebar, Tabs, Command, Toast. Caps off chrome."),
     ("now", "/now", "Now", 50, 62, "Living instrument. Clock, occupancy, resonance, heat trace."),
+    ("vessel", "/vessel", "Vessel", 42, 50, "The piece is the house. Presence-continuous with the cradle."),
+    ("kintsugi", "/kintsugi", "Mend", 88, 44, "Named break. Brass is the join. repair.join."),
+    ("gift", "/gift", "Gift", 96, 72, "Named destination. gift.send. The cradle empties."),
+    ("lineage", "/lineage", "Lineage", 28, 56, "Tree of vessels. Host stock. Owned kit, shell=False."),
 )
 
-LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine")
+LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift")
 
 BANDS = (("night", "Night"), ("dawn", "Dawn"), ("noon", "Noon"), ("dusk", "Dusk"))
 
@@ -127,6 +131,8 @@ class Index(Component):
                         "is-on" if self.sight == key else "",
                         "star-loop" if key in LOOP else "",
                         "star-now" if key == "now" else "",
+                        "star-vessel" if key == "vessel" else "",
+                        "star-kintsugi" if key == "kintsugi" else "",
                     ]
                 ).strip(),
                 id=f"star-{key}",
@@ -153,7 +159,7 @@ class Index(Component):
         return section(
             div(
                 span(
-                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · kit-81 · lumen",
+                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · kit-81 · vessel",
                     className="eyebrow",
                 ),
                 h1(
@@ -163,9 +169,9 @@ class Index(Component):
                 ),
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
-                    "The sky is a climate the whole house inhabits. Noon is a named band. "
-                    "Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine. "
-                    "Now is the living instrument. Caps are seals.",
+                    "The sky is a climate the whole house inhabits. The vessel is an inhabitant. "
+                    "Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → Mend → Gift. "
+                    "The cradle keeps the piece. Brass is the join. Caps are seals.",
                     className="lede",
                 ),
                 div(
@@ -216,15 +222,17 @@ class Index(Component):
             ),
             ul(
                 li(a("The instrument", href="/now")),
+                li(a("The vessel", href="/vessel")),
                 li(a("The brief", href="/brief")),
                 li(a("The wheel", href="/wheel")),
                 li(a("The glaze lab", href="/glaze")),
                 li(a("The kiln", href="/kiln")),
                 li(a("The night watch", href="/watch")),
                 li(a("The air", href="/atmosphere")),
-                li(a("The orbit", href="/orbit")),
-                li(a("The charge", href="/charge")),
                 li(a("The vitrine", href="/vitrine")),
+                li(a("Kintsugi", href="/kintsugi")),
+                li(a("The gift", href="/gift")),
+                li(a("Lineage", href="/lineage")),
                 li(a("The written law", href="/docs")),
                 className="quick"),
             id=self.id,

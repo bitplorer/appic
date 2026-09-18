@@ -166,6 +166,7 @@ class Glaze(Component):
         recipe = {"oxide": str(self.oxide), "load": self._load()}
         HOST.recipes.append(recipe)
         HOST.locked_glaze = recipe
+        HOST.seat(stage="glazed", glaze=str(self.oxide))
         HOST.log("glaze.lock", f"{self.oxide}/{self.load}", "cap")
         HOST.notice = "A recipe is sealed. Walk it to Make."
         self.locked = True

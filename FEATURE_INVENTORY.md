@@ -1,4 +1,38 @@
-# ux-compose — feature inventory (kit-81 + lumen + instrument + pin 80563ab)
+# ux-compose — feature inventory (kit-81 + vessel + kintsugi + pin 80563ab)
+
+Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
+SHA `80563abf1666e45fa43236e7303b1c4319413554`.
+
+If this page and the code disagree, **the code wins**.
+
+This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+
+---
+
+## 2026-09-18 — Vessel / Cradle / Kintsugi / Gift / Lineage (this session)
+
+Counted `CATALOG` keys from source: **81 stems + `treeview` alias**. OverlayChrome is not a stem.
+Public `__all__`: **86** names. `line` is not a public tag. Presence cookbook: `scene.share`.
+
+Specialist pins **unchanged**.
+
+| Delta | Law |
+| --- | --- |
+| `/vessel` house room | **VESSEL-1** the piece is an inhabitant. Named stage. Host stock |
+| Cradle in GET chrome | **CRADLE-1** `#cradle-vessel` does not remount when you walk |
+| Shared presence | **SHARE-1** `scene.share` leave/arrive. XOR: no `html=` on the plan |
+| `/kintsugi` house room | **KINTSUGI-1** named break. Brass is the join. `repair.join` |
+| `/gift` house room | **GIFT-1** named destination. `gift.send`. Cradle empties |
+| `/lineage` house room | **LINEAGE-1** owned Tree `shell=False`. Not `/tree` |
+| Loop extended | **LOOP-3** … Vitrine → Mend → Gift |
+
+Do **not** add Pulse rooms. Vessel, Kintsugi, Gift, Lineage are not Pulse.
+
+Honesty locks from prior sessions still hold. New: `VESSEL-1` `CRADLE-1` `SHARE-1` `KINTSUGI-1` `GIFT-1` `LINEAGE-1` `LOOP-3`.
+
+---
+
+## 2026-09-18 — Grok Build independent re-read (this session)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
 SHA `80563abf1666e45fa43236e7303b1c4319413554`.

@@ -30,7 +30,7 @@ document = Document(
         meta(charset="utf-8"),
         meta(name="viewport", content="width=device-width, initial-scale=1"),
         meta(name="theme-color", content="#07080A"),
-        meta(name="description", content="APPIC — a house of making. Circadian atelier OS authored in ux-compose."),
+        meta(name="description", content="APPIC — a house of making. The vessel is an inhabitant. Brass is the join. Authored in ux-compose."),
         title("APPIC · a house of making"),
         link(rel="icon", type="image/svg+xml", href="/media/favicon.svg"),
         link(rel="apple-touch-icon", href="/__grok/icon-180.png"),

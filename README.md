@@ -4,7 +4,7 @@
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument**).
+Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
@@ -28,7 +28,7 @@ Resonance is a path. The living instrument sits in GET chrome.
 
 The foundry is a **loop you can walk**, always visible in chrome:
 
-Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine. **Now** is the instrument.
+Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine → **Mend** → **Gift**. **Now** is the instrument. **Vessel** is the inhabitant. The **cradle** in chrome keeps it.
 
 The Night Watch sits with the fire. Kiln and Watch share one hearth (`HOST.heat_remain`).
 Keep is public. A bell is one-shot notify. This is not a Pulse room.
@@ -74,6 +74,7 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 |---|---|---|
 | Table | `/` | Constellation. Sight a star, then walk it. Sky band retints the house |
 | Now | `/now` | Living instrument. Clock, occupancy, heat trace, resonance |
+| Vessel | `/vessel` | The piece is the house. Named stage. Presence-continuous with the cradle |
 | Brief | `/brief` | Named answers. Submit spends `form.submit` |
 | Wheel | `/wheel` | Named stage. RPM is RefState. Lift is public |
 | Glaze | `/glaze` | Named oxide. Load is RefState. `glaze.lock` |
@@ -86,6 +87,9 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Orbit | `/orbit` | Firing window. Remaining hours are RefState |
 | Charge | `/charge` | Intent is a nucleus. Wax is the seal. AttachNote |
 | Vitrine | `/vitrine` | Drawn work. Rating is a named star |
+| Mend | `/kintsugi` | Named break. Brass is the join. `repair.join` |
+| Gift | `/gift` | Named destination. `gift.send`. The cradle empties |
+| Lineage | `/lineage` | Tree of vessels. Host stock. Owned kit, `shell=False` |
 | Hands | `/hands` | Studio floor. Log is RefState. `role=log` |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter |
 | Forge | `/forge` | Chart, tree, diff, mockup |

@@ -10,19 +10,17 @@ from typing import Any
 from ux_compose import a, div, footer, header, main, nav, p, span, svg, path, circle
 from ux_compose.chrome import GET_CHROME_ATTR, DEFAULT_BRAND
 
-from store import HOST, clock_label, waveform_d
+from store import HOST, clock_label, waveform_d, VESSEL_BODY, VESSEL_WELL, crack_d
 
 ROOMS = (
     ("/", "Table"),
     ("/now", "Now"),
-    ("/brief", "Brief"),
-    ("/wheel", "Wheel"),
-    ("/glaze", "Glaze"),
-    ("/commission", "Make"),
-    ("/kiln", "Kiln"),
+    ("/vessel", "Vessel"),
     ("/watch", "Watch"),
-    ("/atmosphere", "Air"),
     ("/vitrine", "Vitrine"),
+    ("/kintsugi", "Mend"),
+    ("/gift", "Gift"),
+    ("/lineage", "Lineage"),
     ("/docs", "Law"),
 )
 
@@ -35,13 +33,15 @@ LOOP = (
     ("/watch", "Watch"),
     ("/atmosphere", "Air"),
     ("/vitrine", "Vitrine"),
+    ("/kintsugi", "Mend"),
+    ("/gift", "Gift"),
 )
 
 DOCK = (
     ("/", "Table"),
     ("/now", "Now"),
-    ("/watch", "Watch"),
-    ("/vitrine", "Shelf"),
+    ("/vessel", "Vessel"),
+    ("/kintsugi", "Mend"),
     ("/command", "Cmd"),
 )
 
@@ -56,6 +56,44 @@ def mark():
         height="22",
         aria_hidden="true",
         className="mark",
+    )
+
+
+def vessel_mark(piece: dict | None = None, *, size: int = 36, ident: str = "cradle-vessel"):
+    """Presence-continuous vessel. Same id in chrome and rooms for scene.share."""
+    row = piece or {}
+    stage = str(row.get("stage") or "empty")
+    join = str(row.get("join") or "")
+    brk = str(row.get("break") or "")
+    where = join or brk
+    crack = crack_d(where)
+    kids = [
+        path(d=VESSEL_BODY, fill="none", stroke="currentColor", stroke_width="2.2", className="vessel-body"),
+        path(d=VESSEL_WELL, fill="none", stroke="currentColor", stroke_width="1.2", className="vessel-well"),
+    ]
+    if crack:
+        kids.append(
+            path(
+                d=crack,
+                fill="none",
+                stroke="currentColor",
+                stroke_width="2.4" if join else "1.4",
+                stroke_linecap="round",
+                className="vessel-join" if join else "vessel-crack",
+            )
+        )
+    return svg(
+        *kids,
+        viewBox="0 0 100 124",
+        width=str(size),
+        height=str(int(size * 1.24)),
+        className="vessel-svg",
+        id=ident,
+        role="img",
+        aria_label=f"Vessel {stage}",
+        data_stage=stage,
+        data_join=join or "none",
+        data_break=brk or "none",
     )
 
 
@@ -120,6 +158,35 @@ def instrument():
     )
 
 
+def cradle():
+    """GET chrome cradle. The vessel does not remount when you walk. CRADLE-1."""
+    piece = HOST.vessel
+    if not piece:
+        return a(
+            span("cradle empty", className="cradle-kicker"),
+            href="/vessel",
+            className="cradle is-empty",
+            aria_label="Empty cradle. Seat a vessel.",
+            **{GET_CHROME_ATTR: True},
+        )
+    stage = str(piece.get("stage") or "drawn")
+    clay = str(piece.get("clay") or "clay")
+    glaze = str(piece.get("glaze") or "glaze")
+    return a(
+        vessel_mark(piece, size=32, ident="cradle-vessel"),
+        span(
+            span(clay, className="cradle-clay"),
+            span(f"{glaze} · {stage}", className="cradle-stage"),
+            className="cradle-copy",
+        ),
+        href="/vessel",
+        className=f"cradle is-seated stage-{stage}",
+        aria_label=f"Vessel {clay} {stage}",
+        data_stage=stage,
+        **{GET_CHROME_ATTR: True},
+    )
+
+
 def loop_rail():
     steps = []
     for i, (href, label) in enumerate(LOOP):
@@ -143,8 +210,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · lumen · instrument · occupancy"),
-        p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request. The sky is a climate. The watch keeps the heat."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · vessel · cradle · kintsugi · gift · lineage"),
+        p("GET is Clock A. Action is Clock B. The vessel is presence-continuous. Brass is the join. Gift leaves the cloth."),
         className="foot",
         role="contentinfo",
     )
@@ -164,10 +231,12 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
         sky = HOST.sync_sky()
         if sky not in ("night", "dusk", "dawn", "noon"):
             sky = "night"
+        stage = str((HOST.vessel or {}).get("stage") or "empty")
         return document(
             div(
                 top_nav(),
                 instrument(),
+                cradle(),
                 loop_rail(),
                 main(node, id="stage", className="stage"),
                 foot(),
@@ -176,6 +245,7 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 data_brand=label,
                 data_band=sky,
                 data_firing="1" if HOST.firing else "0",
+                data_stage=stage,
                 **{GET_CHROME_ATTR: True},
             )
         )

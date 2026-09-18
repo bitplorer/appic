@@ -163,6 +163,7 @@ class Commission(Component):
         piece = {"clay": clay, "glaze": glaze, "note": note}
         HOST.commissions.append(piece)
         HOST.pending_fire = piece
+        HOST.seat(stage="firing", clay=clay, glaze=glaze, note=note)
         HOST.log("commission.place", f"{clay}/{glaze}", "cap")
         HOST.notice = "A piece waits on the kiln shelf."
         self.placed = True
