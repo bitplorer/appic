@@ -29,7 +29,7 @@ from ux_compose import (
     svg,
     path,
 )
-from store import HOST
+from store import HOST, clock_label
 
 STARS = (
     ("brief", "/brief", "Brief", 18, 20, "Named answers. Submit spends form.submit."),
@@ -56,11 +56,12 @@ STARS = (
     ("ship", "/deploy", "Ship", 38, 64, "prepare_deploy. Six providers."),
     ("command", "/command", "Cmd", 22, 48, "OS palette. Query attaches. Not OverlayChrome."),
     ("desk", "/sidebar", "Desk", 16, 8, "Sidebar, Tabs, Command, Toast. Caps off chrome."),
+    ("now", "/now", "Now", 50, 62, "Living instrument. Clock, occupancy, resonance, heat trace."),
 )
 
 LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine")
 
-BANDS = (("night", "Night"), ("dusk", "Dusk"), ("dawn", "Dawn"))
+BANDS = (("night", "Night"), ("dawn", "Dawn"), ("noon", "Noon"), ("dusk", "Dusk"))
 
 
 def _filaments(sight: str = "table"):
@@ -81,6 +82,7 @@ def _filaments(sight: str = "table"):
             ).strip(),
         )
         for key, _href, _label, x, y, _law in STARS
+        if key != "now"
     ]
     return svg(
         *strokes,
@@ -108,9 +110,12 @@ class Index(Component):
     def render(self):
         seen = self._star()
         kpi = HOST.kpi()
-        sky = str(self.band or HOST.sky_band or "night")
+        if HOST.auto_sky:
+            sky = HOST.sync_sky()
+        else:
+            sky = str(self.band or HOST.sky_band or "night")
         if sky not in {k for k, _ in BANDS}:
-            sky = "night"
+            sky = HOST.sync_sky()
         stars = [
             button(
                 span("", className="star-dot", aria_hidden="true"),
@@ -121,6 +126,7 @@ class Index(Component):
                         "star",
                         "is-on" if self.sight == key else "",
                         "star-loop" if key in LOOP else "",
+                        "star-now" if key == "now" else "",
                     ]
                 ).strip(),
                 id=f"star-{key}",
@@ -140,9 +146,16 @@ class Index(Component):
             for key, label in BANDS
         ]
         heat = "The kiln is holding." if HOST.firing else (HOST.notice or "The kiln is quiet.")
+        present = [
+            li(name, className="chip")
+            for name in (HOST.occupied or ["table"])
+        ]
         return section(
             div(
-                span("nocturnal foundry · ux-compose 0.1.0 · 80563ab · kit-81 · air · orbit · charge", className="eyebrow"),
+                span(
+                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · kit-81 · lumen",
+                    className="eyebrow",
+                ),
                 h1(
                     span(str(self.greeting), className="display"),
                     span("APPIC", className="word-lg"),
@@ -150,15 +163,16 @@ class Index(Component):
                 ),
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
+                    "The sky is a climate the whole house inhabits. Noon is a named band. "
                     "Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine. "
-                    "Orbit is time. Charge is wax. Caps are seals.",
+                    "Now is the living instrument. Caps are seals.",
                     className="lede",
                 ),
                 div(
                     act("index.knock", "Pulse the table", kind="primary", target="#index"),
-                    a("Name the air", href="/atmosphere", className="btn-ghost"),
+                    a("Open the instrument", href="/now", className="btn-ghost"),
                     a("Sit the watch", href="/watch", className="btn-ghost"),
-                    a("Press the wax", href="/charge", className="btn-ghost"),
+                    act("index.tick_clock", "Advance the hour", kind="ghost", target="#index"),
                     className="hero-actions",
                 ),
                 div(*bands, className="segs", role="radiogroup", aria_label="Sky band"),
@@ -181,6 +195,8 @@ class Index(Component):
                     h2(seen[2], className="sight-title"),
                     p(seen[5], className="sight-law"),
                     a("Walk this room", href=seen[1], className="btn-primary"),
+                    span("present", className="eyebrow"),
+                    ul(*present, className="chips", aria_label="Recent occupancy"),
                     className="sight-card",
                     id="sight",
                 ),
@@ -199,6 +215,7 @@ class Index(Component):
                 className="kpi",
             ),
             ul(
+                li(a("The instrument", href="/now")),
                 li(a("The brief", href="/brief")),
                 li(a("The wheel", href="/wheel")),
                 li(a("The glaze lab", href="/glaze")),
@@ -219,6 +236,7 @@ class Index(Component):
     def look(self, room: str = "table"):
         keys = {row[0] for row in STARS}
         self.sight = room if room in keys else "table"
+        HOST.occupy(str(self.sight))
         HOST.log("index.sight", str(self.sight))
         return update_with(self, optional_plan("sight", "#sight"), extra_ops=[notify(str(self.sight))])
 
@@ -226,14 +244,26 @@ class Index(Component):
     def shift(self, band: str = "night"):
         keys = {k for k, _ in BANDS}
         self.band = band if band in keys else "night"
+        HOST.auto_sky = False
         HOST.sky_band = str(self.band)
         mark_dirty(self)
         HOST.log("index.band", str(self.band))
         return update_with(self, extra_ops=[notify(str(self.band))])
 
     @action(caps=())
+    def tick_clock(self):
+        HOST.auto_sky = True
+        sky = HOST.tick_clock()
+        self.band = sky
+        mark_dirty(self)
+        HOST.log("index.clock", clock_label(HOST.clock_h))
+        HOST.notice = f"The house is {sky} at {clock_label(HOST.clock_h)}."
+        return update_with(self, extra_ops=[notify(sky)])
+
+    @action(caps=())
     def knock(self):
         HOST.pulse += 1
+        HOST.occupy("table")
         mark_dirty(self)
         self.greeting = "The table heard you"
         HOST.notice = "A pulse crossed the cloth."

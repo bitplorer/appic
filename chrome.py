@@ -10,10 +10,11 @@ from typing import Any
 from ux_compose import a, div, footer, header, main, nav, p, span, svg, path, circle
 from ux_compose.chrome import GET_CHROME_ATTR, DEFAULT_BRAND
 
-from store import HOST
+from store import HOST, clock_label, waveform_d
 
 ROOMS = (
     ("/", "Table"),
+    ("/now", "Now"),
     ("/brief", "Brief"),
     ("/wheel", "Wheel"),
     ("/glaze", "Glaze"),
@@ -38,8 +39,8 @@ LOOP = (
 
 DOCK = (
     ("/", "Table"),
-    ("/wheel", "Wheel"),
-    ("/atmosphere", "Air"),
+    ("/now", "Now"),
+    ("/watch", "Watch"),
     ("/vitrine", "Shelf"),
     ("/command", "Cmd"),
 )
@@ -55,6 +56,25 @@ def mark():
         height="22",
         aria_hidden="true",
         className="mark",
+    )
+
+
+def resonance(band: str = "idle"):
+    """Hearth waveform. Peak is denser. Idle is still."""
+    return svg(
+        path(
+            d=waveform_d(band),
+            fill="none",
+            stroke="currentColor",
+            stroke_width="1.4",
+            stroke_linecap="round",
+            className="wave-path",
+        ),
+        viewBox="0 0 240 36",
+        preserveAspectRatio="none",
+        className="wave",
+        role="img",
+        aria_label=f"Hearth resonance {band}",
     )
 
 
@@ -74,6 +94,28 @@ def top_nav():
             aria_label="Open command",
         ),
         className="top",
+        **{GET_CHROME_ATTR: True},
+    )
+
+
+def instrument():
+    HOST.sync_sky()
+    sky = str(HOST.sky_band or "night")
+    heat = f"{HOST.heat_remain}h" if HOST.firing else "hearth dark"
+    notice = str(HOST.notice or "the house is listening")
+    present = HOST.occupied[0] if HOST.occupied else "table"
+    band = "peak" if HOST.firing and HOST.heat_remain <= 5 else (
+        "warm" if HOST.firing else "idle"
+    )
+    return div(
+        span(sky, className="inst-band"),
+        span(clock_label(HOST.clock_h), className="inst-clock", aria_label="House clock"),
+        span(heat, className="inst-heat"),
+        span(present, className="inst-present"),
+        resonance(band),
+        span(notice, className="inst-notice"),
+        className="instrument",
+        aria_label="Living instrument",
         **{GET_CHROME_ATTR: True},
     )
 
@@ -101,8 +143,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · ux-compose 0.1.0 · 80563ab · kit-81 · Cut C · Watch · Air · Orbit · Charge"),
-        p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request. The watch keeps the heat."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · lumen · instrument · occupancy"),
+        p("GET is Clock A. Action is Clock B. Empty Content-Type is bad_request. The sky is a climate. The watch keeps the heat."),
         className="foot",
         role="contentinfo",
     )
@@ -119,12 +161,13 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
 
     def wrap(child: Any = None):
         node = child
-        sky = str(HOST.sky_band or "night")
-        if sky not in ("night", "dusk", "dawn"):
+        sky = HOST.sync_sky()
+        if sky not in ("night", "dusk", "dawn", "noon"):
             sky = "night"
         return document(
             div(
                 top_nav(),
+                instrument(),
                 loop_rail(),
                 main(node, id="stage", className="stage"),
                 foot(),

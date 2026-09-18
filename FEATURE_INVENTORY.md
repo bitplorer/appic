@@ -1,15 +1,32 @@
-# ux-compose — feature inventory (kit-81 + Kit Cut 1 + Cut C + pin 80563ab + night watch)
+# ux-compose — feature inventory (kit-81 + lumen + instrument + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
-SHA `80563abf1666e45fa43236e7303b1c4319413554` (2026-09-17 walk of `__all__`,
-`kit/catalog.py`, `AGENTS.md`, `docs/ARCHITECTURE.md`, `docs/OWNERSHIP.md`,
-`docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`).
+SHA `80563abf1666e45fa43236e7303b1c4319413554`.
 
 If this page and the code disagree, **the code wins**.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
 
 ---
+
+## 2026-09-18 — Grok Build independent re-read (this session)
+
+Counted `CATALOG` keys from source: **81 stems + `treeview` alias**. OverlayChrome is not a stem.
+Public `__all__`: **86** names. `line` is not a public tag.
+
+Specialist pins **unchanged**.
+
+| Delta | Law |
+| --- | --- |
+| `/now` house room | **NOW-1** living instrument, heat trace, occupancy, resonance |
+| Circadian sky | **LUMEN-1** `night \| dawn \| noon \| dusk` — auto from IST hour |
+| Clock | **CLOCK-1** `HOST.clock_h` Host stock |
+| Instrument chrome | **INSTRUMENT-1** GET wrap, never inside render() |
+| Resonance | **RESONANCE-1** path, not canvas |
+| Occupancy | **OCCUPY-1** short memory of sighted rooms |
+| Command destinations | **CMD-2** house rooms occupy |
+
+Do **not** add Pulse rooms. Now is not Pulse. Watch is not Pulse.
 
 ## 2026-09-17 — Grok Build independent re-read (this session)
 

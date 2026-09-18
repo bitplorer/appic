@@ -1,17 +1,48 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + Kit Cut 1 + Cut C + skin law + extract-by-id + night watch)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + lumen + instrument)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
-SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (2026-09-13 tip — specialist lockstep
+SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (specialist lockstep
 ux-dom `2e894cd` · ux-channel `a6ab159` · ux-behavior `7d46979` · ux-motion `bbe7d73`).
 Companion: [FEATURE_INVENTORY.md](FEATURE_INVENTORY.md).
 If this prompt and the library disagree, **the library wins**.
 
 This file is the **metaprompt**. Publish it on **bitplorer/appic**. The executing
 Grok Build agent copies **everything below the line**, clones the library first,
-and ships a complete, **visually stunning** foundry. Repo **appic already exists**
-— upgrade it in place; do not create a second repo.
+and ships a complete, **visually stunning** house of making. Repo **appic already exists**
+— upgrade it in place; do not create a second repo. **No React. No Vue. No JS/TS/TSX
+as source of truth.** Python ≥ 3.14. `uxcompose` product path. Kit is owned copies
+(`uxcompose add`, `shell=False`), restyled onto APPIC tokens.
+
+Craft references: Apple HIG Materials (Regular Liquid Glass is the **control layer only**),
+iOS 26 concentricity, 90° specular, Linear luminance, Raycast Command-as-OS,
+Stripe editorial type, visionOS layering, Kinfolk/Cereal quiet luxury,
+haute-horlogerie maisons, Fraunces + Source Sans 3 + IBM Plex Mono,
+brass `#D4B483` on ink `#07080A`. Glass is chrome, not wallpaper. Grain on the body.
 
 ---
+
+## 2026-09-18 — Lumen / Instrument / Occupancy (Grok Build, this session)
+
+Independent re-read of ux-compose `80563ab`. Walked `__all__` (86 public names),
+`kit/catalog.py` (81 stems + `treeview` alias), `AGENTS.md`, `docs/OWNERSHIP.md`,
+`docs/guides/{PATH,HOST,UI,SNIPPETS,TAILWIND}.md`. Specialist pins unchanged.
+
+Product gained a **circadian climate**, a **living instrument** in GET chrome,
+and a house room that is the house as it is.
+
+| Delta | Law |
+| --- | --- |
+| Noon as a band | Sky is `night \| dawn \| noon \| dusk`. Auto follows IST hour. Naming a band is public and turns auto off. **LUMEN-1** |
+| Clock as Host stock | `HOST.clock_h` is magnitude (int hour). Label is derived. Tick is public. **CLOCK-1** |
+| Living instrument | GET chrome strip: band, clock, heat, occupancy, resonance path, notice. Brand stays on `wrap=`. **INSTRUMENT-1** |
+| Resonance | Hearth as `svg` + `path` (no public `line`). Peak is denser. Idle is still. **RESONANCE-1** |
+| Occupancy | `HOST.occupied` is a short memory of sighted rooms. Domain stock, never MorphState(list). **OCCUPY-1** |
+| Now as a room | `/now` is the instrument you can sit with. Heat trace is RefState-shaped Host stock drawn as `rect`. Not a Pulse room. **NOW-1** |
+| Command as OS | Palette destinations are house rooms. Run occupies. Sky verbs name a band. **CMD-2** |
+
+Honesty locks from prior sessions still hold. New: `LUMEN-1` `CLOCK-1` `INSTRUMENT-1` `RESONANCE-1` `OCCUPY-1` `NOW-1` `CMD-2`.
+
+**Executed:** four-band climate, instrument chrome, `/now`, occupancy, resonance path, command house destinations, dawn-synced table, doctor green, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
 
 ## 2026-09-17 — Air / Orbit / Charge (Grok Build, this session)
 

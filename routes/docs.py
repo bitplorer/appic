@@ -31,6 +31,9 @@ class Docs(Component):
             "Morph fragments prefer ux-dom extract_by_id. Homemade walker is escape. No fragment.py.",
             "Specular on glass arrives from 90 degrees. Nested radius = parent minus padding.",
             "The kiln is a named band. Remaining heat is RefState. Sighting the sky is MorphState.",
+            "Noon is a named sky band. The clock is Host stock. Occupancy is a short memory.",
+            "The living instrument is GET chrome. Resonance is a path, not a canvas.",
+            "Now is a house room. It is not a Pulse room.",
         )
         return section(
             span("Law", className="eyebrow"),

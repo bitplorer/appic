@@ -1,10 +1,10 @@
 # APPIC
 
-**A nocturnal foundry you can inhabit.**
+**A house of making you can inhabit.**
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch**).
+Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
@@ -22,12 +22,13 @@ The Table is a **constellation**: rooms as named stars around a brass nucleus,
 joined by faint filaments (`svg` + `path` — there is no public `line` tag).
 Sight is MorphState (`look`). Walk is Clock A. The verb that sights a star is
 `look` — never a same-named action, or MorphState is overwritten. Sighting a
-star brightens its filament. The sky band (`night | dusk | dawn`) lives on
-Host stock and retints the **whole house**, not just the map.
+star brightens its filament. The sky band (`night | dawn | noon | dusk`) is Host climate. Auto follows
+the IST clock; naming a band is public. Occupancy is a short memory of sighted rooms.
+Resonance is a path. The living instrument sits in GET chrome.
 
 The foundry is a **loop you can walk**, always visible in chrome:
 
-Brief → Wheel → Glaze → Make → Kiln → **Watch** → Vitrine.
+Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine. **Now** is the instrument.
 
 The Night Watch sits with the fire. Kiln and Watch share one hearth (`HOST.heat_remain`).
 Keep is public. A bell is one-shot notify. This is not a Pulse room.
@@ -72,6 +73,7 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Room | Path | Law you can touch |
 |---|---|---|
 | Table | `/` | Constellation. Sight a star, then walk it. Sky band retints the house |
+| Now | `/now` | Living instrument. Clock, occupancy, heat trace, resonance |
 | Brief | `/brief` | Named answers. Submit spends `form.submit` |
 | Wheel | `/wheel` | Named stage. RPM is RefState. Lift is public |
 | Glaze | `/glaze` | Named oxide. Load is RefState. `glaze.lock` |

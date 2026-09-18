@@ -24,6 +24,7 @@ from ux_compose import (
     ul,
     update_with,
 )
+from chrome import resonance
 from store import HOST
 
 HOURS = ("first", "middle", "last")
@@ -105,6 +106,7 @@ class Watch(Component):
                         className="watch-hearth",
                     ),
                     p(piece or "The hearth is dark.", className="hearth-piece"),
+                    resonance("peak" if hour == "middle" else hour),
                     p(
                         str(n),
                         className="stat",
