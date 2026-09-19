@@ -1,4 +1,4 @@
-# ux-compose — feature inventory (kit-81 + vessel + kintsugi + pin 80563ab)
+# ux-compose — feature inventory (kit-81 + score + chorus + eclipse + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
 SHA `80563abf1666e45fa43236e7303b1c4319413554`.
@@ -6,6 +6,29 @@ SHA `80563abf1666e45fa43236e7303b1c4319413554`.
 If this page and the code disagree, **the code wins**.
 
 This is the law for [GROK_BUILD_PROMPT.md](GROK_BUILD_PROMPT.md).
+
+---
+
+## 2026-09-19 — Score / Chorus / Eclipse / Duet / Provenance / Threshold (this session)
+
+Public `__all__`: **86** names. Kit: **81 stems + `treeview` alias**. Presence cookbook: `scene.share`, `stagger_in`. Surfaces: `scan_surfaces` / `validate_surfaces` / `RouterHooks`.
+
+Specialist pins **unchanged**.
+
+| Delta | Law |
+| --- | --- |
+| `/score` | **SCORE-1** named pitch. Staff is Host stock. `stagger_in` on `#note-*` |
+| Staff in GET chrome | **STAFF-1** last ten notes. Brand stays on `wrap=` |
+| `/chorus` | **CHORUS-1** named order. Voices Host stock. Presence cookbook reorder |
+| `/eclipse` | **ECLIPSE-1** named phase. `data-eclipse` on chrome. Clock wanes a full veil |
+| `/duet` | **DUET-1** companion vessel. `#cradle-duet`. `scene.share` XOR |
+| `/provenance` | **PROVENANCE-1** wax chain. Parent is the previous seal. Not `/timeline` |
+| `/threshold` | **THRESHOLD-1** `scan_surfaces` as doors. Clock A. Not `/lattice` |
+| Loop extended | **LOOP-4** … Gift → Score → Chorus |
+
+Do **not** add Pulse rooms. Score, Chorus, Eclipse, Duet, Provenance, Threshold are not Pulse.
+
+Honesty locks from prior sessions still hold. New: `SCORE-1` `STAFF-1` `CHORUS-1` `ECLIPSE-1` `DUET-1` `PROVENANCE-1` `THRESHOLD-1` `LOOP-4`.
 
 ---
 

@@ -4,7 +4,8 @@ Isolation: no ux_channel. Quantity is RefState on Components; this module
 is the Host DB for commissions, bag, ledger, notices, kiln queue, thrown
 bodies, locked recipes, vitrine, briefs, the studio floor, sky climate,
 the shared hearth the Night Watch keeps, occupancy, the circadian clock,
-the vessel on the cloth, kintsugi joins, gifts, and lineage.
+the vessel on the cloth, kintsugi joins, gifts, lineage, the living score,
+the chorus of hands, eclipse climate, the companion vessel, and wax seals.
 """
 from __future__ import annotations
 
@@ -18,6 +19,35 @@ BANDS = ("night", "dawn", "noon", "dusk")
 STAGES = ("brief", "thrown", "glazed", "firing", "drawn", "mended", "gifted")
 BREAKS = ("lip", "belly", "foot")
 DESTINATIONS = ("keep", "send", "archive")
+PITCHES = ("C", "D", "E", "F", "G", "A", "B")
+VOICES = ("wheel", "glaze", "kiln", "watch")
+CHORUS_ORDERS = ("rise", "fall", "pulse")
+ECLIPSE_PHASES = ("clear", "wax", "full", "wane")
+ROOM_PITCH = {
+    "table": "G",
+    "now": "A",
+    "vessel": "E",
+    "watch": "D",
+    "kiln": "C",
+    "wheel": "F",
+    "glaze": "B",
+    "vitrine": "A",
+    "kintsugi": "E",
+    "gift": "C",
+    "score": "G",
+    "chorus": "D",
+    "eclipse": "C",
+    "duet": "F",
+    "provenance": "B",
+    "threshold": "A",
+    "brief": "G",
+    "air": "E",
+    "lineage": "D",
+}
+
+# Staff: five paths. Notes sit on or between them. No public `line` tag.
+STAFF_LINES = (16, 28, 40, 52, 64)
+NOTE_Y = {"B": 22, "A": 28, "G": 34, "F": 40, "E": 46, "D": 52, "C": 64}
 
 
 def ist_hour() -> int:
@@ -57,7 +87,14 @@ def waveform_d(band: str) -> str:
     return "M0 18 L240 18"
 
 
-# Bowl silhouette + named cracks. Public surface has no `line` tag.
+def staff_line_d(y: int, width: int = 240) -> str:
+    return f"M0 {y} L{width} {y}"
+
+
+def note_cy(pitch: str) -> int:
+    return NOTE_Y.get(str(pitch or "G"), 34)
+
+
 VESSEL_BODY = (
     "M50 10 C36 10 28 22 28 36 L32 86 C32 102 40 114 50 114 "
     "C60 114 68 102 68 86 L72 36 C72 22 64 10 50 10 Z"
@@ -116,6 +153,15 @@ class Host:
     gifts: list[dict[str, Any]] = field(default_factory=list)
     repairs: list[dict[str, Any]] = field(default_factory=list)
     join_n: int = 0
+    score: list[dict[str, Any]] = field(default_factory=list)
+    voices: list[str] = field(default_factory=lambda: list(VOICES))
+    chorus_order: str = "rise"
+    eclipse: bool = False
+    eclipse_phase: str = "clear"
+    eclipse_n: int = 0
+    duet: dict[str, Any] | None = None
+    seals: list[dict[str, Any]] = field(default_factory=list)
+    seal_n: int = 0
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.ledger.append(
@@ -127,6 +173,96 @@ class Host:
     def next_id(self) -> str:
         self._piece_n += 1
         return f"p{self._piece_n:03d}"
+
+    def score_write(self, verb: str, room: str = "", pitch: str = "") -> dict[str, Any]:
+        """Every named verb is a note. Host stock, never MorphState(list). SCORE-1."""
+        room = str(room or (self.occupied[0] if self.occupied else "table"))
+        pitch = pitch if pitch in PITCHES else ROOM_PITCH.get(room, "G")
+        row = {
+            "id": f"n{len(self.score) + 1:03d}",
+            "at": _now(),
+            "verb": str(verb or "rest"),
+            "room": room,
+            "pitch": pitch,
+        }
+        self.score.append(row)
+        self.score = self.score[-32:]
+        return row
+
+    def press_seal(self, verb: str, cap: str = "wax.press") -> dict[str, Any]:
+        """One-shot wax. Parent is the previous seal. PROVENANCE-1."""
+        parent = str(self.seals[-1]["id"]) if self.seals else "house"
+        self.seal_n += 1
+        row = {
+            "id": f"s{self.seal_n:03d}",
+            "parent": parent,
+            "verb": str(verb or "press"),
+            "cap": str(cap or "wax.press"),
+            "at": _now(),
+            "room": self.occupied[0] if self.occupied else "table",
+        }
+        self.seals.append(row)
+        self.seals = self.seals[-24:]
+        self.log(str(verb or "wax.press"), row["id"], "cap")
+        return row
+
+    def veil(self, phase: str = "full") -> str:
+        """Name an eclipse. Light is occluded. ECLIPSE-1."""
+        phase = phase if phase in ECLIPSE_PHASES else "full"
+        if phase == "clear":
+            return self.unveil()
+        self.eclipse = True
+        self.eclipse_phase = phase
+        self.eclipse_n += 1
+        self.auto_sky = False
+        self.notice = f"The house is named {phase} eclipse."
+        self.log("eclipse.veil", phase)
+        self.score_write("eclipse.veil", "eclipse", "C")
+        return phase
+
+    def unveil(self) -> str:
+        self.eclipse = False
+        self.eclipse_phase = "clear"
+        self.notice = "The umbra lifted."
+        self.log("eclipse.unveil", "clear")
+        self.score_write("eclipse.unveil", "eclipse", "G")
+        return "clear"
+
+    def seat_duet(
+        self,
+        *,
+        stage: str = "drawn",
+        clay: str = "",
+        glaze: str = "",
+        note: str = "",
+        piece_id: str = "",
+    ) -> dict[str, Any]:
+        """Companion vessel. Presence identity is the duet id. DUET-1."""
+        current = dict(self.duet or {})
+        row = {
+            "id": piece_id or current.get("id") or f"d{self.next_id()[1:]}",
+            "stage": stage if stage in STAGES else str(current.get("stage") or "drawn"),
+            "clay": clay or current.get("clay") or "stoneware",
+            "glaze": glaze or current.get("glaze") or "tenmoku",
+            "note": note or current.get("note") or "The other hand.",
+            "break": current.get("break") or "",
+            "join": current.get("join") or "",
+            "parent": current.get("parent") or "house",
+        }
+        self.duet = row
+        return row
+
+    def pass_duet(self) -> dict[str, Any] | None:
+        """Share presence from the cloth to the companion cradle. XOR share."""
+        if not self.vessel:
+            return None
+        row = dict(self.vessel)
+        row["id"] = f"d{str(row.get('id') or '000')[1:]}" if str(row.get("id") or "").startswith("p") else str(row.get("id") or self.next_id())
+        self.duet = row
+        self.notice = "The vessel crossed to the companion."
+        self.log("duet.pass", str(row.get("id")))
+        self.score_write("duet.pass", "duet", "F")
+        return row
 
     def _line(self, row: dict[str, Any]) -> None:
         self.lineage.append(
@@ -199,6 +335,7 @@ class Host:
         self.repairs = self.repairs[-24:]
         self._line(self.vessel)
         self.log("kintsugi.join", str(join), "cap")
+        self.press_seal("repair.join", "repair.join")
         self.notice = f"Brass holds the {join}."
         return self.vessel
 
@@ -218,6 +355,7 @@ class Host:
         self.vitrine = [p for p in self.vitrine if str(p.get("id")) != vid]
         self._line(row)
         self.log("gift.send", f"{vid}/{dest}", "cap")
+        self.press_seal("gift.send", "gift.send")
         self.notice = "The vessel left the cloth."
         self.vessel = None
         return row
@@ -289,20 +427,27 @@ class Host:
 
     def tick_clock(self) -> str:
         self.clock_h = (int(self.clock_h) + 1) % 24
+        if self.eclipse and self.eclipse_phase == "full":
+            self.eclipse_phase = "wane"
+        elif self.eclipse and self.eclipse_phase == "wane":
+            self.unveil()
         return self.sync_sky()
 
     def occupy(self, room: str) -> None:
         room = str(room or "").strip()
         if not room:
             return
+        already = bool(self.occupied) and self.occupied[0] == room
         self.occupied = [room] + [r for r in self.occupied if r != room]
         self.occupied = self.occupied[:8]
+        if not already:
+            self.score_write(f"walk.{room}", room)
 
     def kpi(self) -> dict[str, int]:
         return {
             "pulse": self.pulse,
             "bag": len(self.bag),
-            "seals": sum(1 for row in self.ledger if row.get("kind") == "cap"),
+            "seals": len(self.seals) or sum(1 for row in self.ledger if row.get("kind") == "cap"),
             "commissions": len(self.commissions),
             "thrown": len(self.thrown),
             "drawn": len(self.vitrine),
@@ -310,6 +455,8 @@ class Host:
             "present": len(self.occupied),
             "joins": int(self.join_n),
             "gifts": len(self.gifts),
+            "notes": len(self.score),
+            "voices": len(self.voices),
         }
 
 
@@ -343,6 +490,16 @@ def _seed(host: Host) -> Host:
         note="thin lip, still warm in the hand",
         piece_id="p000",
     )
+    host.seat_duet(
+        stage="thrown",
+        clay="stoneware",
+        glaze="tenmoku",
+        note="The other hand waits.",
+        piece_id="d002",
+    )
+    host.score_write("house.open", "table", "G")
+    host.score_write("vessel.seat", "vessel", "E")
+    host.press_seal("house.open", "channel.boot")
     host.notice = "The house is listening."
     host.log("house.open", host.sky_band)
     return host

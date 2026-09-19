@@ -11,6 +11,12 @@ class Command(CommandCard):
         ("go-table", "The table", "House"),
         ("go-now", "The instrument", "House"),
         ("go-vessel", "The vessel", "House"),
+        ("go-score", "The score", "House"),
+        ("go-chorus", "The chorus", "House"),
+        ("go-eclipse", "The eclipse", "House"),
+        ("go-duet", "The duet", "House"),
+        ("go-provenance", "The seals", "House"),
+        ("go-threshold", "The doors", "House"),
         ("go-watch", "The night watch", "House"),
         ("go-kiln", "The kiln", "House"),
         ("go-wheel", "The wheel", "House"),
@@ -22,6 +28,8 @@ class Command(CommandCard):
         ("go-law", "The written law", "House"),
         ("shift-noon", "Name noon", "Sky"),
         ("shift-night", "Name night", "Sky"),
+        ("veil-full", "Name a full eclipse", "Sky"),
+        ("unveil", "Lift the umbra", "Sky"),
         ("ring-bell", "Ring the bell", "Watch"),
         ("sign-out", "Sign out", "Session"),
     )
@@ -32,6 +40,12 @@ class Command(CommandCard):
             "go-table": "table",
             "go-now": "now",
             "go-vessel": "vessel",
+            "go-score": "score",
+            "go-chorus": "chorus",
+            "go-eclipse": "eclipse",
+            "go-duet": "duet",
+            "go-provenance": "provenance",
+            "go-threshold": "threshold",
             "go-watch": "watch",
             "go-kiln": "kiln",
             "go-wheel": "wheel",
@@ -56,6 +70,12 @@ class Command(CommandCard):
             HOST.sky_band = "night"
             HOST.notice = "The house is named night."
             return "night"
+        if key == "veil-full":
+            HOST.veil("full")
+            return "full"
+        if key == "unveil":
+            HOST.unveil()
+            return "clear"
         if key == "ring-bell":
             HOST.watch_bells.append("bell · command")
             HOST.notice = "A bell crossed the house."

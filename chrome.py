@@ -7,20 +7,31 @@ from __future__ import annotations
 
 from typing import Any
 
-from ux_compose import a, div, footer, header, main, nav, p, span, svg, path, circle
-from ux_compose.chrome import GET_CHROME_ATTR, DEFAULT_BRAND
+from ux_compose import a, circle, div, footer, header, main, nav, p, path, span, svg
+from ux_compose.chrome import DEFAULT_BRAND, GET_CHROME_ATTR
 
-from store import HOST, clock_label, waveform_d, VESSEL_BODY, VESSEL_WELL, crack_d
+from store import (
+    HOST,
+    STAFF_LINES,
+    VESSEL_BODY,
+    VESSEL_WELL,
+    clock_label,
+    crack_d,
+    note_cy,
+    staff_line_d,
+    waveform_d,
+)
 
 ROOMS = (
     ("/", "Table"),
     ("/now", "Now"),
     ("/vessel", "Vessel"),
+    ("/score", "Score"),
+    ("/chorus", "Chorus"),
+    ("/eclipse", "Eclipse"),
+    ("/duet", "Duet"),
     ("/watch", "Watch"),
-    ("/vitrine", "Vitrine"),
-    ("/kintsugi", "Mend"),
-    ("/gift", "Gift"),
-    ("/lineage", "Lineage"),
+    ("/provenance", "Seals"),
     ("/docs", "Law"),
 )
 
@@ -35,13 +46,15 @@ LOOP = (
     ("/vitrine", "Vitrine"),
     ("/kintsugi", "Mend"),
     ("/gift", "Gift"),
+    ("/score", "Score"),
+    ("/chorus", "Chorus"),
 )
 
 DOCK = (
     ("/", "Table"),
-    ("/now", "Now"),
-    ("/vessel", "Vessel"),
-    ("/kintsugi", "Mend"),
+    ("/score", "Score"),
+    ("/chorus", "Chorus"),
+    ("/eclipse", "Eclipse"),
     ("/command", "Cmd"),
 )
 
@@ -116,11 +129,45 @@ def resonance(band: str = "idle"):
     )
 
 
-def top_nav():
-    links = [
-        a(label, href=href, className="room-link")
-        for href, label in ROOMS
+def staff_mark(notes: list[dict] | None = None, *, ident: str = "chrome-staff"):
+    """Living score fragment in GET chrome. SCORE-1."""
+    rows = list(notes or HOST.score[-10:])
+    kids = [
+        path(
+            d=staff_line_d(y, 220),
+            fill="none",
+            stroke="currentColor",
+            stroke_width="0.7",
+            className="staff-line",
+        )
+        for y in STAFF_LINES
     ]
+    for i, row in enumerate(rows[-10:]):
+        x = 14 + i * 20
+        cy = note_cy(str(row.get("pitch") or "G"))
+        nid = str(row.get("id") or f"cn{i}")
+        kids.append(
+            circle(
+                cx=str(x),
+                cy=str(cy),
+                r="3.4",
+                fill="currentColor",
+                className="staff-note",
+                id=f"chrome-{nid}",
+            )
+        )
+    return svg(
+        *kids,
+        viewBox="0 0 220 80",
+        className="staff",
+        id=ident,
+        role="img",
+        aria_label=f"House score {len(HOST.score)} notes",
+    )
+
+
+def top_nav():
+    links = [a(label, href=href, className="room-link") for href, label in ROOMS]
     return header(
         a(mark(), span("APPIC", className="brand"), href="/", className="wordmark", aria_label="APPIC table"),
         nav(*links, className="rooms", aria_label="Rooms"),
@@ -139,6 +186,8 @@ def top_nav():
 def instrument():
     HOST.sync_sky()
     sky = str(HOST.sky_band or "night")
+    if HOST.eclipse:
+        sky = f"{HOST.eclipse_phase} eclipse"
     heat = f"{HOST.heat_remain}h" if HOST.firing else "hearth dark"
     notice = str(HOST.notice or "the house is listening")
     present = HOST.occupied[0] if HOST.occupied else "table"
@@ -151,6 +200,7 @@ def instrument():
         span(heat, className="inst-heat"),
         span(present, className="inst-present"),
         resonance(band),
+        staff_mark(),
         span(notice, className="inst-notice"),
         className="instrument",
         aria_label="Living instrument",
@@ -187,6 +237,34 @@ def cradle():
     )
 
 
+def duet_cradle():
+    """Companion cradle. Presence-continuous with /duet. DUET-1."""
+    piece = HOST.duet
+    if not piece:
+        return a(
+            span("duet empty", className="cradle-kicker"),
+            href="/duet",
+            className="cradle cradle-duet is-empty",
+            aria_label="Empty companion cradle.",
+            **{GET_CHROME_ATTR: True},
+        )
+    stage = str(piece.get("stage") or "drawn")
+    clay = str(piece.get("clay") or "clay")
+    return a(
+        vessel_mark(piece, size=28, ident="cradle-duet"),
+        span(
+            span(clay, className="cradle-clay"),
+            span(f"duet · {stage}", className="cradle-stage"),
+            className="cradle-copy",
+        ),
+        href="/duet",
+        className=f"cradle cradle-duet is-seated stage-{stage}",
+        aria_label=f"Companion {clay} {stage}",
+        data_stage=stage,
+        **{GET_CHROME_ATTR: True},
+    )
+
+
 def loop_rail():
     steps = []
     for i, (href, label) in enumerate(LOOP):
@@ -210,8 +288,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · vessel · cradle · kintsugi · gift · lineage"),
-        p("GET is Clock A. Action is Clock B. The vessel is presence-continuous. Brass is the join. Gift leaves the cloth."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · score · chorus · eclipse · duet · provenance · threshold"),
+        p("GET is Clock A. Action is Clock B. The score is Host stock. Eclipse occludes the sky. Dual cradles share presence. Brass is the join."),
         className="foot",
         role="contentinfo",
     )
@@ -232,11 +310,12 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
         if sky not in ("night", "dusk", "dawn", "noon"):
             sky = "night"
         stage = str((HOST.vessel or {}).get("stage") or "empty")
+        phase = str(HOST.eclipse_phase or "clear")
         return document(
             div(
                 top_nav(),
                 instrument(),
-                cradle(),
+                div(cradle(), duet_cradle(), className="cradles"),
                 loop_rail(),
                 main(node, id="stage", className="stage"),
                 foot(),
@@ -246,6 +325,8 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 data_band=sky,
                 data_firing="1" if HOST.firing else "0",
                 data_stage=stage,
+                data_eclipse="1" if HOST.eclipse else "0",
+                data_phase=phase,
                 **{GET_CHROME_ATTR: True},
             )
         )

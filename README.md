@@ -4,7 +4,7 @@
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi**).
+Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
@@ -28,7 +28,7 @@ Resonance is a path. The living instrument sits in GET chrome.
 
 The foundry is a **loop you can walk**, always visible in chrome:
 
-Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine → **Mend** → **Gift**. **Now** is the instrument. **Vessel** is the inhabitant. The **cradle** in chrome keeps it.
+Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine → **Mend** → **Gift** → **Score** → **Chorus**. **Now** is the instrument. **Vessel** is the inhabitant. The **cradle** in chrome keeps it. The **companion cradle** is the duet. **Eclipse** occludes the sky. **Provenance** is the wax chain. **Threshold** is the catalog of doors.
 
 The Night Watch sits with the fire. Kiln and Watch share one hearth (`HOST.heat_remain`).
 Keep is public. A bell is one-shot notify. This is not a Pulse room.
@@ -89,7 +89,12 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Vitrine | `/vitrine` | Drawn work. Rating is a named star |
 | Mend | `/kintsugi` | Named break. Brass is the join. `repair.join` |
 | Gift | `/gift` | Named destination. `gift.send`. The cradle empties |
-| Lineage | `/lineage` | Tree of vessels. Host stock. Owned kit, `shell=False` |
+| Score | `/score` | House as a staff. stagger_in on `#note-*`. Host stock |
+| Chorus | `/chorus` | Concurrent hands. Presence cookbook reorder |
+| Eclipse | `/eclipse` | Named umbra. `data-eclipse` on GET chrome |
+| Duet | `/duet` | Two cradles. `scene.share` XOR |
+| Provenance | `/provenance` | Wax genealogy. Parent is the previous seal |
+| Threshold | `/threshold` | `scan_surfaces` as doors. Walking is Clock A |
 | Hands | `/hands` | Studio floor. Log is RefState. `role=log` |
 | Hall | `/market` | Hero, pricing (bind the button), newsletter |
 | Forge | `/forge` | Chart, tree, diff, mockup |

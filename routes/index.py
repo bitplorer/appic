@@ -61,9 +61,15 @@ STARS = (
     ("kintsugi", "/kintsugi", "Mend", 88, 44, "Named break. Brass is the join. repair.join."),
     ("gift", "/gift", "Gift", 96, 72, "Named destination. gift.send. The cradle empties."),
     ("lineage", "/lineage", "Lineage", 28, 56, "Tree of vessels. Host stock. Owned kit, shell=False."),
+    ("score", "/score", "Score", 64, 22, "The house as a staff. stagger_in on #note-*. Host stock."),
+    ("chorus", "/chorus", "Chorus", 20, 28, "Concurrent hands. Presence cookbook reorder."),
+    ("eclipse", "/eclipse", "Eclipse", 6, 18, "Named umbra. Sky occluded. data-eclipse on chrome."),
+    ("duet", "/duet", "Duet", 86, 78, "Two cradles. scene.share XOR. The other hand."),
+    ("provenance", "/provenance", "Seals", 72, 8, "Wax genealogy. Parent is the previous seal."),
+    ("threshold", "/threshold", "Doors", 14, 78, "scan_surfaces as doors. Walking is Clock A."),
 )
 
-LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift")
+LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift", "score", "chorus")
 
 BANDS = (("night", "Night"), ("dawn", "Dawn"), ("noon", "Noon"), ("dusk", "Dusk"))
 

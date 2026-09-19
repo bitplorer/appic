@@ -1,4 +1,4 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + vessel + kintsugi)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + score + chorus + eclipse)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
 SHA **`80563abf1666e45fa43236e7303b1c4319413554`** (specialist lockstep
@@ -18,9 +18,39 @@ iOS 26 concentricity, 90° specular, Linear luminance, Raycast Command-as-OS,
 Stripe editorial type, visionOS layering, Kinfolk/Cereal quiet luxury,
 haute-horlogerie maisons, kintsugi as material law, Fraunces + Source Sans 3 + IBM Plex Mono,
 brass `#D4B483` on ink `#07080A`. Glass is chrome, not wallpaper. Grain on the body.
-Brass is the only accent — it is also the repair.
+Brass is the only accent — it is also the repair. The score is the house writing itself.
+Eclipse is climate. Dual cradles share presence. Wax is genealogy.
 
 ---
+
+## 2026-09-19 — Score / Chorus / Eclipse / Duet / Provenance / Threshold (Grok Build, this session)
+
+Independent re-read of ux-compose `80563ab`. Walked `__all__` (86 public names),
+`kit/catalog.py` (81 stems + `treeview` alias), Presence cookbook (`scene.share`,
+`stagger_in`, Morph-then-Play, XOR), `surfaces.scan_surfaces` / `validate_surfaces`,
+`RouterHooks`, Host payload types. Specialist pins unchanged.
+
+The foundry could inhabit a vessel but could not hear itself. This session seats
+the **score as Host stock**, a **chorus of concurrent hands**, an **eclipse** as
+sky climate, a **companion cradle**, **wax provenance**, and **surfaces as doors**.
+
+| Delta | Law |
+| --- | --- |
+| Score as a room | `/score` named pitch. Staff is Host stock. `stagger_in` on `#note-*`. **SCORE-1** |
+| Staff in chrome | GET instrument holds the last ten notes. Brand stays on `wrap=`. **STAFF-1** |
+| Chorus | `/chorus` named order (rise \| fall \| pulse). Voices Host stock. Presence cookbook reorder. **CHORUS-1** |
+| Eclipse | `/eclipse` named phase. `data-eclipse` on GET chrome. Clock tick wanes a full veil. **ECLIPSE-1** |
+| Duet | `/duet` companion vessel. `#cradle-duet`. `scene.share` XOR. **DUET-1** |
+| Provenance | `/provenance` wax chain. Parent is the previous seal. Not `/timeline`. **PROVENANCE-1** |
+| Threshold | `/threshold` `scan_surfaces` as doors. Walking is Clock A. Not `/lattice`. **THRESHOLD-1** |
+| Loop extended | … Gift → **Score** → **Chorus**. **LOOP-4** |
+
+Honesty locks from prior sessions still hold. New: `SCORE-1` `STAFF-1` `CHORUS-1` `ECLIPSE-1` `DUET-1` `PROVENANCE-1` `THRESHOLD-1` `LOOP-4`.
+
+**Executed:** score staff, chorus stagger, eclipse umbra, dual cradles, wax chain, surface doors, constellation stars, command destinations, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
+
+---
+
 
 ## 2026-09-18 — Vessel / Cradle / Kintsugi / Gift / Lineage (Grok Build, this session)
 
