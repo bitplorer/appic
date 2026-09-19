@@ -9,6 +9,7 @@ from store import HOST
 class Command(CommandCard):
     COMMANDS = (
         ("go-table", "The table", "House"),
+        ("go-cloth", "The cloth", "House"),
         ("go-now", "The instrument", "House"),
         ("go-vessel", "The vessel", "House"),
         ("go-score", "The score", "House"),
@@ -38,6 +39,7 @@ class Command(CommandCard):
         HOST.log("command.run", key, "morph")
         dest = {
             "go-table": "table",
+            "go-cloth": "cloth",
             "go-now": "now",
             "go-vessel": "vessel",
             "go-score": "score",

@@ -25,6 +25,7 @@ from store import (
 ROOMS = (
     ("/", "Table"),
     ("/now", "Now"),
+    ("/cloth", "Cloth"),
     ("/vessel", "Vessel"),
     ("/score", "Score"),
     ("/chorus", "Chorus"),
@@ -52,9 +53,9 @@ LOOP = (
 
 DOCK = (
     ("/", "Table"),
+    ("/cloth", "Cloth"),
     ("/score", "Score"),
     ("/chorus", "Chorus"),
-    ("/eclipse", "Eclipse"),
     ("/command", "Cmd"),
 )
 
@@ -288,8 +289,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · score · chorus · eclipse · duet · provenance · threshold"),
-        p("GET is Clock A. Action is Clock B. The score is Host stock. Eclipse occludes the sky. Dual cradles share presence. Brass is the join."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · cloth · score · chorus · eclipse · duet"),
+        p("GET is Clock A. Action is Clock B. The loop is warp. Occupancy is weft. Caps are seals."),
         className="foot",
         role="contentinfo",
     )

@@ -1,3 +1,26 @@
+# ux-compose — feature inventory (kit-81 + cloth + pin 80563ab)
+
+Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
+SHA `80563abf1666e45fa43236e7303b1c4319413554`.
+
+If this page and the code disagree, **the code wins**.
+
+---
+
+## 2026-09-19 — Cloth / warp / weft (this session)
+
+| Delta | Law |
+| --- | --- |
+| `/cloth` house room | **CLOTH-1** warp is the loop. Named order (`loop \| alpha \| heat`) |
+| Weft path | **WEFT-1** occupancy crosses the warp. `svg` + `path` |
+| `stagger_in` | **STAGGER-1** Morph-then-Play on surviving `#warp-*`. XOR: no `html=` |
+| Shared vessel | **SHARE-2** leave `#cloth-vessel` arrive `#cradle-vessel` |
+| `bind()` weaves | **BIND-1** `bind(self.weave, order=key)` |
+
+Do **not** add Pulse rooms. Cloth is not Pulse. Chorus remains the musical hands room.
+
+---
+
 # ux-compose — feature inventory (kit-81 + score + chorus + eclipse + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`

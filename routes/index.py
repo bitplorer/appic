@@ -67,6 +67,7 @@ STARS = (
     ("duet", "/duet", "Duet", 86, 78, "Two cradles. scene.share XOR. The other hand."),
     ("provenance", "/provenance", "Seals", 72, 8, "Wax genealogy. Parent is the previous seal."),
     ("threshold", "/threshold", "Doors", 14, 78, "scan_surfaces as doors. Walking is Clock A."),
+    ("cloth", "/cloth", "Cloth", 46, 22, "Warp is the loop. Weft is occupancy. stagger_in on #warp-*. bind() weaves."),
 )
 
 LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift", "score", "chorus")
@@ -139,6 +140,7 @@ class Index(Component):
                         "star-now" if key == "now" else "",
                         "star-vessel" if key == "vessel" else "",
                         "star-kintsugi" if key == "kintsugi" else "",
+                        "star-cloth" if key == "cloth" else "",
                     ]
                 ).strip(),
                 id=f"star-{key}",
@@ -176,8 +178,8 @@ class Index(Component):
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
                     "The sky is a climate the whole house inhabits. The vessel is an inhabitant. "
-                    "Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → Mend → Gift. "
-                    "The cradle keeps the piece. Brass is the join. Caps are seals.",
+                    "The loop is warp; occupancy is weft. Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → Mend → Gift → Score → Chorus. "
+                    "Hold the cloth. Caps are seals.",
                     className="lede",
                 ),
                 div(

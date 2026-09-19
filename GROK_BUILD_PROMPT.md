@@ -1,3 +1,36 @@
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + cloth)
+
+Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
+SHA **`80563abf1666e45fa43236e7303b1c4319413554`**.
+If this prompt and the library disagree, **the library wins**.
+
+This file is the **metaprompt**. Publish on **bitplorer/appic**. **No React.**
+Python ≥ 3.14. Kit owned copies, `shell=False`.
+
+Craft: Apple HIG Liquid Glass 3 C’s (content-first, concentric, cohesive).
+Glass is chrome only. Linear ProKit translucency. Fraunces + Source Sans 3 +
+IBM Plex Mono. Brass `#D4B483` on ink `#07080A`. Grain on the body.
+
+---
+
+## 2026-09-19 — Cloth (Grok Build, this session)
+
+The loop was walkable but never a **cloth**. Occupancy was a list, never **weft**.
+
+| Delta | Law |
+| --- | --- |
+| Cloth | `/cloth` warp of the foundry loop. **CLOTH-1** |
+| Weft | occupancy as path. **WEFT-1** |
+| stagger_in | surviving `#warp-*`. XOR. **STAGGER-1** |
+| scene.share | vessel to cradle. **SHARE-2** |
+| bind() | weaves named order. **BIND-1** |
+
+Honesty locks hold. No Pulse rooms.
+
+**Executed:** cloth room, weft path, stagger_in, scene.share, bind(), constellation star, command dest, chrome rooms + dock, doctor green, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
+
+---
+
 # Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + score + chorus + eclipse)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`

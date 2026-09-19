@@ -19,6 +19,19 @@ BANDS = ("night", "dawn", "noon", "dusk")
 STAGES = ("brief", "thrown", "glazed", "firing", "drawn", "mended", "gifted")
 BREAKS = ("lip", "belly", "foot")
 DESTINATIONS = ("keep", "send", "archive")
+WARP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift")
+WARP_HREF = {
+    "brief": "/brief",
+    "wheel": "/wheel",
+    "glaze": "/glaze",
+    "make": "/commission",
+    "kiln": "/kiln",
+    "watch": "/watch",
+    "air": "/atmosphere",
+    "vitrine": "/vitrine",
+    "kintsugi": "/kintsugi",
+    "gift": "/gift",
+}
 PITCHES = ("C", "D", "E", "F", "G", "A", "B")
 VOICES = ("wheel", "glaze", "kiln", "watch")
 CHORUS_ORDERS = ("rise", "fall", "pulse")
@@ -40,6 +53,7 @@ ROOM_PITCH = {
     "duet": "F",
     "provenance": "B",
     "threshold": "A",
+    "cloth": "F",
     "brief": "G",
     "air": "E",
     "lineage": "D",
@@ -162,6 +176,7 @@ class Host:
     duet: dict[str, Any] | None = None
     seals: list[dict[str, Any]] = field(default_factory=list)
     seal_n: int = 0
+    cloth_order: str = "loop"
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.ledger.append(
@@ -443,6 +458,32 @@ class Host:
         if not already:
             self.score_write(f"walk.{room}", room)
 
+    def warp_keys(self) -> list[str]:
+        keys = list(WARP)
+        order = str(self.cloth_order or "loop")
+        if order == "alpha":
+            return sorted(keys)
+        if order == "heat":
+            hot = {"kiln", "watch"}
+            return sorted(keys, key=lambda k: (0 if k in hot else 1, k))
+        return keys
+
+    def weft_d(self) -> str:
+        """Occupancy as weft across the warp. Path only — no public `line` tag."""
+        keys = self.warp_keys()
+        present = [k for k in keys if k in (self.occupied or [])]
+        if len(present) < 2:
+            return "M8 18 L232 18"
+        n = max(1, len(keys) - 1)
+        parts: list[str] = []
+        for i, k in enumerate(present):
+            idx = keys.index(k)
+            x = 8 + (224 * idx / n)
+            y = 10.0 if idx % 2 == 0 else 26.0
+            cmd = "M" if i == 0 else "L"
+            parts.append(f"{cmd}{x:.1f} {y:.1f}")
+        return " ".join(parts)
+
     def kpi(self) -> dict[str, int]:
         return {
             "pulse": self.pulse,
@@ -457,6 +498,7 @@ class Host:
             "gifts": len(self.gifts),
             "notes": len(self.score),
             "voices": len(self.voices),
+            "warp": len(self.warp_keys()),
         }
 
 
