@@ -68,9 +68,13 @@ STARS = (
     ("provenance", "/provenance", "Seals", 72, 8, "Wax genealogy. Parent is the previous seal."),
     ("threshold", "/threshold", "Doors", 14, 78, "scan_surfaces as doors. Walking is Clock A."),
     ("cloth", "/cloth", "Cloth", 46, 22, "Warp is the loop. Weft is occupancy. stagger_in on #warp-*. bind() weaves."),
+    ("tide", "/tide", "Tide", 4, 44, "Named lunar phase. data-tide on GET chrome. New burns hotter."),
+    ("fugue", "/fugue", "Fugue", 40, 4, "The house plays the loop. Morph-then-Play hop. XOR no html=."),
+    ("mirror", "/mirror", "Mirror", 56, 94, "Named face. Owned Diff, shell=False. The piece looking at itself."),
+    ("phantom", "/phantom", "Phantom", 98, 24, "Ghost occupancy. Unsighted warp fades. Not Pulse."),
 )
 
-LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift", "score", "chorus")
+LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift", "score", "chorus", "tide", "fugue")
 
 BANDS = (("night", "Night"), ("dawn", "Dawn"), ("noon", "Noon"), ("dusk", "Dusk"))
 
@@ -141,6 +145,10 @@ class Index(Component):
                         "star-vessel" if key == "vessel" else "",
                         "star-kintsugi" if key == "kintsugi" else "",
                         "star-cloth" if key == "cloth" else "",
+                        "star-tide" if key == "tide" else "",
+                        "star-fugue" if key == "fugue" else "",
+                        "star-mirror" if key == "mirror" else "",
+                        "star-phantom" if key == "phantom" else "",
                     ]
                 ).strip(),
                 id=f"star-{key}",
@@ -167,7 +175,7 @@ class Index(Component):
         return section(
             div(
                 span(
-                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · kit-81 · vessel",
+                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · tide {HOST.tide_phase} · kit-81",
                     className="eyebrow",
                 ),
                 h1(
@@ -177,15 +185,15 @@ class Index(Component):
                 ),
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
-                    "The sky is a climate the whole house inhabits. The vessel is an inhabitant. "
-                    "The loop is warp; occupancy is weft. Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → Mend → Gift → Score → Chorus. "
-                    "Hold the cloth. Caps are seals.",
+                    "The sky is a climate. The tide is lunar water. The vessel is an inhabitant. "
+                    "The loop is warp; occupancy is weft. Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → Mend → Gift → Score → Chorus → Tide → Fugue. "
+                    "The fugue hops. The mirror remembers fire. Caps are seals.",
                     className="lede",
                 ),
                 div(
                     act("index.knock", "Pulse the table", kind="primary", target="#index"),
-                    a("Open the instrument", href="/now", className="btn-ghost"),
-                    a("Sit the watch", href="/watch", className="btn-ghost"),
+                    a("Name the tide", href="/tide", className="btn-ghost"),
+                    a("Hop the fugue", href="/fugue", className="btn-ghost"),
                     act("index.tick_clock", "Advance the hour", kind="ghost", target="#index"),
                     className="hero-actions",
                 ),
@@ -230,7 +238,11 @@ class Index(Component):
             ),
             ul(
                 li(a("The instrument", href="/now")),
+                li(a("The tide", href="/tide")),
+                li(a("The fugue", href="/fugue")),
                 li(a("The vessel", href="/vessel")),
+                li(a("The mirror", href="/mirror")),
+                li(a("The phantom", href="/phantom")),
                 li(a("The brief", href="/brief")),
                 li(a("The wheel", href="/wheel")),
                 li(a("The glaze lab", href="/glaze")),

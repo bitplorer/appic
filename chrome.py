@@ -19,20 +19,20 @@ from store import (
     crack_d,
     note_cy,
     staff_line_d,
+    tide_d,
     waveform_d,
 )
 
 ROOMS = (
     ("/", "Table"),
     ("/now", "Now"),
+    ("/tide", "Tide"),
+    ("/fugue", "Fugue"),
     ("/cloth", "Cloth"),
     ("/vessel", "Vessel"),
-    ("/score", "Score"),
-    ("/chorus", "Chorus"),
-    ("/eclipse", "Eclipse"),
-    ("/duet", "Duet"),
+    ("/mirror", "Mirror"),
+    ("/phantom", "Phantom"),
     ("/watch", "Watch"),
-    ("/provenance", "Seals"),
     ("/docs", "Law"),
 )
 
@@ -49,13 +49,15 @@ LOOP = (
     ("/gift", "Gift"),
     ("/score", "Score"),
     ("/chorus", "Chorus"),
+    ("/tide", "Tide"),
+    ("/fugue", "Fugue"),
 )
 
 DOCK = (
     ("/", "Table"),
-    ("/cloth", "Cloth"),
-    ("/score", "Score"),
-    ("/chorus", "Chorus"),
+    ("/tide", "Tide"),
+    ("/fugue", "Fugue"),
+    ("/mirror", "Mirror"),
     ("/command", "Cmd"),
 )
 
@@ -130,6 +132,25 @@ def resonance(band: str = "idle"):
     )
 
 
+def tide_mark(phase: str = "new"):
+    """Lunar climate fragment in GET chrome. TIDE-1."""
+    return svg(
+        path(
+            d=tide_d(phase),
+            fill="none",
+            stroke="currentColor",
+            stroke_width="1.4",
+            stroke_linecap="round",
+            className="wave-path",
+        ),
+        viewBox="0 0 240 36",
+        preserveAspectRatio="none",
+        className="wave tide-wave",
+        role="img",
+        aria_label=f"Tide {phase}",
+    )
+
+
 def staff_mark(notes: list[dict] | None = None, *, ident: str = "chrome-staff"):
     """Living score fragment in GET chrome. SCORE-1."""
     rows = list(notes or HOST.score[-10:])
@@ -192,15 +213,18 @@ def instrument():
     heat = f"{HOST.heat_remain}h" if HOST.firing else "hearth dark"
     notice = str(HOST.notice or "the house is listening")
     present = HOST.occupied[0] if HOST.occupied else "table"
+    tide = str(HOST.tide_phase or "new")
     band = "peak" if HOST.firing and HOST.heat_remain <= 5 else (
         "warm" if HOST.firing else "idle"
     )
     return div(
         span(sky, className="inst-band"),
         span(clock_label(HOST.clock_h), className="inst-clock", aria_label="House clock"),
+        span(f"tide {tide}", className="inst-tide"),
         span(heat, className="inst-heat"),
         span(present, className="inst-present"),
         resonance(band),
+        tide_mark(tide),
         staff_mark(),
         span(notice, className="inst-notice"),
         className="instrument",
@@ -289,8 +313,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · cloth · score · chorus · eclipse · duet"),
-        p("GET is Clock A. Action is Clock B. The loop is warp. Occupancy is weft. Caps are seals."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · tide · fugue · mirror · phantom"),
+        p("GET is Clock A. Action is Clock B. Tide is lunar climate. Fugue hops the warp. Caps are seals."),
         className="foot",
         role="contentinfo",
     )
@@ -312,6 +336,7 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
             sky = "night"
         stage = str((HOST.vessel or {}).get("stage") or "empty")
         phase = str(HOST.eclipse_phase or "clear")
+        tide = str(HOST.tide_phase or "new")
         return document(
             div(
                 top_nav(),
@@ -328,6 +353,7 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 data_stage=stage,
                 data_eclipse="1" if HOST.eclipse else "0",
                 data_phase=phase,
+                data_tide=tide,
                 **{GET_CHROME_ATTR: True},
             )
         )

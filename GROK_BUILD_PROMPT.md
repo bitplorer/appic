@@ -1,3 +1,49 @@
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + tide + fugue + mirror + phantom)
+
+Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
+SHA **`80563abf1666e45fa43236e7303b1c4319413554`**.
+If this prompt and the library disagree, **the library wins**.
+
+This file is the **metaprompt**. Publish on **bitplorer/appic**. **No React.**
+Python ≥ 3.14. Kit owned copies, `shell=False`.
+
+Craft: Apple HIG Liquid Glass 3 C’s (content-first, concentric, cohesive).
+Glass is chrome only. Linear ProKit translucency. Fraunces + Source Sans 3 +
+IBM Plex Mono. Brass `#D4B483` on ink `#07080A`. Grain on the body.
+
+---
+
+## 2026-09-20 — Tide / Fugue / Mirror / Phantom (Grok Build, this session)
+
+Independent re-read of ux-compose `80563ab`. Walked `__all__` (86 public names),
+`kit/catalog.py` (81 stems + `treeview` alias), Presence cookbook (`scene.share`,
+`stagger_in`, Morph-then-Play, XOR, `morph_play` hop), `optional_fade` /
+`optional_slide`, owned Diff `shell=False`. Specialist pins unchanged.
+
+The house had a sky and an eclipse but no **water**. The loop could be walked
+but could not **play itself**. The vessel could sit and leave but could not
+**look at itself**. Occupancy remembered presence, never **absence**.
+
+| Delta | Law |
+| --- | --- |
+| Tide | `/tide` named phase (`new \| wax \| full \| wane`). Host climate. `data-tide` on GET chrome. **TIDE-1** |
+| Tide heat | New burns hotter (`heat_remain -= 2`). Full cools. **TIDE-HEAT** |
+| Instrument tide | Living instrument carries the phase + a path. Brand stays on `wrap=`. **INSTRUMENT-2** |
+| Fugue | `/fugue` named station. `morph_play` hop + `stagger_in` on `#hop-*`. XOR. **FUGUE-1** |
+| Fugue vessel | Presence-continuous `#fugue-vessel` → cradle. **FUGUE-2** |
+| Mirror | `/mirror` named face. Owned Diff `shell=False`. Host snapshots. Not `/diff`. **MIRROR-1** |
+| Phantom | `/phantom` ghost occupancy. Unsighted warp fades. **PHANTOM-1** |
+| Loop extended | … Chorus → **Tide** → **Fugue**. **LOOP-5** |
+| Command | Palette destinations occupy the new rooms. Tide verbs name a phase. **CMD-3** |
+
+Honesty locks from prior sessions still hold. New: `TIDE-1` `TIDE-HEAT` `INSTRUMENT-2` `FUGUE-1` `FUGUE-2` `MIRROR-1` `PHANTOM-1` `LOOP-5` `CMD-3`.
+
+**Executed:** tide climate, fugue hop, mirror faces, phantom occupancy, constellation stars, command destinations, doctor path, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
+
+Do **not** add Pulse rooms. Tide, Fugue, Mirror, Phantom are not Pulse.
+
+---
+
 # Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + cloth)
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`

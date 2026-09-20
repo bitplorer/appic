@@ -5,7 +5,8 @@ is the Host DB for commissions, bag, ledger, notices, kiln queue, thrown
 bodies, locked recipes, vitrine, briefs, the studio floor, sky climate,
 the shared hearth the Night Watch keeps, occupancy, the circadian clock,
 the vessel on the cloth, kintsugi joins, gifts, lineage, the living score,
-the chorus of hands, eclipse climate, the companion vessel, and wax seals.
+the chorus of hands, eclipse climate, the companion vessel, wax seals,
+lunar tide, the fugue of hops, the mirror of a piece, and phantom occupancy.
 """
 from __future__ import annotations
 
@@ -36,6 +37,9 @@ PITCHES = ("C", "D", "E", "F", "G", "A", "B")
 VOICES = ("wheel", "glaze", "kiln", "watch")
 CHORUS_ORDERS = ("rise", "fall", "pulse")
 ECLIPSE_PHASES = ("clear", "wax", "full", "wane")
+TIDES = ("new", "wax", "full", "wane")
+FACES = ("before", "after", "split")
+PHANTOM_FILTERS = ("all", "ghost", "present")
 ROOM_PITCH = {
     "table": "G",
     "now": "A",
@@ -57,6 +61,10 @@ ROOM_PITCH = {
     "brief": "G",
     "air": "E",
     "lineage": "D",
+    "tide": "A",
+    "fugue": "G",
+    "mirror": "E",
+    "phantom": "C",
 }
 
 # Staff: five paths. Notes sit on or between them. No public `line` tag.
@@ -79,6 +87,18 @@ def band_for_hour(h: int) -> str:
     return "night"
 
 
+def tide_for_hour(h: int) -> str:
+    """Lunar climate from the IST hour. Independent of sky band. TIDE-1."""
+    h = int(h) % 24
+    if h < 6:
+        return "new"
+    if h < 12:
+        return "wax"
+    if h < 18:
+        return "full"
+    return "wane"
+
+
 def clock_label(h: int) -> str:
     return f"{int(h) % 24:02d}:00"
 
@@ -99,6 +119,18 @@ def waveform_d(band: str) -> str:
     if key in ("done",):
         return "M0 18 Q40 14 80 18 T160 18 T240 18"
     return "M0 18 L240 18"
+
+
+def tide_d(phase: str) -> str:
+    """Lunar water as a path. Full is denser. New is still. TIDE-1."""
+    key = str(phase or "new")
+    if key == "full":
+        return "M0 22 Q16 6 32 22 T64 22 T96 22 T128 22 T160 22 T192 22 T224 22"
+    if key == "wax":
+        return "M0 22 Q24 10 48 22 T96 22 T144 22 T192 22 T240 22"
+    if key == "wane":
+        return "M0 22 Q32 14 64 22 T128 22 T192 22"
+    return "M0 22 L240 22"
 
 
 def staff_line_d(y: int, width: int = 240) -> str:
@@ -126,6 +158,16 @@ CRACKS = {
 
 def crack_d(where: str) -> str:
     return CRACKS.get(str(where or ""), "")
+
+
+def _piece_line(row: dict[str, Any] | None) -> str:
+    piece = dict(row or {})
+    clay = str(piece.get("clay") or "clay")
+    glaze = str(piece.get("glaze") or "glaze")
+    stage = str(piece.get("stage") or "empty")
+    note = str(piece.get("note") or "")
+    body = f"{clay} · {glaze} · {stage}"
+    return f"{body} — {note}" if note else body
 
 
 @dataclass
@@ -177,6 +219,12 @@ class Host:
     seals: list[dict[str, Any]] = field(default_factory=list)
     seal_n: int = 0
     cloth_order: str = "loop"
+    tide_phase: str = "new"
+    auto_tide: bool = True
+    fugue_station: str = "brief"
+    mirror_before: dict[str, Any] | None = None
+    mirror_after: dict[str, Any] | None = None
+    phantom: list[str] = field(default_factory=list)
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.ledger.append(
@@ -242,6 +290,67 @@ class Host:
         self.log("eclipse.unveil", "clear")
         self.score_write("eclipse.unveil", "eclipse", "G")
         return "clear"
+
+    def name_tide(self, phase: str = "full") -> str:
+        """Name a lunar climate. Turns auto off. TIDE-1."""
+        phase = phase if phase in TIDES else "full"
+        self.tide_phase = phase
+        self.auto_tide = False
+        self.notice = f"The tide is named {phase}."
+        self.log("tide.name", phase)
+        self.score_write("tide.name", "tide", "A")
+        return phase
+
+    def sync_tide(self) -> str:
+        if self.auto_tide:
+            self.tide_phase = tide_for_hour(self.clock_h)
+        if self.tide_phase not in TIDES:
+            self.tide_phase = "new"
+        return self.tide_phase
+
+    def hop_fugue(self) -> str:
+        """Advance the fugue one station. The vessel travels. FUGUE-1."""
+        keys = list(self.warp_keys())
+        cur = str(self.fugue_station or keys[0])
+        try:
+            i = keys.index(cur)
+        except ValueError:
+            i = -1
+        nxt = keys[(i + 1) % len(keys)]
+        self.fugue_station = nxt
+        self.occupy(nxt)
+        if self.vessel:
+            self.seat(
+                stage=str(self.vessel.get("stage") or "thrown"),
+                clay=str(self.vessel.get("clay") or ""),
+                glaze=str(self.vessel.get("glaze") or ""),
+                note=str(self.vessel.get("note") or ""),
+                piece_id=str(self.vessel.get("id") or ""),
+            )
+        self.notice = f"The fugue named {nxt}."
+        self.log("fugue.hop", nxt)
+        self.score_write("fugue.hop", "fugue", "G")
+        return nxt
+
+    def snap_before(self) -> dict[str, Any] | None:
+        """Seat the before-face of the mirror. MIRROR-1."""
+        if not self.vessel:
+            return self.mirror_before
+        self.mirror_before = dict(self.vessel)
+        self.notice = "The mirror held the before."
+        self.log("mirror.before", str(self.vessel.get("id") or ""))
+        self.score_write("mirror.before", "mirror", "E")
+        return self.mirror_before
+
+    def snap_after(self) -> dict[str, Any] | None:
+        """Seat the after-face of the mirror. MIRROR-1."""
+        if not self.vessel:
+            return self.mirror_after
+        self.mirror_after = dict(self.vessel)
+        self.notice = "The mirror held the after."
+        self.log("mirror.after", str(self.vessel.get("id") or ""))
+        self.score_write("mirror.after", "mirror", "E")
+        return self.mirror_after
 
     def seat_duet(
         self,
@@ -405,10 +514,13 @@ class Host:
         )
 
     def tick_heat(self) -> str:
-        """Advance shared hearth heat. Returns the kiln band name."""
+        """Advance shared hearth heat. Tide modulates the burn. TIDE-HEAT."""
         if not self.firing:
             return "idle"
-        self.heat_remain = max(0, int(self.heat_remain) - 1)
+        step = 2 if self.tide_phase == "new" else 1
+        if self.tide_phase == "full":
+            step = 1 if int(self.clock_h) % 2 else 0
+        self.heat_remain = max(0, int(self.heat_remain) - step)
         self.heat_trace.append(int(self.heat_remain))
         self.heat_trace = self.heat_trace[-24:]
         if self.heat_remain <= 0:
@@ -438,6 +550,7 @@ class Host:
             self.sky_band = band_for_hour(self.clock_h)
         if self.sky_band not in BANDS:
             self.sky_band = "night"
+        self.sync_tide()
         return self.sky_band
 
     def tick_clock(self) -> str:
@@ -446,6 +559,8 @@ class Host:
             self.eclipse_phase = "wane"
         elif self.eclipse and self.eclipse_phase == "wane":
             self.unveil()
+        if self.auto_tide:
+            self.tide_phase = tide_for_hour(self.clock_h)
         return self.sync_sky()
 
     def occupy(self, room: str) -> None:
@@ -453,10 +568,23 @@ class Host:
         if not room:
             return
         already = bool(self.occupied) and self.occupied[0] == room
+        previous = list(self.occupied)
         self.occupied = [room] + [r for r in self.occupied if r != room]
+        dropped = [r for r in previous if r not in self.occupied]
+        for ghost in dropped:
+            if ghost not in self.phantom:
+                self.phantom.insert(0, ghost)
         self.occupied = self.occupied[:8]
+        self.phantom = [r for r in self.phantom if r not in self.occupied][:12]
         if not already:
             self.score_write(f"walk.{room}", room)
+
+    def ghosts(self) -> list[str]:
+        """Unsighted warp. Phantom occupancy. PHANTOM-1."""
+        present = set(self.occupied or [])
+        warp_ghosts = [k for k in self.warp_keys() if k not in present]
+        extra = [r for r in self.phantom if r not in present and r not in warp_ghosts]
+        return warp_ghosts + extra
 
     def warp_keys(self) -> list[str]:
         keys = list(WARP)
@@ -499,6 +627,7 @@ class Host:
             "notes": len(self.score),
             "voices": len(self.voices),
             "warp": len(self.warp_keys()),
+            "phantoms": len(self.ghosts()),
         }
 
 
@@ -539,6 +668,27 @@ def _seed(host: Host) -> Host:
         note="The other hand waits.",
         piece_id="d002",
     )
+    host.mirror_before = {
+        "id": "p000",
+        "stage": "thrown",
+        "clay": "porcelain",
+        "glaze": "ash",
+        "note": "the lip still wet",
+        "break": "",
+        "join": "",
+    }
+    host.mirror_after = {
+        "id": "p000",
+        "stage": "drawn",
+        "clay": "porcelain",
+        "glaze": "celadon",
+        "note": "thin lip, still warm in the hand",
+        "break": "",
+        "join": "",
+    }
+    host.tide_phase = tide_for_hour(host.clock_h)
+    host.fugue_station = "brief"
+    host.phantom = ["kiln", "watch"]
     host.score_write("house.open", "table", "G")
     host.score_write("vessel.seat", "vessel", "E")
     host.press_seal("house.open", "channel.boot")

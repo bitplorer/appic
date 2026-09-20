@@ -9,6 +9,10 @@ from store import HOST
 class Command(CommandCard):
     COMMANDS = (
         ("go-table", "The table", "House"),
+        ("go-tide", "The tide", "House"),
+        ("go-fugue", "The fugue", "House"),
+        ("go-mirror", "The mirror", "House"),
+        ("go-phantom", "The phantom", "House"),
         ("go-cloth", "The cloth", "House"),
         ("go-now", "The instrument", "House"),
         ("go-vessel", "The vessel", "House"),
@@ -29,6 +33,8 @@ class Command(CommandCard):
         ("go-law", "The written law", "House"),
         ("shift-noon", "Name noon", "Sky"),
         ("shift-night", "Name night", "Sky"),
+        ("tide-full", "Name a full tide", "Sky"),
+        ("tide-new", "Name a new tide", "Sky"),
         ("veil-full", "Name a full eclipse", "Sky"),
         ("unveil", "Lift the umbra", "Sky"),
         ("ring-bell", "Ring the bell", "Watch"),
@@ -39,6 +45,10 @@ class Command(CommandCard):
         HOST.log("command.run", key, "morph")
         dest = {
             "go-table": "table",
+            "go-tide": "tide",
+            "go-fugue": "fugue",
+            "go-mirror": "mirror",
+            "go-phantom": "phantom",
             "go-cloth": "cloth",
             "go-now": "now",
             "go-vessel": "vessel",
@@ -72,6 +82,12 @@ class Command(CommandCard):
             HOST.sky_band = "night"
             HOST.notice = "The house is named night."
             return "night"
+        if key == "tide-full":
+            HOST.name_tide("full")
+            return "full"
+        if key == "tide-new":
+            HOST.name_tide("new")
+            return "new"
         if key == "veil-full":
             HOST.veil("full")
             return "full"

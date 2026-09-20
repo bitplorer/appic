@@ -34,6 +34,10 @@ class Docs(Component):
             "Noon is a named sky band. The clock is Host stock. Occupancy is a short memory.",
             "The living instrument is GET chrome. Resonance is a path, not a canvas.",
             "Now is a house room. It is not a Pulse room.",
+            "Tide is lunar climate. data-tide on GET chrome. New burns hotter.",
+            "Fugue hops the warp. Morph-then-Play. XOR: no html= on the plan.",
+            "Mirror is the piece looking at itself. Owned Diff, shell=False.",
+            "Phantom is ghost occupancy. Unsighted warp fades. Not Pulse.",
         )
         return section(
             span("Law", className="eyebrow"),

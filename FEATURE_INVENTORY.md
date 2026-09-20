@@ -1,3 +1,36 @@
+# ux-compose — feature inventory (kit-81 + tide + fugue + mirror + phantom + pin 80563ab)
+
+Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
+SHA `80563abf1666e45fa43236e7303b1c4319413554`.
+
+If this page and the code disagree, **the code wins**.
+
+---
+
+## 2026-09-20 — Tide / Fugue / Mirror / Phantom (this session)
+
+Public `__all__`: **86** names. Kit: **81 stems + `treeview` alias**. Presence cookbook: `scene.share`, `stagger_in`, `morph_play` hop. Owned Diff `shell=False`.
+
+Specialist pins **unchanged**.
+
+| Delta | Law |
+| --- | --- |
+| `/tide` | **TIDE-1** named phase. Host climate. `data-tide` on GET chrome |
+| Tide heat | **TIDE-HEAT** new burns hotter. Full cools remaining heat |
+| Instrument | **INSTRUMENT-2** phase + path in GET chrome |
+| `/fugue` | **FUGUE-1** named station. `morph_play` hop. `stagger_in` on `#hop-*`. XOR |
+| Fugue vessel | **FUGUE-2** `#fugue-vessel` → `#cradle-vessel` `scene.share` |
+| `/mirror` | **MIRROR-1** named face. Owned Diff `shell=False`. Host snapshots. Not `/diff` |
+| `/phantom` | **PHANTOM-1** ghost occupancy. Unsighted warp fades |
+| Loop extended | **LOOP-5** … Chorus → Tide → Fugue |
+| Command | **CMD-3** house destinations + tide verbs |
+
+Do **not** add Pulse rooms. Tide, Fugue, Mirror, Phantom are not Pulse.
+
+Honesty locks from prior sessions still hold. New: `TIDE-1` `TIDE-HEAT` `INSTRUMENT-2` `FUGUE-1` `FUGUE-2` `MIRROR-1` `PHANTOM-1` `LOOP-5` `CMD-3`.
+
+---
+
 # ux-compose — feature inventory (kit-81 + cloth + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`

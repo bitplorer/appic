@@ -19,7 +19,7 @@ if [ ! -x /workspace/.venv/bin/python ]; then
   uv pip install --python /workspace/.venv/bin/python -r /workspace/requirements.txt
 fi
 
-chmod +x /workspace/scripts/run-python-app.sh 2>/dev/null || true
+chmod +x /workspace/scripts/run-python-app.sh
 npm run dev >>/tmp/app-startup.log 2>&1 &
 
 i=0
