@@ -1415,9 +1415,46 @@
     min-height: 220px;
   }
   .fugue-room .warp-thread.is-on .warp-name { color: var(--brass); }
+  .inst-grain, .inst-ash {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brass);
+    white-space: nowrap;
+  }
+  .ash-wave { width: min(160px, 24vw); height: 28px; color: var(--bone-dim); }
+  .grain-wave { width: 36px; height: 36px; color: var(--brass); }
+  .ash-ring { color: var(--mute); opacity: 0.7; }
+  .ash-ring-in { opacity: 0.45; }
+  .ash-ember { color: var(--brass); }
+  .grain-speck { opacity: 0.55; }
+  .stamp-svg { width: 120px; height: 120px; color: var(--brass); }
+  .stamp-reading { letter-spacing: 0.28em; text-transform: uppercase; }
+  .well-rim { color: var(--brass); }
+  .shell[data-grain="fine"] { --grain: 0.035; }
+  .shell[data-grain="grog"] { --grain: 0.07; }
+  .shell[data-grain="grog-heavy"] { --grain: 0.12; }
+  .shell[data-ash="fine"] {
+    background:
+      radial-gradient(880px 420px at 50% 110%, rgb(237 232 220 / 0.03), transparent 58%),
+      var(--ink);
+  }
+  .shell[data-ash="flake"] {
+    background:
+      radial-gradient(920px 460px at 70% 108%, rgb(212 180 131 / 0.07), transparent 56%),
+      var(--ink);
+  }
+  .shell[data-ash="slag"] {
+    background:
+      radial-gradient(1000px 520px at 50% 112%, rgb(212 180 131 / 0.1), transparent 58%),
+      radial-gradient(640px 320px at 8% 0%, rgb(237 232 220 / 0.04), transparent 48%),
+      var(--ink);
+  }
+  .pr-stage { touch-action: pan-x; user-select: none; }
   @media (max-width: 860px) {
     .mirror-pair { grid-template-columns: 1fr; }
-    .tide-wave, .instrument .wave { display: none; }
-    .inst-tide { display: none; }
+    .tide-wave, .instrument .wave, .ash-wave, .grain-wave { display: none; }
+    .inst-tide, .inst-grain, .inst-ash { display: none; }
   }
 }

@@ -124,8 +124,7 @@ class PullRefresh(Component):
             div(
                 p(hint, className=self.class_busy if phase == "refreshing" else self.class_hint),
                 ul(*lis, className=self.class_list),
-                className=self.class_stage,
-                style="touch-action:pan-x;user-select:none;",
+                className=self.class_stage + " pr-stage",
             ),
             button(
                 "Refresh",

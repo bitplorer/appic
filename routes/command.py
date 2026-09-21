@@ -13,6 +13,10 @@ class Command(CommandCard):
         ("go-fugue", "The fugue", "House"),
         ("go-mirror", "The mirror", "House"),
         ("go-phantom", "The phantom", "House"),
+        ("go-ash", "The ash", "House"),
+        ("go-grain", "The grain", "House"),
+        ("go-stamp", "The stamp", "House"),
+        ("go-well", "The well", "House"),
         ("go-cloth", "The cloth", "House"),
         ("go-now", "The instrument", "House"),
         ("go-vessel", "The vessel", "House"),
@@ -35,6 +39,8 @@ class Command(CommandCard):
         ("shift-night", "Name night", "Sky"),
         ("tide-full", "Name a full tide", "Sky"),
         ("tide-new", "Name a new tide", "Sky"),
+        ("grain-grog", "Name grog", "Sky"),
+        ("ash-rake", "Rake the hearth", "Watch"),
         ("veil-full", "Name a full eclipse", "Sky"),
         ("unveil", "Lift the umbra", "Sky"),
         ("ring-bell", "Ring the bell", "Watch"),
@@ -49,6 +55,10 @@ class Command(CommandCard):
             "go-fugue": "fugue",
             "go-mirror": "mirror",
             "go-phantom": "phantom",
+            "go-ash": "ash",
+            "go-grain": "grain",
+            "go-stamp": "stamp",
+            "go-well": "well",
             "go-cloth": "cloth",
             "go-now": "now",
             "go-vessel": "vessel",
@@ -88,6 +98,12 @@ class Command(CommandCard):
         if key == "tide-new":
             HOST.name_tide("new")
             return "new"
+        if key == "grain-grog":
+            HOST.name_grain("grog")
+            return "grog"
+        if key == "ash-rake":
+            HOST.rake_ash()
+            return "raked"
         if key == "veil-full":
             HOST.veil("full")
             return "full"

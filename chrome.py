@@ -15,8 +15,10 @@ from store import (
     STAFF_LINES,
     VESSEL_BODY,
     VESSEL_WELL,
+    ash_d,
     clock_label,
     crack_d,
+    grain_d,
     note_cy,
     staff_line_d,
     tide_d,
@@ -27,11 +29,11 @@ ROOMS = (
     ("/", "Table"),
     ("/now", "Now"),
     ("/tide", "Tide"),
-    ("/fugue", "Fugue"),
-    ("/cloth", "Cloth"),
+    ("/ash", "Ash"),
+    ("/grain", "Grain"),
+    ("/stamp", "Stamp"),
+    ("/well", "Well"),
     ("/vessel", "Vessel"),
-    ("/mirror", "Mirror"),
-    ("/phantom", "Phantom"),
     ("/watch", "Watch"),
     ("/docs", "Law"),
 )
@@ -51,13 +53,16 @@ LOOP = (
     ("/chorus", "Chorus"),
     ("/tide", "Tide"),
     ("/fugue", "Fugue"),
+    ("/ash", "Ash"),
+    ("/stamp", "Stamp"),
 )
 
 DOCK = (
     ("/", "Table"),
-    ("/tide", "Tide"),
-    ("/fugue", "Fugue"),
-    ("/mirror", "Mirror"),
+    ("/ash", "Ash"),
+    ("/grain", "Grain"),
+    ("/stamp", "Stamp"),
+    ("/well", "Well"),
     ("/command", "Cmd"),
 )
 
@@ -151,6 +156,43 @@ def tide_mark(phase: str = "new"):
     )
 
 
+def grain_mark(body: str = "fine"):
+    """Clay body fragment in GET chrome. GRAIN-1."""
+    return svg(
+        path(
+            d=grain_d(body),
+            fill="none",
+            stroke="currentColor",
+            stroke_width="1.4",
+            stroke_linecap="round",
+            className="wave-path",
+        ),
+        viewBox="0 0 120 120",
+        className="wave grain-wave",
+        role="img",
+        aria_label=f"Grain {body}",
+    )
+
+
+def ash_mark(grade: str = "fine"):
+    """Remainder fragment in GET chrome. ASH-1."""
+    return svg(
+        path(
+            d=ash_d(grade),
+            fill="none",
+            stroke="currentColor",
+            stroke_width="1.4",
+            stroke_linecap="round",
+            className="wave-path",
+        ),
+        viewBox="0 0 240 36",
+        preserveAspectRatio="none",
+        className="wave ash-wave",
+        role="img",
+        aria_label=f"Ash {grade}",
+    )
+
+
 def staff_mark(notes: list[dict] | None = None, *, ident: str = "chrome-staff"):
     """Living score fragment in GET chrome. SCORE-1."""
     rows = list(notes or HOST.score[-10:])
@@ -214,6 +256,8 @@ def instrument():
     notice = str(HOST.notice or "the house is listening")
     present = HOST.occupied[0] if HOST.occupied else "table"
     tide = str(HOST.tide_phase or "new")
+    grain = HOST.sync_grain()
+    ash = str(HOST.ash_grade or "fine")
     band = "peak" if HOST.firing and HOST.heat_remain <= 5 else (
         "warm" if HOST.firing else "idle"
     )
@@ -221,10 +265,13 @@ def instrument():
         span(sky, className="inst-band"),
         span(clock_label(HOST.clock_h), className="inst-clock", aria_label="House clock"),
         span(f"tide {tide}", className="inst-tide"),
+        span(f"grain {grain}", className="inst-grain"),
+        span(f"ash {ash}", className="inst-ash"),
         span(heat, className="inst-heat"),
         span(present, className="inst-present"),
         resonance(band),
         tide_mark(tide),
+        ash_mark(ash),
         staff_mark(),
         span(notice, className="inst-notice"),
         className="instrument",
@@ -313,8 +360,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · tide · fugue · mirror · phantom"),
-        p("GET is Clock A. Action is Clock B. Tide is lunar climate. Fugue hops the warp. Caps are seals."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · ash · grain · stamp · well"),
+        p("GET is Clock A. Action is Clock B. Ash is remainder. Grain is clay. Caps are seals."),
         className="foot",
         role="contentinfo",
     )
@@ -337,6 +384,8 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
         stage = str((HOST.vessel or {}).get("stage") or "empty")
         phase = str(HOST.eclipse_phase or "clear")
         tide = str(HOST.tide_phase or "new")
+        grain = str(HOST.grain or "fine")
+        ash = str(HOST.ash_grade or "fine")
         return document(
             div(
                 top_nav(),
@@ -354,6 +403,8 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 data_eclipse="1" if HOST.eclipse else "0",
                 data_phase=phase,
                 data_tide=tide,
+                data_grain=grain,
+                data_ash=ash,
                 **{GET_CHROME_ATTR: True},
             )
         )

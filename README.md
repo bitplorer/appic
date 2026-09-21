@@ -4,7 +4,7 @@
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom**).
+Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom** + **ash** + **grain** + **stamp** + **well**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
@@ -28,7 +28,7 @@ Resonance is a path. The living instrument sits in GET chrome.
 
 The foundry is a **loop you can walk**, always visible in chrome:
 
-Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine → **Mend** → **Gift** → **Score** → **Chorus** → **Tide** → **Fugue**. **Now** is the instrument. **Vessel** is the inhabitant. The **cradle** in chrome keeps it. The **companion cradle** is the duet. **Eclipse** occludes the sky. **Tide** is lunar water (`data-tide`). **Fugue** hops the warp (`morph_play`). **Mirror** is the piece looking at itself. **Phantom** is ghost occupancy. **Provenance** is the wax chain. **Threshold** is the catalog of doors. **Cloth** is the warp of the loop; occupancy is weft (`stagger_in`, `scene.share`, `bind()` weaves).
+Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine → **Mend** → **Gift** → **Score** → **Chorus** → **Tide** → **Fugue** → **Ash** → **Stamp**. **Now** is the instrument. **Vessel** is the inhabitant. The **cradle** in chrome keeps it. **Grain** is clay climate (`data-grain`). **Well** draws water. **Ash** is remainder. **Stamp** is the chop.
 
 The Night Watch sits with the fire. Kiln and Watch share one hearth (`HOST.heat_remain`).
 Keep is public. A bell is one-shot notify. This is not a Pulse room.
@@ -79,6 +79,10 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Fugue | `/fugue` | The house plays the loop. `morph_play` hop. XOR no `html=` |
 | Mirror | `/mirror` | Named face. Owned Diff, `shell=False`. The piece looking at itself |
 | Phantom | `/phantom` | Ghost occupancy. Unsighted warp fades. Not Pulse |
+| Ash | `/ash` | Named grade. Remainder of fire. `optional_fade` cooling |
+| Grain | `/grain` | Named clay body. `data-grain` on GET chrome. Not ThemeSwitch |
+| Stamp | `/stamp` | Maker's chop. `field()` / `status()` / `act()`. `stamp.press` |
+| Well | `/well` | Named draw. Owned PullRefresh, `shell=False`. Tide is climate |
 | Vessel | `/vessel` | The piece is the house. Named stage. Presence-continuous with the cradle |
 | Brief | `/brief` | Named answers. Submit spends `form.submit` |
 | Wheel | `/wheel` | Named stage. RPM is RefState. Lift is public |

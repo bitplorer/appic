@@ -6,7 +6,8 @@ bodies, locked recipes, vitrine, briefs, the studio floor, sky climate,
 the shared hearth the Night Watch keeps, occupancy, the circadian clock,
 the vessel on the cloth, kintsugi joins, gifts, lineage, the living score,
 the chorus of hands, eclipse climate, the companion vessel, wax seals,
-lunar tide, the fugue of hops, the mirror of a piece, and phantom occupancy.
+lunar tide, the fugue of hops, the mirror of a piece, phantom occupancy,
+ash remainder, clay grain, the maker's chop, and the well.
 """
 from __future__ import annotations
 
@@ -32,6 +33,10 @@ WARP_HREF = {
     "vitrine": "/vitrine",
     "kintsugi": "/kintsugi",
     "gift": "/gift",
+    "ash": "/ash",
+    "stamp": "/stamp",
+    "grain": "/grain",
+    "well": "/well",
 }
 PITCHES = ("C", "D", "E", "F", "G", "A", "B")
 VOICES = ("wheel", "glaze", "kiln", "watch")
@@ -40,6 +45,10 @@ ECLIPSE_PHASES = ("clear", "wax", "full", "wane")
 TIDES = ("new", "wax", "full", "wane")
 FACES = ("before", "after", "split")
 PHANTOM_FILTERS = ("all", "ghost", "present")
+GRAINS = ("fine", "grog", "grog-heavy")
+ASH_GRADES = ("fine", "flake", "slag")
+DRAWS = ("sip", "scoop", "flood")
+CHOPS = ("APPIC", "HOUSE", "NIGHT", "ASH")
 ROOM_PITCH = {
     "table": "G",
     "now": "A",
@@ -65,6 +74,10 @@ ROOM_PITCH = {
     "fugue": "G",
     "mirror": "E",
     "phantom": "C",
+    "ash": "D",
+    "grain": "F",
+    "stamp": "B",
+    "well": "A",
 }
 
 # Staff: five paths. Notes sit on or between them. No public `line` tag.
@@ -119,6 +132,36 @@ def waveform_d(band: str) -> str:
     if key in ("done",):
         return "M0 18 Q40 14 80 18 T160 18 T240 18"
     return "M0 18 L240 18"
+
+
+def ash_d(grade: str) -> str:
+    """Remainder of fire as a path. Slag is denser. Fine is still. ASH-1."""
+    key = str(grade or "fine")
+    if key == "slag":
+        return "M0 22 Q10 4 20 22 T40 22 T60 22 T80 22 T100 22 T120 22 T140 22 T160 22 T180 22 T200 22 T220 22"
+    if key == "flake":
+        return "M0 22 Q20 8 40 22 T80 22 T120 22 T160 22 T200 22 T240 22"
+    return "M0 22 Q40 16 80 22 T160 22 T240 22"
+
+
+def grain_d(body: str) -> str:
+    """Clay body as a path. Grog-heavy is denser. GRAIN-1."""
+    key = str(body or "fine")
+    if key == "grog-heavy":
+        return "M8 88 L24 40 L40 96 L56 28 L72 90 L88 36 L104 84"
+    if key == "grog":
+        return "M10 70 L34 42 L58 78 L82 38 L110 72"
+    return "M12 60 L108 60"
+
+
+def well_d(draw: str) -> str:
+    """Water in the mouth of the well. Flood is denser. WELL-1."""
+    key = str(draw or "sip")
+    if key == "flood":
+        return "M28 48 Q44 28 60 48 T92 48 T124 48"
+    if key == "scoop":
+        return "M32 56 Q48 40 64 56 T96 56"
+    return "M40 64 Q60 54 80 64"
 
 
 def tide_d(phase: str) -> str:
@@ -225,6 +268,14 @@ class Host:
     mirror_before: dict[str, Any] | None = None
     mirror_after: dict[str, Any] | None = None
     phantom: list[str] = field(default_factory=list)
+    grain: str = "fine"
+    auto_grain: bool = True
+    ash: list[dict[str, Any]] = field(default_factory=list)
+    ash_grade: str = "fine"
+    ash_n: int = 0
+    stamp_mark: str = "APPIC"
+    stamps: list[dict[str, Any]] = field(default_factory=list)
+    well_log: list[str] = field(default_factory=list)
 
     def log(self, verb: str, detail: str = "", kind: str = "morph") -> None:
         self.ledger.append(
@@ -536,6 +587,7 @@ class Host:
                     "band": "done",
                 }
             )
+            self.rake_ash()
             return "done"
         if self.heat_remain <= 2:
             return "cool"
@@ -551,6 +603,7 @@ class Host:
         if self.sky_band not in BANDS:
             self.sky_band = "night"
         self.sync_tide()
+        self.sync_grain()
         return self.sky_band
 
     def tick_clock(self) -> str:
@@ -585,6 +638,100 @@ class Host:
         warp_ghosts = [k for k in self.warp_keys() if k not in present]
         extra = [r for r in self.phantom if r not in present and r not in warp_ghosts]
         return warp_ghosts + extra
+
+    def name_grain(self, body: str = "grog") -> str:
+        """Name a clay body. Turns auto off. GRAIN-1."""
+        body = body if body in GRAINS else "grog"
+        self.grain = body
+        self.auto_grain = False
+        self.notice = f"The grain is named {body}."
+        self.log("grain.name", body)
+        self.score_write("grain.name", "grain", "F")
+        return body
+
+    def sync_grain(self) -> str:
+        if self.auto_grain:
+            clay = str((self.vessel or {}).get("clay") or "")
+            if clay == "stoneware":
+                self.grain = "grog"
+            elif clay == "porcelain":
+                self.grain = "fine"
+            else:
+                self.grain = "grog-heavy" if clay else "fine"
+        if self.grain not in GRAINS:
+            self.grain = "fine"
+        return self.grain
+
+    def name_ash(self, grade: str = "fine") -> str:
+        """Name the remainder. ASH-1."""
+        grade = grade if grade in ASH_GRADES else "fine"
+        self.ash_grade = grade
+        self.notice = f"The ash is named {grade}."
+        self.log("ash.name", grade)
+        self.score_write("ash.name", "ash", "D")
+        return grade
+
+    def rake_ash(self) -> dict[str, Any]:
+        """Write a body of ash. Host stock, never MorphState(list). ASH-1."""
+        self.ash_n += 1
+        clay = str((self.last_firing or self.vessel or {}).get("clay") or "clay")
+        row = {
+            "id": f"a{self.ash_n:03d}",
+            "grade": self.ash_grade if self.ash_grade in ASH_GRADES else "fine",
+            "clay": clay,
+            "heat": int(self.heat_remain),
+            "at": _now(),
+        }
+        self.ash.append(row)
+        self.ash = self.ash[-24:]
+        self.notice = f"Ash raked · {row['grade']}."
+        self.log("ash.rake", row["id"])
+        self.score_write("ash.rake", "ash", "D")
+        return row
+
+    def press_stamp(self, mark: str = "APPIC", *, face: str = "foot") -> dict[str, Any]:
+        """Maker's chop. Inscription is Host stock. STAMP-1."""
+        letters = "".join(ch for ch in str(mark or "APPIC").upper() if ch.isalnum() or ch in " ·-")[:12] or "APPIC"
+        face = face if face in ("lip", "foot", "belly") else "foot"
+        self.stamp_mark = letters
+        row = {
+            "id": f"k{len(self.stamps) + 1:03d}",
+            "mark": letters,
+            "face": face,
+            "piece": str((self.vessel or {}).get("id") or "house"),
+            "at": _now(),
+        }
+        self.stamps.append(row)
+        self.stamps = self.stamps[-24:]
+        if self.vessel:
+            self.vessel["chop"] = letters
+            self.vessel["chop_face"] = face
+        self.press_seal("stamp.press", "stamp.press")
+        self.notice = f"Chop {letters} at the {face}."
+        self.log("stamp.press", letters, "cap")
+        self.score_write("stamp.press", "stamp", "B")
+        return row
+
+    def draw_well(self, draw: str = "sip") -> str:
+        """Draw water. Tide is climate; this is the verb. WELL-1."""
+        draw = draw if draw in DRAWS else "sip"
+        line = {
+            "sip": "A sip from the night well.",
+            "scoop": "A bowl drawn. Occupancy remembers the well.",
+            "flood": "The cloth drank. Tide named full.",
+        }[draw]
+        self.well_log.insert(0, f"{_now()} · {line}")
+        self.well_log = self.well_log[:16]
+        if draw == "sip" and self.firing:
+            self.heat_remain = max(0, int(self.heat_remain) - 1)
+        if draw == "scoop":
+            self.occupy("well")
+        if draw == "flood":
+            self.name_tide("full")
+        self.notice = line
+        self.log("well.draw", draw)
+        self.score_write("well.draw", "well", "A")
+        return draw
 
     def warp_keys(self) -> list[str]:
         keys = list(WARP)
@@ -628,6 +775,9 @@ class Host:
             "voices": len(self.voices),
             "warp": len(self.warp_keys()),
             "phantoms": len(self.ghosts()),
+            "ash": len(self.ash),
+            "stamps": len(self.stamps),
+            "draws": len(self.well_log),
         }
 
 
@@ -689,6 +839,11 @@ def _seed(host: Host) -> Host:
     host.tide_phase = tide_for_hour(host.clock_h)
     host.fugue_station = "brief"
     host.phantom = ["kiln", "watch"]
+    host.grain = "fine"
+    host.ash_grade = "fine"
+    host.rake_ash()
+    host.stamp_mark = "APPIC"
+    host.well_log = ["the well is still"]
     host.score_write("house.open", "table", "G")
     host.score_write("vessel.seat", "vessel", "E")
     host.press_seal("house.open", "channel.boot")
