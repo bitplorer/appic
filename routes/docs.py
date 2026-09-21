@@ -38,10 +38,11 @@ class Docs(Component):
             "Fugue hops the warp. Morph-then-Play. XOR: no html= on the plan.",
             "Mirror is the piece looking at itself. Owned Diff, shell=False.",
             "Phantom is ghost occupancy. Unsighted warp fades. Not Pulse.",
-            "Ash is remainder of fire. Named grade. optional_fade cooling. Not Pulse.",
-            "Grain is clay body climate. data-grain on GET chrome. Not ThemeSwitch.",
-            "Stamp is the maker's chop. field() inscription. status() reading. stamp.press.",
-            "Well is water as a verb. Owned PullRefresh, shell=False. Tide is climate.",
+            "Wedge is named grain. Folds are RefState. bind() kneads. stagger_in on #fold-*.",
+            "Bisque is first fire. Remaining is RefState. Not the glaze kiln.",
+            "Raku is sudden quench. morph_play hop. Heat dumps to ash. data-raku on GET chrome.",
+            "Ember is the last coal. Instrument fragment. Not Watch. Not Pulse.",
+            "Coda closes the loop. Named close. morph_play toward the table.",
         )
         return section(
             span("Law", className="eyebrow"),

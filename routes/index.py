@@ -72,13 +72,14 @@ STARS = (
     ("fugue", "/fugue", "Fugue", 40, 4, "The house plays the loop. Morph-then-Play hop. XOR no html=."),
     ("mirror", "/mirror", "Mirror", 56, 94, "Named face. Owned Diff, shell=False. The piece looking at itself."),
     ("phantom", "/phantom", "Phantom", 98, 24, "Ghost occupancy. Unsighted warp fades. Not Pulse."),
-    ("ash", "/ash", "Ash", 2, 28, "Remainder of fire. Named grade. optional_fade cooling. Not Pulse."),
-    ("grain", "/grain", "Grain", 36, 96, "Clay body climate. data-grain on GET chrome. Not ThemeSwitch."),
-    ("stamp", "/stamp", "Stamp", 88, 6, "Maker's chop. field() inscription. status() reading. stamp.press."),
-    ("well", "/well", "Well", 6, 88, "Water as a verb. Owned PullRefresh, shell=False. Tide is climate."),
+    ("wedge", "/wedge", "Wedge", 8, 10, "Named grain. Folds are RefState. bind() kneads. stagger_in on #fold-*."),
+    ("bisque", "/bisque", "Bisque", 58, 6, "First fire. Named biscuit. Remaining is RefState. Not the glaze kiln."),
+    ("raku", "/raku", "Raku", 90, 22, "Sudden quench. Named reduction. morph_play hop. Heat dumps to ash."),
+    ("ember", "/ember", "Ember", 96, 40, "Last coal. Named coal. Instrument fragment. Not Watch. Not Pulse."),
+    ("coda", "/coda", "Coda", 52, 98, "The loop closes. Named close. morph_play toward the table."),
 )
 
-LOOP = ("brief", "wheel", "glaze", "make", "kiln", "watch", "air", "vitrine", "kintsugi", "gift", "score", "chorus", "tide", "fugue", "ash", "stamp")
+LOOP = ("wedge", "brief", "wheel", "bisque", "glaze", "make", "kiln", "raku", "watch", "air", "vitrine", "kintsugi", "gift", "score", "chorus", "tide", "fugue", "coda")
 
 BANDS = (("night", "Night"), ("dawn", "Dawn"), ("noon", "Noon"), ("dusk", "Dusk"))
 
@@ -153,8 +154,11 @@ class Index(Component):
                         "star-fugue" if key == "fugue" else "",
                         "star-mirror" if key == "mirror" else "",
                         "star-phantom" if key == "phantom" else "",
-                        "star-ash" if key == "ash" else "",
-                        "star-stamp" if key == "stamp" else "",
+                        "star-wedge" if key == "wedge" else "",
+                        "star-bisque" if key == "bisque" else "",
+                        "star-raku" if key == "raku" else "",
+                        "star-ember" if key == "ember" else "",
+                        "star-coda" if key == "coda" else "",
                     ]
                 ).strip(),
                 id=f"star-{key}",
@@ -181,7 +185,7 @@ class Index(Component):
         return section(
             div(
                 span(
-                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · tide {HOST.tide_phase} · kit-81",
+                    f"a house of making · {clock_label(HOST.clock_h)} · {sky} · tide {HOST.tide_phase} · coal {HOST.coal} · kit-81",
                     className="eyebrow",
                 ),
                 h1(
@@ -191,16 +195,16 @@ class Index(Component):
                 ),
                 p(
                     "A private atelier OS. Sight a star (MorphState), then walk it (Clock A GET). "
-                    "The sky is a climate. The tide is lunar water. Grain is clay. Ash is remainder. "
-                    "The loop is warp; occupancy is weft. Brief → Wheel → Glaze → Make → Kiln → Watch → Air → Vitrine → Mend → Gift → Score → Chorus → Tide → Fugue → Ash → Stamp. "
-                    "The well draws. The chop is a Cap. Caps are seals.",
+                    "The sky is a climate. The tide is lunar water. The vessel is an inhabitant. "
+                    "The loop is warp; occupancy is weft. Wedge → Brief → Wheel → Bisque → Glaze → Make → Kiln → Raku → Watch → Air → Vitrine → Mend → Gift → Score → Chorus → Tide → Fugue → Coda. "
+                    "Wedge kneads. Raku quenches. Ember is the last coal. Caps are seals.",
                     className="lede",
                 ),
                 div(
                     act("index.knock", "Pulse the table", kind="primary", target="#index"),
-                    a("Name the tide", href="/tide", className="btn-ghost"),
-                    a("Rake the ash", href="/ash", className="btn-ghost"),
-                    a("Press the chop", href="/stamp", className="btn-ghost"),
+                    a("Knead the clay", href="/wedge", className="btn-ghost"),
+                    a("Name the quench", href="/raku", className="btn-ghost"),
+                    a("Close the loop", href="/coda", className="btn-ghost"),
                     act("index.tick_clock", "Advance the hour", kind="ghost", target="#index"),
                     className="hero-actions",
                 ),
@@ -245,15 +249,16 @@ class Index(Component):
             ),
             ul(
                 li(a("The instrument", href="/now")),
+                li(a("The wedge", href="/wedge")),
+                li(a("The biscuit", href="/bisque")),
+                li(a("The quench", href="/raku")),
+                li(a("The last coal", href="/ember")),
+                li(a("The coda", href="/coda")),
                 li(a("The tide", href="/tide")),
                 li(a("The fugue", href="/fugue")),
                 li(a("The vessel", href="/vessel")),
                 li(a("The mirror", href="/mirror")),
                 li(a("The phantom", href="/phantom")),
-                li(a("The ash", href="/ash")),
-                li(a("The grain", href="/grain")),
-                li(a("The stamp", href="/stamp")),
-                li(a("The well", href="/well")),
                 li(a("The brief", href="/brief")),
                 li(a("The wheel", href="/wheel")),
                 li(a("The glaze lab", href="/glaze")),

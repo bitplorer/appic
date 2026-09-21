@@ -1,4 +1,4 @@
-# ux-compose — feature inventory (kit-81 + ash + grain + stamp + well + pin 80563ab)
+# ux-compose — feature inventory (kit-81 + wedge + bisque + raku + ember + coda + pin 80563ab)
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`
 SHA `80563abf1666e45fa43236e7303b1c4319413554`.
@@ -7,28 +7,31 @@ If this page and the code disagree, **the code wins**.
 
 ---
 
-## 2026-09-21 — Ash / Grain / Stamp / Well (this session)
+## 2026-09-21 — Wedge / Bisque / Raku / Ember / Coda (this session)
 
-Public `__all__`: **86** names. Kit: **81 stems + `treeview` alias**. Author helpers: `field`, `status`, `act`, `optional_fade`. Owned PullRefresh `shell=False`.
+Public `__all__`: **86** names. Kit: **81 stems + `treeview` alias**. Presence cookbook: `scene.share`, `stagger_in`, `morph_play` hop. Owned copies `shell=False`.
 
 Specialist pins **unchanged**.
 
 | Delta | Law |
 | --- | --- |
-| `/ash` | **ASH-1** named grade. Host stock. `optional_fade` cooling |
-| Ash rake | **ASH-RAKE** kiln draw writes a body. Public rake |
-| `/grain` | **GRAIN-1** named body. `data-grain` on GET chrome. Not ThemeSwitch |
-| Instrument | **INSTRUMENT-3** grain + ash in GET chrome |
-| `/stamp` | **STAMP-1** `field()` / `status()` / `act()`. `stamp.press`. Not `/author` |
-| `/well` | **WELL-1** named draw. Owned PullRefresh `shell=False`. Tide is climate |
-| Loop extended | **LOOP-6** … Fugue → Ash → Stamp |
-| Command | **CMD-4** house destinations + grain / rake verbs |
+| `/wedge` | **WEDGE-1** named grain (`fine \| medium \| coarse`). Folds are RefState. `bind()` kneads. `stagger_in` on `#fold-*` |
+| `/bisque` | **BISQUE-1** first fire. Named biscuit (`bone \| cream \| toast`). Remaining RefState. Not `/kiln` |
+| `/raku` | **RAKU-1** sudden quench. Named reduction. `morph_play` hop. Heat dumps to ash. `data-raku` on GET chrome. XOR no `html=` |
+| `/ember` | **EMBER-3** last coal (`live \| dark \| ash`). Instrument fragment. Not Watch. Not Pulse |
+| `/coda` | **CODA-1** named close (`rest \| return \| silence`). `morph_play` toward the table. `stagger_in` on `#coda-*` |
+| Loop extended | **LOOP-6** Wedge → Brief → Wheel → Bisque → Glaze → Make → Kiln → Raku → … Fugue → Coda |
+| Command | **CMD-4** house destinations + knead / quench / coal / coda verbs |
+| Grain climate | **GRAIN-1** `data-grain` retints body grain density |
+| Coal climate | **COAL-1** `data-coal` on GET chrome |
 
-Do **not** add Pulse rooms. Ash, Grain, Stamp, Well are not Pulse.
+Do **not** add Pulse rooms. Wedge, Bisque, Raku, Ember, Coda are not Pulse.
 
-Honesty locks from prior sessions still hold. New: `ASH-1` `ASH-RAKE` `GRAIN-1` `INSTRUMENT-3` `STAMP-1` `WELL-1` `LOOP-6` `CMD-4`.
+Honesty locks from prior sessions still hold. New: `WEDGE-1` `BISQUE-1` `RAKU-1` `EMBER-3` `CODA-1` `LOOP-6` `CMD-4` `GRAIN-1` `COAL-1`.
 
 ---
+
+# ux-compose — feature inventory (kit-81 + tide + fugue + mirror + phantom + pin 80563ab)
 
 
 Sourced from [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `main`

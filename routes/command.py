@@ -9,14 +9,15 @@ from store import HOST
 class Command(CommandCard):
     COMMANDS = (
         ("go-table", "The table", "House"),
+        ("go-wedge", "The wedge", "House"),
+        ("go-bisque", "The biscuit", "House"),
+        ("go-raku", "The quench", "House"),
+        ("go-ember", "The last coal", "House"),
+        ("go-coda", "The coda", "House"),
         ("go-tide", "The tide", "House"),
         ("go-fugue", "The fugue", "House"),
         ("go-mirror", "The mirror", "House"),
         ("go-phantom", "The phantom", "House"),
-        ("go-ash", "The ash", "House"),
-        ("go-grain", "The grain", "House"),
-        ("go-stamp", "The stamp", "House"),
-        ("go-well", "The well", "House"),
         ("go-cloth", "The cloth", "House"),
         ("go-now", "The instrument", "House"),
         ("go-vessel", "The vessel", "House"),
@@ -39,8 +40,11 @@ class Command(CommandCard):
         ("shift-night", "Name night", "Sky"),
         ("tide-full", "Name a full tide", "Sky"),
         ("tide-new", "Name a new tide", "Sky"),
-        ("grain-grog", "Name grog", "Sky"),
-        ("ash-rake", "Rake the hearth", "Watch"),
+        ("coal-live", "Name a live coal", "Hearth"),
+        ("coal-ash", "Let the coal ash", "Hearth"),
+        ("quench", "Quench the raku", "Hearth"),
+        ("knead", "Knead the clay", "Clay"),
+        ("coda-return", "Name return", "Loop"),
         ("veil-full", "Name a full eclipse", "Sky"),
         ("unveil", "Lift the umbra", "Sky"),
         ("ring-bell", "Ring the bell", "Watch"),
@@ -51,14 +55,15 @@ class Command(CommandCard):
         HOST.log("command.run", key, "morph")
         dest = {
             "go-table": "table",
+            "go-wedge": "wedge",
+            "go-bisque": "bisque",
+            "go-raku": "raku",
+            "go-ember": "ember",
+            "go-coda": "coda",
             "go-tide": "tide",
             "go-fugue": "fugue",
             "go-mirror": "mirror",
             "go-phantom": "phantom",
-            "go-ash": "ash",
-            "go-grain": "grain",
-            "go-stamp": "stamp",
-            "go-well": "well",
             "go-cloth": "cloth",
             "go-now": "now",
             "go-vessel": "vessel",
@@ -98,12 +103,21 @@ class Command(CommandCard):
         if key == "tide-new":
             HOST.name_tide("new")
             return "new"
-        if key == "grain-grog":
-            HOST.name_grain("grog")
-            return "grog"
-        if key == "ash-rake":
-            HOST.rake_ash()
-            return "raked"
+        if key == "coal-live":
+            HOST.name_coal("live")
+            return "live"
+        if key == "coal-ash":
+            HOST.name_coal("ash")
+            return "ash"
+        if key == "quench":
+            HOST.quench()
+            return "post"
+        if key == "knead":
+            HOST.knead()
+            return "fold"
+        if key == "coda-return":
+            HOST.name_coda("return")
+            return "return"
         if key == "veil-full":
             HOST.veil("full")
             return "full"

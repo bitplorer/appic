@@ -1415,46 +1415,76 @@
     min-height: 220px;
   }
   .fugue-room .warp-thread.is-on .warp-name { color: var(--brass); }
-  .inst-grain, .inst-ash {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+  .star[data-room="wedge"] { left: 8%; top: 10%; }
+  .star[data-room="bisque"] { left: 58%; top: 6%; }
+  .star[data-room="raku"] { left: 90%; top: 22%; }
+  .star[data-room="ember"] { left: 96%; top: 40%; }
+  .star[data-room="coda"] { left: 52%; top: 98%; }
+  .sky[data-sight="wedge"] .filament-wedge,
+  .sky[data-sight="bisque"] .filament-bisque,
+  .sky[data-sight="raku"] .filament-raku,
+  .sky[data-sight="ember"] .filament-ember,
+  .sky[data-sight="coda"] .filament-coda {
+    opacity: 1;
+    stroke-width: 0.7;
     color: var(--brass);
-    white-space: nowrap;
   }
-  .ash-wave { width: min(160px, 24vw); height: 28px; color: var(--bone-dim); }
-  .grain-wave { width: 36px; height: 36px; color: var(--brass); }
-  .ash-ring { color: var(--mute); opacity: 0.7; }
-  .ash-ring-in { opacity: 0.45; }
-  .ash-ember { color: var(--brass); }
-  .grain-speck { opacity: 0.55; }
-  .stamp-svg { width: 120px; height: 120px; color: var(--brass); }
-  .stamp-reading { letter-spacing: 0.28em; text-transform: uppercase; }
-  .well-rim { color: var(--brass); }
-  .shell[data-grain="fine"] { --grain: 0.035; }
-  .shell[data-grain="grog"] { --grain: 0.07; }
-  .shell[data-grain="grog-heavy"] { --grain: 0.12; }
-  .shell[data-ash="fine"] {
+  .raku-svg { width: 200px; height: 140px; margin: 8px auto 12px; color: var(--brass); }
+  .raku-chamber.atm-reduction {
+    background: radial-gradient(circle at 50% 62%, rgb(224 93 74 / 0.16), transparent 44%), var(--ink-2);
+  }
+  .raku-chamber.atm-post {
+    background: radial-gradient(circle at 50% 62%, rgb(125 155 118 / 0.14), transparent 44%), var(--ink-2);
+  }
+  .ember-svg { width: 200px; height: 200px; margin: 8px auto 12px; color: var(--brass); }
+  .ember-chamber.coal-live .ember-core { animation: ember-glow 1.4s ease-in-out infinite; }
+  .ember-chamber.coal-ash { color: var(--mute); }
+  .ember-wave { color: var(--danger); }
+  .shell[data-coal="live"] .ember-wave { opacity: 1; }
+  .shell[data-coal="ash"] .ember-wave { opacity: 0.35; }
+  .shell[data-raku="reduction"] {
     background:
-      radial-gradient(880px 420px at 50% 110%, rgb(237 232 220 / 0.03), transparent 58%),
-      var(--ink);
+      radial-gradient(920px 480px at 88% -8%, rgb(224 93 74 / 0.08), transparent 56%),
+      radial-gradient(700px 380px at 8% 0%, rgb(212 180 131 / 0.08), transparent 50%);
   }
-  .shell[data-ash="flake"] {
-    background:
-      radial-gradient(920px 460px at 70% 108%, rgb(212 180 131 / 0.07), transparent 56%),
-      var(--ink);
+  .shell[data-grain="fine"] { --grain: 0.025; }
+  .shell[data-grain="coarse"] { --grain: 0.055; }
+  .inst-coal, .inst-tide {
+    font-family: var(--font-mono);
+    text-transform: none;
+    letter-spacing: 0.04em;
+    color: var(--bone-dim);
   }
-  .shell[data-ash="slag"] {
-    background:
-      radial-gradient(1000px 520px at 50% 112%, rgb(212 180 131 / 0.1), transparent 58%),
-      radial-gradient(640px 320px at 8% 0%, rgb(237 232 220 / 0.04), transparent 48%),
-      var(--ink);
+  .stat {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    letter-spacing: -0.03em;
+    margin: 8px 0 12px;
   }
-  .pr-stage { touch-action: pan-x; user-select: none; }
+  .warp-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .warp-thread {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 44px;
+    padding: 0 14px;
+    border-radius: 14px;
+    border: 1px solid var(--hairline);
+    color: var(--mute);
+  }
+  .warp-thread.is-on {
+    border-color: var(--brass);
+    color: var(--bone);
+    background: rgb(212 180 131 / 0.08);
+  }
+  .warp-idx { font-family: var(--font-mono); font-size: 0.72rem; color: var(--brass); }
+  .wedge-room .warp-thread.is-on .warp-name,
+  .coda-room .warp-thread.is-on .warp-name { color: var(--brass); }
   @media (max-width: 860px) {
     .mirror-pair { grid-template-columns: 1fr; }
-    .tide-wave, .instrument .wave, .ash-wave, .grain-wave { display: none; }
-    .inst-tide, .inst-grain, .inst-ash { display: none; }
+    .tide-wave, .ember-wave, .instrument .wave { display: none; }
+    .inst-tide, .inst-coal { display: none; }
+    .kpi { grid-template-columns: repeat(2, 1fr); }
+    .stage { padding: 24px 0 112px; }
   }
 }

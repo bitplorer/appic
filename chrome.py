@@ -15,10 +15,9 @@ from store import (
     STAFF_LINES,
     VESSEL_BODY,
     VESSEL_WELL,
-    ash_d,
     clock_label,
     crack_d,
-    grain_d,
+    ember_d,
     note_cy,
     staff_line_d,
     tide_d,
@@ -28,22 +27,24 @@ from store import (
 ROOMS = (
     ("/", "Table"),
     ("/now", "Now"),
+    ("/wedge", "Wedge"),
+    ("/raku", "Raku"),
+    ("/ember", "Ember"),
+    ("/coda", "Coda"),
     ("/tide", "Tide"),
-    ("/ash", "Ash"),
-    ("/grain", "Grain"),
-    ("/stamp", "Stamp"),
-    ("/well", "Well"),
-    ("/vessel", "Vessel"),
     ("/watch", "Watch"),
     ("/docs", "Law"),
 )
 
 LOOP = (
+    ("/wedge", "Wedge"),
     ("/brief", "Brief"),
     ("/wheel", "Wheel"),
+    ("/bisque", "Bisque"),
     ("/glaze", "Glaze"),
     ("/commission", "Make"),
     ("/kiln", "Kiln"),
+    ("/raku", "Raku"),
     ("/watch", "Watch"),
     ("/atmosphere", "Air"),
     ("/vitrine", "Vitrine"),
@@ -53,16 +54,15 @@ LOOP = (
     ("/chorus", "Chorus"),
     ("/tide", "Tide"),
     ("/fugue", "Fugue"),
-    ("/ash", "Ash"),
-    ("/stamp", "Stamp"),
+    ("/coda", "Coda"),
 )
 
 DOCK = (
     ("/", "Table"),
-    ("/ash", "Ash"),
-    ("/grain", "Grain"),
-    ("/stamp", "Stamp"),
-    ("/well", "Well"),
+    ("/wedge", "Wedge"),
+    ("/raku", "Raku"),
+    ("/ember", "Ember"),
+    ("/coda", "Coda"),
     ("/command", "Cmd"),
 )
 
@@ -156,29 +156,11 @@ def tide_mark(phase: str = "new"):
     )
 
 
-def grain_mark(body: str = "fine"):
-    """Clay body fragment in GET chrome. GRAIN-1."""
+def ember_mark(coal: str = "live"):
+    """Last coal fragment in GET chrome. EMBER-3."""
     return svg(
         path(
-            d=grain_d(body),
-            fill="none",
-            stroke="currentColor",
-            stroke_width="1.4",
-            stroke_linecap="round",
-            className="wave-path",
-        ),
-        viewBox="0 0 120 120",
-        className="wave grain-wave",
-        role="img",
-        aria_label=f"Grain {body}",
-    )
-
-
-def ash_mark(grade: str = "fine"):
-    """Remainder fragment in GET chrome. ASH-1."""
-    return svg(
-        path(
-            d=ash_d(grade),
+            d=ember_d(coal),
             fill="none",
             stroke="currentColor",
             stroke_width="1.4",
@@ -187,9 +169,9 @@ def ash_mark(grade: str = "fine"):
         ),
         viewBox="0 0 240 36",
         preserveAspectRatio="none",
-        className="wave ash-wave",
+        className="wave ember-wave",
         role="img",
-        aria_label=f"Ash {grade}",
+        aria_label=f"Coal {coal}",
     )
 
 
@@ -256,8 +238,7 @@ def instrument():
     notice = str(HOST.notice or "the house is listening")
     present = HOST.occupied[0] if HOST.occupied else "table"
     tide = str(HOST.tide_phase or "new")
-    grain = HOST.sync_grain()
-    ash = str(HOST.ash_grade or "fine")
+    coal = str(HOST.coal or "live")
     band = "peak" if HOST.firing and HOST.heat_remain <= 5 else (
         "warm" if HOST.firing else "idle"
     )
@@ -265,13 +246,12 @@ def instrument():
         span(sky, className="inst-band"),
         span(clock_label(HOST.clock_h), className="inst-clock", aria_label="House clock"),
         span(f"tide {tide}", className="inst-tide"),
-        span(f"grain {grain}", className="inst-grain"),
-        span(f"ash {ash}", className="inst-ash"),
+        span(f"coal {coal}", className="inst-coal"),
         span(heat, className="inst-heat"),
         span(present, className="inst-present"),
         resonance(band),
         tide_mark(tide),
-        ash_mark(ash),
+        ember_mark(coal),
         staff_mark(),
         span(notice, className="inst-notice"),
         className="instrument",
@@ -360,8 +340,8 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · ash · grain · stamp · well"),
-        p("GET is Clock A. Action is Clock B. Ash is remainder. Grain is clay. Caps are seals."),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · wedge · bisque · raku · ember · coda"),
+        p("GET is Clock A. Action is Clock B. Wedge kneads. Raku quenches. Ember is the last coal. Caps are seals."),
         className="foot",
         role="contentinfo",
     )
@@ -384,8 +364,9 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
         stage = str((HOST.vessel or {}).get("stage") or "empty")
         phase = str(HOST.eclipse_phase or "clear")
         tide = str(HOST.tide_phase or "new")
-        grain = str(HOST.grain or "fine")
-        ash = str(HOST.ash_grade or "fine")
+        raku = str(HOST.raku_atm or "oxidation")
+        coal = str(HOST.coal or "live")
+        grain = str(HOST.grain or "medium")
         return document(
             div(
                 top_nav(),
@@ -403,8 +384,9 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 data_eclipse="1" if HOST.eclipse else "0",
                 data_phase=phase,
                 data_tide=tide,
+                data_raku=raku,
+                data_coal=coal,
                 data_grain=grain,
-                data_ash=ash,
                 **{GET_CHROME_ATTR: True},
             )
         )

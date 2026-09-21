@@ -1,46 +1,74 @@
-# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + ash + grain + stamp + well)
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + wedge + bisque + raku + ember + coda)
 
-Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`
-SHA **`80563abf1666e45fa43236e7303b1c4319413554`**.
+You are Grok Build. Clone [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose)
+`@ main` SHA **`80563abf1666e45fa43236e7303b1c4319413554`**. Deep-dive every
+public name in `ux_compose.__all__`, every kit stem in `kit/catalog.py` (81 +
+`treeview`), cookbooks/PRESENCE.md, helpers (`bind`, `control`, `notify`,
+`update_with`, `morph_play`), author (`act`, `field`, `mark_dirty`,
+`optional_plan`, `optional_fade`, `optional_slide`, `status`), surfaces
+(`scan_surfaces`, `validate_surfaces`, `RouterHooks`), AttachNote, motion
+(`scene`, `fade`, `rise`, `slide`, `stagger_in`, `scene.share`). Isolation:
+never import `ux_channel`. Channel.boot is the Cap door. Redis wins.
+
 If this prompt and the library disagree, **the library wins**.
 
-This file is the **metaprompt**. Publish on **bitplorer/appic**. **No React.**
-Python ≥ 3.14. Kit owned copies, `shell=False`.
+## Product
 
-Craft: Apple HIG Liquid Glass 3 C’s (content-first, concentric, cohesive).
-Glass is chrome only. Linear ProKit translucency. Fraunces + Source Sans 3 +
-IBM Plex Mono. Brass `#D4B483` on ink `#07080A`. Grain on the body.
+**APPIC** is a private nocturnal foundry you can inhabit. Not a brochure. An
+atelier OS. Server-authored hypermedia. **No React / Vue / Svelte / Solid /
+Next / JSX / TSX.** Python ≥ 3.14. Kit owned copies (`uxcompose add`,
+`shell=False`). Publish to **bitplorer/appic** (upgrade in place).
+
+The foundry is a loop:
+
+> **Wedge → Brief → Wheel → Bisque → Glaze → Make → Kiln → Raku → Watch → Air → Vitrine → Mend → Gift → Score → Chorus → Tide → Fugue → Coda**
+
+Sight ≠ walk. The Table is a constellation. Sighting a star is `look`
+(MorphState); walking it is Clock A GET. Two clocks, one sky. Filaments are
+`svg` + `path` (no public `line` tag). Caps are wax seals. Command is the OS
+(`⌘K`). Glass is the control layer, not wallpaper.
+
+## Craft
+
+Apple HIG Liquid Glass 2026: Clarity, Deference, Depth. Concentric radii.
+Specular from **90° (top)**. Regular glass for chrome. Linear luminance. 4px
+grid. Fraunces (opsz 144, wght 560) + Source Sans 3 + IBM Plex Mono. Brass
+`#D4B483` on ink `#07080A`. Grain on the body. Three z-layers: ink, raised,
+glass. No Inter. No emoji in chrome. No purple, neon, mesh-gradient blobs.
+No `backdrop-filter` soup beyond Regular glass on chrome. Tap ≥ 44px.
+
+## Hard stack law
+
+- Serve `uvicorn app:asgi --host 0.0.0.0 --port 8080`.
+- `build(host="auto", live="auto", level="auto", document=, wrap=, cek="require", openapi=False)`.
+- No HTTP verbs on page units. `render()` return type picks media.
+- XOR motion: no `html=` on plans. No root `swipe.*`.
+- No Pulse rooms. Wedge, Bisque, Raku, Ember, Coda are not Pulse.
+- Brand lives on `wrap=`, never inside `render()`.
+- Quantity is RefState + `dirty = MorphState("idle")`. Named things are MorphState.
+- Morph fragments prefer ux-dom `extract_by_id`. No `fragment.py`.
+
+## This session — rooms you must ship fully working
+
+| Room | Path | Law |
+| --- | --- | --- |
+| Wedge | `/wedge` | **WEDGE-1** named grain. Folds RefState. `bind()` kneads. `stagger_in` `#fold-*` |
+| Bisque | `/bisque` | **BISQUE-1** first fire. Named biscuit. Remaining RefState. Not `/kiln` |
+| Raku | `/raku` | **RAKU-1** sudden quench. `morph_play`. Heat dumps to ash. `data-raku` |
+| Ember | `/ember` | **EMBER-3** last coal. Instrument fragment. Not Watch. Not Pulse |
+| Coda | `/coda` | **CODA-1** named close. `morph_play` toward the table. `stagger_in` `#coda-*` |
+
+Extend LOOP, WARP, constellation stars, Command destinations, GET chrome
+(`data-raku`, `data-coal`, `data-grain`), living instrument (coal path),
+doctor-green `routes/` + `chrome.py` + `app.py`. Full kit-81 remains a house
+you own. Visual skin first-class.
+
+Execute: clone the library, ship a complete visually stunning house on
+`0.0.0.0:8080`, publish source to `bitplorer/appic`.
 
 ---
 
-## 2026-09-21 — Ash / Grain / Stamp / Well (Grok Build, this session)
-
-Independent re-read of ux-compose `80563ab`. Walked `__all__` (86 public names),
-`kit/catalog.py` (81 stems + `treeview` alias), author helpers (`field`, `status`,
-`act`, `optional_fade`, `optional_slide`, `optional_plan`, `mark_dirty`), owned
-PullRefresh `shell=False`. Specialist pins unchanged.
-
-The house had fire and water but never **ash**. Clay never named its **grain**.
-The piece never took a **stamp**. Water was climate, never **drawn**.
-
-| Delta | Law |
-| --- | --- |
-| Ash | `/ash` named grade (`fine \| flake \| slag`). Host stock of remainder. `optional_fade` cooling. **ASH-1** |
-| Ash rake | A draw from the kiln writes a body. Public rake. **ASH-RAKE** |
-| Grain | `/grain` named body (`fine \| grog \| grog-heavy`). Host climate. `data-grain` on GET chrome. Not ThemeSwitch. **GRAIN-1** |
-| Instrument | GET chrome carries grain + ash. Brand stays on `wrap=`. **INSTRUMENT-3** |
-| Stamp | `/stamp` named face. `field()` inscription. `status()` reading. `act()` hatch. Spends `stamp.press`. Not `/author`. **STAMP-1** |
-| Well | `/well` named draw (`sip \| scoop \| flood`). Owned PullRefresh `shell=False`. Tide is climate; well is the verb. **WELL-1** |
-| Loop extended | … Fugue → **Ash** → **Stamp**. **LOOP-6** |
-| Command | Palette destinations occupy the new rooms. Grain and rake verbs. **CMD-4** |
-
-Honesty locks from prior sessions still hold. New: `ASH-1` `ASH-RAKE` `GRAIN-1` `INSTRUMENT-3` `STAMP-1` `WELL-1` `LOOP-6` `CMD-4`.
-
-**Executed:** ash remainder, grain climate, maker's chop, well draw, constellation stars, command destinations, doctor path, uvicorn `0.0.0.0:8080`, published to **bitplorer/appic**.
-
-Do **not** add Pulse rooms. Ash, Grain, Stamp, Well are not Pulse.
-
----
+# Grok Build prompt — APPIC on ux-compose 0.1.0 (kit-81 + tide + fugue + mirror + phantom)
 
 
 Pin: [bitplorer/ux-compose](https://github.com/bitplorer/ux-compose) `@ main`

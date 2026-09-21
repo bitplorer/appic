@@ -7,8 +7,6 @@ export PYTHONPATH="/workspace${PYTHONPATH:+:$PYTHONPATH}"
 export PYTHONUNBUFFERED=1
 export UXCOMPOSE_APP="${UXCOMPOSE_APP:-app:asgi}"
 
-node scripts/preview.mjs stop >/dev/null 2>&1 || true
-
 if curl -fsS --max-time 2 http://127.0.0.1:8080/ >/dev/null 2>&1; then
   exit 0
 fi

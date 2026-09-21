@@ -4,7 +4,7 @@
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
 `80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
-Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom** + **ash** + **grain** + **stamp** + **well**).
+Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom** + **wedge** + **bisque** + **raku** + **ember** + **coda**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
@@ -28,7 +28,8 @@ Resonance is a path. The living instrument sits in GET chrome.
 
 The foundry is a **loop you can walk**, always visible in chrome:
 
-Brief → Wheel → Glaze → Make → Kiln → **Watch** → Air → Vitrine → **Mend** → **Gift** → **Score** → **Chorus** → **Tide** → **Fugue** → **Ash** → **Stamp**. **Now** is the instrument. **Vessel** is the inhabitant. The **cradle** in chrome keeps it. **Grain** is clay climate (`data-grain`). **Well** draws water. **Ash** is remainder. **Stamp** is the chop.
+**Wedge** → Brief → Wheel → **Bisque** → Glaze → Make → Kiln → **Raku** → Watch → Air → Vitrine → Mend → Gift → Score → Chorus → Tide → Fugue → **Coda**.
+**Now** is the instrument. **Ember** is the last coal. **Vessel** is the inhabitant. The **cradle** in chrome keeps it. The **companion cradle** is the duet. **Eclipse** occludes the sky. **Tide** is lunar water (`data-tide`). **Fugue** hops the warp (`morph_play`). **Raku** quenches (`morph_play`, heat dumps to ash, `data-raku`). **Wedge** kneads (`bind()`, folds are RefState). **Bisque** is first fire. **Coda** closes the loop. **Mirror** is the piece looking at itself. **Phantom** is ghost occupancy. **Cloth** is the warp; occupancy is weft.
 
 The Night Watch sits with the fire. Kiln and Watch share one hearth (`HOST.heat_remain`).
 Keep is public. A bell is one-shot notify. This is not a Pulse room.
@@ -73,16 +74,17 @@ CSS: author `assets/css/input.css`, compile with `uxcompose build` (or
 | Room | Path | Law you can touch |
 |---|---|---|
 | Table | `/` | Constellation. Sight a star, then walk it. Sky band retints the house |
+| Wedge | `/wedge` | Named grain. Folds are RefState. `bind()` kneads. `stagger_in` on `#fold-*` |
+| Bisque | `/bisque` | First fire. Named biscuit. Remaining is RefState. Not `/kiln` |
+| Raku | `/raku` | Sudden quench. Named reduction. `morph_play`. Heat dumps to ash. `data-raku` |
+| Ember | `/ember` | Last coal. Named coal. Instrument fragment. Not Watch. Not Pulse |
+| Coda | `/coda` | The loop closes. Named close. `morph_play` toward the table |
 | Now | `/now` | Living instrument. Clock, occupancy, heat trace, resonance |
 | Cloth | `/cloth` | Warp is the loop. Weft is occupancy. `stagger_in`. `bind()` weaves |
 | Tide | `/tide` | Named lunar phase. `data-tide` on GET chrome. New burns hotter |
 | Fugue | `/fugue` | The house plays the loop. `morph_play` hop. XOR no `html=` |
 | Mirror | `/mirror` | Named face. Owned Diff, `shell=False`. The piece looking at itself |
 | Phantom | `/phantom` | Ghost occupancy. Unsighted warp fades. Not Pulse |
-| Ash | `/ash` | Named grade. Remainder of fire. `optional_fade` cooling |
-| Grain | `/grain` | Named clay body. `data-grain` on GET chrome. Not ThemeSwitch |
-| Stamp | `/stamp` | Maker's chop. `field()` / `status()` / `act()`. `stamp.press` |
-| Well | `/well` | Named draw. Owned PullRefresh, `shell=False`. Tide is climate |
 | Vessel | `/vessel` | The piece is the house. Named stage. Presence-continuous with the cradle |
 | Brief | `/brief` | Named answers. Submit spends `form.submit` |
 | Wheel | `/wheel` | Named stage. RPM is RefState. Lift is public |
