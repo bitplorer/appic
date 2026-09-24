@@ -1,6 +1,6 @@
 """GET chrome — outside Component.render(). Morph payloads stay fragments.
 
-Uses GET_CHROME_ATTR so doctor scan_render_chrome stays quiet.
+Uses GET_BRAND_ATTR so the brand bar stays on the Document path.
 Isolation: no ux_channel.
 """
 from __future__ import annotations
@@ -8,7 +8,7 @@ from __future__ import annotations
 from typing import Any
 
 from ux_compose import a, circle, div, footer, header, main, nav, p, path, span, svg
-from ux_compose.chrome import DEFAULT_BRAND, GET_CHROME_ATTR
+from ux_compose.brand import DEFAULT_BRAND, GET_BRAND_ATTR
 
 from store import (
     HOST,
@@ -225,7 +225,7 @@ def top_nav():
             aria_label="Open command",
         ),
         className="top",
-        **{GET_CHROME_ATTR: True},
+        **{GET_BRAND_ATTR: True},
     )
 
 
@@ -256,7 +256,7 @@ def instrument():
         span(notice, className="inst-notice"),
         className="instrument",
         aria_label="Living instrument",
-        **{GET_CHROME_ATTR: True},
+        **{GET_BRAND_ATTR: True},
     )
 
 
@@ -269,7 +269,7 @@ def cradle():
             href="/vessel",
             className="cradle is-empty",
             aria_label="Empty cradle. Seat a vessel.",
-            **{GET_CHROME_ATTR: True},
+            **{GET_BRAND_ATTR: True},
         )
     stage = str(piece.get("stage") or "drawn")
     clay = str(piece.get("clay") or "clay")
@@ -285,7 +285,7 @@ def cradle():
         className=f"cradle is-seated stage-{stage}",
         aria_label=f"Vessel {clay} {stage}",
         data_stage=stage,
-        **{GET_CHROME_ATTR: True},
+        **{GET_BRAND_ATTR: True},
     )
 
 
@@ -298,7 +298,7 @@ def duet_cradle():
             href="/duet",
             className="cradle cradle-duet is-empty",
             aria_label="Empty companion cradle.",
-            **{GET_CHROME_ATTR: True},
+            **{GET_BRAND_ATTR: True},
         )
     stage = str(piece.get("stage") or "drawn")
     clay = str(piece.get("clay") or "clay")
@@ -313,7 +313,7 @@ def duet_cradle():
         className=f"cradle cradle-duet is-seated stage-{stage}",
         aria_label=f"Companion {clay} {stage}",
         data_stage=stage,
-        **{GET_CHROME_ATTR: True},
+        **{GET_BRAND_ATTR: True},
     )
 
 
@@ -340,7 +340,7 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 80563ab · kit-81 · wedge · bisque · raku · ember · coda"),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 608c653 · kit-81 · wedge · bisque · raku · ember · coda"),
         p("GET is Clock A. Action is Clock B. Wedge kneads. Raku quenches. Ember is the last coal. Caps are seals."),
         className="foot",
         role="contentinfo",
@@ -387,7 +387,7 @@ def foundry_wrap(document: Any, *, brand: str = "APPIC"):
                 data_raku=raku,
                 data_coal=coal,
                 data_grain=grain,
-                **{GET_CHROME_ATTR: True},
+                **{GET_BRAND_ATTR: True},
             )
         )
 

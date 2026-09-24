@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from ux_compose import Component, dl, dd, dt, h1, p, section, span
 from ux_compose.hmr import HMR_PATH
-from ux_compose.tunnel import local_probe_host
+from ux_compose.cli.tunnel import local_probe_host
 
 
 class Relay(Component):
