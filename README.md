@@ -3,7 +3,7 @@
 **A house of making you can inhabit.**
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
-`80563abf1666e45fa43236e7303b1c4319413554` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
+`608c653cac44b96a0fa83d7765d21baf03163d63` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
 Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom** + **wedge** + **bisque** + **raku** + **ember** + **coda**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
@@ -127,7 +127,7 @@ catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
 Copy **everything below the line** into Grok Build. Feature map against
-ux-compose `main` (`80563ab`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+ux-compose `main` (`608c653`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
@@ -139,11 +139,11 @@ loop rail in GET chrome, filament brightening, concentric heat rings.
 
 | Package | SHA |
 |---|---|
-| ux-compose | `80563abf1666e45fa43236e7303b1c4319413554` |
-| ux-dom | `2e894cd7bca66e1da6c2f9d42b2d1a8bb937c92c` |
+| ux-compose | `608c653cac44b96a0fa83d7765d21baf03163d63` |
+| ux-dom | `cdb0dd1486e58746c51e98aa51f5fd4d26841196` |
 | ux-behavior | `7d46979f59f284bc2d6d961ed372ec849e851dfc` |
 | ux-motion | `bbe7d73466a6c1eccb47e711568c80ce3b4d5487` |
-| ux-channel | `a6ab1594959b287b4754afe09d8aced5504edd8f` `#subdirectory=python` |
-| cek-host / cek-surface | `>=0.1.3` |
+| ux-channel | `ef59543c27be5b198a6b9cde31429c6f180541a0` `#subdirectory=python` |
+| cek-host / cek-surface | `>=0.2.0` (`cek_host.catalog`; 0.1.3 is `cek_host.legal` and does not satisfy) |
 
 License: MIT.

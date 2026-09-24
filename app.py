@@ -11,7 +11,7 @@ from starlette.responses import FileResponse
 
 from ux_compose.build import build
 from ux_compose import doctor
-from ux_compose.chrome import brand_wrap, GET_CHROME_ATTR, DEFAULT_BRAND
+from ux_compose.brand import brand_wrap, GET_BRAND_ATTR, DEFAULT_BRAND
 
 from chrome import foundry_wrap
 from document import document
@@ -65,7 +65,7 @@ def _mount_public(asgi):
 
 def main(*, use_htmx: bool = False):
     # Evidence that brand_wrap exists; foundry_wrap is the product GET chrome.
-    _ = brand_wrap, GET_CHROME_ATTR, DEFAULT_BRAND
+    _ = brand_wrap, GET_BRAND_ATTR, DEFAULT_BRAND
     app, asgi, bundle = build(
         PACKAGE,
         name="APPIC",

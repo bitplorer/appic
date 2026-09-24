@@ -4,8 +4,8 @@ from __future__ import annotations
 from pathlib import Path
 
 from ux_compose import Component, h1, li, p, section, span, ul
-from ux_compose.deploy import prepare_deploy, format_deploy_result
-from ux_compose.tunnel import parse_provider, provider_available
+from ux_compose.cli.deploy import prepare_deploy, format_deploy_result
+from ux_compose.cli.tunnel import parse_provider, provider_available
 
 
 class Deploy(Component):
