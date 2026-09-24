@@ -340,7 +340,7 @@ def dock():
 
 def foot():
     return footer(
-        p("APPIC · a house of making · ux-compose 0.1.0 · 0302264 · kit-81 · wedge · bisque · raku · ember · coda"),
+        p("APPIC · a house of making · ux-compose 0.1.0 · 0d35c98 · kit-81 · wedge · bisque · raku · ember · coda"),
         p("GET is Clock A. Action is Clock B. Wedge kneads. Raku quenches. Ember is the last coal. Caps are seals."),
         className="foot",
         role="contentinfo",

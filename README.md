@@ -3,7 +3,7 @@
 **A house of making you can inhabit.**
 
 A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-compose)
-`030226422ed24c9f5a6d91e249e11cc63dec83c5` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
+`0d35c98feb269ed2b42a088ff191f2c71f6a5eed` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
 Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom** + **wedge** + **bisque** + **raku** + **ember** + **coda**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
 
@@ -127,7 +127,7 @@ catalog stems + OverlayChrome. Owned copies restyle to APPIC tokens.
 
 The Grok Build metaprompt lives in [`GROK_BUILD_PROMPT.md`](GROK_BUILD_PROMPT.md).
 Copy **everything below the line** into Grok Build. Feature map against
-ux-compose `main` (`0302264`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
+ux-compose `main` (`0d35c98`): [`FEATURE_INVENTORY.md`](FEATURE_INVENTORY.md).
 
 If the prompt and the library disagree, **the library wins**.
 
@@ -139,11 +139,11 @@ loop rail in GET chrome, filament brightening, concentric heat rings.
 
 | Package | SHA |
 |---|---|
-| ux-compose | `030226422ed24c9f5a6d91e249e11cc63dec83c5` |
+| ux-compose | `0d35c98feb269ed2b42a088ff191f2c71f6a5eed` |
 | ux-dom | `cdb0dd1486e58746c51e98aa51f5fd4d26841196` |
 | ux-behavior | `7d46979f59f284bc2d6d961ed372ec849e851dfc` |
 | ux-motion | `bbe7d73466a6c1eccb47e711568c80ce3b4d5487` |
-| ux-channel | `257adac8d961974fb056622e3c900e9846b28575` `#subdirectory=python` |
-| cek-host / cek-surface | `>=0.2.0` (`cek_host.catalog`; 0.1.3 is `cek_host.legal` and does not satisfy) |
+| ux-channel | `f1a93fcf298c97a59fa6538697731e19aac8586d` `#subdirectory=python` |
+| cek-host / cek-surface | `>=0.2.0` (`cek_host.catalog`; `0.1.0`–`0.1.3` are yanked and teach `cek_host.legal`. An exact pin still installs them.) |
 
 License: MIT.
