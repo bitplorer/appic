@@ -6,6 +6,7 @@ A private atelier OS authored in [ux-compose](https://github.com/bitplorer/ux-co
 `0d35c98feb269ed2b42a088ff191f2c71f6a5eed` (0.1.0 — kit-81 + Kit Cut 1 + Cut C +
 Channel.boot + Redis precedence + extract_by_id + **skin law** + **night watch** + **lumen** + **instrument** + **vessel** + **kintsugi** + **score** + **chorus** + **eclipse** + **duet** + **provenance** + **threshold** + **cloth** + **tide** + **fugue** + **mirror** + **phantom** + **wedge** + **bisque** + **raku** + **ember** + **coda**).
 Pure-Python composition root for ux-dom, ux-behavior, ux-motion, and ux-channel.
+Where the house sits: [docs/PLACE.md](docs/PLACE.md).
 
 No React. No Vue. No JS/TS/TSX as source of truth. Server-authored hypermedia.
 Page units have no HTTP verbs. Payload type picks media type. **The kit is a
